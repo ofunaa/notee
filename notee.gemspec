@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["takujifunao"]
   spec.email         = ["takuji.funao@gmail.com"]
 
-  spec.summary       = %q{TODO: notee is very simple blogging gem.}
-  spec.description   = %q{TODO: notee create simple blog application.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{notee is very simple blogging gem.}
+  spec.description   = %q{notee create simple blog application.}
+  spec.homepage      = "https://github.com/maru-3/notee.git"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
