@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38b4c436-5e82-4092-9e3c-0c6127b9a387" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/views/index.html.slim" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/controllers/notee_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_category.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/migrations/migration_notee_category.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_image.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/migrations/migration_notee_image.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_post.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/migrations/migration_notee_post.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/notee_category.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/models/notee_category.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/notee_image.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/models/notee_image.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/notee_post.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/models/notee_post.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="notee.iws" />
@@ -122,7 +113,7 @@
           <file leaf-file-name="install_generator.rb" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/generators/notee/install_generator.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.41925466">
+                <state vertical-scroll-proportion="0.30124223">
                   <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
                   <folding />
                 </state>
@@ -649,7 +640,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/generators/notee/install_generator.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41925466">
+        <state vertical-scroll-proportion="0.30124223">
           <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
           <folding />
         </state>
