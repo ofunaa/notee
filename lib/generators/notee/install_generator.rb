@@ -1,12 +1,10 @@
 require 'rails'
-require 'generators/notee/orm_helper'
-require 'rails/generators/migration'
 require 'rails/generators/active_record'
+require 'fileutils'
 
 module Notee
   class InstallGenerator < Rails::Generators::Base
 
-    include Notee::Generators::OrmHelpers
     include ::ActiveRecord::Generators::Migration
     
     source_root File.expand_path('../templates', __FILE__)

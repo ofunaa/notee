@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38b4c436-5e82-4092-9e3c-0c6127b9a387" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_category.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_image.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_post.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/orm_helper.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/generators/notee/install/install_generator.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/notee.iml" afterPath="$PROJECT_DIR$/.idea/notee.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/notee.rb" afterPath="$PROJECT_DIR$/lib/notee.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/generators/notee/copies/models/notee_post.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" afterPath="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="notee.iws" />
@@ -66,8 +61,18 @@
           <file leaf-file-name="orm_helper.rb" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/generators/notee/orm_helper.rb">
               <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.23364486">
+                  <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="notee_post.rb" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/generators/notee/copies/models/notee_post.rb">
+              <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+                  <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -90,8 +95,8 @@
           <file leaf-file-name="install_generator.rb" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/generators/notee/install_generator.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.69875777">
-                  <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="35" />
+                <state vertical-scroll-proportion="0.0931677">
+                  <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
@@ -120,6 +125,7 @@
         <option value="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_post.rb" />
         <option value="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_category.rb" />
         <option value="$PROJECT_DIR$/lib/generators/notee/templates/migration_notee_image.rb" />
+        <option value="$PROJECT_DIR$/lib/generators/notee/copies/models/notee_post.rb" />
         <option value="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" />
       </list>
     </option>
@@ -254,7 +260,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="copies" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -576,18 +586,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/generators/notee/orm_helper.rb">
+    <entry file="file://$PROJECT_DIR$/lib/generators/notee/copies/models/notee_post.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/generators/notee/orm_helper.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23364486">
+          <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/generators/notee/install_generator.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69875777">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0931677">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
         </state>
       </provider>
