@@ -2,32 +2,23 @@ class CreateNoteePost < ActiveRecord::Migration
   def change
     create_table :notee_post do |t|
 
-      ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      # notee's base
 
-      ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
+      t.string  :title,    null: false, default: "no title"
+      t.text    :content,  null: false, default: ""
+      t.string  :slug,     null: false, default: "#{Time.now.strftime("%Y-%H-%M-%S")}"
+      t.integer :status,   null: false, default: 0
+      t.integer :category_id,  null: false, default: ""
+      t.integer :thumbnail_id,  null: false, default: ""
+      t.datetime :published_at, null: false
 
-      ## Rememberable
-      t.datetime :remember_created_at
+      # seo
+      t.string  :seo_keyword, null: false, default: ""
+      t.string  :seo_description, null: false, default: ""
 
-      ## Trackable
-      t.integer  :sign_in_count, default: 0, null: false
-      t.datetime :current_sign_in_at
-      t.datetime :last_sign_in_at
 
-      ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
-      # t.string   :unconfirmed_email # Only if using reconfirmable
-
-      ## Lockable
-      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
-      # t.string   :unlock_token # Only if unlock strategy is :email or :both
-      # t.datetime :locked_at
+      # if you have user_id
+      # t.integer :user_id
 
       t.timestamps null: false
     end
