@@ -1,6 +1,5 @@
 require 'rails'
 require 'rails/generators/active_record'
-require 'fileutils'
 
 module Notee
   class InstallGenerator < Rails::Generators::Base
@@ -19,7 +18,7 @@ module Notee
 
     def generate_model
       NOTEE.each do |model_name|
-        invoke "active_record:model", [model_name], migration: false
+        template "#{model_name}.rb", File.join('app/models', "#{model_name}.rb")
       end
     end
 
