@@ -1,5 +1,7 @@
-require "notee/version"
+require 'notee/version'
 
 module Notee
-  # Your code goes here...
+  def test1
+    puts "こおおおおおおい"
+  end
 end
