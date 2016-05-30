@@ -10,16 +10,24 @@ module Notee
 
     NOTEE = ["notee_post", "notee_image", "notee_category"]
 
-    def copy_notee_migration
+    def copy_notee_migrations
       NOTEE.each do |model_name|
-        migration_template "migration_#{model_name}.rb", "db/migrate/create_#{model_name}.rb"
+        migration_template "migrations/migration_#{model_name}.rb", "db/migrate/create_#{model_name}.rb"
       end
     end
 
-    def generate_model
+    def generate_models
       NOTEE.each do |model_name|
-        template "#{model_name}.rb", File.join('app/models', "#{model_name}.rb")
+        template "models/#{model_name}.rb", File.join('app/models', "#{model_name}.rb")
       end
+    end
+
+    def generate_contoller
+      template "controllers/notee_controller.rb", File.join('app/controllers', "notee_controller.rb")
+    end
+
+    def generate_view
+      template "views/index.html.slim", File.join('app/views/notee', "index_html.slim")
     end
 
   end
