@@ -1,6 +1,6 @@
-class CreateNoteePost < ActiveRecord::Migration
+class CreateNoteePosts < ActiveRecord::Migration
   def change
-    create_table :notee_post do |t|
+    create_table :notee_posts do |t|
 
       # notee's base
 

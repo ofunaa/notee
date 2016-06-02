@@ -1,6 +1,6 @@
-class CreateNoteeCategory < ActiveRecord::Migration
+class CreateNoteeCategories < ActiveRecord::Migration
   def change
-    create_table :notee_category do |t|
+    create_table :notee_categories do |t|
 
       t.string  :name, null: false, default: "category_name"
       t.string  :slug, null: false, default: "#{Time.now.strftime("%Y-%H-%M-%S")}", uniqueness: true

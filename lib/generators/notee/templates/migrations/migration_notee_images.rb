@@ -1,6 +1,6 @@
-class CreateNoteeImage < ActiveRecord::Migration
+class CreateNoteeImages < ActiveRecord::Migration
   def change
-    create_table :notee_image do |t|
+    create_table :notee_images do |t|
 
       t.string :content, null: false, uniqueness: true
 

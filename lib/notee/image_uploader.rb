@@ -1,9 +1,8 @@
-module Notee
-  class ImageUploader
+require "carrierwave"
 
-    def a
-      puts "aaaaa"
-    end
+module Notee
+  class ImageUploader < CarrierWave::Uploader::Base
+    include CarrierWave::RMagick
 
     process :convert => 'jpg'
 

@@ -3,7 +3,6 @@ require 'notee/image_uploader'
 
 module Notee
   def test1
-    Notee::ImageUploader.a
+    Notee::ImageUploader
   end
 end
-g

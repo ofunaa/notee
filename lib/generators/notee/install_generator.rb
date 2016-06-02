@@ -8,16 +8,17 @@ module Notee
     
     source_root File.expand_path('../templates', __FILE__)
 
-    NOTEE = ["notee_post", "notee_image", "notee_category"]
+    NOTEE_MIGRATIONS = ["notee_posts", "notee_images", "notee_categories"]
+    NOTEE_MODELS = ["notee_post", "notee_image", "notee_category"]
 
     def copy_notee_migrations
-      NOTEE.each do |model_name|
+      NOTEE_MIGRATIONS.each do |model_name|
         migration_template "migrations/migration_#{model_name}.rb", "db/migrate/create_#{model_name}.rb"
       end
     end
 
     def generate_models
-      NOTEE.each do |model_name|
+      NOTEE_MODELS.each do |model_name|
         template "models/#{model_name}.rb", File.join('app/models', "#{model_name}.rb")
       end
     end
@@ -27,7 +28,12 @@ module Notee
     end
 
     def generate_view
-      template "views/index.html.slim", File.join('app/views/notee', "index_html.slim")
+      template "views/index.html.erb", File.join('app/views/notee', "index.html.erb")
+    end
+
+    def notice_user
+      p "routes.rbに以下を追加してください。"
+      p "get '/' => 'notee#index'\npost '/post' => 'notee#create'"
     end
 
   end
