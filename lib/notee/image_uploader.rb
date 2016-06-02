@@ -1,4 +1,4 @@
-require "carrierwave"
+require 'carrierwave'
 
 module Notee
   class ImageUploader < CarrierWave::Uploader::Base
@@ -19,7 +19,7 @@ module Notee
     end
 
     def filename
-      Time.now.strftime('%Y%m%d%H%M%S') + original_filename + '.jpg' if original_filename.present?
+      Time.now.strftime('%Y%m%d%H%M%S') + '_' + original_filename + '.jpg' if original_filename.present?
     end
 
   end
