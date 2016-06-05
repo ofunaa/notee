@@ -1,4 +1,5 @@
 require 'notee/version'
+require 'notee/engine'
 require 'notee/image_uploader'
 
 module Notee

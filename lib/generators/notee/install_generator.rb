@@ -33,7 +33,7 @@ module Notee
 
     def notice_user
       p "routes.rbに以下を追加してください。"
-      p "get '/' => 'notee#index'"
+      p "get  '/'     => 'notee#index'"
       p "post '/post' => 'notee#create'"
     end
 
