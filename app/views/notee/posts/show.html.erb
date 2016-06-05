@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @post.slug %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @post.status %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @post.category_id %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @post.thumbnail_id %>
+</p>
+
+<p>
+  <strong>Published at:</strong>
+  <%= @post.published_at %>
+</p>
+
+<p>
+  <strong>Seo keyword:</strong>
+  <%= @post.seo_keyword %>
+</p>
+
+<p>
+  <strong>Seo description:</strong>
+  <%= @post.seo_description %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

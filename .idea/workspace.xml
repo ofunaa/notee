@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="78b3d822-feed-46d9-928c-c42b0397f73b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.rspec" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CODE_OF_CONDUCT.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/console" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/setup" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/install_generator.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/controllers/notee_controller.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/migrations/migration_notee_categories.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/migrations/migration_notee_images.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/migrations/migration_notee_posts.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/models/notee_category.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/models/notee_image.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/models/notee_post.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/generators/notee/templates/views/index.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/notee/image_uploader.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/notee_spec.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/spec_helper.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rakefile" afterPath="$PROJECT_DIR$/Rakefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/notee/engine.rb" afterPath="$PROJECT_DIR$/lib/notee/engine.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notee.gemspec" afterPath="$PROJECT_DIR$/notee.gemspec" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/notee.rb" afterPath="$PROJECT_DIR$/lib/notee.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/notee/version.rb" afterPath="$PROJECT_DIR$/lib/notee/version.rb" />
-    </list>
+    <list default="true" id="78b3d822-feed-46d9-928c-c42b0397f73b" name="Default" comment="" />
     <ignored path="notee.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -170,8 +143,8 @@
           <file leaf-file-name="Rakefile" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Rakefile">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.46391752">
+                  <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -866,14 +839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Rakefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile.lock">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -897,6 +862,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.02209131">
           <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Rakefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46391752">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>

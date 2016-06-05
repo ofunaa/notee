@@ -1,5 +1,5 @@
 Notee::Engine.routes.draw do
-  resources :notee_categories
-  resources :notee_images
-  resources :notee_posts
+  resources :images
+  resources :categories
+  resources :posts
 end
