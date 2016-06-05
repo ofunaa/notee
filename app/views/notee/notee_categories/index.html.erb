@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Notee Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Parent</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notee_categories.each do |notee_category| %>
+      <tr>
+        <td><%= notee_category.name %></td>
+        <td><%= notee_category.slug %></td>
+        <td><%= notee_category.parent_id %></td>
+        <td><%= notee_category.status %></td>
+        <td><%= link_to 'Show', notee_category %></td>
+        <td><%= link_to 'Edit', edit_notee_category_path(notee_category) %></td>
+        <td><%= link_to 'Destroy', notee_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Notee category', new_notee_category_path %>

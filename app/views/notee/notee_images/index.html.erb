@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Notee Images</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notee_images.each do |notee_image| %>
+      <tr>
+        <td><%= notee_image.content %></td>
+        <td><%= link_to 'Show', notee_image %></td>
+        <td><%= link_to 'Edit', edit_notee_image_path(notee_image) %></td>
+        <td><%= link_to 'Destroy', notee_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Notee image', new_notee_image_path %>
