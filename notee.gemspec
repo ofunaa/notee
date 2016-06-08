@@ -21,7 +21,9 @@ Gem::Specification.new do |s|
 
   # image_uploader
   s.add_dependency "paperclip"
-  s.add_dependency "mongoid-paperclip"
+
+  # env
+  s.add_dependency "dotenv-rails"
 
   s.add_development_dependency "sqlite3"
 

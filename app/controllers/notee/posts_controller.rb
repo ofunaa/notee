@@ -15,7 +15,8 @@ module Notee
 
     # GET /posts/new
     def new
-      @post = Post.new
+      @notee_image = Image.all.first
+      p @notee_image
     end
 
     # GET /posts/1/edit

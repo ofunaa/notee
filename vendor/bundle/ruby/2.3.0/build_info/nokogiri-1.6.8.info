@@ -1,0 +1,1 @@
+--with-xml2-lib=/usr/local/lib --with-xml2-include=/usr/local/include/libxml2 --with-xslt-lib=/usr/local/lib --with-xslt-include=/usr/local/include/libxslt --with-iconv-lib=/usr/local/lib --with-iconv-include=/usr/local/include
