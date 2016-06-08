@@ -9,5 +9,7 @@ class CreateNoteeCategories < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :notee_categories, [:slug], :unique => true
   end
 end

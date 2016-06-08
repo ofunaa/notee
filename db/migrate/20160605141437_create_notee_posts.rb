@@ -23,5 +23,7 @@ class CreateNoteePosts < ActiveRecord::Migration
       t.timestamps null: false
 
     end
+
+    add_index :notee_posts, [:slug], :unique => true
   end
 end
