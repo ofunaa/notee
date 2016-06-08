@@ -19,5 +19,15 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.1"
 
+  # image_uploader
+  s.add_dependency "paperclip"
+  s.add_dependency "mongoid-paperclip"
+
   s.add_development_dependency "sqlite3"
+
+  # debug
+  s.add_dependency 'pry-rails'
+  s.add_dependency 'pry-doc'
+  s.add_dependency 'pry-byebug'
+  s.add_dependency 'pry-stack_explorer'
 end

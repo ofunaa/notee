@@ -1,5 +1,8 @@
 Notee::Engine.routes.draw do
-  resources :images
-  resources :categories
-  resources :posts
+  get '/' => 'notee#index'
+  post '/post' => 'notee#create'
+
+  namespace :api, { format: 'json' } do
+
+  end
 end

@@ -1,0 +1,8 @@
+<p>hello world</p>
+<%= image_tag(@notee_image.content) if @notee_image.present? %>
+
+<%= form_tag(post_path, :multipart => true) do %>
+<%= file_field_tag 'content' %>
+<%= submit_tag "登録"  %>
+<% end %>
+
