@@ -9,4 +9,4 @@ test/dummy/.sass-cache
 
 .idea
 vendor/
-.env
+.secret.yml

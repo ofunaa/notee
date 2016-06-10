@@ -4,6 +4,9 @@ module Notee
   class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+    skip_before_filter :restrict_access_json, only: [:new]
+    before_filter :restrict_access, only: [:new]
+
     # GET /posts
     def index
       @posts = Post.all
@@ -15,8 +18,7 @@ module Notee
 
     # GET /posts/new
     def new
-      @notee_image = Image.all.first
-      p @notee_image
+      @notee_image = Image.all.last
     end
 
     # GET /posts/1/edit
@@ -58,6 +60,17 @@ module Notee
       # Only allow a trusted parameter "white list" through.
       def post_params
         params.require(:post).permit(:title, :content, :slug, :status, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
+      end
+
+      def restrict_access
+        # authenticate_or_request_with_http_token do |token, options|
+        #   Token.exists?(access_token: token)
+        # end
+
+        unless Token.exists?(access_token: session[:access_token])
+          redirect_to new_token_path and return
+        end
+
       end
   end
 end
