@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    application: './src/javascripts/index.js',
+    application: './src/javascripts/app.js',
   },
   output: {
     path: '../app/assets/javascripts/notee',

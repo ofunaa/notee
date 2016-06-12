@@ -1,7 +1,7 @@
 module.exports = {
   devtool: 'inline-source-map',
   entry: {
-    application: './src/javascripts/index.js',
+    application: './src/javascripts/app.js',
   },
   output: {
     path: '../app/assets/javascripts/notee',
