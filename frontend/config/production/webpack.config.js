@@ -1,9 +1,9 @@
 module.exports = {
   entry: {
-    application: './src/javascripts/application.js',
+    application: './src/javascripts/index.js',
   },
   output: {
-    path: '../app/assets/javascripts',
+    path: '../app/assets/javascripts/notee',
     filename: '[name].js'
   },
   module: {
