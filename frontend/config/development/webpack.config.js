@@ -4,7 +4,7 @@ module.exports = {
     application: './src/javascripts/application.js',
   },
   output: {
-    path: '../app/assets/javascripts',
+    path: '../app/assets/javascripts/notee',
     filename: '[name].js'
   },
   module: {

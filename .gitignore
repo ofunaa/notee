@@ -12,5 +12,5 @@ vendor/
 .secret.yml
 
 !/app/assets/javascripts/.keep
-/app/assets/javascripts
+/app/assets/javascripts/notee
 /frontend/node_modules/
