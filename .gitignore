@@ -10,3 +10,6 @@ test/dummy/.sass-cache
 .idea/
 vendor/
 .secret.yml
+
+!/app/assets/javascripts/.keep
+/app/assets/javascripts
