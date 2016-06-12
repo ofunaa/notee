@@ -13,3 +13,4 @@ vendor/
 
 !/app/assets/javascripts/.keep
 /app/assets/javascripts
+/frontend/node_modules/
