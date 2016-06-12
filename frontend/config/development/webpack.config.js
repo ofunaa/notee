@@ -1,4 +1,4 @@
-moduke.exports = {
+module.exports = {
   devtool: 'inline-source-map',
   entry: {
     application: './src/javascripts/application.js',

@@ -1,4 +1,4 @@
-moduke.exports = {
+module.exports = {
   entry: {
     application: './src/javascripts/application.js',
   },
