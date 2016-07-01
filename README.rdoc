@@ -11,7 +11,9 @@ bundle exec rake db:migrate SCOPE=notee
 edit routes.rb
 
 ```rb
+
 mount Notee::Engine => "/notee"
+
 ```
 
 rails s
