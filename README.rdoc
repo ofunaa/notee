@@ -4,9 +4,15 @@ This project rocks and uses MIT-LICENSE.
 
 bundle install
 
-bundle exec notee:install
+bundle exec rake notee:install:migrations
 
-bundle exec rake db:migrate
+bundle exec rake db:migrate SCOPE=notee
+
+edit routes.rb
+
+```rb
+mount Notee::Engine => "/notee"
+```
 
 rails s
 
