@@ -1,9 +1,6 @@
-require 'notee/version'
-require 'notee/engine'
-require 'notee/image_uploader'
+require "notee/engine"
+require "notee/secret"
+require "notee/version"
 
 module Notee
-  def test1
-    Notee::ImageUploader
-  end
 end

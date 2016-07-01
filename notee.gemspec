@@ -1,31 +1,32 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'notee/version'
+$:.push File.expand_path("../lib", __FILE__)
 
-Gem::Specification.new do |spec|
-  spec.name          = "notee"
-  spec.version       = Notee::VERSION
-  spec.authors       = ["takujifunao"]
-  spec.email         = ["takuji.funao@gmail.com"]
+# Maintain your gem's version:
+require "notee/version"
 
-  spec.summary       = %q{notee is very simple blogging gem.}
-  spec.description   = %q{notee create simple blog application.}
-  spec.homepage      = "https://github.com/maru-3/notee.git"
-  spec.license       = "MIT"
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name        = "notee"
+  s.version     = Notee::VERSION
+  s.authors     = ["takujifunao"]
+  s.email       = ["takuji.funao@gmail.com"]
+  s.summary       = %q{notee is very simple blogging gem.}
+  s.description   = %q{notee create simple blog application.}
+  s.homepage      = "https://github.com/maru-3/notee.git"
+  s.license       = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.test_files = Dir["test/**/*"]
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  s.add_dependency "rails", "~> 4.2.1"
 
-  spec.add_dependency "carrierwave", "~> 0.10.0"
-  spec.add_dependency "rmagick"
+  # image_uploader
+  s.add_dependency "paperclip"
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec"
+  s.add_development_dependency "sqlite3"
+
+  # debug
+  s.add_dependency 'pry-rails'
+  s.add_dependency 'pry-doc'
+  s.add_dependency 'pry-byebug'
+  s.add_dependency 'pry-stack_explorer'
 end

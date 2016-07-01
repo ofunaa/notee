@@ -1,8 +1,0 @@
-<p>hello world</p>
-<%%= image_tag(@notee_image.first.content) %>
-
-<%%= form_tag('/post', :multipart => true) do %>
-  <%%= file_field_tag 'content' %>
-  <%%= submit_tag "登録"  %>
-<%% end %>
-
