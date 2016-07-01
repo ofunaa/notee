@@ -11,6 +11,4 @@ test/dummy/.sass-cache
 vendor/
 .secret.yml
 
-!/app/assets/javascripts/.keep
-/app/assets/javascripts/notee
 /frontend/node_modules/
