@@ -1,3 +1,13 @@
 = Notee
 
 This project rocks and uses MIT-LICENSE.
+
+bundle install
+
+bundle exec notee:install
+
+bundle exec rake db:migrate
+
+rails s
+
+http://localhost:3000/notee
