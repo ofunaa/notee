@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/app';
+import NoteeApp from './components/NoteeApp.react';
 
 window.onload = function(){
 
@@ -9,7 +9,7 @@ window.onload = function(){
     document.body.appendChild(appNode);
 
     ReactDOM.render(
-        <App />, appNode
+        <NoteeApp />, appNode
     );
 
 }

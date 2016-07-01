@@ -23,7 +23,10 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+    "flux": "^2.1.1",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "keymirror": "~0.1.0",
+    "object-assign": "^1.0.0"
   }
 }
