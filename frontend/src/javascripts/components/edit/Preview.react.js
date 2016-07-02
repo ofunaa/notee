@@ -16,6 +16,8 @@ var Preview = React.createClass({
                             <p>content:　{item.content}</p>
                             <p>slug:　{item.slug}</p>
                             <p>status:　{item.status}</p>
+                            <p>seo_keyword:　{item.seo_keyword}</p>
+                            <p>seo_description:　{item.seo_description}</p>
                         </div>
                     );
                 })}

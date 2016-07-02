@@ -11,7 +11,6 @@ var MainSection = React.createClass({
             status: this.props.statuses[0],
             category_id: "",
             thumbnail_id: "",
-            published_at: "",
             seo_keyword: "",
             seo_description: ""
         };
@@ -57,6 +56,18 @@ var MainSection = React.createClass({
                         onChange={this.handleChangeStatus}>
                         {statues}
                     </select>
+                    <input
+                        class="form_text"
+                        type="text"
+                        value={this.state.seo_keyword}
+                        onChange={this.handleChangeSeoKeyword}
+                    />
+                    <textarea
+                        class="form_textarea"
+                        type="textarea"
+                        value={this.state.seo_description}
+                        onChange={this.handleChangeSeoDescription}
+                    />
                     <button onClick={this.aaaclick}>go title</button>
                 </div>
             </div>
@@ -79,14 +90,24 @@ var MainSection = React.createClass({
         this.setState({ status: e.target.value });
     },
 
+    handleChangeSeoKeyword: function(e) {
+        this.setState({ seo_keyword: e.target.value });
+    },
+
+    handleChangeSeoDescription: function(e) {
+        this.setState({ seo_description: e.target.value });
+    },
+
     aaaclick: function(e){
+
         BlogActions.submit(this.state);
         this.setState({
             title: '',
             content: '',
             slug: '',
             status: this.props.statuses[0],
-            published_at: Date.now()
+            seo_keyword: '',
+            seo_description: ''
         });
     }
 });
