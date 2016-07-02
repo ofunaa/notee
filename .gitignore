@@ -9,6 +9,6 @@ test/dummy/.sass-cache
 
 .idea/
 vendor/
-.secret.yml
+lib/notee/config/secret.yml
 
 /frontend/node_modules/
