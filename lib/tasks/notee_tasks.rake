@@ -1,5 +1,3 @@
-require 'open-uri'
-
 desc 'setup notee'
 namespace :notee do
   task :start do
