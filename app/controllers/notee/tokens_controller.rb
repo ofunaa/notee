@@ -11,7 +11,7 @@ module Notee
 
     # POST /tokens
     def create
-      if Notee::Secret.id == params[:id] && Notee::Secret.password == params[:password]
+      if Notee.notee_id == params[:id] && Notee.notee_password == params[:password]
         if token = Token.create!
           session[:access_token] = token.access_token
         end

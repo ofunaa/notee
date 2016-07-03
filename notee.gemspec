@@ -17,16 +17,12 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.1"
+  s.add_dependency 'rails', '~> 4.2.1'
+  s.add_dependency 'paperclip'
 
-  # image_uploader
-  s.add_dependency "paperclip"
-
-  s.add_development_dependency "sqlite3"
-
-  # debug
-  s.add_dependency 'pry-rails'
-  s.add_dependency 'pry-doc'
-  s.add_dependency 'pry-byebug'
-  s.add_dependency 'pry-stack_explorer'
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'pry-doc'
+  s.add_development_dependency 'pry-byebug'
+  s.add_development_dependency 'pry-stack_explorer'
 end

@@ -4,6 +4,7 @@ import Footer from './layout/Footer.react'
 
 import MainSection from './edit/MainSection.react'
 import Preview from './edit/Preview.react'
+import List from './index/List.react'
 
 var BlogStore = require('../stores/BlogStore');
 
@@ -16,6 +17,7 @@ function getBlogState() {
 var NoteeApp  = React.createClass({
 
     getInitialState: function() {
+        console.log(window.location.href);
         return getBlogState();
     },
 
@@ -31,8 +33,7 @@ var NoteeApp  = React.createClass({
         return (
             <div>
                 <Header />
-                <MainSection />
-                <Preview preview_items={this.state.preview_items}/>
+                <List />
                 <Footer />
             </div>
         );
