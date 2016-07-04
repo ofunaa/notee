@@ -1,16 +1,19 @@
-var React = require('react');
+import React, {Component, PropTypes} from "react"
+import {Link} from "react-router"
 
-var Header = React.createClass({
+export default class Header extends Component {
 
-    render: function() {
+    render() {
         return (
             <header id="header">
                 <h1>Notee</h1>
+                <Link to="./" >index</Link>
+                <Link to="edit" >edit</Link>
+                <Link to="show" >show</Link>
+
             </header>
         );
-    },
+    }
 
 
-});
-
-module.exports = Header;
+};

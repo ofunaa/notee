@@ -1,18 +1,21 @@
+import React from 'react';
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher'
+
 var NoteeConstants = require('../constants/NoteeConstants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
-
 var blog_items = []
 
+
 function create(item) {
-    console.log(item);
     blog_items.push(item);
 }
 
+
 var BlogStore = assign({}, EventEmitter.prototype, {
+
 
     getPreview: function() {
         return blog_items;

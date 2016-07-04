@@ -2,10 +2,7 @@ import React from 'react'
 import Header from './layout/Header.react'
 import Footer from './layout/Footer.react'
 
-import MainSection from './edit/MainSection.react'
-import Preview from './edit/Preview.react'
-import List from './index/List.react'
-
+var request = require('superagent');
 var BlogStore = require('../stores/BlogStore');
 
 function getBlogState() {
@@ -17,23 +14,28 @@ function getBlogState() {
 var NoteeApp  = React.createClass({
 
     getInitialState: function() {
-        console.log(window.location.href);
-        return getBlogState();
+        return {
+            posts: [],
+            preview_items: []
+        };
     },
 
     componentDidMount: function() {
+        this._loadPosts();
         BlogStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
+        this._loadPosts();
         BlogStore.removeChangeListener(this._onChange);
     },
 
     render: function() {
+
         return (
             <div>
                 <Header />
-                <List />
+                {this.props.children}
                 <Footer />
             </div>
         );
@@ -41,6 +43,12 @@ var NoteeApp  = React.createClass({
 
     _onChange: function() {
         this.setState(getBlogState());
+    },
+
+    _loadPosts: function() {
+        request.get('/notee/api/posts', (err, res) => {
+            this.setState({posts: res.body.posts});
+        })
     }
 });
 

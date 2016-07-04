@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import NoteeApp from './components/NoteeApp.react';
+import {Router, browserHistory} from "react-router"
+import routes from "./routes"
 
 window.onload = function(){
     
     ReactDOM.render(
-        <NoteeApp />, document.getElementById('react')
+        <Router history={browserHistory}>
+            {routes}
+        </Router>,
+        document.getElementById('react')
     );
 
 }
