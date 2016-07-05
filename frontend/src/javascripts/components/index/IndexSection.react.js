@@ -14,11 +14,7 @@ export default class IndexSection extends Component {
     componentDidMount() {
         this._loadPosts();
     }
-
-    componentWillUnmount() {
-        this._loadPosts();
-    }
-
+    
     render() {
 
         return (

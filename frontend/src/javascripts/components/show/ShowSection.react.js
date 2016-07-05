@@ -14,10 +14,6 @@ export default class ShowSection extends Component {
         this._loadPost();
     }
 
-    componentWillUnmount() {
-        this._loadPost();
-    }
-
     render() {
         
         return (
