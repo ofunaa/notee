@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import BlogActions from '../../actions/BlogActions';
 import Preview  from './Preview.react'
 var BlogStore = require('../../stores/BlogStore');
+var request = require('superagent');
 
 
 export default class EditSection extends Component {
@@ -10,10 +11,10 @@ export default class EditSection extends Component {
         super(props);
         this.state = {
             content: {
-                title: "false",
-                content: "main Content",
-                slug: "slug",
-                status: this.props.statuses[0],
+                title: "",
+                content: "",
+                slug: "",
+                status: "",
                 category_id: "",
                 thumbnail_id: "",
                 seo_keyword: "",
@@ -28,6 +29,12 @@ export default class EditSection extends Component {
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
 
+    }
+
+    componentDidMount() {
+        if(this.props.params.id){
+            this._loadPost();
+        }
     }
 
     render() {
@@ -82,6 +89,24 @@ export default class EditSection extends Component {
                 <Preview content = {this.state.content}/>
             </div>
         );
+    }
+
+    _loadPost() {
+        var url = "/notee/api/posts/" + this.props.params.id
+        request.get(url, (err, res) => {
+            this.setState({
+                content: {
+                    title: res.body.post.title,
+                    content: res.body.post.content,
+                    slug: res.body.post.slug,
+                    status: res.body.post.status,
+                    category_id: res.body.post.category_id,
+                    thumbnail_id: res.body.post.thumbnail_id,
+                    seo_keyword: res.body.post.seo_keyword,
+                    seo_description: res.body.post.seo_description
+                }
+            });
+        })
     }
 
     handleChangeTitle(e) {

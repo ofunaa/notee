@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react'
+import { Link } from "react-router"
 var request = require('superagent');
 
 export default class IndexSection extends Component {
@@ -22,6 +23,7 @@ export default class IndexSection extends Component {
 
         return (
             <div id="list">
+                <Link to='/notee/new' >new</Link>
                 {this.state.posts.map((post, index)=>{
 
                     return(
@@ -33,6 +35,8 @@ export default class IndexSection extends Component {
                             <p>seo_keyword:　{post.seo_keyword}</p>
                             <p>seo_description:　{post.seo_description}</p>
                             <p>{post.id}</p>
+                            <p><Link to={`/notee/edit/${post.id}`} activeClassName="active">Edit</Link></p>
+                            <p><Link to={`/notee/show/${post.id}`} activeClassName="active">Preview</Link></p>
                         </div>
                     );
                 })}
