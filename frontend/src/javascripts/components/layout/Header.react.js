@@ -7,9 +7,10 @@ export default class Header extends Component {
         return (
             <header id="header">
                 <h1>Notee</h1>
-                <Link to="./" >index</Link>
-                <Link to="edit" >edit</Link>
-                <Link to="show" >show</Link>
+                <Link to='/notee' >index</Link>
+                <Link to='/notee/new' >new</Link>
+                <Link to='/notee/edit/12' >edit</Link>
+                <Link to='/notee/show/12' >show</Link>
 
             </header>
         );
