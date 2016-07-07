@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import { Link } from "react-router"
-var request = require('superagent');
+import NoteeStore from '../../stores/NoteeStore';
 
 export default class IndexSection extends Component {
 
@@ -9,12 +9,18 @@ export default class IndexSection extends Component {
         this.state = {
             posts: []
         }
+
+        this.ajaxLoaded = this.ajaxLoaded.bind(this);
     }
 
     componentDidMount() {
-        this._loadPosts();
+        NoteeStore.loadAllNotees(this.ajaxLoaded);
     }
-    
+
+    ajaxLoaded(contents) {
+        this.setState({posts: contents});
+    }
+
     render() {
 
         return (
@@ -38,12 +44,6 @@ export default class IndexSection extends Component {
                 })}
             </div>
         );
-    }
-
-    _loadPosts() {
-        request.get('/notee/api/posts', (err, res) => {
-            this.setState({posts: res.body.posts});
-        })
     }
 
 };

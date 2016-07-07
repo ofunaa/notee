@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react'
-import BlogActions from '../../actions/BlogActions';
+import NoteeActions from '../../actions/NoteeActions';
 import Preview  from './Preview.react'
-var BlogStore = require('../../stores/BlogStore');
-var request = require('superagent');
 
 
 export default class EditSection extends Component {
@@ -14,12 +12,13 @@ export default class EditSection extends Component {
                 title: "",
                 content: "",
                 slug: "",
-                status: "",
+                status: this.props.statuses[0],
                 category_id: "",
                 thumbnail_id: "",
                 seo_keyword: "",
                 seo_description: ""
-            }
+            },
+            is_saving: false
         };
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -28,13 +27,30 @@ export default class EditSection extends Component {
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
+        this.saveContent = this.saveContent.bind(this);
+        this.ajaxLoaded = this.ajaxLoaded.bind(this);
 
     }
 
     componentDidMount() {
         if(this.props.params.id){
-            this._loadPost();
+            NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
+    }
+
+    ajaxLoaded(content){
+        this.setState({
+            content: {
+                title: content.title,
+                content: content.content,
+                slug: content.slug,
+                status: content.status,
+                category_id: content.category_id,
+                thumbnail_id: content.thumbnail_id,
+                seo_keyword: content.seo_keyword,
+                seo_description: content.seo_description
+            }
+        });
     }
 
     render() {
@@ -84,29 +100,11 @@ export default class EditSection extends Component {
                         value={this.state.content.seo_description}
                         onChange={this.handleChangeSeoDescription}
                     />
-                    <button onClick={this.aaaclick}>go title</button>
+                    <button onClick={this.saveContent}>go title</button>
                 </div>
                 <Preview content = {this.state.content}/>
             </div>
         );
-    }
-
-    _loadPost() {
-        var url = "/notee/api/posts/" + this.props.params.id
-        request.get(url, (err, res) => {
-            this.setState({
-                content: {
-                    title: res.body.post.title,
-                    content: res.body.post.content,
-                    slug: res.body.post.slug,
-                    status: res.body.post.status,
-                    category_id: res.body.post.category_id,
-                    thumbnail_id: res.body.post.thumbnail_id,
-                    seo_keyword: res.body.post.seo_keyword,
-                    seo_description: res.body.post.seo_description
-                }
-            });
-        })
     }
 
     handleChangeTitle(e) {
@@ -134,18 +132,25 @@ export default class EditSection extends Component {
         this.setState({ content: this.state.content });
     }
 
-
-    aaaclick(e){
-
-        BlogActions.submit(this.state);
-        this.setState({
-            title: '',
-            content: '',
-            slug: '',
-            status: this.props.statuses[0],
-            seo_keyword: '',
-            seo_description: ''
-        });
+    saveContent(e){
+        if(this.props.params.id){
+            var item = {params_id: this.props.params.id, content: this.state.content}
+            NoteeActions.notee_update(item);
+        }else{
+            NoteeActions.notee_create(this.state.content);
+            this.setState({
+                content: {
+                    title: "",
+                    content: "",
+                    slug: "",
+                    status: this.props.statuses[0],
+                    category_id: "",
+                    thumbnail_id: "",
+                    seo_keyword: "",
+                    seo_description: ""
+                }
+            });
+        }
     }
 };
 
