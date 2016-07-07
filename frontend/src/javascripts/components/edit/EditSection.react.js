@@ -56,52 +56,96 @@ export default class EditSection extends Component {
 
     render() {
 
+        var style = {
+            form: {
+                main_area: {
+                    width: "100%",
+                    height: "300px",
+                    marginBottom: "10px"
+                },
+                input_text: {
+                    width: "100%",
+                    height: "30px",
+                    marginBottom: "10px"
+                },
+                select: {
+                    height: "30px",
+                    marginBottom: "10px"
+                },
+                textarea: {
+                    width: "100%",
+                    height: "80px",
+                    marginBottom: "10px"
+                },
+                button: {
+                    width: "100%",
+                    height: "50px",
+                    marginBottom: "10px"
+                },
+                image_button: {
+                    width: "30%",
+                    height: "50px",
+                    marginBottom: "10px"
+                }
+            }
+        }
+
         var statues = this.props.statuses.map(function(status) {
             return <option key={status} value={status}>{status}</option>;
         });
 
         return (
             <div class="main">
-                <div class="title">
+                <div>
+                    <p>Title:</p>
                     <input
-                        class="form_text"
+                        style={style.form.input_text}
                         type="text"
-                        ref="title"
                         value={this.state.content.title}
                         onChange={this.handleChangeTitle}
                     />
+                    <p>Content:</p>
+                    <button
+                        style={style.form.image_button}
+                        onClick={this.pushImage}>image</button>
                     <textarea
-                        class="form_textarea"
+                        style={style.form.main_area}
                         type="textarea"
                         value={this.state.content.content}
                         onChange={this.handleChangeContent}
                     />
+                    <p>slug:</p>
                     <input
-                        class="form_text"
+                        style={style.form.input_text}
                         type="text"
                         value={this.state.content.slug}
                         onChange={this.handleChangeSlug}
                     />
+                    <p>status:</p>
                     <select
-                        class="form_select"
+                        style={style.form.select}
                         type="select"
                         value={this.state.content.status}
                         onChange={this.handleChangeStatus}>
                         {statues}
                     </select>
+                    <p>seo_keyword:</p>
                     <input
-                        class="form_text"
+                        style={style.form.input_text}
                         type="text"
                         value={this.state.content.seo_keyword}
                         onChange={this.handleChangeSeoKeyword}
                     />
+                    <p>seo_description:</p>
                     <textarea
-                        class="form_textarea"
+                        style={style.form.textarea}
                         type="textarea"
                         value={this.state.content.seo_description}
                         onChange={this.handleChangeSeoDescription}
                     />
-                    <button onClick={this.saveContent}>go title</button>
+                    <button
+                        style={style.form.button}
+                        onClick={this.saveContent}>Submit</button>
                 </div>
                 <Preview content = {this.state.content}/>
             </div>
@@ -152,6 +196,10 @@ export default class EditSection extends Component {
                 }
             });
         }
+    }
+
+    pushImage(e){
+        console.log("プッシュきました");
     }
 };
 
