@@ -1,6 +1,7 @@
 Notee::Engine.routes.draw do
 
-  root to: 'posts#new'
+  root to: 'posts#notee'
+
   resources :tokens, only: [:new, :create, :destroy]
 
   namespace :api, { format: 'json', module: nil } do

@@ -32,7 +32,7 @@ module Notee
     end
 
     test "should get edit" do
-      get :edit, id: @post
+      get :notee, id: @post
       assert_response :success
     end
 

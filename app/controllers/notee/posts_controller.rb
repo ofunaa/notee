@@ -2,59 +2,58 @@ require_dependency "notee/application_controller"
 
 module Notee
   class PostsController < ApplicationController
-    before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-    skip_before_filter :restrict_access_json, only: [:new]
-    before_filter :restrict_access, only: [:new]
+    before_action :set_post, only: [:show, :update, :destroy]
+    skip_before_filter :restrict_access_json, only: [:notee]
+    before_filter :restrict_access, only: [:notee]
+
+    def notee
+    end
 
     # GET /posts
     def index
       @posts = Post.all
+      render json: { status: 'success', posts: @posts}
     end
 
     # GET /posts/1
     def show
-    end
-
-    # GET /posts/new
-    def new
-      @notee_image = Image.all.last
-    end
-
-    # GET /posts/1/edit
-    def edit
+      render json: { status: 'success', post: @post}
     end
 
     # POST /posts
     def create
       @post = Post.new(post_params)
-
-      if @post.save
-        redirect_to @post, notice: 'Post was successfully created.'
-      else
-        render :new
+      respond_to do |format|
+        if @post.save
+          format.json { render json: @post, status: 200 }
+        else
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end
 
     # PATCH/PUT /posts/1
     def update
-      if @post.update(post_params)
-        redirect_to @post, notice: 'Post was successfully updated.'
-      else
-        render :edit
+      respond_to do |format|
+        if @post.update(post_params)
+          format.json { render json: @post, status: 200 }
+        else
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end
 
     # DELETE /posts/1
     def destroy
       @post.destroy
-      redirect_to posts_url, notice: 'Post was successfully destroyed.'
+      render json: { status: 'success'}
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
+
       def set_post
-        @post = Post.find(params[:id])
+        @post = Post.find_by(id: params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
