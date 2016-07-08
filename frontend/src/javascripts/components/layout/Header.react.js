@@ -4,8 +4,19 @@ import { Link } from "react-router"
 export default class Header extends Component {
 
     render() {
+
+        var style = {
+            header: {
+                main: {
+                    width: "100%",
+                    height: "60px",
+                    float: "left",
+                }
+            }
+        }
+
         return (
-            <header id="header">
+            <header style={style.header.main}>
                 <h1><Link to='/notee' >Icarus</Link></h1>
             </header>
         );

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeStore from '../../stores/NoteeStore';
 import Preview  from './Preview.react'
+import Image  from './Image.react'
 
 
 export default class EditSection extends Component {
@@ -19,7 +20,8 @@ export default class EditSection extends Component {
                 seo_keyword: "",
                 seo_description: ""
             },
-            is_saving: false
+            is_saving: false,
+            display_image: false
         };
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -30,6 +32,7 @@ export default class EditSection extends Component {
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
         this.saveContent = this.saveContent.bind(this);
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.pushImage = this.pushImage.bind(this);
 
     }
 
@@ -57,6 +60,15 @@ export default class EditSection extends Component {
     render() {
 
         var style = {
+            layout: {
+                half: {
+                    width: "48%",
+                    maxWidth: "48%",
+                    marginRight: "1%",
+                    marginLeft: "1%",
+                    float: "left"
+                }
+            },
             form: {
                 main_area: {
                     width: "100%",
@@ -96,7 +108,30 @@ export default class EditSection extends Component {
 
         return (
             <div class="main">
-                <div>
+                {(() => {
+                    if (this.state.display_image) {
+
+                        var style = {
+                            image_button: {
+                                right: "30px",
+                                top: "30px",
+                                position: "fixed",
+                                zIndex: "101"
+                            }
+                        }
+
+                        return (
+                            <div>
+                                <Image />
+                                <button
+                                style={style.image_button}
+                                onClick={this.pushImage}>閉じる</button>
+                            </div>
+                        );
+                    }
+                })()}
+
+                <div style={style.layout.half}>
                     <p>Title:</p>
                     <input
                         style={style.form.input_text}
@@ -109,6 +144,7 @@ export default class EditSection extends Component {
                         style={style.form.image_button}
                         onClick={this.pushImage}>image</button>
                     <textarea
+                        id="main_area"
                         style={style.form.main_area}
                         type="textarea"
                         value={this.state.content.content}
@@ -147,7 +183,9 @@ export default class EditSection extends Component {
                         style={style.form.button}
                         onClick={this.saveContent}>Submit</button>
                 </div>
-                <Preview content = {this.state.content}/>
+                <Preview
+                    style={style.layout.half}
+                    content = {this.state.content}/>
             </div>
         );
     }
@@ -199,7 +237,21 @@ export default class EditSection extends Component {
     }
 
     pushImage(e){
-        console.log("プッシュきました");
+        switch (this.state.display_image){
+            case true:
+                this.setState({display_image: false});
+                break;
+            case false:
+                this.setState({display_image: true});
+                break;
+        }
+
+        // var mainArea = document.getElementById('main_area');
+        // var leftPart = mainArea.value.substr(0, mainArea.selectionStart);
+        // var rightPart = mainArea.value.substr(mainArea.selectionStart, mainArea.value.length);
+        // mainArea.value = leftPart + "strInsert" + rightPart;
+        // this.state.content.content = mainArea.value;
+        // this.setState({ content: this.state.content });
     }
 };
 

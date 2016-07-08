@@ -32,6 +32,15 @@ function notee_delete(notee_id){
         })
 }
 
+function image_create(content){
+    request
+        .post("/notee/api/images")
+        .send({image: {content: content}})
+        .end(function(err, res){
+            console.log(res.body);
+        })
+}
+
 
 var NoteeStore = assign({}, EventEmitter.prototype, {
 
@@ -45,6 +54,12 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
     loadAllNotees: function(callback) {
         request.get('/notee/api/posts', (err, res) => {
             callback(res.body.posts);
+        });
+    },
+
+    loadAllImages: function(callback) {
+        request.get('/notee/api/images', (err, res) => {
+            callback(res.body.images);
         });
     }
 
@@ -61,6 +76,10 @@ NoteeDispatcher.register(function(action) {
             break;
         case NoteeConstants.NOTEE_DELETE:
             notee_delete(action.notee_id);
+            break;
+
+        case NoteeConstants.IMAGE_CREATE:
+            image_create(action.content);
             break;
 
         default:

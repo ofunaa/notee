@@ -1,18 +1,36 @@
 import React from 'react'
 
 var Preview = React.createClass({
+
     render() {
+        var style = {
+            preview: {
+                main: {
+                    width: "48%",
+                    height: "100%",
+                    position: "fixed",
+                    maxWidth: "48%",
+                    marginRight: "1%",
+                    marginLeft: "1%",
+                    top: "0px",
+                    right: "0px",
+                    overflow: "scroll"
+                },
+                p: {
+                    width: "100%",
+                }
+            }
+        }
+        
         var content = this.props.content;
         return(
-            <div id="preview">
+            <div style={style.preview.main}>
                 <h3>Preview</h3>
-                <p>_________________________</p>
-                <p>title:　{content.title}</p>
-                <p>content:　{content.content}</p>
-                <p>slug:　{content.slug}</p>
-                <p>status:　{content.status}</p>
-                <p>seo_keyword:　{content.seo_keyword}</p>
-                <p>seo_description:　{content.seo_description}</p>
+                <p style={style.preview.p}>title:</p>
+                <p style={style.preview.p}>{content.title}</p>
+
+                <p style={style.preview.p}>content:</p>
+                <p style={style.preview.p}>{content.content}</p>
             </div>
         );
     }

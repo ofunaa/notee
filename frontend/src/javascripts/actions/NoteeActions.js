@@ -23,6 +23,21 @@ var NoteeActions = {
             type: NoteeConstants.NOTEE_DELETE,
             notee_id: notee_id
         });
+    },
+
+    image_create: function(content) {
+
+        NoteeDispatcher.dispatch({
+            type: NoteeConstants.IMAGE_CREATE,
+            content: content
+        });
+    },
+
+    image_delete: function(notee_id){
+        NoteeConstants.dispatch({
+            type: NoteeConstants.IMAGE_DELETE,
+            notee_id: notee_id
+        });
     }
     
 }
