@@ -1,5 +1,14 @@
 import React from 'react'
 import marked from 'marked'
+import highlight from 'highlight.js'
+
+marked.setOptions({
+    sanitize: false,
+    langPrefix : 'hljs lang-',
+    highlight: function (code) {
+        return highlight.highlightAuto(code).value;
+    }
+});
 
 var Preview = React.createClass({
 
@@ -20,7 +29,8 @@ var Preview = React.createClass({
                     marginLeft: "1%",
                     top: "0px",
                     right: "0px",
-                    overflow: "scroll"
+                    overflowY: "scroll",
+                    wordWrap: "break-word"
                 },
                 p: {
                     width: "100%",
@@ -34,10 +44,10 @@ var Preview = React.createClass({
             <div style={style.preview.main}>
                 <h3>Preview</h3>
                 <p style={style.preview.p}>title:</p>
-                <p style={style.preview.p}>{content.title}</p>
+                <h1 style={style.preview.p}>{content.title}</h1>
 
                 <p style={style.preview.p}>content:</p>
-                <div id="preview"></div>
+                <div id="preview" class="preview"></div>
             </div>
         );
     }
