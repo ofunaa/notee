@@ -2,7 +2,7 @@ class CreateNoteeImages < ActiveRecord::Migration
   def change
     create_table :notee_images do |t|
 
-      # t.string :content, null: false, uniqueness: true
+      t.string :content, null: false, uniqueness: true
 
       # if you have user_id
       # t.integer :user_id

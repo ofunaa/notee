@@ -33,10 +33,14 @@ function notee_delete(notee_id){
 }
 
 function image_create(content){
+
+    console.log(content);
+
     request
         .post("/notee/api/images")
-        .send({image: {content: content}})
+        .attach("image", content)
         .end(function(err, res){
+            console.log(err);
             console.log(res.body);
         })
 }
@@ -79,6 +83,7 @@ NoteeDispatcher.register(function(action) {
             break;
 
         case NoteeConstants.IMAGE_CREATE:
+            console.log(action.content);
             image_create(action.content);
             break;
 

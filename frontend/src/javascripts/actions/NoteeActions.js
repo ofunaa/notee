@@ -27,6 +27,8 @@ var NoteeActions = {
 
     image_create: function(content) {
 
+        console.log(content);
+
         NoteeDispatcher.dispatch({
             type: NoteeConstants.IMAGE_CREATE,
             content: content

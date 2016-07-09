@@ -1,13 +1,24 @@
-require 'paperclip'
+require 'securerandom'
 
 module Notee
   class Image < ActiveRecord::Base
-    Paperclip::Railtie.insert
+    attr_accessor :file
+    before_save :manage_image
 
-    attr_accessor :content
+    def manage_image
+      return unless self.file
 
-    has_attached_file :content, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
-    validates_attachment_content_type :content, :content_type => /\Aimage\/.*\Z/
+      image_dir = Rails.root.to_s + "/public/notee"
+      FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
+
+      image_name = Time.now.strftime('%Y%m%d%H%M%S') + '--' + SecureRandom.uuid + '.jpg'
+      self.transaction do
+        open(image_dir + "/" + image_name, 'wb') do |output|
+          output.write(self.file.read)
+        end
+        self.content = image_name
+      end
+    end
 
   end
 end

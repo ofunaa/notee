@@ -5,6 +5,8 @@ module Notee
   class ImagesController < ApplicationController
 
     def index
+      @images = Image.all
+      render json: { status: 'success', images: @images}
     end
 
     def show
@@ -13,10 +15,15 @@ module Notee
     def create
 
       @image = Image.new
-      @image.content = params[:content]
-      @image.save
+      @image.file = params[:image]
 
-      redirect_to :back
+      respond_to do |format|
+        if @image.save
+          format.json { render json: @image, status: 200 }
+        else
+          format.json { render json: @image.errors, status: :unprocessable_entity }
+        end
+      end
 
       # @image = Post.new(image_params)
       #

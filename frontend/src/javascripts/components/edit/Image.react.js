@@ -2,13 +2,16 @@ import React, {Component, PropTypes} from "react"
 import NoteeActions from '../../actions/NoteeActions'
 import NoteeStore from '../../stores/NoteeStore';
 
+var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
+
 export default class Image extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             images: [],
-            image: "",
+            image_url: "",
+            upload_file: null,
             tap_image: ""
         };
         this.handleChangeImage = this.handleChangeImage.bind(this);
@@ -55,6 +58,7 @@ export default class Image extends Component {
                     <input
                         style={style.form.input_file}
                         type="file"
+                        ref="image"
                         value={this.state.image}
                         onChange={this.handleChangeImage}
                     />
@@ -62,7 +66,7 @@ export default class Image extends Component {
                 <div>
                     {this.state.images.map((image, index)=>{
                         return(
-                            <img key={index} src={image} />
+                            <img key={index} src={image.content} />
                         );
                     })}
                 </div>
@@ -82,12 +86,16 @@ export default class Image extends Component {
 
     handleChangeImage(e) {
         console.log("きてる？");
-        this.setState({ image: e.target.value });
+        var files = e.target.files;
+        var image_url = createObjectURL(files[0]);
+        this.setState({image_src: image_url});
+        this.setState({upload_file: files[0]});
     }
 
     addImage() {
         console.log("pushpush");
-        NoteeActions.image_create(this.state.image);
+        console.log(this.state.upload_file);
+        NoteeActions.image_create(this.state.upload_file);
     }
 
 };
