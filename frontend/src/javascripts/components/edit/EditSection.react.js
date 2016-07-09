@@ -33,6 +33,7 @@ export default class EditSection extends Component {
         this.saveContent = this.saveContent.bind(this);
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.pushImage = this.pushImage.bind(this);
+        this.insertImage = this.insertImage.bind(this);
 
     }
 
@@ -122,7 +123,7 @@ export default class EditSection extends Component {
 
                         return (
                             <div>
-                                <Image />
+                                <Image imageInsert={this.insertImage} />
                                 <button
                                 style={style.image_button}
                                 onClick={this.pushImage}>閉じる</button>
@@ -245,13 +246,19 @@ export default class EditSection extends Component {
                 this.setState({display_image: true});
                 break;
         }
+    }
 
-        // var mainArea = document.getElementById('main_area');
-        // var leftPart = mainArea.value.substr(0, mainArea.selectionStart);
-        // var rightPart = mainArea.value.substr(mainArea.selectionStart, mainArea.value.length);
-        // mainArea.value = leftPart + "strInsert" + rightPart;
-        // this.state.content.content = mainArea.value;
-        // this.setState({ content: this.state.content });
+    insertImage(image){
+
+        var image_txt = image;
+
+        var mainArea = document.getElementById('main_area');
+        var leftPart = mainArea.value.substr(0, mainArea.selectionStart);
+        var rightPart = mainArea.value.substr(mainArea.selectionStart, mainArea.value.length);
+        mainArea.value = leftPart + image_txt + rightPart;
+        this.state.content.content = mainArea.value;
+        this.setState({ content: this.state.content });
+        this.setState({display_image: false});
     }
 };
 

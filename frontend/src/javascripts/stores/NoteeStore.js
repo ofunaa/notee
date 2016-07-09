@@ -4,6 +4,8 @@ import NoteeConstants from '../constants/NoteeConstants'
 import assign from 'object-assign'
 import request from 'superagent'
 
+var CHANGE_EVENT = 'change';
+
 var EventEmitter = require('events').EventEmitter;
 
 function notee_create(content) {
@@ -33,15 +35,13 @@ function notee_delete(notee_id){
 }
 
 function image_create(content){
-
-    console.log(content);
-
     request
         .post("/notee/api/images")
         .attach("image", content)
         .end(function(err, res){
             console.log(err);
             console.log(res.body);
+            NoteeStore.emitChange();
         })
 }
 
@@ -65,6 +65,14 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         request.get('/notee/api/images', (err, res) => {
             callback(res.body.images);
         });
+    },
+
+    emitChange: function() {
+        this.emit(CHANGE_EVENT);
+    },
+
+    addChangeListener: function(callback) {
+        this.on(CHANGE_EVENT, callback);
     }
 
 });
@@ -83,7 +91,6 @@ NoteeDispatcher.register(function(action) {
             break;
 
         case NoteeConstants.IMAGE_CREATE:
-            console.log(action.content);
             image_create(action.content);
             break;
 
