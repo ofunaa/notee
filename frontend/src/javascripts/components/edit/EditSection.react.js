@@ -250,7 +250,7 @@ export default class EditSection extends Component {
 
     insertImage(image){
 
-        var image_txt = image;
+        var image_txt = "![](" + image + ")";
 
         var mainArea = document.getElementById('main_area');
         var leftPart = mainArea.value.substr(0, mainArea.selectionStart);

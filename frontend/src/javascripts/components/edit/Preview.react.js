@@ -1,6 +1,12 @@
 import React from 'react'
+import marked from 'marked'
 
 var Preview = React.createClass({
+
+    componentWillReceiveProps(){
+        var preview = document.getElementById('preview');
+        preview.innerHTML = marked(this.props.content.content);
+    },
 
     render() {
         var style = {
@@ -21,8 +27,9 @@ var Preview = React.createClass({
                 }
             }
         }
-        
+
         var content = this.props.content;
+
         return(
             <div style={style.preview.main}>
                 <h3>Preview</h3>
@@ -30,7 +37,7 @@ var Preview = React.createClass({
                 <p style={style.preview.p}>{content.title}</p>
 
                 <p style={style.preview.p}>content:</p>
-                <p style={style.preview.p}>{content.content}</p>
+                <div id="preview"></div>
             </div>
         );
     }
