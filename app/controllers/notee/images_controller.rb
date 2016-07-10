@@ -34,17 +34,9 @@ module Notee
       # end
     end
 
-    def update
-      if @image.update(image_params)
-        redirect_to @image, notice: 'Post was successfully updated.'
-      else
-        render :edit
-      end
-    end
-
     def destroy
       @image.destroy
-      redirect_to images_url, notice: 'Post was successfully destroyed.'
+      render json: { status: 'success'}
     end
 
     private

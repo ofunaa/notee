@@ -4,7 +4,6 @@ import NoteeConstants from '../constants/NoteeConstants'
 var NoteeActions = {
 
     notee_create: function(content) {
-
         NoteeDispatcher.dispatch({
             type: NoteeConstants.NOTEE_CREATE,
             content: content
@@ -32,12 +31,33 @@ var NoteeActions = {
         });
     },
 
-    image_delete: function(notee_id){
+    image_delete: function(image_id){
         NoteeConstants.dispatch({
             type: NoteeConstants.IMAGE_DELETE,
-            notee_id: notee_id
+            image_id: image_id
         });
-    }
+    },
+
+    category_create: function(content) {
+        NoteeDispatcher.dispatch({
+            type: NoteeConstants.CATEGORY_CREATE,
+            content: content
+        });
+    },
+
+    category_update: function(content){
+        NoteeDispatcher.dispatch({
+            type: NoteeConstants.CATEGORY_UPDATE,
+            content: content
+        });
+    },
+
+    category_delete: function(category_id){
+        NoteeConstants.dispatch({
+            type: NoteeConstants.CATEGORY_DELETE,
+            category_id: category_id
+        });
+    },
     
 }
 

@@ -1,5 +1,15 @@
 import React, {Component, PropTypes} from 'react'
+import marked from 'marked'
+import highlight from 'highlight.js'
 var request = require('superagent');
+
+marked.setOptions({
+    sanitize: false,
+    langPrefix : 'hljs lang-',
+    highlight: function (code) {
+        return highlight.highlightAuto(code).value;
+    }
+});
 
 export default class ShowSection extends Component {
 
@@ -22,10 +32,7 @@ export default class ShowSection extends Component {
                 <p>_________________________</p>
                 <p>title:　{this.state.post.title}</p>
                 <p>content:　{this.state.post.content}</p>
-                <p>slug:　{this.state.post.slug}</p>
-                <p>status:　{this.state.post.status}</p>
-                <p>seo_keyword:　{this.state.post.seo_keyword}</p>
-                <p>seo_description:　{this.state.post.seo_description}</p>
+                <div id="preview"></div>
             </div>
         );
     }
@@ -34,6 +41,8 @@ export default class ShowSection extends Component {
         var url = "/notee/api/posts/" + this.props.params.id
         request.get(url, (err, res) => {
             this.setState({post: res.body.post});
+            var preview = document.getElementById('preview');
+            preview.innerHTML = marked(this.state.post.content);
         })
     }
 

@@ -48,7 +48,7 @@ EOC
 
   def create_initializer_file
     file_path = "#{Rails.root}/config/initializers/notee.rb"
-    return unless File.exist?(file_path)
+    return if File.exist?(file_path)
 
     str = <<EOC
 require 'notee'
@@ -66,8 +66,6 @@ EOC
     end
     puts 'create file in "config/initializers/notee.rb"'
     puts 'you should change notee_id & notee_password'
-    puts ""
-    puts ""
   end
 
 end

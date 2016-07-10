@@ -17,7 +17,7 @@ export default class Header extends Component {
 
         return (
             <header style={style.header.main}>
-                <h1><Link to='/notee' >Icarus</Link></h1>
+                <h1><Link to='/notee' >Notee</Link></h1>
             </header>
         );
     }

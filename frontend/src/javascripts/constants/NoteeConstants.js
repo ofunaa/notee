@@ -6,6 +6,10 @@ module.exports = keyMirror({
     NOTEE_DELETE: null,
 
     IMAGE_CREATE: null,
-    IMAGE_DELETE: null
+    IMAGE_DELETE: null,
+
+    CATEGORY_CREATE: null,
+    CATEGORY_UPDATE: null,
+    CATEGORY_DELETE: null
 
 });
