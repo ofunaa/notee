@@ -111,7 +111,7 @@ export default class Image extends Component {
                             <img
                                 key={image.id}
                                 class={image.id}
-                                src={image.content}
+                                src={window.location.origin + "/notee/" + image.content}
                                 style={style.image.image}
                                 onClick={this.clickImage}
                             />

@@ -33,7 +33,7 @@ var Preview = React.createClass({
                     overflowY: "scroll",
                     wordWrap: "break-word",
                     zIndex: "10000",
-                    backgroundColor: "#333"
+                    backgroundColor: "#fff"
                 },
                 p: {
                     width: "100%",

@@ -66,10 +66,8 @@ export default class EditSection extends Component {
         var style = {
             layout: {
                 half: {
-                    width: "48%",
-                    maxWidth: "48%",
-                    marginRight: "1%",
-                    marginLeft: "1%",
+                    width: "50%",
+                    maxWidth: "50%",
                     float: "left"
                 }
             }

@@ -9,8 +9,7 @@ export default class EditForm extends Component {
         super(props);
         this.state = {
             is_saving: false,
-            display_image: false,
-            
+            display_image: false
         };
 
         this.saveContent = this.saveContent.bind(this);
@@ -75,7 +74,7 @@ export default class EditForm extends Component {
             <div class="main">
                 {(() => {
                     if (this.state.display_image) {
-                        return (<EditImage imageInsert={this.insertImage} />);
+                        return (<EditImage imageInsert={this.insertImage}/>);
                     }
                 })()}
 
@@ -185,8 +184,7 @@ export default class EditForm extends Component {
         var leftPart = mainArea.value.substr(0, mainArea.selectionStart);
         var rightPart = mainArea.value.substr(mainArea.selectionStart, mainArea.value.length);
         mainArea.value = leftPart + image_txt + rightPart;
-        this.state.content.content = mainArea.value;
-        this.setState({ content: this.state.content });
+        this.props.content.content = mainArea.value;
         this.setState({display_image: false});
     }
 };
