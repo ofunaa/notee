@@ -21,9 +21,11 @@ injectTapEventPlugin();
 export default class NoteeApp extends React.Component {
     render () {
         return (
-            <div>
+            <div className="grid_start">
                 <NoteeHeader />
-                {this.props.children}
+                    <div className="ninety grid" style={{margin: "3%", padding: "2%"}}>
+                    {this.props.children}
+                    </div>
                 <NoteeFooter />
             </div>
         );
