@@ -26,8 +26,9 @@ export default class IndexSection extends Component {
         return (
             <div id="list">
                 <Link to='/notee/new' >new</Link>
+                <Link to='/notee/category' >category</Link>
+                <Link to='/notee/image' >image</Link>
                 {this.state.posts.map((post, index)=>{
-
                     return(
                         <div key={index} >
                             <p>_________________________</p>

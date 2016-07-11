@@ -143,8 +143,6 @@ export default class EditSection extends Component {
             return <option key={index} value={category.id}>{category.name}</option>;
         });
 
-        console.log(new_categories);
-
         return (
             <div class="main">
                 {(() => {

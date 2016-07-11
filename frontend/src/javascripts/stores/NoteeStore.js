@@ -26,9 +26,9 @@ function notee_update(content) {
         })
 }
 
-function notee_delete(notee_id){
+function notee_delete(notee_src){
     request
-        .delete("/notee/api/posts/" + notee_id)
+        .del("/notee/api/posts/" + notee_src)
         .end(function(err, res){
             console.log(res.body);
         })
@@ -45,9 +45,13 @@ function image_create(content){
         })
 }
 
-function image_delete(image_id){
+function image_delete(image_src){
+
+    var a = image_src.split("/notee/");
+    console.log(a);
+
     request
-        .delete("/notee/api/images/" + image_id)
+        .del("/notee/api/images/0?name=" + a[1])
         .end(function(err, res){
             console.log(res.body);
         })
@@ -73,7 +77,7 @@ function category_update(content) {
 
 function category_delete(category_id){
     request
-        .delete("/notee/api/categories/" + category_id)
+        .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
             console.log(res.body);
         })
@@ -138,7 +142,7 @@ NoteeDispatcher.register(function(action) {
             image_create(action.content);
             break;
         case NoteeConstants.IMAGE_DELETE:
-            image_delete(action.image_id);
+            image_delete(action.image_src);
             break;
 
         // category

@@ -9,7 +9,7 @@ export default class Header extends Component {
             header: {
                 main: {
                     width: "100%",
-                    height: "60px",
+                    height: "auto",
                     float: "left",
                 }
             }

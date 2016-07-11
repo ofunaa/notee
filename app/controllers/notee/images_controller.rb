@@ -9,9 +9,6 @@ module Notee
       render json: { status: 'success', images: @images}
     end
 
-    def show
-    end
-
     def create
 
       @image = Image.new
@@ -24,19 +21,22 @@ module Notee
           format.json { render json: @image.errors, status: :unprocessable_entity }
         end
       end
-
-      # @image = Post.new(image_params)
-      #
-      # if @image.save
-      #   redirect_to @image, notice: 'Post was successfully created.'
-      # else
-      #   render :new
-      # end
     end
 
     def destroy
-      @image.destroy
-      render json: { status: 'success'}
+      return unless @del_img = Image.find_by(content: params[:name])
+
+      Image.transaction do
+        image_dir = Rails.root.to_s + "/public/notee/"
+        File.delete(image_dir + @del_img.content)
+        respond_to do |format|
+          if @del_img.destroy
+            format.json { render json: @del_img, status: 200 }
+          else
+            format.json { render json: @del_img.errors, status: :internal_server_error }
+          end
+        end
+      end
     end
 
     private

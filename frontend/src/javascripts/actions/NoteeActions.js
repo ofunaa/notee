@@ -18,7 +18,7 @@ var NoteeActions = {
     },
     
     notee_delete: function(notee_id){
-        NoteeConstants.dispatch({
+        NoteeDispatcher.dispatch({
             type: NoteeConstants.NOTEE_DELETE,
             notee_id: notee_id
         });
@@ -31,10 +31,10 @@ var NoteeActions = {
         });
     },
 
-    image_delete: function(image_id){
-        NoteeConstants.dispatch({
+    image_delete: function(image_src){
+        NoteeDispatcher.dispatch({
             type: NoteeConstants.IMAGE_DELETE,
-            image_id: image_id
+            image_src: image_src
         });
     },
 
@@ -53,7 +53,7 @@ var NoteeActions = {
     },
 
     category_delete: function(category_id){
-        NoteeConstants.dispatch({
+        NoteeDispatcher.dispatch({
             type: NoteeConstants.CATEGORY_DELETE,
             category_id: category_id
         });

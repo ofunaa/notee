@@ -7,7 +7,8 @@ import Header from './components/layout/Header.react'
 import Footer from './components/layout/Footer.react'
 import IndexSection from './components/index/IndexSection.react.js'
 import EditSection  from './components/edit/EditSection.react.js'
-import ShowSection  from './components/show/ShowSection.react.js'
+import CategorySection  from './components/category/CategorySection.react.js'
+import ImageSection  from './components/image/ImageSection.react.js'
 
 
 export default class NoteeApp extends React.Component {
@@ -26,7 +27,8 @@ const routes = (
     <Route path='notee' component={NoteeApp} >
         <Route path='new' component={EditSection} />
         <Route path='edit/:id' component={EditSection} />
-        <Route path='show/:id' component={ShowSection} />
+        <Route path='category' component={CategorySection} />
+        <Route path='image' component={ImageSection} />
         <IndexRoute component={IndexSection}/>
     </Route>
 );
