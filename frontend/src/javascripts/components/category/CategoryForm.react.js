@@ -1,6 +1,11 @@
 import React, {Component, PropTypes} from 'react'
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeStore from '../../stores/NoteeStore';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 export default class CategoryForm extends Component {
 
@@ -25,50 +30,66 @@ export default class CategoryForm extends Component {
 
     render() {
 
-        var new_categories = []
 
-        this.props.categories.map(function(category) {new_categories.push(category);});
-        new_categories.unshift({id: null, name: "none"});
-        var use_categories = new_categories.map(function(category, index) {
-            return <option key={index} value={category.id}>{category.name}</option>;
+        var use_categories =this.props.categories.map(function(category, index) {
+            return <MenuItem key={index} value={category.id} primaryText={category.name} />;
         });
 
-        var category_status = { content: ["published", "secret_published", "privated", "deleted"]}
-        var statues = category_status.content.map(function(status) {
-            return <option key={status} value={status}>{status}</option>;
+        var statues = ["published", "secret_published", "privated", "deleted"].map(function(status) {
+            return <MenuItem key={status} value={status} primaryText={status}/>
         });
 
         return(
-            <div>
-                <p>Name:</p>
-                <input
-                    type="text"
-                    value={this.state.new_category.name}
-                    onChange={this.handleChangeNewCategoryName}
-                />
-                <p>Slug:</p>
-                <input
-                    type="text"
-                    value={this.state.new_category.slug}
-                    onChange={this.handleChangeNewCategorySlug}
-                />
-                <p>Parent_ID:</p>
-                <select
-                    type="select"
-                    value={this.state.new_category.parent_id}
-                    onChange={this.handleChangeNewCategoryParentId}>
-                    {use_categories}
-                </select>
-                <p>Status:</p>
-                <select
-                    type="select"
-                    value={this.state.new_category.status}
-                    onChange={this.handleChangeNewCategoryStatus}>
-                    {statues}
-                </select>
-                <button
-                    onClick={this.pushCategory}>create Category</button>
-            </div>
+            <Card style={{paddingBottom: "50px"}}>
+                <CardHeader title={<h3>Create New Category</h3>} />
+                <CardText>
+                    <TextField
+                        hintText="Category Name"
+                        type="text"
+                        value={this.state.new_category.name}
+                        onChange={this.handleChangeNewCategoryName}
+                        className="mb_15"
+                        style={{width: "80%"}}
+                    />
+
+                    <TextField
+                        hintText="Slug"
+                        type="text"
+                        value={this.state.new_category.slug}
+                        onChange={this.handleChangeNewCategorySlug}
+                        className="mb_15"
+                        style={{width: "80%"}}
+                    />
+
+                    <SelectField
+                        value={this.state.new_category.parent_id}
+                        onChange={this.handleChange}
+                        hintText="Parent Category ID"
+                        className="mb_15"
+                        style={{width: "80%"}}>
+
+                        <MenuItem value={1} primaryText="None" />
+                        {use_categories}
+                    </SelectField>
+
+                    <SelectField
+                        value={this.state.new_category.status}
+                        onChange={this.handleChange}
+                        hintText="Status"
+                        className="mb_15"
+                        style={{width: "80%"}}>
+
+                        {statues}
+                    </SelectField>
+
+                    <RaisedButton
+                        label="Create Category"
+                        primary={true}
+                        onClick={this.pushCategory}
+                        className="mb_15"
+                        style={{float: "right"}}/>
+                </CardText>
+            </Card>
         );
     }
 
@@ -90,6 +111,9 @@ export default class CategoryForm extends Component {
     }
 
     pushCategory(){
+
+        if(this.state.new_category.name == ""){ return false; }
+
         NoteeActions.category_create(this.state.new_category);
         NoteeStore.loadAllCategories(this.props.ajaxLoad);
         this.setState({
