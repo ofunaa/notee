@@ -86,9 +86,6 @@ export default class ImageSection extends Component {
 
         return (
             <div style={style.image.main}>
-                <Link to='/notee/new' >new</Link>
-                <Link to='/notee/category' >category</Link>
-                <Link to='/notee/image' >image</Link>
                 <div style={style.image.header}>
                     <input
                         style={style.form.input_file}

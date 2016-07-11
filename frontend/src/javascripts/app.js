@@ -3,21 +3,28 @@ import ReactDOM from 'react-dom';
 
 import {Router, Route, IndexRoute, browserHistory} from "react-router"
 
-import Header from './components/layout/Header.react'
-import Footer from './components/layout/Footer.react'
+import NoteeHeader from './components/layout/NoteeHeader.react.js'
+import NoteeFooter from './components/layout/NoteeFooter.react.js'
 import IndexSection from './components/index/IndexSection.react.js'
 import EditSection  from './components/edit/EditSection.react.js'
 import CategorySection  from './components/category/CategorySection.react.js'
 import ImageSection  from './components/image/ImageSection.react.js'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+
+injectTapEventPlugin();
 
 export default class NoteeApp extends React.Component {
     render () {
         return (
             <div>
-                <Header />
+                <NoteeHeader />
                 {this.props.children}
-                <Footer />
+                <NoteeFooter />
             </div>
         );
     }
@@ -35,7 +42,9 @@ const routes = (
 
 window.onload = function(){
     ReactDOM.render(
-        <Router history={browserHistory} routes={routes} />,
+        <MuiThemeProvider>
+            <Router history={browserHistory} routes={routes} />
+        </MuiThemeProvider>,
         document.getElementById('react')
     )
 }

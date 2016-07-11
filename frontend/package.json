@@ -28,6 +28,7 @@
     "highlight.js": "^9.5.0",
     "keymirror": "~0.1.0",
     "marked": "^0.3.5",
+    "material-ui": "^0.15.2",
     "object-assign": "^1.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",

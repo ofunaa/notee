@@ -25,21 +25,12 @@ export default class IndexSection extends Component {
 
         return (
             <div id="list">
-                <Link to='/notee/new' >new</Link>
-                <Link to='/notee/category' >category</Link>
-                <Link to='/notee/image' >image</Link>
                 {this.state.posts.map((post, index)=>{
                     return(
-                        <div key={index} >
-                            <p>_________________________</p>
+                        <div key={index} style={{borderBottom: "1px #dcdcdc solid", width: "94%", padding: "3%", float: "left"}}>
                             <p>title:　{post.title}</p>
-                            <p>slug:　{post.slug}</p>
-                            <p>status:　{post.status}</p>
-                            <p>seo_keyword:　{post.seo_keyword}</p>
-                            <p>seo_description:　{post.seo_description}</p>
-                            <p>{post.id}</p>
+                            <p>update:　{post.updated_at}</p>
                             <p><Link to={`/notee/edit/${post.id}`} activeClassName="active">Edit</Link></p>
-                            <p><Link to={`/notee/show/${post.id}`} activeClassName="active">Preview</Link></p>
                         </div>
                     );
                 })}

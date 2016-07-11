@@ -99,9 +99,6 @@ export default class CategorySection extends Component {
 
         return (
             <div class="main">
-                <Link to='/notee/new' >new</Link>
-                <Link to='/notee/category' >category</Link>
-                <Link to='/notee/image' >image</Link>
                 <div>
                     <p>Name:</p>
                     <input
@@ -147,7 +144,7 @@ export default class CategorySection extends Component {
                                 <p>slug: {category.slug}</p>
                                 <p>parent_id: {category.parent_id}</p>
                                 <p>status: {category.status}</p>
-                                <button id={category.id} onClick={this.deleteCategory}>create Category</button>
+                                <button id={category.id} onClick={this.deleteCategory}>Delete Category</button>
                             </div>
                         );
                     })}

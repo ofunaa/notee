@@ -44,7 +44,7 @@ export default class Image extends Component {
                     height: "100%",
                     float: "left",
                     position: "fixed",
-                    zIndex: "100",
+                    zIndex: "100000",
                     backgroundColor: "rgba(30, 30, 30, 0.9)",
                 },
                 header: {
