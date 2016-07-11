@@ -74,7 +74,7 @@ export default class EditForm extends Component {
             <div class="main">
                 {(() => {
                     if (this.state.display_image) {
-                        return (<EditImage imageInsert={this.insertImage}/>);
+                        return (<EditImage imageInsert={this.insertImage} pushImage={this.pushImage}/>);
                     }
                 })()}
 

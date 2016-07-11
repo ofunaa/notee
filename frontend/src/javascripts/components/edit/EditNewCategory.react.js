@@ -44,7 +44,8 @@ export default class EditNewCategory extends Component {
                         var style = {
                             form: {
                                 new_category: {
-                                    backgroundColor: "#dcdcdc"
+                                    backgroundColor: "#dcdcdc",
+                                    padding: "5px"
                                 },
                                 input_text: {
                                     width: "100%",
@@ -116,7 +117,7 @@ export default class EditNewCategory extends Component {
     
 
     createCategory(){
-        this.setState({create_category: true});
+        this.setState({create_category: !this.state.create_category});
     }
 
     pushCategory(){

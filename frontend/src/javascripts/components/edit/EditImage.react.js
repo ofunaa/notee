@@ -40,30 +40,36 @@ export default class Image extends Component {
         var style = {
             image: {
                 main: {
-                    width: "100%",
-                    height: "100%",
+                    width: "90%",
+                    height: "90%",
                     float: "left",
                     position: "fixed",
                     zIndex: "100000",
                     backgroundColor: "rgba(30, 30, 30, 0.9)",
+                    marginTop: "-80px",
+                    overflowY: "scroll",
+                    color: "white"
                 },
                 header: {
                     width: "100%",
-                    height: "10%",
+                    height: "4%",
                     float: "left",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)"
+                    padding: "3%",
+                    borderBottom: "1px solid #fff"
                 },
                 left: {
-                    width: "70%",
-                    height: "80%",
-                    paddingTop: "30px",
+                    width: "55%",
+                    height: "75%",
+                    padding: "5%",
                     float: "left",
                     overflowY: "scroll"
                 },
                 right: {
-                    width: "30%",
-                    height: "90%",
-                    float: "left"
+                    width: "20%",
+                    height: "80%",
+                    padding: "5%",
+                    float: "left",
+                    borderLeft: "1px solid #fff"
                 },
                 image: {
                     width: "200px",
@@ -73,20 +79,12 @@ export default class Image extends Component {
                     marginBottom: "10px"
                 },
                 preview: {
-                    width: "90%",
-                    height: "auto",
-                    marginLeft: "5%",
-                    paddingTop: "30px",
-                    float: "left"
-                }
-            },
-
-            form: {
-                input_file: {
-
+                    width: "100%",
+                    height: "auto"
                 },
-                button: {
-
+                close: {
+                    float: "right",
+                    marginRight: "10%"
                 }
             }
         }
@@ -95,15 +93,13 @@ export default class Image extends Component {
             <div style={style.image.main}>
                 <div style={style.image.header}>
                     <input
-                        style={style.form.input_file}
                         type="file"
                         ref="image"
                         value={this.state.image}
                         onChange={this.handleChangeImage}
                     />
-                    <button
-                        style={style.form.button}
-                        onClick={this.uploadImage}>Upload</button>
+                    <button onClick={this.uploadImage}>Upload</button>
+                    <button onClick={this.props.pushImage} style={style.image.close}>閉じる</button>
                 </div>
                 <div style={style.image.left}>
                     {this.state.images.map((image)=>{
@@ -123,9 +119,7 @@ export default class Image extends Component {
                         <img style={style.image.preview} src={this.state.tap_image} />
                     </div>
                     <div>
-                        <button
-                            style={style.form.button}
-                            onClick={this.addImage}>Add</button>
+                        <button onClick={this.addImage}>Add</button>
                     </div>
                 </div>
             </div>
