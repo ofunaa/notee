@@ -1,13 +1,15 @@
-import React, {Component, PropTypes} from 'react'
-import { Link } from "react-router"
+import React, {Component, PropTypes} from 'react';
+import { Link } from "react-router";
 import NoteeStore from '../../stores/NoteeStore';
+import RaisedButton from 'material-ui/RaisedButton';
+import IndexTable from './IndexTable.react';
 
 export default class IndexSection extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            notees: []
         }
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
@@ -18,22 +20,17 @@ export default class IndexSection extends Component {
     }
 
     ajaxLoaded(contents) {
-        this.setState({posts: contents});
+        this.setState({notees: contents});
     }
 
     render() {
 
         return (
             <div id="list">
-                {this.state.posts.map((post, index)=>{
-                    return(
-                        <div key={index} style={{borderBottom: "1px #dcdcdc solid", width: "94%", padding: "3%", float: "left"}}>
-                            <p>title:　{post.title}</p>
-                            <p>update:　{post.updated_at}</p>
-                            <p><Link to={`/notee/edit/${post.id}`} activeClassName="active">Edit</Link></p>
-                        </div>
-                    );
-                })}
+                <Link to={`/notee/new`} activeClassName="active">
+                    <RaisedButton label="NEW Notee!!" primary={true} />
+                </Link>
+                <IndexTable notees={this.state.notees} ajaxLoad={this.ajaxLoaded} />
             </div>
         );
     }
