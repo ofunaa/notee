@@ -37,13 +37,15 @@ export default class EditNewCategory extends Component {
         return (
             <div>
                 <button
-                    style={style.form.button}
                     onClick={this.createCategory}>create category?</button>
-                
+
                     {(() => {
 
                         var style = {
                             form: {
+                                new_category: {
+                                    backgroundColor: "#dcdcdc"
+                                },
                                 input_text: {
                                     width: "100%",
                                     height: "30px",
@@ -69,7 +71,7 @@ export default class EditNewCategory extends Component {
                             });
 
                             return (
-                                <div>
+                                <div style={style.form.new_category}>
                                     <p>Name:</p>
                                     <input
                                         style={style.form.input_text}
@@ -118,8 +120,10 @@ export default class EditNewCategory extends Component {
     }
 
     pushCategory(){
-        NoteeActions.category_create(this.state.new_category);
-        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
+        if(this.state.new_category.name){
+            NoteeActions.category_create(this.state.new_category);
+            NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
+        }
         this.setState({create_category: false});
     }
 

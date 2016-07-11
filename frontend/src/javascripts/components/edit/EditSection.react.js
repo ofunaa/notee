@@ -5,6 +5,7 @@ import EditPreview  from './EditPreview.react.js';
 
 export default class EditSection extends Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +18,8 @@ export default class EditSection extends Component {
                 thumbnail_id: "",
                 seo_keyword: "",
                 seo_description: ""
-            }
+            },
+            categories: []
         };
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
@@ -61,11 +63,35 @@ export default class EditSection extends Component {
 
     render() {
 
+        var style = {
+            layout: {
+                half: {
+                    width: "48%",
+                    maxWidth: "48%",
+                    marginRight: "1%",
+                    marginLeft: "1%",
+                    float: "left"
+                }
+            }
+        }
+
+        var handleChanges = {
+            title: this.handleChangeTitle,
+            content: this.handleChangeContent,
+            slug: this.handleChangeSlug,
+            status: this.handleChangeStatus,
+            category_id: this.handleChangeCategoryId,
+            seo_keyword: this.handleChangeSeoKeyword,
+            seo_description: this.handleChangeSeoDescription
+        }
+
         return (
             <div class="main">
                 <EditForm
                     content={this.state.content}
-                    changeTitle={this.handleChangeTitle}
+                    handleChanges={handleChanges}
+                    statuses={this.props.statuses}
+                    categories={this.state.categories}
                 />
                 <EditPreview
                     style={style.layout.half}
@@ -76,7 +102,6 @@ export default class EditSection extends Component {
 
 
     handleChangeTitle(e) {
-        console.log("aaaaaaaaa");
         this.state.content.title = e.target.value;
         this.setState({ content: this.state.content });
     }
@@ -106,3 +131,5 @@ export default class EditSection extends Component {
     }
 
 };
+
+EditSection.defaultProps = {statuses: ["draft", "published", "secret_published", "privated", "deleted"]};

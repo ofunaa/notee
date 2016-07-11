@@ -9,7 +9,8 @@ export default class EditForm extends Component {
         super(props);
         this.state = {
             is_saving: false,
-            categories: []
+            display_image: false,
+            
         };
 
         this.saveContent = this.saveContent.bind(this);
@@ -62,11 +63,11 @@ export default class EditForm extends Component {
             }
         }
 
-        var statues = this.props.statuses.map(function(status) {
+        var statuses = this.props.statuses.map(function(status) {
             return <option key={status} value={status}>{status}</option>;
         });
 
-        var categories = this.state.categories.map(function(category) {
+        var categories = this.props.categories.map(function(category) {
             return <option key={category.id} value={category.id}>{category.name}</option>;
         });
 
@@ -84,7 +85,7 @@ export default class EditForm extends Component {
                         style={style.form.input_text}
                         type="text"
                         value={this.props.content.title}
-                        onChange={this.props.changeTitle}
+                        onChange={this.props.handleChanges.title}
                     />
                     <p>Content:</p>
                     <button
@@ -95,56 +96,53 @@ export default class EditForm extends Component {
                         style={style.form.main_area}
                         type="textarea"
                         value={this.props.content.content}
-                        onChange={this.handleChangeContent}
+                        onChange={this.props.handleChanges.content}
                     />
                     <p>slug:</p>
                     <input
                         style={style.form.input_text}
                         type="text"
                         value={this.props.content.slug}
-                        onChange={this.handleChangeSlug}
+                        onChange={this.props.handleChanges.slug}
                     />
                     <p>status:</p>
                     <select
                         style={style.form.select}
                         type="select"
                         value={this.props.content.status}
-                        onChange={this.handleChangeStatus}>
-                        {statues}
+                        onChange={this.props.handleChanges.status}>
+                        {statuses}
                     </select>
                     <p>category:</p>
                     <select
                         style={style.form.select}
                         type="select"
                         value={this.props.content.category_id}
-                        onChange={this.handleChangeCategoryId}>
+                        onChange={this.props.handleChanges.category_id}>
                         <option value="none">None</option>
                         {categories}
                     </select>
 
-                    <EditNewCategory categories={this.state.categories} />
+                    <EditNewCategory categories={this.props.categories} />
 
                     <p>seo_keyword:</p>
                     <input
                         style={style.form.input_text}
                         type="text"
                         value={this.props.content.seo_keyword}
-                        onChange={this.handleChangeSeoKeyword}
+                        onChange={this.props.handleChanges.seo_keyword}
                     />
                     <p>seo_description:</p>
                     <textarea
                         style={style.form.textarea}
                         type="textarea"
                         value={this.props.content.seo_description}
-                        onChange={this.handleChangeSeoDescription}
+                        onChange={this.props.handleChanges.seo_description}
                     />
                     <button
                         style={style.form.button}
                         onClick={this.saveContent}>Submit</button>
                 </div>
-                <EditPreview
-                    style={style.layout.half}
-                    content = {this.state.content}/>
             </div>
         );
     }
@@ -193,4 +191,3 @@ export default class EditForm extends Component {
     }
 };
 
-EditForm.defaultProps = {statuses: ["draft", "published", "secret_published", "privated", "deleted"]};

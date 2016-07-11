@@ -9,7 +9,6 @@ export default class Image extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display_image: false,
             images: [],
             image_url: "",
             upload_file: null,
