@@ -3,14 +3,11 @@ require_dependency "notee/application_controller"
 
 module Notee
   class CategoriesController < ApplicationController
+    before_action :set_category, only: [:update, :destroy]
 
     def index
       @categories = Category.all
       render json: { status: 'success', categories: @categories}
-    end
-
-    def show
-      render json: { status: 'success', cateory: @category}
     end
 
     def create
@@ -35,8 +32,13 @@ module Notee
     end
 
     def destroy
-      @category.destroy
-      render json: { status: 'success'}
+      respond_to do |format|
+        if @category.destroy
+          format.json { render json: @category, status: 200 }
+        else
+          format.json { render json: @category.errors, status: :internal_server_error }
+        end
+      end
     end
 
     private
@@ -45,7 +47,7 @@ module Notee
       params.require(:category).permit(:name, :content, :slug, :status, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
     end
 
-    def set_post
+    def set_category
       @category = Category.find_by(id: params[:id])
     end
 

@@ -20,6 +20,7 @@ export default class CategorySection extends Component {
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
         this.pushCategory = this.pushCategory.bind(this);
         this.createCategory = this.createCategory.bind(this);
+        this.deleteCategory = this.deleteCategory.bind(this);
 
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
         this.handleChangeNewCategorySlug = this.handleChangeNewCategorySlug.bind(this);
@@ -83,20 +84,17 @@ export default class CategorySection extends Component {
             }
         }
 
-        var category_status = { content: ["published", "secret_published", "privated", "deleted"]}
-        var statues = category_status.content.map(function(status) {
-            return <option key={status} value={status}>{status}</option>;
-        });
-
         var new_categories = []
-        var categories = this.state.categories.map(function(category) {
-            new_categories.push(category);
-            return <option key={category.id} value={category.id}>{category.name}</option>;
-        });
 
+        this.state.categories.map(function(category) {new_categories.push(category);});
         new_categories.unshift({id: null, name: "none"});
         var use_categories = new_categories.map(function(category, index) {
             return <option key={index} value={category.id}>{category.name}</option>;
+        });
+
+        var category_status = { content: ["published", "secret_published", "privated", "deleted"]}
+        var statues = category_status.content.map(function(status) {
+            return <option key={status} value={status}>{status}</option>;
         });
 
         return (
@@ -139,6 +137,21 @@ export default class CategorySection extends Component {
                         style={style.image_button}
                         onClick={this.pushCategory}>create Category</button>
                 </div>
+                <div>
+                    {this.state.categories.map((category)=>{
+                        return(
+                            <div key={category.id}>
+                                <p>-----------------------</p>
+                                <p>id: {category.id}</p>
+                                <p>name: {category.name}</p>
+                                <p>slug: {category.slug}</p>
+                                <p>parent_id: {category.parent_id}</p>
+                                <p>status: {category.status}</p>
+                                <button id={category.id} onClick={this.deleteCategory}>create Category</button>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         );
     }
@@ -161,8 +174,6 @@ export default class CategorySection extends Component {
         this.setState({ new_category: this.state.new_category });
     }
 
-
-
     createCategory(){
         this.setState({create_category: true});
     }
@@ -171,5 +182,11 @@ export default class CategorySection extends Component {
         NoteeActions.category_create(this.state.new_category);
         NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
         this.setState({create_category: false});
+    }
+
+    deleteCategory(e){
+        console.log(e.target.id);
+        NoteeActions.category_delete(e.target.id);
+        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 };
