@@ -1,5 +1,13 @@
-<%= form_tag(tokens_path) do %>
-  <%= text_field_tag :id %>
-  <%= password_field_tag :password %>
-  <%= submit_tag "登録"  %>
-<% end %>
+<div class="grid_start login_bg">
+  <div class="fourty grid offset_by_twenty_five mt_60 login">
+    <h1>Notee</h1>
+    <p>Notee is creating blog gem by only one command</p>
+    <%= form_tag(tokens_path, :class => 'mt_50') do %>
+      <h3>ID:</h3>
+      <%= text_field_tag :id %>
+      <h3>PASSWORD:</h3>
+      <%= password_field_tag :password %>
+      <%= submit_tag "ログイン", :class => 'full grid mt_50'  %>
+    <% end %>
+  </div>
+</div>
