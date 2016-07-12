@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    notee (0.2.4)
+    notee (0.2.5)
       rails
 
 GEM
