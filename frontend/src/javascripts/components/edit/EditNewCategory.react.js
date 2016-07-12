@@ -123,7 +123,7 @@ export default class EditNewCategory extends Component {
     pushCategory(){
         if(this.state.new_category.name){
             NoteeActions.category_create(this.state.new_category);
-            NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
+            NoteeStore.loadAllCategories(this.props.ajaxCategoryLoaded);
         }
         this.setState({create_category: false});
     }

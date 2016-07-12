@@ -90,6 +90,8 @@ export default class EditSection extends Component {
                     handleChanges={handleChanges}
                     statuses={this.props.statuses}
                     categories={this.state.categories}
+                    ajaxLoaded={this.ajaxLoaded}
+                    ajaxCategoryLoaded={this.ajaxCategoryLoaded}
                 />
                 <EditPreview
                     style={style.layout.half}

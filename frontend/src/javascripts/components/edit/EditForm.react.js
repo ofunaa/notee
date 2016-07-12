@@ -122,7 +122,9 @@ export default class EditForm extends Component {
                         {categories}
                     </select>
 
-                    <EditNewCategory categories={this.props.categories} />
+                    <EditNewCategory 
+                        categories={this.props.categories} 
+                        ajaxCategoryLoaded={this.props.ajaxCategoryLoaded} />
 
                     <p>seo_keyword:</p>
                     <input
