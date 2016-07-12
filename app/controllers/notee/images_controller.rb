@@ -26,15 +26,11 @@ module Notee
     def destroy
       return unless @del_img = Image.find_by(content: params[:name])
 
-      Image.transaction do
-        image_dir = Rails.root.to_s + "/public/notee/"
-        File.delete(image_dir + @del_img.content)
-        respond_to do |format|
-          if @del_img.destroy
-            format.json { render json: @del_img, status: 200 }
-          else
-            format.json { render json: @del_img.errors, status: :internal_server_error }
-          end
+      respond_to do |format|
+        if @del_img.destroy
+          format.json { render json: @del_img, status: 200 }
+        else
+          format.json { render json: @del_img.errors, status: :internal_server_error }
         end
       end
     end
