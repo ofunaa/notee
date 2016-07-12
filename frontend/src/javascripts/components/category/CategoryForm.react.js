@@ -16,8 +16,8 @@ export default class CategoryForm extends Component {
             new_category: {
                 name: "",
                 slug: "",
-                parent_id: "",
-                status: "published"
+                parent_id: 0,
+                status: ""
             }
         }
 
@@ -31,12 +31,12 @@ export default class CategoryForm extends Component {
     render() {
 
 
-        var use_categories =this.props.categories.map(function(category, index) {
-            return <MenuItem key={index} value={category.id} primaryText={category.name} />;
+        var use_categories = this.props.categories.map(function(category) {
+            return <MenuItem key={category.id} value={category.id} primaryText={category.name} />;
         });
 
-        var statues = ["published", "secret_published", "privated", "deleted"].map(function(status) {
-            return <MenuItem key={status} value={status} primaryText={status}/>
+        var statues = this.props.statuses.map(function(status, index) {
+            return <MenuItem key={index} value={index} primaryText={status}/>
         });
 
         return(
@@ -63,18 +63,18 @@ export default class CategoryForm extends Component {
 
                     <SelectField
                         value={this.state.new_category.parent_id}
-                        onChange={this.handleChange}
+                        onChange={(event, index, value) => this.handleChangeNewCategoryParentId(event, index, value)}
                         hintText="Parent Category ID"
                         className="mb_15"
                         style={{width: "80%"}}>
 
-                        <MenuItem value={1} primaryText="None" />
+                        <MenuItem value={0} primaryText="None" />
                         {use_categories}
                     </SelectField>
 
                     <SelectField
                         value={this.state.new_category.status}
-                        onChange={this.handleChange}
+                        onChange={this.handleChangeNewCategoryStatus}
                         hintText="Status"
                         className="mb_15"
                         style={{width: "80%"}}>
@@ -101,12 +101,12 @@ export default class CategoryForm extends Component {
         this.state.new_category.slug = e.target.value;
         this.setState({ new_category: this.state.new_category });
     }
-    handleChangeNewCategoryParentId(e){
-        this.state.new_category.parent_id = e.target.value;
+    handleChangeNewCategoryParentId(event, index, value){
+        this.state.new_category.parent_id = value;
         this.setState({ new_category: this.state.new_category });
     }
-    handleChangeNewCategoryStatus(e){
-        this.state.new_category.status = e.target.value;
+    handleChangeNewCategoryStatus(event, index, value){
+        this.state.new_category.status = value;
         this.setState({ new_category: this.state.new_category });
     }
 
@@ -120,9 +120,11 @@ export default class CategoryForm extends Component {
             new_category: {
                 name: "",
                 slug: "",
-                parent_id: "",
-                status: "published"
+                parent_id: 0,
+                status: ""
             }
         });
     }
 }
+
+CategoryForm.defaultProps = {statuses: ["published", "secret_published", "privated", "deleted"]};

@@ -44,7 +44,7 @@ module Notee
     private
 
     def category_params
-      params.require(:category).permit(:name, :content, :slug, :status, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
+      params.require(:category).permit(:name, :slug, :parent_id, :status)
     end
 
     def set_category
