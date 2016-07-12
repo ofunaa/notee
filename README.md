@@ -1,13 +1,20 @@
-= Notee
+# Notee
 
-This project rocks and uses MIT-LICENSE.
+Notee is creating blog gem by only one command.
 
-①bundle install
+## Installation
 
-②bundle exec rake notee:start
+```ruby
+gem 'notee'
+```
+    $ bundle install
+    $ bundle exec rake notee:start
 
-③bundle exec rake db:migrate
+## Contributing
 
-④bundle exec rails s
+Bug reports and pull requests are welcome on GitHub at https://github.com/maru-3/notee. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
-⑤open http://localhost:3000/notee
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
