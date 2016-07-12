@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import NoteeActions from '../../actions/NoteeActions';
 import EditImage  from './EditImage.react.js';
 import EditNewCategory  from './EditNewCategory.react.js';
 
@@ -12,7 +11,6 @@ export default class EditForm extends Component {
             display_image: false
         };
 
-        this.saveContent = this.saveContent.bind(this);
         this.pushImage = this.pushImage.bind(this);
         this.insertImage = this.insertImage.bind(this);
     }
@@ -62,8 +60,8 @@ export default class EditForm extends Component {
             }
         }
 
-        var statuses = this.props.statuses.map(function(status) {
-            return <option key={status} value={status}>{status}</option>;
+        var statuses = this.props.statuses.map(function(status, index) {
+            return <option key={index} value={index}>{status}</option>;
         });
 
         var categories = this.props.categories.map(function(category) {
@@ -142,33 +140,12 @@ export default class EditForm extends Component {
                     />
                     <button
                         style={style.form.button}
-                        onClick={this.saveContent}>Submit</button>
+                        onClick={this.props.saveContent}>Submit</button>
                 </div>
             </div>
         );
     }
-
-    saveContent(e){
-        if(this.props.params.id){
-            var item = {params_id: this.props.params.id, content: this.state.content}
-            NoteeActions.notee_update(item);
-        }else{
-            NoteeActions.notee_create(this.state.content);
-            this.setState({
-                content: {
-                    title: "",
-                    content: "",
-                    slug: "",
-                    status: this.props.statuses[0],
-                    category_id: "",
-                    thumbnail_id: "",
-                    seo_keyword: "",
-                    seo_description: ""
-                }
-            });
-        }
-    }
-
+    
     pushImage(e){
         switch (this.state.display_image){
             case true:
