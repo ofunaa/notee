@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency 'rails'
+  s.add_dependency 'sass'
 
-  s.add_development_dependency 'pry-stack_explorer'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'pry-doc'

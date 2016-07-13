@@ -3,6 +3,7 @@ PATH
   specs:
     notee (0.2.6)
       rails
+      sass
 
 GEM
   remote: https://rubygems.org/
@@ -113,6 +114,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.2.2)
+    sass (3.4.22)
     slop (3.6.0)
     sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
