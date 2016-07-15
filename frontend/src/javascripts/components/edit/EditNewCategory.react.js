@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import NoteeActions from '../../actions/NoteeActions';
+import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
 
 export default class EditNewCategory extends Component {
@@ -16,7 +17,7 @@ export default class EditNewCategory extends Component {
             }
         };
 
-        this.pushCategory = this.pushCategory.bind(this);
+        this.openCategoryForm = this.openCategoryForm.bind(this);
         this.createCategory = this.createCategory.bind(this);
 
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
@@ -24,6 +25,15 @@ export default class EditNewCategory extends Component {
         this.handleChangeNewCategoryParentId = this.handleChangeNewCategoryParentId.bind(this);
         this.handleChangeNewCategoryStatus = this.handleChangeNewCategoryStatus.bind(this);
 
+        // eventemit_callback for category
+        this.saveCategoryFailed = this.saveCategoryFailed.bind(this);
+        this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
+
+    }
+
+    componentDidMount() {
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.saveCategorySuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_FAILED, this.saveCategoryFailed);
     }
 
     render() {
@@ -37,7 +47,7 @@ export default class EditNewCategory extends Component {
         return (
             <div>
                 <button
-                    onClick={this.createCategory}>create category?</button>
+                    onClick={this.openCategoryForm}>create category?</button>
 
                     {(() => {
 
@@ -54,7 +64,8 @@ export default class EditNewCategory extends Component {
                                 },
                                 select: {
                                     height: "30px",
-                                    marginBottom: "10px"
+                                    marginBottom: "10px",
+                                    width: "100%"
                                 },
                                 button: {
                                     width: "100%",
@@ -106,7 +117,7 @@ export default class EditNewCategory extends Component {
                                     </select>
                                     <button
                                         style={style.image_button}
-                                        onClick={this.pushCategory}>create Category</button>
+                                        onClick={this.createCategory}>create Category</button>
                                 </div>
                             );
                         }
@@ -114,18 +125,35 @@ export default class EditNewCategory extends Component {
             </div>
         );
     }
-    
 
-    createCategory(){
+    openCategoryForm(){
         this.setState({create_category: !this.state.create_category});
     }
 
-    pushCategory(){
+    createCategory(){
         if(this.state.new_category.name){
             NoteeActions.category_create(this.state.new_category);
         }
-        this.setState({create_category: false});
     }
+
+    saveCategorySuccessed(){
+        this.props.displaySnackBar("Create New Category!");
+        this.setState({create_category: false});
+        this.setState({
+            new_category: {
+                name: "",
+                slug: "",
+                parent_id: "",
+                status: "published"
+            }
+        });
+    }
+
+    saveCategoryFailed(){
+        this.props.displaySnackBar("Sorry..! save Failed..!");
+    }
+
+
 
     handleChangeNewCategoryName(e) {
         this.state.new_category.name = e.target.value;

@@ -27,10 +27,22 @@ export default class EditSection extends Component {
             snackbar_txt: ""
         };
 
+        // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
-        this.setCategories = this.setCategories.bind(this);
 
+        // eventemit_callback for notee
+        this.saveFailed = this.saveFailed.bind(this);
+        this.saveSuccessed = this.saveSuccessed.bind(this);
+
+        // eventemit_callback for category
+        this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
+
+        // snackbar
+        this.displaySnackBar = this.displaySnackBar.bind(this);
+        this.handleRequestClose = this.handleRequestClose.bind(this);
+
+        // handles
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
         this.handleChangeSlug = this.handleChangeSlug.bind(this);
@@ -39,26 +51,18 @@ export default class EditSection extends Component {
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
         this.saveContent = this.saveContent.bind(this);
-        this.saveFailed = this.saveFailed.bind(this);
-        this.saveSuccessed = this.saveSuccessed.bind(this);
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-
-        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
     componentDidMount() {
         if(this.props.params.id){
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
-        this.setCategories();
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.setCategories);
+        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.saveCategorySuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE, this.saveSuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_FAILED, this.saveFailed);
     }
 
-    setCategories() {
-        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
-    }
 
     ajaxLoaded(content){
         if(!content){return;}
@@ -107,13 +111,12 @@ export default class EditSection extends Component {
         return (
             <div class="main">
                 <EditForm
-                    content={this.state.content}
                     handleChanges={handleChanges}
+                    content={this.state.content}
                     statuses={this.props.statuses}
                     categories={this.state.categories}
-                    ajaxLoaded={this.ajaxLoaded}
-                    ajaxCategoryLoaded={this.ajaxCategoryLoaded}
                     saveContent={this.saveContent}
+                    displaySnackBar={this.displaySnackBar}
                 />
                 <EditPreview
                     style={style.layout.half}
@@ -123,10 +126,7 @@ export default class EditSection extends Component {
                     message={this.state.snackbar_txt}
                     autoHideDuration={4000}
                     onRequestClose={this.handleRequestClose}
-                    bodyStyle={{
-                        backgroundColor: "rgba(0,0,0,0.8)"
-
-                        }}
+                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
                 />
             </div>
         );
@@ -173,8 +173,8 @@ export default class EditSection extends Component {
     }
 
     saveSuccessed(){
-        this.displaySnackBar("save success!");
         if(!this.props.params.id){
+            this.displaySnackBar("Create New Notee!");
             this.setState({
                 content: {
                     title: "",
@@ -187,11 +187,17 @@ export default class EditSection extends Component {
                     seo_description: ""
                 }
             });
+        }else{
+            this.displaySnackBar("Update Notee!");
         }
     }
 
     saveFailed(){
         this.displaySnackBar("Sorry..! save Failed..!");
+    }
+
+    saveCategorySuccessed(){
+        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
     displaySnackBar(txt){

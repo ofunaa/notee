@@ -76,9 +76,10 @@ function category_create(content) {
         .post("/notee/api/categories")
         .send(content)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.CATEGORY_FAILED);
+                return false;
+            }
             NoteeStore.emitChange(NoteeConstants.CATEGORY);
         })
 }
@@ -88,8 +89,10 @@ function category_update(content) {
         .put("/notee/api/categories/" + content.id)
         .send(content.content)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.CATEGORY_FAILED);
+                return false;
+            }
 
             NoteeStore.emitChange(NoteeConstants.CATEGORY);
         })
@@ -99,9 +102,10 @@ function category_delete(category_id){
     request
         .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.CATEGORY_FAILED);
+                return false;
+            }
             NoteeStore.emitChange(NoteeConstants.CATEGORY);
         })
 }

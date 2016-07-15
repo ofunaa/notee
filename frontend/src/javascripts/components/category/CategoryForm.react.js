@@ -21,7 +21,7 @@ export default class CategoryForm extends Component {
             }
         }
 
-        this.pushCategory = this.pushCategory.bind(this);
+        this.createCategory = this.createCategory.bind(this);
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
         this.handleChangeNewCategorySlug = this.handleChangeNewCategorySlug.bind(this);
         this.handleChangeNewCategoryParentId = this.handleChangeNewCategoryParentId.bind(this);
@@ -85,7 +85,7 @@ export default class CategoryForm extends Component {
                     <RaisedButton
                         label="Create Category"
                         primary={true}
-                        onClick={this.pushCategory}
+                        onClick={this.createCategory}
                         className="mb_15"
                         style={{float: "right"}}/>
                 </CardText>
@@ -110,7 +110,7 @@ export default class CategoryForm extends Component {
         this.setState({ new_category: this.state.new_category });
     }
 
-    pushCategory(){
+    createCategory(){
 
         if(this.state.new_category.name == ""){ return false; }
 

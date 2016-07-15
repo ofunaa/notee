@@ -39,6 +39,7 @@ export default class EditForm extends Component {
                     marginBottom: "10px"
                 },
                 select: {
+                    width: "100%",
                     height: "30px",
                     marginBottom: "10px"
                 },
@@ -69,14 +70,14 @@ export default class EditForm extends Component {
         });
 
         return (
-            <div class="main">
+            <div style={style.layout.half}>
                 {(() => {
                     if (this.state.display_image) {
                         return (<EditImage imageInsert={this.insertImage} pushImage={this.pushImage}/>);
                     }
                 })()}
 
-                <div style={style.layout.half}>
+                <div style={{float: "left", width: "100%"}}>
                     <p>Title:</p>
                     <input
                         style={style.form.input_text}
@@ -121,8 +122,9 @@ export default class EditForm extends Component {
                     </select>
 
                     <EditNewCategory 
-                        categories={this.props.categories} 
-                        ajaxCategoryLoaded={this.props.ajaxCategoryLoaded} />
+                        categories={this.props.categories}
+                        displaySnackBar={this.props.displaySnackBar}
+                    />
 
                     <p>seo_keyword:</p>
                     <input
