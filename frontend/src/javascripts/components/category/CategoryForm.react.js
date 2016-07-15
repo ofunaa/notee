@@ -1,11 +1,17 @@
 import React, {Component, PropTypes} from 'react'
+
+// notee
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeStore from '../../stores/NoteeStore';
+import NoteeConstants from '../../constants/NoteeConstants';
+
+// material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
 
 export default class CategoryForm extends Component {
 
@@ -17,20 +23,29 @@ export default class CategoryForm extends Component {
                 name: "",
                 slug: "",
                 parent_id: 0,
-                status: ""
+                status: 0
             }
         }
 
         this.createCategory = this.createCategory.bind(this);
+
+        // eventemit_callback for category
+        this.saveSuccessed = this.saveSuccessed.bind(this);
+        this.saveFailed = this.saveFailed.bind(this);
+
+        // handles
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
         this.handleChangeNewCategorySlug = this.handleChangeNewCategorySlug.bind(this);
         this.handleChangeNewCategoryParentId = this.handleChangeNewCategoryParentId.bind(this);
         this.handleChangeNewCategoryStatus = this.handleChangeNewCategoryStatus.bind(this);
     }
 
+    componentDidMount() {
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE_FAILED, this.saveFailed);
+    }
+
     render() {
-
-
         var use_categories = this.props.categories.map(function(category) {
             return <MenuItem key={category.id} value={category.id} primaryText={category.name} />;
         });
@@ -89,9 +104,37 @@ export default class CategoryForm extends Component {
                         className="mb_15"
                         style={{float: "right"}}/>
                 </CardText>
+                
             </Card>
         );
     }
+
+    createCategory(){
+        if(this.state.new_category.name == ""){ return false; }
+        NoteeActions.category_create(this.state.new_category);
+    }
+
+    saveSuccessed(){
+        this.props.displaySnackBar("Create New Category!");
+        this.setState({
+            new_category: {
+                name: "",
+                slug: "",
+                parent_id: 0,
+                status: 0
+            }
+        });
+    }
+
+    saveFailed(){
+        this.props.displaySnackBar("Sorry..! save Failed..!");
+    }
+
+    
+
+    /////////////////////////////////////////////////
+    //                   handles
+    /////////////////////////////////////////////////
 
     handleChangeNewCategoryName(e) {
         this.state.new_category.name = e.target.value;
@@ -108,22 +151,6 @@ export default class CategoryForm extends Component {
     handleChangeNewCategoryStatus(event, index, value){
         this.state.new_category.status = value;
         this.setState({ new_category: this.state.new_category });
-    }
-
-    createCategory(){
-
-        if(this.state.new_category.name == ""){ return false; }
-
-        NoteeActions.category_create(this.state.new_category);
-        NoteeStore.loadAllCategories(this.props.ajaxLoad);
-        this.setState({
-            new_category: {
-                name: "",
-                slug: "",
-                parent_id: 0,
-                status: ""
-            }
-        });
     }
 }
 

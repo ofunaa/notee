@@ -1,10 +1,15 @@
 import React, {Component, PropTypes} from 'react';
+
+// notee
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
 import EditForm  from './EditForm.react.js';
 import EditPreview  from './EditPreview.react.js';
+
+// material-ui
 import Snackbar from 'material-ui/Snackbar';
+
 
 export default class EditSection extends Component {
 
@@ -34,6 +39,8 @@ export default class EditSection extends Component {
         // eventemit_callback for notee
         this.saveFailed = this.saveFailed.bind(this);
         this.saveSuccessed = this.saveSuccessed.bind(this);
+        this.updateFailed = this.updateFailed.bind(this);
+        this.updateSuccessed = this.updateSuccessed.bind(this);
 
         // eventemit_callback for category
         this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
@@ -58,9 +65,11 @@ export default class EditSection extends Component {
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
         NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.saveCategorySuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE, this.saveSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE_FAILED, this.saveFailed);
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE, this.saveSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE_FAILED, this.saveFailed);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE, this.updateSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE_FAILED, this.updateFailed);
     }
 
 
@@ -173,26 +182,30 @@ export default class EditSection extends Component {
     }
 
     saveSuccessed(){
-        if(!this.props.params.id){
-            this.displaySnackBar("Create New Notee!");
-            this.setState({
-                content: {
-                    title: "",
-                    content: "",
-                    slug: "",
-                    status: this.props.statuses[0],
-                    category_id: "",
-                    thumbnail_id: "",
-                    seo_keyword: "",
-                    seo_description: ""
-                }
-            });
-        }else{
-            this.displaySnackBar("Update Notee!");
-        }
+        this.displaySnackBar("Create New Notee!");
+        this.setState({
+            content: {
+                title: "",
+                content: "",
+                slug: "",
+                status: this.props.statuses[0],
+                category_id: "",
+                thumbnail_id: "",
+                seo_keyword: "",
+                seo_description: ""
+            }
+        });
     }
 
     saveFailed(){
+        this.displaySnackBar("Sorry..! save Failed..!");
+    }
+
+    updateSuccessed(){
+        this.displaySnackBar("Update Notee!");
+    }
+
+    updateFailed(){
         this.displaySnackBar("Sorry..! save Failed..!");
     }
 
@@ -212,9 +225,6 @@ export default class EditSection extends Component {
             snackbar_open: false
         });
     }
-
-
-
 };
 
 EditSection.defaultProps = {statuses: ["draft", "published", "secret_published", "privated", "deleted"]};

@@ -27,10 +27,13 @@ export default class CategoryTable extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                     {this.props.categories.map((category)=>{
-                        return (<CategoryTableRow
-                            category={category}
-                            ajaxLoad={this.props.ajaxLoad}
-                            key={category.id} />);
+                        return (
+                            <CategoryTableRow
+                                category={category}
+                                ajaxLoad={this.props.ajaxLoad}
+                                key={category.id}
+                                displaySnackBar={this.props.displaySnackBar} />
+                        );
                     })}
                 </TableBody>
             </Table>

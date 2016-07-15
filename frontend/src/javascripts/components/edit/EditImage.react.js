@@ -1,6 +1,9 @@
-import React, {Component, PropTypes} from "react"
-import NoteeActions from '../../actions/NoteeActions'
+import React, {Component, PropTypes} from "react";
+
+// notee
+import NoteeActions from '../../actions/NoteeActions';
 import NoteeStore from '../../stores/NoteeStore';
+
 
 var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 

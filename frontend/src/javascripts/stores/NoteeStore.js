@@ -1,10 +1,12 @@
 import React from 'react';
-import NoteeDispatcher from '../dispatcher/NoteeDispatcher'
-import NoteeConstants from '../constants/NoteeConstants'
-import assign from 'object-assign'
-import request from 'superagent'
-
+import assign from 'object-assign';
+import request from 'superagent';
 var EventEmitter = require('events').EventEmitter;
+
+// notee
+import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
+import NoteeConstants from '../constants/NoteeConstants';
+
 
 function notee_create(content) {
     request
@@ -12,10 +14,10 @@ function notee_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.NOTEE_FAILED);
+                NoteeStore.emitChange(NoteeConstants.NOTEE_CREATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.NOTEE);
+            NoteeStore.emitChange(NoteeConstants.NOTEE_CREATE);
         })
 }
 
@@ -25,10 +27,10 @@ function notee_update(content) {
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.NOTEE_FAILED);
+                NoteeStore.emitChange(NoteeConstants.NOTEE_UPDATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.NOTEE);
+            NoteeStore.emitChange(NoteeConstants.NOTEE_UPDATE);
         })
 }
 
@@ -37,10 +39,10 @@ function notee_delete(notee_src){
         .del("/notee/api/posts/" + notee_src)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.NOTEE_FAILED);
+                NoteeStore.emitChange(NoteeConstants.NOTEE_DELETE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.NOTEE);
+            NoteeStore.emitChange(NoteeConstants.NOTEE_DELETE);
         })
 }
 
@@ -77,10 +79,10 @@ function category_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.CATEGORY_FAILED);
+                NoteeStore.emitChange(NoteeConstants.CATEGORY_CREATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.CATEGORY);
+            NoteeStore.emitChange(NoteeConstants.CATEGORY_CREATE);
         })
 }
 
@@ -90,11 +92,11 @@ function category_update(content) {
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.CATEGORY_FAILED);
+                NoteeStore.emitChange(NoteeConstants.CATEGORY_UPDATE_FAILED);
                 return false;
             }
 
-            NoteeStore.emitChange(NoteeConstants.CATEGORY);
+            NoteeStore.emitChange(NoteeConstants.CATEGORY_UPDATE);
         })
 }
 
@@ -103,10 +105,10 @@ function category_delete(category_id){
         .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.CATEGORY_FAILED);
+                NoteeStore.emitChange(NoteeConstants.CATEGORY_DELETE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.CATEGORY);
+            NoteeStore.emitChange(NoteeConstants.CATEGORY_DELETE);
         })
 }
 

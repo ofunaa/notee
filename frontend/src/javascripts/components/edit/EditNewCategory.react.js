@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from 'react';
+
+// notee
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
@@ -32,8 +34,8 @@ export default class EditNewCategory extends Component {
     }
 
     componentDidMount() {
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.saveCategorySuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_FAILED, this.saveCategoryFailed);
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE_FAILED, this.saveCategoryFailed);
     }
 
     render() {

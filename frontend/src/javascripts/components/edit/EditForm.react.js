@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from 'react';
+
+// notee
 import EditImage  from './EditImage.react.js';
 import EditNewCategory  from './EditNewCategory.react.js';
 
