@@ -95,6 +95,8 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
 
     loadAllNotees: function(callback) {
         request.get('/notee/api/posts', (err, res) => {
+            if(err){return;}
+            if(!res.body){return;}
             callback(res.body.posts);
         });
     },

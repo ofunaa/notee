@@ -44,6 +44,7 @@ export default class EditSection extends Component {
     }
 
     ajaxLoaded(content){
+        if(!content){return;}
         this.setState({
             content: {
                 title: content.title,
