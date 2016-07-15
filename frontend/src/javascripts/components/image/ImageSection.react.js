@@ -1,7 +1,8 @@
-import React, {Component, PropTypes} from "react"
-import NoteeActions from '../../actions/NoteeActions'
+import React, {Component, PropTypes} from "react";
+import NoteeActions from '../../actions/NoteeActions';
+import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
-import { Link } from "react-router"
+import { Link } from "react-router";
 
 var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
@@ -25,7 +26,7 @@ export default class ImageSection extends Component {
 
     componentDidMount() {
         this.setImages();
-        NoteeStore.addChangeListener(this.setImages);
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE, this.setImages);
     }
 
     ajaxLoaded(content){

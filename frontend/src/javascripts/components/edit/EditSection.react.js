@@ -1,8 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import NoteeActions from '../../actions/NoteeActions';
+import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
 import EditForm  from './EditForm.react.js';
 import EditPreview  from './EditPreview.react.js';
+import Snackbar from 'material-ui/Snackbar';
 
 export default class EditSection extends Component {
 
@@ -25,6 +27,7 @@ export default class EditSection extends Component {
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
+        this.setCategories = this.setCategories.bind(this);
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
@@ -34,12 +37,19 @@ export default class EditSection extends Component {
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
         this.saveContent = this.saveContent.bind(this);
+        this.resetState = this.resetState.bind(this);
     }
 
     componentDidMount() {
         if(this.props.params.id){
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
+        this.setCategories();
+        NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.setCategories);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE, this.resetState);
+    }
+
+    setCategories() {
         NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
@@ -61,6 +71,7 @@ export default class EditSection extends Component {
 
 
     ajaxCategoryLoaded(content){
+        if(!content){return;}
         this.setState({categories: content});
     }
 
@@ -141,19 +152,23 @@ export default class EditSection extends Component {
             NoteeActions.notee_update(item);
         }else{
             NoteeActions.notee_create(this.state.content);
-            this.setState({
-                content: {
-                    title: "",
-                    content: "",
-                    slug: "",
-                    status: this.props.statuses[0],
-                    category_id: "",
-                    thumbnail_id: "",
-                    seo_keyword: "",
-                    seo_description: ""
-                }
-            });
         }
+    }
+
+    resetState(){
+        
+        this.setState({
+            content: {
+                title: "",
+                content: "",
+                slug: "",
+                status: this.props.statuses[0],
+                category_id: "",
+                thumbnail_id: "",
+                seo_keyword: "",
+                seo_description: ""
+            }
+        });
     }
 
 };

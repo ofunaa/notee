@@ -10,6 +10,11 @@ module.exports = keyMirror({
 
     CATEGORY_CREATE: null,
     CATEGORY_UPDATE: null,
-    CATEGORY_DELETE: null
+    CATEGORY_DELETE: null,
+
+    // for EventEmit
+    NOTEE: null,
+    IMAGE: null,
+    CATEGORY: null
 
 });

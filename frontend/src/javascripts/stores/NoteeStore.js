@@ -4,8 +4,6 @@ import NoteeConstants from '../constants/NoteeConstants'
 import assign from 'object-assign'
 import request from 'superagent'
 
-var CHANGE_EVENT = 'change';
-
 var EventEmitter = require('events').EventEmitter;
 
 function notee_create(content) {
@@ -13,7 +11,10 @@ function notee_create(content) {
         .post("/notee/api/posts")
         .send(content)
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.NOTEE);
         })
 }
 
@@ -22,7 +23,10 @@ function notee_update(content) {
         .put("/notee/api/posts/" + content.params_id)
         .send(content.content)
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.NOTEE);
         })
 }
 
@@ -30,7 +34,10 @@ function notee_delete(notee_src){
     request
         .del("/notee/api/posts/" + notee_src)
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.NOTEE);
         })
 }
 
@@ -39,9 +46,10 @@ function image_create(content){
         .post("/notee/api/images")
         .attach("image", content)
         .end(function(err, res){
-            console.log(err);
-            console.log(res.body);
-            NoteeStore.emitChange();
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.IMAGE);
         })
 }
 
@@ -53,7 +61,10 @@ function image_delete(image_src){
     request
         .del("/notee/api/images/0?name=" + a[1])
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.IMAGE);
         })
 }
 
@@ -62,7 +73,10 @@ function category_create(content) {
         .post("/notee/api/categories")
         .send(content)
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.CATEGORY);
         })
 }
 
@@ -71,7 +85,10 @@ function category_update(content) {
         .put("/notee/api/categories/" + content.id)
         .send(content.content)
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.CATEGORY);
         })
 }
 
@@ -79,7 +96,10 @@ function category_delete(category_id){
     request
         .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
-            console.log(res.body);
+            if(err){return false;}
+            if(!res.body){return false;}
+
+            NoteeStore.emitChange(NoteeConstants.CATEGORY);
         })
 }
 
@@ -89,6 +109,8 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
     loadNotee: function(notee_id, callback) {
         var url = "/notee/api/posts/" + notee_id;
         request.get(url, (err, res) => {
+            if(err){return;}
+            if(!res.body){return;}
             callback(res.body.post);
         })
     },
@@ -110,17 +132,18 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
     loadAllCategories: function(callback) {
         var url = "/notee/api/categories";
         request.get(url, (err, res) => {
-            console.log(res.body);
+            if(err){return;}
+            if(!res.body){return;}
             callback(res.body.categories);
         })
     },
 
-    emitChange: function() {
-        this.emit(CHANGE_EVENT);
+    emitChange: function(change_event) {
+        this.emit(change_event);
     },
 
-    addChangeListener: function(callback) {
-        this.on(CHANGE_EVENT, callback);
+    addChangeListener: function(change_event, callback) {
+        this.on(change_event, callback);
     }
 
 });
