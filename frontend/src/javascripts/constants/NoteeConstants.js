@@ -14,7 +14,10 @@ module.exports = keyMirror({
 
     // for EventEmit
     NOTEE: null,
+    NOTEE_FAILED: null,
     IMAGE: null,
-    CATEGORY: null
+    IMAGE_FAILED: null,
+    CATEGORY: null,
+    CATEGORY_FAILED: null
 
 });

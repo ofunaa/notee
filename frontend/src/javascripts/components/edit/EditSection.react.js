@@ -22,7 +22,9 @@ export default class EditSection extends Component {
                 seo_keyword: "",
                 seo_description: ""
             },
-            categories: []
+            categories: [],
+            snackbar_open: false,
+            snackbar_txt: ""
         };
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
@@ -37,7 +39,11 @@ export default class EditSection extends Component {
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
         this.saveContent = this.saveContent.bind(this);
-        this.resetState = this.resetState.bind(this);
+        this.saveFailed = this.saveFailed.bind(this);
+        this.saveSuccessed = this.saveSuccessed.bind(this);
+        this.displaySnackBar = this.displaySnackBar.bind(this);
+
+        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
     componentDidMount() {
@@ -46,7 +52,8 @@ export default class EditSection extends Component {
         }
         this.setCategories();
         NoteeStore.addChangeListener(NoteeConstants.CATEGORY, this.setCategories);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE, this.resetState);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE, this.saveSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.NOTEE_FAILED, this.saveFailed);
     }
 
     setCategories() {
@@ -111,6 +118,16 @@ export default class EditSection extends Component {
                 <EditPreview
                     style={style.layout.half}
                     content = {this.state.content}/>
+                <Snackbar
+                    open={this.state.snackbar_open}
+                    message={this.state.snackbar_txt}
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                    bodyStyle={{
+                        backgroundColor: "rgba(0,0,0,0.8)"
+
+                        }}
+                />
             </div>
         );
     }
@@ -155,21 +172,42 @@ export default class EditSection extends Component {
         }
     }
 
-    resetState(){
-        
+    saveSuccessed(){
+        this.displaySnackBar("save success!");
+        if(!this.props.params.id){
+            this.setState({
+                content: {
+                    title: "",
+                    content: "",
+                    slug: "",
+                    status: this.props.statuses[0],
+                    category_id: "",
+                    thumbnail_id: "",
+                    seo_keyword: "",
+                    seo_description: ""
+                }
+            });
+        }
+    }
+
+    saveFailed(){
+        this.displaySnackBar("Sorry..! save Failed..!");
+    }
+
+    displaySnackBar(txt){
         this.setState({
-            content: {
-                title: "",
-                content: "",
-                slug: "",
-                status: this.props.statuses[0],
-                category_id: "",
-                thumbnail_id: "",
-                seo_keyword: "",
-                seo_description: ""
-            }
+            snackbar_open: true,
+            snackbar_txt: txt
         });
     }
+
+    handleRequestClose(){
+        this.setState({
+            snackbar_open: false
+        });
+    }
+
+
 
 };
 

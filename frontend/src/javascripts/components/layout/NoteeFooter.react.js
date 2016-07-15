@@ -12,7 +12,9 @@ export default class NoteeFooter extends Component {
                     float: "left",
                     color: "white",
                     backgroundColor: "#424242",
-                    textAlign: "center"
+                    textAlign: "center",
+                    zIndex: "1102",
+                    position: "relative"
                 }
             }
         }

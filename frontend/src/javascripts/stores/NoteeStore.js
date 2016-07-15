@@ -11,9 +11,10 @@ function notee_create(content) {
         .post("/notee/api/posts")
         .send(content)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.NOTEE_FAILED);
+                return false;
+            }
             NoteeStore.emitChange(NoteeConstants.NOTEE);
         })
 }
@@ -23,9 +24,10 @@ function notee_update(content) {
         .put("/notee/api/posts/" + content.params_id)
         .send(content.content)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.NOTEE_FAILED);
+                return false;
+            }
             NoteeStore.emitChange(NoteeConstants.NOTEE);
         })
 }
@@ -34,9 +36,10 @@ function notee_delete(notee_src){
     request
         .del("/notee/api/posts/" + notee_src)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.NOTEE_FAILED);
+                return false;
+            }
             NoteeStore.emitChange(NoteeConstants.NOTEE);
         })
 }

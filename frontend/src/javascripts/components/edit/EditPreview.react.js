@@ -21,18 +21,17 @@ var Preview = React.createClass({
         var style = {
             preview: {
                 main: {
-                    width: "44%",
-                    height: "96%",
+                    width: "45%",
+                    height: "86%",
                     position: "fixed",
-                    maxWidth: "48%",
-                    marginRight: "1%",
+                    maxWidth: "49%",
                     marginLeft: "1%",
                     padding: "2%",
                     top: "0px",
                     right: "0px",
                     overflowY: "scroll",
                     wordWrap: "break-word",
-                    zIndex: "10000",
+                    zIndex: "1101",
                     backgroundColor: "#fff"
                 },
                 p: {
