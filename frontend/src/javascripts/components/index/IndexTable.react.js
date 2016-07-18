@@ -18,6 +18,8 @@ export default class IndexTable extends Component {
                 <TableHeader displaySelectAll={false}>
                     <TableRow>
                         <TableHeaderColumn>Title</TableHeaderColumn>
+                        <TableHeaderColumn>Category</TableHeaderColumn>
+                        <TableHeaderColumn>Status</TableHeaderColumn>
                         <TableHeaderColumn>UPDATE</TableHeaderColumn>
                         <TableHeaderColumn>/</TableHeaderColumn>
                     </TableRow>

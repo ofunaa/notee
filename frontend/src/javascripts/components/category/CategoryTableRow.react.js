@@ -35,10 +35,30 @@ export default class CategoryTableRow extends Component {
                 <TableRowColumn>{this.props.category.parent_id}</TableRowColumn>
                 <TableRowColumn>{this.props.category.status}</TableRowColumn>
                 <TableRowColumn>
-                    <RaisedButton
-                        onClick={this.deleteCategory}
-                        label="delete"
-                        secondary={true} />
+
+                    {(()=>{
+                        if(this.props.category.id == 1){
+                            return(
+                                <RaisedButton
+                                    onClick={this.deleteCategory}
+                                    label=""
+                                    secondary={true}
+                                    disabled={true}
+                                />
+                            );
+                        }else{
+                            return(
+                                <RaisedButton
+                                    onClick={this.deleteCategory}
+                                    label="delete"
+                                    secondary={true}
+                                    disabled={false}
+                                />
+                            );
+                        }
+
+                    })()}
+
                 </TableRowColumn>
             </TableRow>
         );
