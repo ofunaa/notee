@@ -15,7 +15,7 @@ export default class IndexSection extends Component {
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         NoteeStore.loadAllNotees(this.ajaxLoaded);
     }
 

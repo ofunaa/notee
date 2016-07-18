@@ -1,10 +1,13 @@
 import React, {Component, PropTypes} from "react";
+
+// notee
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
-import { Link } from "react-router";
 
-var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
+// material-ui
+import Snackbar from 'material-ui/Snackbar';
+import { Link } from "react-router";
 
 export default class ImageSection extends Component {
 
@@ -12,29 +15,51 @@ export default class ImageSection extends Component {
         super(props);
         this.state = {
             images: [],
-            image_url: "",
             upload_file: null,
-            tap_image: ""
+            tap_image: "",
+            snackbar_open: false,
+            snackbar_txt: ""
         };
-        this.handleChangeImage = this.handleChangeImage.bind(this);
-        this.uploadImage = this.uploadImage.bind(this);
+
+
+        // imageSection
         this.clickImage = this.clickImage.bind(this);
+        this.uploadImage = this.uploadImage.bind(this);
+        this.deleteImage = this.deleteImage.bind(this);
+
+        // eventemit
+        this.saveSuccessed = this.saveSuccessed.bind(this);
+        this.saveFailed = this.saveFailed.bind(this);
+        this.deleteSuccessed = this.deleteSuccessed.bind(this);
+        this.deleteFailed = this.deleteFailed.bind(this);
+
+        // ajax
         this.setImages = this.setImages.bind(this);
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
-        this.deleteImage = this.deleteImage.bind(this);
+
+        // handles
+        this.handleChangeImage = this.handleChangeImage.bind(this);
+
+        // snackbar
+        this.displaySnackBar = this.displaySnackBar.bind(this);
+        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setImages();
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE, this.setImages);
-    }
-
-    ajaxLoaded(content){
-        this.setState({images: content});
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE, this.saveSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE_FAILED, this.saveFailed);
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE_DELETE, this.deleteSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE_DELETE_FAILED, this.deleteFailed);
     }
 
     setImages() {
         NoteeStore.loadAllImages(this.ajaxLoaded);
+    }
+
+    ajaxLoaded(content){
+        if(!content){return;}
+        this.setState({images: content});
     }
 
     render() {
@@ -92,7 +117,6 @@ export default class ImageSection extends Component {
                         style={style.form.input_file}
                         type="file"
                         ref="image"
-                        value={this.state.image}
                         onChange={this.handleChangeImage}
                     />
                     <button
@@ -122,34 +146,65 @@ export default class ImageSection extends Component {
                             onClick={this.deleteImage}>Delete</button>
                     </div>
                 </div>
+                <Snackbar
+                    open={this.state.snackbar_open}
+                    message={this.state.snackbar_txt}
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
+                />
             </div>
         );
-    }
-
-    handleChangeImage(e) {
-        var files = e.target.files;
-        var image_url = createObjectURL(files[0]);
-        this.setState({image_src: image_url});
-        this.setState({upload_file: files[0]});
-    }
-
-    uploadImage() {
-        NoteeActions.image_create(this.state.upload_file);
-        this.setState({
-            image_src: "",
-            upload_file: null,
-            image: null
-        });
     }
 
     clickImage(e) {
         this.setState({tap_image: e.target.src});
     }
-    
+
+    uploadImage() {
+        NoteeActions.image_create(this.state.upload_file);
+    }
+
     deleteImage() {
         NoteeActions.image_delete(this.state.tap_image);
-        this.setState({tap_image: ""});
+    }
+
+    saveSuccessed(){
+        this.displaySnackBar("Upload New IMAGE!");
         this.setImages();
+        this.setState({upload_file: null});
+    }
+
+    saveFailed(){
+        this.displaySnackBar("Sorry..! Upload Failed..!");
+    }
+
+    deleteSuccessed(){
+        this.displaySnackBar("Delete IMAGE!");
+        this.setImages();
+        this.setState({tap_image: null});
+    }
+
+    deleteFailed(){
+        this.displaySnackBar("Sorry..! Delete Failed..!");
+    }
+
+    handleChangeImage(e) {
+        var files = e.target.files;
+        this.setState({upload_file: files[0]});
+    }
+
+    displaySnackBar(txt){
+        this.setState({
+            snackbar_open: true,
+            snackbar_txt: txt
+        });
+    }
+
+    handleRequestClose(){
+        this.setState({
+            snackbar_open: false
+        });
     }
 
 };

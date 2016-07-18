@@ -3,9 +3,11 @@ import React, {Component, PropTypes} from "react";
 // notee
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeStore from '../../stores/NoteeStore';
+import NoteeConstants from '../../constants/NoteeConstants';
 
-
-var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
+// material-ui
+import Snackbar from 'material-ui/Snackbar';
+import { Link } from "react-router";
 
 export default class Image extends Component {
 
@@ -13,29 +15,46 @@ export default class Image extends Component {
         super(props);
         this.state = {
             images: [],
-            image_url: "",
             upload_file: null,
-            tap_image: ""
+            tap_image: "",
+            snackbar_open: false,
+            snackbar_txt: ""
         };
-        this.handleChangeImage = this.handleChangeImage.bind(this);
-        this.addImage = this.addImage.bind(this);
-        this.uploadImage = this.uploadImage.bind(this);
+
+
+        // editImage
         this.clickImage = this.clickImage.bind(this);
+        this.uploadImage = this.uploadImage.bind(this);
+        this.addImage = this.addImage.bind(this);
+
+        // eventemit
+        this.saveSuccessed = this.saveSuccessed.bind(this);
+        this.saveFailed = this.saveFailed.bind(this);
+
+        // ajax
         this.setImages = this.setImages.bind(this);
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+
+        // handles
+        this.handleChangeImage = this.handleChangeImage.bind(this);
+
+        // snackbar
+        this.displaySnackBar = this.displaySnackBar.bind(this);
+        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setImages();
-        NoteeStore.addChangeListener(this.setImages);
-    }
-
-    ajaxLoaded(content){
-        this.setState({images: content});
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE, this.saveSuccessed);
+        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE_FAILED, this.saveFailed);
     }
 
     setImages() {
         NoteeStore.loadAllImages(this.ajaxLoaded);
+    }
+
+    ajaxLoaded(content){
+        this.setState({images: content});
     }
 
     render() {
@@ -98,7 +117,6 @@ export default class Image extends Component {
                     <input
                         type="file"
                         ref="image"
-                        value={this.state.image}
                         onChange={this.handleChangeImage}
                     />
                     <button onClick={this.uploadImage}>Upload</button>
@@ -125,21 +143,16 @@ export default class Image extends Component {
                         <button onClick={this.addImage}>Add</button>
                     </div>
                 </div>
+
+                <Snackbar
+                    open={this.state.snackbar_open}
+                    message={this.state.snackbar_txt}
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
+                />
             </div>
         );
-    }
-
-    handleChangeImage(e) {
-        var files = e.target.files;
-        var image_url = createObjectURL(files[0]);
-        this.setState({image_src: image_url});
-        this.setState({upload_file: files[0]});
-    }
-
-    uploadImage() {
-        NoteeActions.image_create(this.state.upload_file);
-        this.setState({image_src: ""});
-        this.setState({upload_file: null});
     }
 
     addImage() {
@@ -148,6 +161,39 @@ export default class Image extends Component {
 
     clickImage(e) {
         this.setState({tap_image: e.target.src});
+    }
+
+    uploadImage() {
+        NoteeActions.image_create(this.state.upload_file);
+    }
+
+    saveSuccessed(){
+        this.displaySnackBar("Upload New IMAGE!");
+        this.setState({upload_file: null});
+        this.setImages();
+    }
+
+    saveFailed(){
+        this.displaySnackBar("Sorry..! Upload Failed..!");
+    }
+
+
+    handleChangeImage(e) {
+        var files = e.target.files;
+        this.setState({upload_file: files[0]});
+    }
+
+    displaySnackBar(txt){
+        this.setState({
+            snackbar_open: true,
+            snackbar_txt: txt
+        });
+    }
+
+    handleRequestClose(){
+        this.setState({
+            snackbar_open: false
+        });
     }
 
 };

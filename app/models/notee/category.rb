@@ -8,7 +8,7 @@ module Notee
     has_many :children, class_name: Notee::Category, :foreign_key => 'parent_id', dependent: :destroy
 
     def set_slug
-      self.slug = self.name.downcase if self.slug.nil?
+      self.slug = self.name.downcase unless self.slug.present?
     end
 
   end

@@ -9,7 +9,9 @@ module.exports = keyMirror({
     NOTEE_DELETE_FAILED: null,
 
     IMAGE_CREATE: null,
+    IMAGE_CREATE_FAILED: null,
     IMAGE_DELETE: null,
+    IMAGE_DELETE_FAILED: null,
 
     CATEGORY_CREATE: null,
     CATEGORY_CREATE_FAILED: null,

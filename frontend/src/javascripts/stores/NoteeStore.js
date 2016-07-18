@@ -51,25 +51,24 @@ function image_create(content){
         .post("/notee/api/images")
         .attach("image", content)
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
-            NoteeStore.emitChange(NoteeConstants.IMAGE);
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.IMAGE_CREATE_FAILED);
+                return false;
+            }
+            NoteeStore.emitChange(NoteeConstants.IMAGE_CREATE);
         })
 }
 
 function image_delete(image_src){
-
-    var a = image_src.split("/notee/");
-    console.log(a);
-
+    var delete_file = image_src.split("/notee/");
     request
-        .del("/notee/api/images/0?name=" + a[1])
+        .del("/notee/api/images/0?name=" + delete_file[1])
         .end(function(err, res){
-            if(err){return false;}
-            if(!res.body){return false;}
-
-            NoteeStore.emitChange(NoteeConstants.IMAGE);
+            if(err || !res.body){
+                NoteeStore.emitChange(NoteeConstants.IMAGE_DELETE_FAILED);
+                return false;
+            }
+            NoteeStore.emitChange(NoteeConstants.IMAGE_DELETE);
         })
 }
 

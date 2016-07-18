@@ -32,7 +32,7 @@ export default class CategorySection extends Component {
         this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
         NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.changeSuccessed);
         NoteeStore.addChangeListener(NoteeConstants.CATEGORY_UPDATE, this.changeSuccessed);

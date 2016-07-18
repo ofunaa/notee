@@ -60,7 +60,7 @@ export default class EditSection extends Component {
         this.saveContent = this.saveContent.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if(this.props.params.id){
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
@@ -197,7 +197,7 @@ export default class EditSection extends Component {
     }
 
     saveFailed(){
-        this.displaySnackBar("Sorry..! save Failed..!");
+        this.displaySnackBar("Sorry..! Save Failed..!");
     }
 
     updateSuccessed(){
@@ -205,7 +205,7 @@ export default class EditSection extends Component {
     }
 
     updateFailed(){
-        this.displaySnackBar("Sorry..! save Failed..!");
+        this.displaySnackBar("Sorry..! Update Failed..!");
     }
 
     saveCategorySuccessed(){

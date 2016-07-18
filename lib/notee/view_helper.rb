@@ -2,7 +2,7 @@ require 'redcarpet'
 
 module Notee
   module ViewHelper
-    def notee_markdown(text)
+    def notee_content(text)
 
       unless @markdown
         renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)

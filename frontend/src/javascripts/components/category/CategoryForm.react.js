@@ -22,7 +22,7 @@ export default class CategoryForm extends Component {
             new_category: {
                 name: "",
                 slug: "",
-                parent_id: 0,
+                parent_id: null,
                 status: 0
             }
         }
@@ -120,7 +120,7 @@ export default class CategoryForm extends Component {
             new_category: {
                 name: "",
                 slug: "",
-                parent_id: 0,
+                parent_id: null,
                 status: 0
             }
         });
