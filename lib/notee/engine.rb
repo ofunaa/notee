@@ -17,6 +17,7 @@ module Notee
 
     initializer 'notee.action_view_helpers' do
       ActiveSupport.on_load :action_view do
+        include Notee::Helper
         include Notee::ViewHelper
       end
     end

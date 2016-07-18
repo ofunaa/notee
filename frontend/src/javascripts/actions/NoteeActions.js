@@ -16,6 +16,11 @@ var NoteeActions = {
     },
 
     notee_update: function(content){
+
+        // set default_value
+        if(!content.category_id){content.category_id = 1;};
+        if(!content.thumbnail_id){content.thumbnail_id = 1;};
+
         NoteeDispatcher.dispatch({
             type: NoteeConstants.NOTEE_UPDATE,
             content: content
