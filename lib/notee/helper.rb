@@ -13,12 +13,12 @@ module Notee
         @notees = Notee::Post.where(category_id: category_id, status: 1)
       end
 
-      @notees
+      @notees.order(published_at: :desc)
 
     end
 
     def secret_notees
-      @notees = Notee::Post.where(status: 2)
+      @notees = Notee::Post.where(status: 2).order(published_at: :desc)
     end
 
 

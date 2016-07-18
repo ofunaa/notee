@@ -5,7 +5,7 @@ module Notee
   class ImagesController < ApplicationController
 
     def index
-      @images = Image.all
+      @images = Image.all.order(updated_at: :desc)
       render json: { status: 'success', images: @images}
     end
 

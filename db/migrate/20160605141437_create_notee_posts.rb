@@ -7,11 +7,11 @@ class CreateNoteePosts < ActiveRecord::Migration
 
       t.string  :title, default: "no title"
       t.text    :content
-      t.string  :slug, default: "#{Time.now.strftime("%Y-%H-%M-%S")}"
+      t.string  :slug
       t.integer :status, default: 0
       t.integer :category_id, default: 0
       t.integer :thumbnail_id, default: 0
-      t.datetime :published_at, default: Time.now
+      t.datetime :published_at
 
       # seo
       t.string  :seo_keyword, default: ""
