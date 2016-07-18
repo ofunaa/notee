@@ -1,5 +1,7 @@
 module Notee
   class Token < ActiveRecord::Base
+
+    # callbacks
     before_create :generate_access_token
     before_create :set_expires_at
 

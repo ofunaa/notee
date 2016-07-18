@@ -2,9 +2,14 @@ require 'securerandom'
 
 module Notee
   class Image < ActiveRecord::Base
+
+    # accessors
     attr_accessor :file
+
+    # callbacks
     before_save :manage_image
 
+    private
     def manage_image
       return unless self.file
 
