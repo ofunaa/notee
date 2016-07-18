@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    notee (0.2.9)
+    notee (0.3.0)
       rails
       redcarpet
       sass
