@@ -2,6 +2,11 @@ Notee::Engine.routes.draw do
 
   root to: 'posts#notee'
 
+  get 'new' => 'posts#notee'
+  get 'edit/:id' => 'posts#notee'
+  get 'category' => 'posts#notee'
+  get 'image' => 'posts#notee'
+
   resources :tokens, only: [:new, :create, :destroy]
 
   scope :api, { format: 'json' } do
