@@ -1,10 +1,12 @@
 desc 'setup notee'
 namespace :notee do
+
   task :start do
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     create_initializer_file
+    setup_default
   end
 
   def notee_mark
@@ -66,6 +68,24 @@ EOC
     end
     puts 'create file in "config/initializers/notee.rb"'
     puts 'you should change notee_id & notee_password'
+  end
+
+  def setup_default
+    copy_default_image
+  end
+
+  private
+
+  def copy_default_image
+    image_dir = Rails.root.to_s + '/public/notee'
+    FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
+
+    image_url = image_dir + '/default.png'
+    unless FileTest.exist?(image_url)
+      open(image_url, 'wb') do |output|
+        output.write(File.open(File.expand_path('../images/default.png', __FILE__)).read)
+      end
+    end
   end
 
 end

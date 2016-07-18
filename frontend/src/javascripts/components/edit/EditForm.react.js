@@ -119,7 +119,6 @@ export default class EditForm extends Component {
                         type="select"
                         value={this.props.content.category_id}
                         onChange={this.props.handleChanges.category_id}>
-                        <option value="none">None</option>
                         {categories}
                     </select>
 

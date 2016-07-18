@@ -3,9 +3,11 @@ require_dependency "notee/application_controller"
 module Notee
   class PostsController < ApplicationController
 
+    # callbacks
     before_action :set_post, only: [:show, :update, :destroy]
-    skip_before_filter :restrict_access_json, only: [:notee]
-    before_filter :restrict_access, only: [:notee]
+    skip_before_action :restrict_access_json, only: [:notee]
+    before_action :restrict_access, only: [:notee]
+
 
     def notee
     end

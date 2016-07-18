@@ -1,12 +1,11 @@
 module Notee
   class ApplicationController < ActionController::Base
 
-    before_filter :set_access_token
-    before_filter :restrict_access_json
+    before_action :set_access_token
+    before_action :restrict_access_json
 
     private
     def set_access_token
-      p "TODO: add access_token to http header"
       # request['Authorization: Token token'] = session[:access_token] if session[:access_token].present?
     end
 

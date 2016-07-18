@@ -88,8 +88,7 @@ export default class EditSection extends Component {
             }
         });
     }
-
-
+    
     ajaxCategoryLoaded(content){
         if(!content){return;}
         this.setState({categories: content});
