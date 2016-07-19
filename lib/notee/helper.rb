@@ -1,6 +1,9 @@
 module Notee
   module Helper
     def notees(search_txt)
+
+      @notees = []
+
       if search_txt.nil?
         # all_notees
         @notees = Notee::Post.where(status: Notee::STATUS[:published]).order(published_at: :desc)
