@@ -13,7 +13,7 @@ export default class EditForm extends Component {
             is_saving: false,
             display_image: false,
             display_mode: "",
-            thumbnail_src: ""
+            thumbnail_src: "default.png"
         };
 
         this.pushImage = this.pushImage.bind(this);
@@ -161,6 +161,7 @@ export default class EditForm extends Component {
                         onClick={this.pushImage.bind(this, "thumbnail")}>image</button>
                     <img
                         style={style.form.thumbnail}
+                        alt="thumbnail"
                         src={window.location.origin + "/notee/" + this.state.thumbnail_src}
                     />
                     <input
