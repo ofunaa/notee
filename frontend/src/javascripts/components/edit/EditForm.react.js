@@ -78,9 +78,14 @@ export default class EditForm extends Component {
             }
         }
 
-        var statuses = this.props.statuses.map(function(status, index) {
-            return <option key={index} value={index}>{status}</option>;
-        });
+        var statuses = [];
+        for (var key in this.props.statuses) {
+            statuses.push(
+                <option key={this.props.statuses[key]} value={this.props.statuses[key]}>
+                    {key}
+                </option>
+            );
+        }
 
         var categories = this.props.categories.map(function(category) {
             return <option key={category.id} value={category.id}>{category.name}</option>;
@@ -133,7 +138,9 @@ export default class EditForm extends Component {
                         type="select"
                         value={this.props.content.status}
                         onChange={this.props.handleChanges.status}>
+
                         {statuses}
+
                     </select>
                     <p>category:</p>
                     <select

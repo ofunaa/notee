@@ -21,13 +21,14 @@ export default class EditSection extends Component {
                 title: "",
                 content: "",
                 slug: "",
-                status: this.props.statuses[0],
+                status: 0,
                 category_id: "",
                 thumbnail_id: "",
                 seo_keyword: "",
                 seo_description: ""
             },
             categories: [],
+            status: {},
             snackbar_open: false,
             snackbar_txt: ""
         };
@@ -35,6 +36,7 @@ export default class EditSection extends Component {
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
+        this.ajaxStatusesLoaded = this.ajaxStatusesLoaded.bind(this);
 
         // eventemit_callback for notee
         this.saveFailed = this.saveFailed.bind(this);
@@ -66,34 +68,13 @@ export default class EditSection extends Component {
         if(this.props.params.id){
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
+        NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
         NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
         NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE, this.saveSuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE_FAILED, this.saveFailed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE, this.updateSuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE_FAILED, this.updateFailed);
-    }
-
-
-    ajaxLoaded(content){
-        if(!content){return;}
-        this.setState({
-            content: {
-                title: content.title,
-                content: content.content,
-                slug: content.slug,
-                status: content.status,
-                category_id: content.category_id,
-                thumbnail_id: content.thumbnail_id,
-                seo_keyword: content.seo_keyword,
-                seo_description: content.seo_description
-            }
-        });
-    }
-    
-    ajaxCategoryLoaded(content){
-        if(!content){return;}
-        this.setState({categories: content});
     }
 
     render() {
@@ -125,7 +106,7 @@ export default class EditSection extends Component {
                     handleChanges={handleChanges}
                     handleChangeProps={this.handleChangeProps}
                     content={this.state.content}
-                    statuses={this.props.statuses}
+                    statuses={this.state.statuses}
                     categories={this.state.categories}
                     saveContent={this.saveContent}
                     displaySnackBar={this.displaySnackBar}
@@ -198,7 +179,7 @@ export default class EditSection extends Component {
                 title: "",
                 content: "",
                 slug: "",
-                status: this.props.statuses[0],
+                status: this.state.statuses["draft"],
                 category_id: "",
                 thumbnail_id: "",
                 seo_keyword: "",
@@ -235,6 +216,34 @@ export default class EditSection extends Component {
             snackbar_open: false
         });
     }
-};
 
-EditSection.defaultProps = {statuses: ["draft", "published", "secret_published", "privated", "deleted"]};
+
+    // ajax
+
+    ajaxLoaded(content){
+        if(!content){return;}
+        this.setState({
+            content: {
+                title: content.title,
+                content: content.content,
+                slug: content.slug,
+                status: content.status,
+                category_id: content.category_id,
+                thumbnail_id: content.thumbnail_id,
+                seo_keyword: content.seo_keyword,
+                seo_description: content.seo_description
+            }
+        });
+    }
+
+    ajaxCategoryLoaded(content){
+        if(!content){return;}
+        this.setState({categories: content});
+    }
+
+    ajaxStatusesLoaded(content){
+        if(!content){return;}
+        this.setState({statuses: content});
+    }
+
+};

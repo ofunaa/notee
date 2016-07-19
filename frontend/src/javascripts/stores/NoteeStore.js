@@ -166,6 +166,29 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         })
     },
 
+    loadStatuses: function(callback) {
+        var url = "/notee/api/statuses";
+        request.get(url, (err, res) => {
+            if(err){return;}
+            if(!res.body){return;}
+            callback(res.body.statuses);
+        })
+    },
+
+    loadStatus: function(status_value, callback) {
+        var url = "/notee/api/statuses/0";
+        request
+            .get(url)
+            .query({status: status_value})
+            .end(function(err, res){
+                if(err){return;}
+                if(!res.body){return;}
+
+                console.log(res.body);
+                callback(res.body.name);
+        });
+    },
+
     emitChange: function(change_event) {
         this.emit(change_event);
     },

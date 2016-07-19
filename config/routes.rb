@@ -13,5 +13,6 @@ Notee::Engine.routes.draw do
     resources :posts, only: [:index, :show, :create, :update, :destroy]
     resources :images, only: [:index, :show, :create, :destroy]
     resources :categories, only: [:index, :show, :create, :update, :destroy]
+    resources :statuses, only: [:index, :show]
   end
 end

@@ -1,8 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from "react-router";
+
+// notee
 import NoteeStore from '../../stores/NoteeStore';
-import RaisedButton from 'material-ui/RaisedButton';
 import IndexTable from './IndexTable.react';
+
+// material-ui
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 export default class IndexSection extends Component {
 

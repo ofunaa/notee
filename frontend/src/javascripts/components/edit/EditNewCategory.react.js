@@ -42,12 +42,9 @@ export default class EditNewCategory extends Component {
     }
 
     render() {
-
-
         var use_categories = this.props.categories.map(function(category) {
             return <option key={category.id} value={category.id}>{category.name}</option>;
         });
-
 
         return (
             <div>
@@ -150,8 +147,6 @@ export default class EditNewCategory extends Component {
     saveCategoryFailed(){
         this.props.displaySnackBar("Sorry..! Save Failed..!");
     }
-
-
 
     handleChangeNewCategoryName(e) {
         this.state.new_category.name = e.target.value;
