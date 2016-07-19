@@ -3,11 +3,16 @@ require_dependency "notee/application_controller"
 
 module Notee
   class CategoriesController < ApplicationController
-    before_action :set_category, only: [:update, :destroy]
+    before_action :set_category, only: [:show, :update, :destroy]
 
     def index
       @categories = Category.all
       render json: { status: 'success', categories: @categories}
+    end
+
+    def show
+      p @category
+      render json: { status: 'success', category: @category}
     end
 
     def create

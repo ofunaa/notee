@@ -157,6 +157,17 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         });
     },
 
+    loadCategory: function(id, callback) {
+        var url = "/notee/api/categories/" + id;
+        request
+            .get(url)
+            .end(function(err, res){
+                if(err){return;}
+                if(!res.body){return;}
+                callback(res.body.category);
+            });
+    },
+
     loadAllCategories: function(callback) {
         var url = "/notee/api/categories";
         request.get(url, (err, res) => {
@@ -183,8 +194,6 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
             .end(function(err, res){
                 if(err){return;}
                 if(!res.body){return;}
-
-                console.log(res.body);
                 callback(res.body.name);
         });
     },

@@ -12,12 +12,17 @@ export default class CategoryTableRow extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {status: ""}
+        this.state = {
+            category: "",
+            status: ""
+        }
 
+        this.ajaxCategoryLoad = this.ajaxCategoryLoad.bind(this);
         this.ajaxStatusLoad = this.ajaxStatusLoad.bind(this);
     }
 
     componentWillMount(){
+        NoteeStore.loadCategory(this.props.notee.category_id, this.ajaxCategoryLoad);
         NoteeStore.loadStatus(this.props.notee.status, this.ajaxStatusLoad);
     }
 
@@ -29,7 +34,7 @@ export default class CategoryTableRow extends Component {
         return(
             <TableRow>
                 <TableRowColumn>{this.props.notee.title}</TableRowColumn>
-                <TableRowColumn>{this.props.notee.category_id}</TableRowColumn>
+                <TableRowColumn>{this.state.category}</TableRowColumn>
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
@@ -40,6 +45,11 @@ export default class CategoryTableRow extends Component {
                 </TableRowColumn>
             </TableRow>
         );
+    }
+
+    ajaxCategoryLoad(category){
+        if(!category){return false}
+        this.setState({category: category.name});
     }
 
     ajaxStatusLoad(status){
