@@ -5,6 +5,9 @@ import NoteeActions from '../../actions/NoteeActions';
 import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
 
+// material-ui
+import Checkbox from 'material-ui/Checkbox';
+
 export default class EditNewCategory extends Component {
 
     constructor(props) {
@@ -15,7 +18,7 @@ export default class EditNewCategory extends Component {
                 name: "",
                 slug: "",
                 parent_id: "",
-                status: "published"
+                is_private: false
             }
         };
 
@@ -25,7 +28,7 @@ export default class EditNewCategory extends Component {
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
         this.handleChangeNewCategorySlug = this.handleChangeNewCategorySlug.bind(this);
         this.handleChangeNewCategoryParentId = this.handleChangeNewCategoryParentId.bind(this);
-        this.handleChangeNewCategoryStatus = this.handleChangeNewCategoryStatus.bind(this);
+        this.handleChangeNewCategoryIsPrivate = this.handleChangeNewCategoryIsPrivate.bind(this);
 
         // eventemit_callback for category
         this.saveCategoryFailed = this.saveCategoryFailed.bind(this);
@@ -79,11 +82,6 @@ export default class EditNewCategory extends Component {
 
                         if (this.state.create_category) {
 
-                            var category_status = { content: ["published", "secret_published", "privated", "deleted"]}
-                            var statues = category_status.content.map(function(status) {
-                                return <option key={status} value={status}>{status}</option>;
-                            });
-
                             return (
                                 <div style={style.form.new_category}>
                                     <p>Name:</p>
@@ -109,14 +107,12 @@ export default class EditNewCategory extends Component {
                                         <option value="none">None</option>
                                         {use_categories}
                                     </select>
-                                    <p>Status:</p>
-                                    <select
-                                        style={style.form.select}
-                                        type="select"
-                                        value={this.state.new_category.status}
-                                        onChange={this.handleChangeNewCategoryStatus}>
-                                        {statues}
-                                    </select>
+                                    <Checkbox
+                                        value={this.state.new_category.is_private}
+                                        onChange={(event, index, value) => this.handleChangeNewCategoryIsPrivate(event, index, value)}
+                                        label="this category is Privated?"
+                                        defaultChecked={false}
+                                    />
                                     <button
                                         style={style.image_button}
                                         onClick={this.createCategory}>create Category</button>
@@ -146,13 +142,13 @@ export default class EditNewCategory extends Component {
                 name: "",
                 slug: "",
                 parent_id: "",
-                status: "published"
+                is_private: false
             }
         });
     }
 
     saveCategoryFailed(){
-        this.props.displaySnackBar("Sorry..! save Failed..!");
+        this.props.displaySnackBar("Sorry..! Save Failed..!");
     }
 
 
@@ -169,8 +165,8 @@ export default class EditNewCategory extends Component {
         this.state.new_category.parent_id = e.target.value;
         this.setState({ new_category: this.state.new_category });
     }
-    handleChangeNewCategoryStatus(e){
-        this.state.new_category.status = e.target.value;
+    handleChangeNewCategoryIsPrivate(event, index, value){
+        this.state.new_category.is_private = value;
         this.setState({ new_category: this.state.new_category });
     }
 };

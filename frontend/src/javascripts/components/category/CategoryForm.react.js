@@ -11,6 +11,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
 
 
 export default class CategoryForm extends Component {
@@ -23,7 +24,7 @@ export default class CategoryForm extends Component {
                 name: "",
                 slug: "",
                 parent_id: null,
-                status: 0
+                is_private: false
             }
         }
 
@@ -37,7 +38,7 @@ export default class CategoryForm extends Component {
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
         this.handleChangeNewCategorySlug = this.handleChangeNewCategorySlug.bind(this);
         this.handleChangeNewCategoryParentId = this.handleChangeNewCategoryParentId.bind(this);
-        this.handleChangeNewCategoryStatus = this.handleChangeNewCategoryStatus.bind(this);
+        this.handleChangeNewCategoryIsPrivate = this.handleChangeNewCategoryIsPrivate.bind(this);
     }
 
     componentDidMount() {
@@ -48,10 +49,6 @@ export default class CategoryForm extends Component {
     render() {
         var use_categories = this.props.categories.map(function(category) {
             return <MenuItem key={category.id} value={category.id} primaryText={category.name} />;
-        });
-
-        var statues = this.props.statuses.map(function(status, index) {
-            return <MenuItem key={index} value={index} primaryText={status}/>
         });
 
         return(
@@ -87,15 +84,12 @@ export default class CategoryForm extends Component {
                         {use_categories}
                     </SelectField>
 
-                    <SelectField
-                        value={this.state.new_category.status}
-                        onChange={this.handleChangeNewCategoryStatus}
-                        hintText="Status"
-                        className="mb_15"
-                        style={{width: "80%"}}>
-
-                        {statues}
-                    </SelectField>
+                    <Checkbox
+                        value={this.state.new_category.is_private}
+                        onChange={(event, index, value) => this.handleChangeNewCategoryIsPrivate(event, index, value)}
+                        label="this category is Privated?"
+                        defaultChecked={false}
+                    />
 
                     <RaisedButton
                         label="Create Category"
@@ -121,7 +115,7 @@ export default class CategoryForm extends Component {
                 name: "",
                 slug: "",
                 parent_id: null,
-                status: 0
+                is_private: false
             }
         });
     }
@@ -148,10 +142,9 @@ export default class CategoryForm extends Component {
         this.state.new_category.parent_id = value;
         this.setState({ new_category: this.state.new_category });
     }
-    handleChangeNewCategoryStatus(event, index, value){
-        this.state.new_category.status = value;
+    handleChangeNewCategoryIsPrivate(event, index, value){
+        this.state.new_category.is_private = value;
         this.setState({ new_category: this.state.new_category });
     }
 }
 
-CategoryForm.defaultProps = {statuses: ["published", "secret_published", "privated", "deleted"]};

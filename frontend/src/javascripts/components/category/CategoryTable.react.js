@@ -21,7 +21,7 @@ export default class CategoryTable extends Component {
                         <TableHeaderColumn>Name</TableHeaderColumn>
                         <TableHeaderColumn>Slug</TableHeaderColumn>
                         <TableHeaderColumn>PARENT_ID</TableHeaderColumn>
-                        <TableHeaderColumn>STATUS</TableHeaderColumn>
+                        <TableHeaderColumn>Private</TableHeaderColumn>
                         <TableHeaderColumn>/</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>

@@ -33,7 +33,7 @@ export default class CategoryTableRow extends Component {
                 <TableRowColumn>{this.props.category.name}</TableRowColumn>
                 <TableRowColumn>{this.props.category.slug}</TableRowColumn>
                 <TableRowColumn>{this.props.category.parent_id}</TableRowColumn>
-                <TableRowColumn>{this.props.category.status}</TableRowColumn>
+                <TableRowColumn>{this.props.category.is_private}</TableRowColumn>
                 <TableRowColumn>
 
                     {(()=>{
@@ -41,7 +41,7 @@ export default class CategoryTableRow extends Component {
                             return(
                                 <RaisedButton
                                     onClick={this.deleteCategory}
-                                    label=""
+                                    label="delete"
                                     secondary={true}
                                     disabled={true}
                                 />
@@ -73,6 +73,6 @@ export default class CategoryTableRow extends Component {
     }
 
     deleteFailed(){
-        this.props.displaySnackBar("Sorry..! delete Failed..!");
+        this.props.displaySnackBar("Sorry..! Delete Failed..!");
     }
 }

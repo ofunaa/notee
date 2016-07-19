@@ -4,6 +4,7 @@ module Notee
   class NoteesController < ApplicationController
 
     # callbacks
+    skip_before_action :restrict_access_json, only: [:index]
     before_action :restrict_access, only: [:index]
 
     def index
