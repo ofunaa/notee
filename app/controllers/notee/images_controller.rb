@@ -9,11 +9,21 @@ module Notee
       render json: { status: 'success', images: @images}
     end
 
-    def create
+    def show
+      @image = Image.find_by(id: params[:id]) if params[:id]
+      @image = Image.find_by(content: params[:name]) if params[:name] && !@image
+      respond_to do |format|
+        if @image
+          format.json { render json: @image, status: 200 }
+        else
+          format.json { render json: @image.errors, status: :unprocessable_entity }
+        end
+      end
+    end
 
+    def create
       @image = Image.new
       @image.file = params[:image]
-
       respond_to do |format|
         if @image.save
           format.json { render json: @image, status: 200 }
@@ -40,5 +50,6 @@ module Notee
     def image_params
       params.require(:image).permit(:title, :content, :slug, :status, :image_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
     end
+
   end
 end

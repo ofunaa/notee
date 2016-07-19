@@ -5,12 +5,6 @@ module Notee
 
     # callbacks
     before_action :set_post, only: [:show, :update, :destroy]
-    skip_before_action :restrict_access_json, only: [:notee]
-    before_action :restrict_access, only: [:notee]
-
-
-    def notee
-    end
 
     # GET /posts
     def index
@@ -61,17 +55,6 @@ module Notee
       # Only allow a trusted parameter "white list" through.
       def post_params
         params.require(:post).permit(:title, :content, :slug, :status, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
-      end
-
-      def restrict_access
-        # authenticate_or_request_with_http_token do |token, options|
-        #   Token.exists?(access_token: token)
-        # end
-
-        unless Token.exists?(access_token: session[:access_token])
-          redirect_to new_token_path and return
-        end
-
       end
   end
 end
