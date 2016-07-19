@@ -50,11 +50,13 @@ export default class EditSection extends Component {
         this.handleRequestClose = this.handleRequestClose.bind(this);
 
         // handles
+        this.handleChangeProps = this.handleChangeProps.bind(this);
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
         this.handleChangeSlug = this.handleChangeSlug.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.handleChangeCategoryId = this.handleChangeCategoryId.bind(this);
+        this.handleChangeThumbnailId = this.handleChangeThumbnailId.bind(this);
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
         this.saveContent = this.saveContent.bind(this);
@@ -112,6 +114,7 @@ export default class EditSection extends Component {
             slug: this.handleChangeSlug,
             status: this.handleChangeStatus,
             category_id: this.handleChangeCategoryId,
+            thumbnail_id: this.handleChangeThumbnailId,
             seo_keyword: this.handleChangeSeoKeyword,
             seo_description: this.handleChangeSeoDescription
         }
@@ -120,6 +123,7 @@ export default class EditSection extends Component {
             <div class="main">
                 <EditForm
                     handleChanges={handleChanges}
+                    handleChangeProps={this.handleChangeProps}
                     content={this.state.content}
                     statuses={this.props.statuses}
                     categories={this.state.categories}
@@ -140,6 +144,9 @@ export default class EditSection extends Component {
         );
     }
 
+    handleChangeProps(){
+        this.setState({ content: this.state.content });
+    }
 
     handleChangeTitle(e) {
         this.state.content.title = e.target.value;
@@ -160,6 +167,10 @@ export default class EditSection extends Component {
     }
     handleChangeCategoryId(e) {
         this.state.content.category_id = e.target.value;
+        this.setState({ content: this.state.content });
+    }
+    handleChangeThumbnailId(e) {
+        this.state.content.thumbnail_id = e.target.value;
         this.setState({ content: this.state.content });
     }
     handleChangeSeoKeyword(e) {

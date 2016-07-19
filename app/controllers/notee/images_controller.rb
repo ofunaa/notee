@@ -10,15 +10,9 @@ module Notee
     end
 
     def show
-      @image = Image.find_by(id: params[:id]) if params[:id]
-      @image = Image.find_by(content: params[:name]) if params[:name] && !@image
-      respond_to do |format|
-        if @image
-          format.json { render json: @image, status: 200 }
-        else
-          format.json { render json: @image.errors, status: :unprocessable_entity }
-        end
-      end
+      @image = Image.find_by(content: params[:search_txt].to_s) if params[:search_txt]
+      @image = Image.find_by(id: params[:search_txt].to_i) if params[:search_txt] && !@image
+      render json: { status: 'success', image: @image}
     end
 
     def create

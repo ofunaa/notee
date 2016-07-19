@@ -156,7 +156,11 @@ export default class Image extends Component {
     }
 
     addImage() {
-        this.props.imageInsert(this.state.tap_image);
+        if(this.props.mode == "image"){
+            this.props.insertImage(this.state.tap_image);
+        } else if(this.props.mode == "thumbnail"){
+            NoteeStore.loadImage(this.state.tap_image, this.props.insertThumbnail);
+        }
     }
 
     clickImage(e) {

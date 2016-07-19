@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
+import NoteeStore from '../../stores/NoteeStore';
 import EditImage  from './EditImage.react.js';
 import EditNewCategory  from './EditNewCategory.react.js';
 
@@ -10,11 +11,19 @@ export default class EditForm extends Component {
         super(props);
         this.state = {
             is_saving: false,
-            display_image: false
+            display_image: false,
+            display_mode: "",
+            thumbnail_src: ""
         };
 
         this.pushImage = this.pushImage.bind(this);
         this.insertImage = this.insertImage.bind(this);
+        this.insertThumbnail = this.insertThumbnail.bind(this);
+        this.setThumbnail = this.setThumbnail.bind(this);
+    }
+
+    componentWillReceiveProps(){
+        NoteeStore.loadImage(this.props.content.thumbnail_id, this.setThumbnail);
     }
 
     render() {
@@ -60,6 +69,12 @@ export default class EditForm extends Component {
                     height: "50px",
                     marginBottom: "10px"
                 }
+                ,
+                thumbnail: {
+                    width: "100%",
+                    height: "auto",
+                    marginBottom: "10px"
+                }
             }
         }
 
@@ -75,7 +90,14 @@ export default class EditForm extends Component {
             <div style={style.layout.half}>
                 {(() => {
                     if (this.state.display_image) {
-                        return (<EditImage imageInsert={this.insertImage} pushImage={this.pushImage}/>);
+                        return (
+                            <EditImage
+                                insertImage={this.insertImage}
+                                insertThumbnail={this.insertThumbnail}
+                                pushImage={this.pushImage}
+                                mode={this.state.display_mode}
+                            />
+                        );
                     }
                 })()}
 
@@ -90,7 +112,7 @@ export default class EditForm extends Component {
                     <p>Content:</p>
                     <button
                         style={style.form.image_button}
-                        onClick={this.pushImage}>image</button>
+                        onClick={this.pushImage.bind(this, "image")}>image</button>
                     <textarea
                         id="main_area"
                         style={style.form.main_area}
@@ -126,7 +148,21 @@ export default class EditForm extends Component {
                         categories={this.props.categories}
                         displaySnackBar={this.props.displaySnackBar}
                     />
-
+                    <p>thumbnail:</p>
+                    <button
+                        style={style.form.image_button}
+                        onClick={this.pushImage.bind(this, "thumbnail")}>image</button>
+                    <img
+                        style={style.form.thumbnail}
+                        src={window.location.origin + "/notee/" + this.state.thumbnail_src}
+                    />
+                    <input
+                        style={style.form.input_text}
+                        type="hidden"
+                        id="thumbnail_id"
+                        value={this.props.content.thumbnail_id}
+                        onChange={this.props.handleChanges.thumbnail_id}
+                    />
                     <p>seo_keyword:</p>
                     <input
                         style={style.form.input_text}
@@ -149,7 +185,7 @@ export default class EditForm extends Component {
         );
     }
     
-    pushImage(e){
+    pushImage(name){
         switch (this.state.display_image){
             case true:
                 this.setState({display_image: false});
@@ -158,6 +194,8 @@ export default class EditForm extends Component {
                 this.setState({display_image: true});
                 break;
         }
+
+        this.setState({display_mode: name});
     }
 
     insertImage(image){
@@ -168,6 +206,19 @@ export default class EditForm extends Component {
         mainArea.value = leftPart + image_txt + rightPart;
         this.props.content.content = mainArea.value;
         this.setState({display_image: false});
+        this.props.handleChangeProps();
+    }
+
+    insertThumbnail(thumbnail){
+        this.props.content.thumbnail_id = thumbnail.id;
+        this.setState({display_image: false});
+        this.props.handleChangeProps();
+    }
+
+    setThumbnail(thumbnail){
+        if(thumbnail){
+            this.setState({thumbnail_src: thumbnail.content});
+        }
     }
 };
 

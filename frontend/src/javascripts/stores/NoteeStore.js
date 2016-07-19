@@ -131,6 +131,26 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         });
     },
 
+    loadImage: function(image, callback) {
+
+        var search_txt = image;
+        var url = "/notee/api/images/00";
+
+        if(typeof(image) == "string"){
+            var image_file = image.split("/notee/");
+            search_txt = image_file[1];
+        }
+
+        request
+            .get(url)
+            .query({search_txt: search_txt})
+            .end(function(err, res){
+                if(err){return;}
+                if(!res.body){return;}
+                callback(res.body.image);
+        });
+    },
+
     loadAllImages: function(callback) {
         request.get('/notee/api/images', (err, res) => {
             callback(res.body.images);
