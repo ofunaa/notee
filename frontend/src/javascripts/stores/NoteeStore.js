@@ -182,6 +182,7 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         request.get(url, (err, res) => {
             if(err){return;}
             if(!res.body){return;}
+            console.log(res.body);
             callback(res.body.statuses);
         })
     },

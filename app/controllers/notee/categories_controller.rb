@@ -11,7 +11,6 @@ module Notee
     end
 
     def show
-      p @category
       render json: { status: 'success', category: @category}
     end
 

@@ -25,7 +25,8 @@ export default class EditSection extends Component {
                 category_id: "",
                 thumbnail_id: "",
                 seo_keyword: "",
-                seo_description: ""
+                seo_description: "",
+                secret_published_password: ""
             },
             categories: [],
             status: {},
@@ -61,9 +62,10 @@ export default class EditSection extends Component {
         this.handleChangeThumbnailId = this.handleChangeThumbnailId.bind(this);
         this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
         this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
+        this.handleChangeSecretPublishedPassword = this.handleChangeSecretPublishedPassword.bind(this);
         this.saveContent = this.saveContent.bind(this);
     }
-
+    
     componentWillMount() {
         if(this.props.params.id){
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
@@ -97,7 +99,8 @@ export default class EditSection extends Component {
             category_id: this.handleChangeCategoryId,
             thumbnail_id: this.handleChangeThumbnailId,
             seo_keyword: this.handleChangeSeoKeyword,
-            seo_description: this.handleChangeSeoDescription
+            seo_description: this.handleChangeSeoDescription,
+            secret_published_password: this.handleChangeSecretPublishedPassword
         }
 
         return (
@@ -162,6 +165,10 @@ export default class EditSection extends Component {
         this.state.content.seo_description = e.target.value;
         this.setState({ content: this.state.content });
     }
+    handleChangeSecretPublishedPassword(e) {
+        this.state.content.secret_published_password = e.target.value;
+        this.setState({ content: this.state.content });
+    }
 
     saveContent(e){
         if(this.props.params.id){
@@ -183,7 +190,8 @@ export default class EditSection extends Component {
                 category_id: "",
                 thumbnail_id: "",
                 seo_keyword: "",
-                seo_description: ""
+                seo_description: "",
+                secret_published_password: ""
             }
         });
     }
@@ -231,7 +239,8 @@ export default class EditSection extends Component {
                 category_id: content.category_id,
                 thumbnail_id: content.thumbnail_id,
                 seo_keyword: content.seo_keyword,
-                seo_description: content.seo_description
+                seo_description: content.seo_description,
+                secret_published_password: content.secret_published_password
             }
         });
     }

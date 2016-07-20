@@ -78,6 +78,8 @@ export default class EditForm extends Component {
             }
         }
 
+        console.log(this.props.statuses);
+
         var statuses = [];
         for (var key in this.props.statuses) {
             statuses.push(
@@ -142,6 +144,22 @@ export default class EditForm extends Component {
                         {statuses}
 
                     </select>
+                    {(() => {
+                        if (this.props.content.status == 2) {
+                            return (
+                                <div>
+                                    <p>secret_published_password:</p>
+                                    <input
+                                        style={style.form.input_text}
+                                        type="text"
+                                        value={this.props.content.secret_published_password}
+                                        onChange={this.props.handleChanges.secret_published_password}
+                                    />
+                                </div>
+                            );
+                        }
+                    })()}
+
                     <p>category:</p>
                     <select
                         style={style.form.select}

@@ -5,7 +5,7 @@ class CreateNoteePosts < ActiveRecord::Migration
 
       # notee's base
 
-      t.string  :title, default: "no title"
+      t.string  :title
       t.text    :content
       t.string  :slug
       t.integer :status, default: 0
@@ -17,6 +17,8 @@ class CreateNoteePosts < ActiveRecord::Migration
       t.string  :seo_keyword, default: ""
       t.string  :seo_description, default: ""
 
+      # secret_published
+      t.string :secret_published_password
 
       # if you have user_id
       # t.integer :user_id
