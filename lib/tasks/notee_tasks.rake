@@ -27,24 +27,25 @@ ________________________________
 
   def add_engine_to_route
     puts ""
-    return puts 'setup Notee Engine in config/route.rb\n' unless route_file = File.open("#{Rails.root}/config/routes.rb","r")
+    return puts 'setup Notee Engine in config/route.rb\n' unless route = File.open("#{Rails.root}/config/routes.rb","r")
+    return if File.open("#{Rails.root}/config/routes.rb","r").read.include?("Notee::Engine")
 
-    notee_routes_str = String.new
     text = <<-EOC
 
   mount Notee::Engine => "/notee"
 EOC
 
-    route_file.each_line do |line|
+    new_route = String.new
+    route.each_line do |line|
       line += text if line.include?("Rails.application.routes.draw do")
-      notee_routes_str += line
+      new_route += line
     end
 
     f = File.open("#{Rails.root}/config/routes.rb","w")
-    f.write(notee_routes_str)
+    f.write(new_route)
     f.close()
 
-    puts 'add "mount Notee::Engine => "/notee" to config/route.rb'
+    puts 'Notee added "mount Notee::Engine => "/notee" to config/route.rb'
     puts ""
   end
 
