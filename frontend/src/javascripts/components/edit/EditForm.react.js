@@ -78,8 +78,6 @@ export default class EditForm extends Component {
             }
         }
 
-        console.log(this.props.statuses);
-
         var statuses = [];
         for (var key in this.props.statuses) {
             statuses.push(

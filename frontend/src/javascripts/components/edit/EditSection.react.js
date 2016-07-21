@@ -65,7 +65,7 @@ export default class EditSection extends Component {
         this.handleChangeSecretPublishedPassword = this.handleChangeSecretPublishedPassword.bind(this);
         this.saveContent = this.saveContent.bind(this);
     }
-    
+
     componentWillMount() {
         if(this.props.params.id){
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
@@ -145,7 +145,6 @@ export default class EditSection extends Component {
         this.setState({ content: this.state.content });
     }
     handleChangeStatus(e) {
-        console.log(e.target.value);
         this.state.content.status = e.target.value;
         this.setState({ content: this.state.content });
     }
