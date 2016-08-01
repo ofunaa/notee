@@ -1,7 +1,19 @@
 module Notee
   module Helper
-    def notees(search_txt)
 
+    def notee(search_txt)
+      return false unless search_txt
+      @notee = Notee::Post.find_by(id: search_txt)
+      @notee = Notee::Post.find_by(slug: search_txt) unless @notee
+
+      return if @notee.status == Notee::STATUS[:draft] ||
+                @notee.status == Notee::STATUS[:deleted] ||
+                @notee.status == Notee::STATUS[:privated]
+
+      @notee
+    end
+
+    def notees(search_txt)
       @notees = []
 
       if search_txt.nil?
@@ -17,20 +29,12 @@ module Notee
       end
 
       @notees
-
     end
 
-    def secret_notees
-      @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
-    end
+    # TODO: secret_mode
+    # def secret_notees
+    #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
+    # end
 
-
-    def notee(search_txt)
-      return false unless search_txt
-      @notee = Notee::Post.find_by(id: search_txt, status: Notee::STATUS[:published])
-      @notee = Notee::Post.find_by(slug: search_txt, status: Notee::STATUS[:published]) unless @notee
-
-      @notee
-    end
   end
 end

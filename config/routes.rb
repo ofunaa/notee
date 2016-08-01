@@ -7,6 +7,7 @@ Notee::Engine.routes.draw do
   get 'category'  => 'notees#index'
   get 'image'     => 'notees#index'
 
+  post 'secret_published' => 'notees#secret_published'
   resources :tokens, only: [:new, :create, :destroy]
 
   scope :api, { format: 'json' } do
