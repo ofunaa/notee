@@ -1,0 +1,7 @@
+<ul class="notee_categories">
+  <% @notee_categories.each do |category| %>
+    <a href="/<%= category.slug %>" class="notee_category">
+      <li><%= category.name %></li>
+    </a>
+  <% end %>
+</ul>

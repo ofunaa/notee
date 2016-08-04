@@ -15,6 +15,6 @@ class CreateNoteeCategories < ActiveRecord::Migration
     add_index :notee_categories, [:slug], :unique => true
 
     # create default category
-    Notee::Category.create :name => 'None'
+    Notee::Category.create :name => 'No_Category'
   end
 end

@@ -1,5 +1,5 @@
-require 'notee/helper'
-require 'notee/view_helper'
+require 'notee/helpers/notee_helper'
+require 'notee/helpers/view_helper'
 
 module Notee
   class Engine < ::Rails::Engine
@@ -11,14 +11,14 @@ module Notee
 
     initializer 'notee.action_controller_helpers' do
       ActiveSupport.on_load :action_controller do
-        include Notee::Helper
+        include Notee::Helpers::NoteeHelper
       end
     end
 
     initializer 'notee.action_view_helpers' do
       ActiveSupport.on_load :action_view do
-        include Notee::Helper
-        include Notee::ViewHelper
+        include Notee::Helpers::NoteeHelper
+        include Notee::Helpers::ViewHelper
       end
     end
 
