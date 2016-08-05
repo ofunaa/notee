@@ -20,10 +20,6 @@ module Notee
         @markdown.render(notee.content).html_safe
       end
 
-      def notee_categories
-
-      end
-
       def notee_comments_box
 
       end
