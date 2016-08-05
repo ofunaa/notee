@@ -41,14 +41,32 @@ module Notee
 
         case sort
           when 'alphabetal'
-            @notee_categories.sort!
+            @notee_categories = @notee_categories.sort
           when 'size'
-            @notee_categories.sort_by! {|category| category.size }
+            @notee_categories = @notee_categories.sort_by {|category| category.name.size }
         end
 
         @notee_categories
       end
 
+      def notee_archives(year, month)
+        start_date = Date.new(year, month, 1)
+        end_date = Date.new(year, month, -1)
+        @notee_archives = Notee::Post.where(status: Notee::STATUS[:published], :published_at => start_date...end_date)
+
+        @notee_archives
+      end
+
+      def notee_archives_menu(type = nil)
+        case type
+          when 'year'
+            return Notee::Post.where(status: Notee::STATUS[:published]).group('year(published_at)').count
+          when 'month'
+            return Notee::Post.where(status: Notee::STATUS[:published]).group('year(published_at)').group('month(published_at)').count
+          else
+            return Notee::Post.where(status: Notee::STATUS[:published]).group('year(published_at)').group('month(published_at)').count
+        end
+      end
     end
   end
 end
