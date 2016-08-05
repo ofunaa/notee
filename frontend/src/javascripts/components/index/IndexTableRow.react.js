@@ -28,8 +28,9 @@ export default class CategoryTableRow extends Component {
 
     render() {
 
-        var date = new Date( this.props.notee.updated_at );
-        var display_date = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        var date = new Date( this.props.notee.published_at );
+        console.log(date);
+        var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         return(
             <TableRow>

@@ -20,7 +20,7 @@ export default class IndexTable extends Component {
                         <TableHeaderColumn>Title</TableHeaderColumn>
                         <TableHeaderColumn>Category</TableHeaderColumn>
                         <TableHeaderColumn>Status</TableHeaderColumn>
-                        <TableHeaderColumn>UPDATE</TableHeaderColumn>
+                        <TableHeaderColumn>Publish</TableHeaderColumn>
                         <TableHeaderColumn>/</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
