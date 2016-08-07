@@ -6,6 +6,7 @@ namespace :notee do
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     create_initializer_file
+    create_css_file
     setup_default
   end
 
@@ -69,6 +70,26 @@ EOC
     end
     puts 'create file in "config/initializers/notee.rb"'
     puts 'you should change notee_id & notee_password'
+  end
+
+  def create_css_file
+    image_dir = Rails.root.to_s + '/app/assets/stylesheets/notee/'
+    FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
+
+    file_path = image_dir + 'notee_default.css'
+    return if File.exist?(file_path)
+
+    css = File.open(File.expand_path('../css/notee_default.css', __FILE__))
+    new_css = String.new
+    css.each_line do |line|
+      new_css += line
+    end
+
+
+    File.open(file_path,"w") do |file|
+      file.puts new_css
+    end
+    puts 'create file in "/app/assets/stylesheets/notee/notee_default.css"'
   end
 
   def setup_default
