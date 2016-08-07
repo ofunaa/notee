@@ -8,7 +8,7 @@
     <% end %>
   </div>
   <button onclick="ToggleForm()">Write a Comment</button>
-  <div class="notee_comment_form" id="notee_form">
+  <div class="notee_comment_form" id="notee_form" style="display: none">
     <%= form_for(@comment,:url => '/notee/api/comments', :remote => true, :class => 'form-ajax') do |f| -%>
       <%= f.hidden_field :post_id, :value => post_id -%>
       <%= f.label :name, :class => 'notee_label' %>
