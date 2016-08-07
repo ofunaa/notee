@@ -1,6 +1,5 @@
 Notee::Engine.routes.draw do
 
-  resources :comments
   root to: 'notees#index'
 
   get 'new'       => 'notees#index'
@@ -16,5 +15,6 @@ Notee::Engine.routes.draw do
     resources :images, only: [:index, :show, :create, :destroy]
     resources :categories, only: [:index, :show, :create, :update, :destroy]
     resources :statuses, only: [:index, :show]
+    resources :comments, only: [:create]
   end
 end

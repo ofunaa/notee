@@ -1,0 +1,60 @@
+
+/*  notee_comment_box */
+
+.notee_comment_box {
+    width: 100%;
+    margin: 30px auto;
+    float: left;
+}
+
+.notee_comments {
+    width: 94%;
+    padding: 3%;
+    margin_bottom: 20px;
+    float: left;
+}
+
+.notee_comment {
+    width: 98%;
+    padding: 1%;
+    margin_bottom: 10px;
+    border-bottom: 1px solid #dcdcdc;
+    float: left;
+}
+.notee_comment_form {
+    display: none;
+    width: 60%;
+    padding: 4%;
+    margin_bottom: 20px;
+    float: left;
+}
+
+.notee_label {
+    width: 60%;
+    margin-bottom: 15px;
+    float: left;
+}
+
+.notee_text_field {
+    width: 60%;
+    height: 26px;
+    min-width: 300px;
+    margin-bottom: 15px;
+    float: left;
+    font-size: 14px;
+}
+
+.notee_text_area {
+    width: 100%;
+    height: 78px;
+    margin-bottom: 15px;
+    float: left;
+    font-size: 14px;
+}
+
+.notee_submit {
+    width: 10%;
+    margin-bottom: 15px;
+    float: left;
+    font-size: 30px;
+}
