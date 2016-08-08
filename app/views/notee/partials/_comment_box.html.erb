@@ -2,14 +2,14 @@
   <div class="notee_comments">
     <% @comments.each do |comment| %>
       <div class="notee_comment">
-        <p><%= comment.name %></p>
-        <p><%= comment.content %></p>
+        <p class="notee_comment_name"><%= comment.name %></p>
+        <p class="notee_comment_content"><%= comment.content %></p>
       </div>
     <% end %>
   </div>
   <button onclick="ToggleForm()">Write a Comment</button>
   <div class="notee_comment_form" id="notee_form" style="display: none">
-    <%= form_for(@comment,:url => '/notee/api/comments', :remote => true, :class => 'form-ajax') do |f| -%>
+    <%= form_for(@comment, :url => '/notee/api/comments', :remote => true, :class => 'form-ajax') do |f| -%>
       <%= f.hidden_field :post_id, :value => post_id -%>
       <%= f.label :name, :class => 'notee_label' %>
       <%= f.text_field :name, :class => 'notee_text_field' %>
@@ -23,12 +23,19 @@
 </div>
 
 <script>
-  function ToggleForm(){
-    var notee_form = document.getElementById('notee_form');
-    if(notee_form.style.display == "" || notee_form.style.display == "none"){
-      notee_form.style.display = "block";
-    }else{
-      notee_form.style.display = "none";
+    function ToggleForm(){
+      var notee_form = document.getElementById('notee_form');
+      if(notee_form.style.display == "" || notee_form.style.display == "none"){
+        notee_form.style.display = "block";
+      }else{
+        notee_form.style.display = "none";
+      }
     }
-  }
+
+    window.onLoad = function(){
+      var new_comment = document.getElementById('new_comment');
+    }
 </script>
+
+<script src="https://cdn.jsdelivr.net/g/riot@2.0(riot.min.js+compiler.min.js)"></script>
+<script>riot.mount('*')</script>
