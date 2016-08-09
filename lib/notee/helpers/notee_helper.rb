@@ -67,6 +67,12 @@ module Notee
             return Notee::Post.where(status: Notee::STATUS[:published]).group('year(published_at)').group('month(published_at)').count
         end
       end
+
+      def notee_comments(id)
+        return if id.nil?
+        @notee_comments = Notee::Post.where(post_id: id)
+        @notee_comments
+      end
     end
   end
 end
