@@ -21,8 +21,6 @@ module Notee
       end
 
       def notee_comment_box(id)
-        @comments = Notee::Comment.where(post_id: id)
-        @comment = Notee::Comment.new
         return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id}
       end
     end
