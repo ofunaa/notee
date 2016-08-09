@@ -4,7 +4,6 @@ class CreateNoteePosts < ActiveRecord::Migration
     create_table :notee_posts do |t|
 
       # notee's base
-
       t.string  :title
       t.text    :content
       t.string  :slug
@@ -12,6 +11,7 @@ class CreateNoteePosts < ActiveRecord::Migration
       t.integer :category_id, default: 0
       t.integer :thumbnail_id, default: 0
       t.datetime :published_at
+      t.integer :user_id
 
       # seo
       t.string  :seo_keyword, default: ""
@@ -20,8 +20,6 @@ class CreateNoteePosts < ActiveRecord::Migration
       # secret_published
       t.string :secret_published_password
 
-      # if you have user_id
-      # t.integer :user_id
 
       t.timestamps null: false
 

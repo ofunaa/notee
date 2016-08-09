@@ -17,6 +17,12 @@ module Notee
         end
       end
 
+      if now_user = User.sign_in?(params[:id], params[:password])
+        if token = Token.create!(user_id: now_user.id)
+          session[:access_token] = token.access_token
+        end
+      end
+
       redirect_to root_path
     end
 
