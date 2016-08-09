@@ -3,12 +3,17 @@ require_dependency "notee/application_controller"
 module Notee
   class CommentsController < ApplicationController
 
+    def show
+      @comments = Comment.where(post_id: params[:id]);
+      render json: { status: 'success', comments: @comments}
+    end
+
     # POST /comments
     def create
       @comment = Comment.new(comment_params)
 
       if @comment.save
-        render json: { status: 'success', comment: @comment}
+        render json: { status: 'success'}
       else
         render json: { status: 'failed'}
       end
