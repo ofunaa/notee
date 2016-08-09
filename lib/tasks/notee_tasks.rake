@@ -62,6 +62,8 @@ require 'notee'
 Notee.configure do |config|
   config.notee_id = "hogehoge"
   config.notee_password = "hogehoge"
+  config.recaptcha_key = "hogehoge"
+  config.recaptcha_secret_key = "hogehoge"
 end
 EOC
 
