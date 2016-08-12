@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 
 // notee
-import NoteeActions from '../../actions/NoteeActions';
-import NoteeStore from '../../stores/NoteeStore';
-import NoteeConstants from '../../constants/NoteeConstants';
+import CategoryActions from '../../actions/CategoryActions';
+import CategoryStore from '../../stores/CategoryStore';
+import CategoryConstants from '../../constants/CategoryConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -42,8 +42,8 @@ export default class CategoryForm extends Component {
     }
 
     componentDidMount() {
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE_FAILED, this.saveFailed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.saveSuccessed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE_FAILED, this.saveFailed);
     }
 
     render() {
@@ -105,7 +105,7 @@ export default class CategoryForm extends Component {
 
     createCategory(){
         if(this.state.new_category.name == ""){ return false; }
-        NoteeActions.category_create(this.state.new_category);
+        CategoryActions.category_create(this.state.new_category);
     }
 
     saveSuccessed(){

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 
 // notee
 import NoteeStore from '../../stores/NoteeStore';
+import CategoryStore from '../../stores/CategoryStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,7 +23,7 @@ export default class CategoryTableRow extends Component {
     }
 
     componentWillMount(){
-        NoteeStore.loadCategory(this.props.notee.category_id, this.ajaxCategoryLoad);
+        CategoryStore.loadCategory(this.props.notee.category_id, this.ajaxCategoryLoad);
         NoteeStore.loadStatus(this.props.notee.status, this.ajaxStatusLoad);
     }
 

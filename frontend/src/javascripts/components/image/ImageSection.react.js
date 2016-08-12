@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from "react";
 
 // notee
-import NoteeActions from '../../actions/NoteeActions';
-import NoteeConstants from '../../constants/NoteeConstants';
-import NoteeStore from '../../stores/NoteeStore';
+import ImageActions from '../../actions/ImageActions';
+import ImageConstants from '../../constants/ImageConstants';
+import ImageStore from '../../stores/ImageStore';
 
 // material-ui
 import Snackbar from 'material-ui/Snackbar';
@@ -20,7 +20,6 @@ export default class ImageSection extends Component {
             snackbar_open: false,
             snackbar_txt: ""
         };
-
 
         // imageSection
         this.clickImage = this.clickImage.bind(this);
@@ -47,14 +46,14 @@ export default class ImageSection extends Component {
 
     componentWillMount() {
         this.setImages();
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE, this.saveSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE_FAILED, this.saveFailed);
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE_DELETE, this.deleteSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE_DELETE_FAILED, this.deleteFailed);
+        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE, this.saveSuccessed);
+        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE_FAILED, this.saveFailed);
+        ImageStore.addChangeListener(ImageConstants.IMAGE_DELETE, this.deleteSuccessed);
+        ImageStore.addChangeListener(ImageConstants.IMAGE_DELETE_FAILED, this.deleteFailed);
     }
 
     setImages() {
-        NoteeStore.loadAllImages(this.ajaxLoaded);
+        ImageStore.loadAllImages(this.ajaxLoaded);
     }
 
     ajaxLoaded(content){
@@ -162,11 +161,11 @@ export default class ImageSection extends Component {
     }
 
     uploadImage() {
-        NoteeActions.image_create(this.state.upload_file);
+        ImageActions.image_create(this.state.upload_file);
     }
 
     deleteImage() {
-        NoteeActions.image_delete(this.state.tap_image);
+        ImageActions.image_delete(this.state.tap_image);
     }
 
     saveSuccessed(){

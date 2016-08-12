@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-import NoteeStore from '../../stores/NoteeStore';
+import ImageStore from '../../stores/ImageStore';
 import EditImage  from './EditImage.react.js';
 import EditNewCategory  from './EditNewCategory.react.js';
 
@@ -23,7 +23,7 @@ export default class EditForm extends Component {
     }
 
     componentWillReceiveProps(){
-        NoteeStore.loadImage(this.props.content.thumbnail_id, this.setThumbnail);
+        ImageStore.loadImage(this.props.content.thumbnail_id, this.setThumbnail);
     }
 
     render() {
@@ -218,6 +218,8 @@ export default class EditForm extends Component {
                 this.setState({display_image: true});
                 break;
         }
+
+        console.log(name);
 
         this.setState({display_mode: name});
     }

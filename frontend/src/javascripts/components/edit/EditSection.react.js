@@ -4,6 +4,8 @@ import React, {Component, PropTypes} from 'react';
 import NoteeActions from '../../actions/NoteeActions';
 import NoteeConstants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
+import CategoryConstants from '../../constants/CategoryConstants';
+import CategoryStore from '../../stores/CategoryStore';
 import EditForm  from './EditForm.react.js';
 import EditPreview  from './EditPreview.react.js';
 
@@ -71,12 +73,12 @@ export default class EditSection extends Component {
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
         NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
-        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE, this.saveSuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE_FAILED, this.saveFailed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE, this.updateSuccessed);
         NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE_FAILED, this.updateFailed);
+        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
     }
 
     render() {
@@ -208,7 +210,7 @@ export default class EditSection extends Component {
     }
 
     saveCategorySuccessed(){
-        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
     displaySnackBar(txt){

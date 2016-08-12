@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 
 // notee
-import NoteeActions from '../../actions/NoteeActions';
-import NoteeStore from '../../stores/NoteeStore';
-import NoteeConstants from '../../constants/NoteeConstants';
+import CategoryActions from '../../actions/CategoryActions';
+import CategoryStore from '../../stores/CategoryStore';
+import CategoryConstants from '../../constants/CategoryConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,8 +22,8 @@ export default class CategoryTableRow extends Component {
     }
 
     componentDidMount() {
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_DELETE, this.deleteSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_DELETE_FAILED, this.deleteFailed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_DELETE, this.deleteSuccessed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_DELETE_FAILED, this.deleteFailed);
     }
 
     render() {
@@ -65,7 +65,7 @@ export default class CategoryTableRow extends Component {
     }
 
     deleteCategory(e){
-        NoteeActions.category_delete(this.props.category.id);
+        CategoryActions.category_delete(this.props.category.id);
     }
 
     deleteSuccessed(){

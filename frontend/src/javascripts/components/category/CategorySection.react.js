@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-import NoteeStore from '../../stores/NoteeStore';
-import NoteeConstants from '../../constants/NoteeConstants';
+import CategoryStore from '../../stores/CategoryStore';
+import CategoryConstants from '../../constants/CategoryConstants';
 
 // material-ui
 import { Link } from "react-router";
@@ -33,10 +33,10 @@ export default class CategorySection extends Component {
     }
 
     componentWillMount() {
-        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.changeSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_UPDATE, this.changeSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_DELETE, this.changeSuccessed);
+        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.changeSuccessed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_UPDATE, this.changeSuccessed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_DELETE, this.changeSuccessed);
     }
 
     ajaxCategoryLoaded(content){
@@ -68,7 +68,7 @@ export default class CategorySection extends Component {
     }
 
     changeSuccessed(){
-        NoteeStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
     displaySnackBar(txt){

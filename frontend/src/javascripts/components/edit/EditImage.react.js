@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from "react";
 
 // notee
-import NoteeActions from '../../actions/NoteeActions';
-import NoteeStore from '../../stores/NoteeStore';
-import NoteeConstants from '../../constants/NoteeConstants';
+import ImageActions from '../../actions/ImageActions';
+import ImageStore from '../../stores/ImageStore';
+import ImageConstants from '../../constants/ImageConstants';
 
 // material-ui
 import Snackbar from 'material-ui/Snackbar';
@@ -45,12 +45,12 @@ export default class Image extends Component {
 
     componentWillMount() {
         this.setImages();
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE, this.saveSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.IMAGE_CREATE_FAILED, this.saveFailed);
+        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE, this.saveSuccessed);
+        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE_FAILED, this.saveFailed);
     }
 
     setImages() {
-        NoteeStore.loadAllImages(this.ajaxLoaded);
+        ImageStore.loadAllImages(this.ajaxLoaded);
     }
 
     ajaxLoaded(content){
@@ -159,7 +159,7 @@ export default class Image extends Component {
         if(this.props.mode == "image"){
             this.props.insertImage(this.state.tap_image);
         } else if(this.props.mode == "thumbnail"){
-            NoteeStore.loadImage(this.state.tap_image, this.props.insertThumbnail);
+            ImageStore.loadImage(this.state.tap_image, this.props.insertThumbnail);
         }
     }
 
@@ -168,7 +168,7 @@ export default class Image extends Component {
     }
 
     uploadImage() {
-        NoteeActions.image_create(this.state.upload_file);
+        ImageActions.image_create(this.state.upload_file);
     }
 
     saveSuccessed(){

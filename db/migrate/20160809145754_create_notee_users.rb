@@ -1,4 +1,4 @@
-class CreateNoteeUsers < ActiveRecord::Migration[5.0]
+class CreateNoteeUsers < ActiveRecord::Migration
   def change
     create_table :notee_users do |t|
       t.string :name, null: false
@@ -9,10 +9,9 @@ class CreateNoteeUsers < ActiveRecord::Migration[5.0]
       t.text :sns
       t.integer :role, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
-  end
 
-  add_index :notee_users, [:name], :unique => true
-  add_index :notee_users, [:email], :unique => true
+    add_index :notee_users, [:name, :email], :unique => true
+  end
 end

@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-import NoteeActions from '../../actions/NoteeActions';
-import NoteeConstants from '../../constants/NoteeConstants';
-import NoteeStore from '../../stores/NoteeStore';
+import CategoryActions from '../../actions/CategoryActions';
+import CategoryConstants from '../../constants/CategoryConstants';
+import CategoryStore from '../../stores/CategoryStore';
 
 // material-ui
 import Checkbox from 'material-ui/Checkbox';
@@ -37,8 +37,8 @@ export default class EditNewCategory extends Component {
     }
 
     componentDidMount() {
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.CATEGORY_CREATE_FAILED, this.saveCategoryFailed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
+        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE_FAILED, this.saveCategoryFailed);
     }
 
     render() {
@@ -127,7 +127,7 @@ export default class EditNewCategory extends Component {
 
     createCategory(){
         if(this.state.new_category.name){
-            NoteeActions.category_create(this.state.new_category);
+            CategoryActions.category_create(this.state.new_category);
         }
     }
 

@@ -14,10 +14,11 @@ module Notee
       if Notee.notee_id == params[:id] && Notee.notee_password == params[:password]
         if token = Token.create!
           session[:access_token] = token.access_token
+          return redirect_to root_path
         end
       end
 
-      if now_user = User.sign_in?(params[:id], params[:password])
+      if now_user = User.sign_in(params[:id], params[:password])
         if token = Token.create!(user_id: now_user.id)
           session[:access_token] = token.access_token
         end

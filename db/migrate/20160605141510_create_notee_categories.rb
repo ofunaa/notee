@@ -12,7 +12,7 @@ class CreateNoteeCategories < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :notee_categories, [:slug], :unique => true
+    add_index :notee_categories, :slug, :unique => true
 
     # create default category
     Notee::Category.create :name => 'No_Category'

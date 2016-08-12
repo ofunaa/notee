@@ -46,70 +46,6 @@ function notee_delete(notee_src){
         })
 }
 
-function image_create(content){
-    request
-        .post("/notee/api/images")
-        .attach("image", content)
-        .end(function(err, res){
-            if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.IMAGE_CREATE_FAILED);
-                return false;
-            }
-            NoteeStore.emitChange(NoteeConstants.IMAGE_CREATE);
-        })
-}
-
-function image_delete(image_src){
-    var delete_file = image_src.split("/notee/");
-    request
-        .del("/notee/api/images/0?name=" + delete_file[1])
-        .end(function(err, res){
-            if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.IMAGE_DELETE_FAILED);
-                return false;
-            }
-            NoteeStore.emitChange(NoteeConstants.IMAGE_DELETE);
-        })
-}
-
-function category_create(content) {
-    request
-        .post("/notee/api/categories")
-        .send(content)
-        .end(function(err, res){
-            if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.CATEGORY_CREATE_FAILED);
-                return false;
-            }
-            NoteeStore.emitChange(NoteeConstants.CATEGORY_CREATE);
-        })
-}
-
-function category_update(content) {
-    request
-        .put("/notee/api/categories/" + content.id)
-        .send(content.content)
-        .end(function(err, res){
-            if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.CATEGORY_UPDATE_FAILED);
-                return false;
-            }
-
-            NoteeStore.emitChange(NoteeConstants.CATEGORY_UPDATE);
-        })
-}
-
-function category_delete(category_id){
-    request
-        .del("/notee/api/categories/" + category_id)
-        .end(function(err, res){
-            if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.CATEGORY_DELETE_FAILED);
-                return false;
-            }
-            NoteeStore.emitChange(NoteeConstants.CATEGORY_DELETE);
-        })
-}
 
 
 var NoteeStore = assign({}, EventEmitter.prototype, {
@@ -131,50 +67,12 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         });
     },
 
-    loadImage: function(image, callback) {
-
-        var search_txt = image;
-        var url = "/notee/api/images/00";
-
-        if(typeof(image) == "string"){
-            var image_file = image.split("/notee/");
-            search_txt = image_file[1];
-        }
-
-        request
-            .get(url)
-            .query({search_txt: search_txt})
-            .end(function(err, res){
-                if(err){return;}
-                if(!res.body){return;}
-                callback(res.body.image);
-        });
-    },
-
-    loadAllImages: function(callback) {
-        request.get('/notee/api/images', (err, res) => {
-            callback(res.body.images);
-        });
-    },
-
-    loadCategory: function(id, callback) {
-        var url = "/notee/api/categories/" + id;
-        request
-            .get(url)
-            .end(function(err, res){
-                if(err){return;}
-                if(!res.body){return;}
-                callback(res.body.category);
-            });
-    },
-
-    loadAllCategories: function(callback) {
-        var url = "/notee/api/categories";
-        request.get(url, (err, res) => {
+    loadAllComments: function(callback) {
+        request.get('/notee/api/comments', (err, res) => {
             if(err){return;}
             if(!res.body){return;}
-            callback(res.body.categories);
-        })
+            callback(res.body.posts);
+        });
     },
 
     loadStatuses: function(callback) {
@@ -221,25 +119,6 @@ NoteeDispatcher.register(function(action) {
             break;
         case NoteeConstants.NOTEE_DELETE:
             notee_delete(action.notee_id);
-            break;
-
-        // image
-        case NoteeConstants.IMAGE_CREATE:
-            image_create(action.content);
-            break;
-        case NoteeConstants.IMAGE_DELETE:
-            image_delete(action.image_src);
-            break;
-
-        // category
-        case NoteeConstants.CATEGORY_CREATE:
-            category_create(action.content);
-            break;
-        case NoteeConstants.CATEGORY_UPDATE:
-            category_update(action.content);
-            break;
-        case NoteeConstants.CATEGORY_DELETE:
-            category_delete(action.category_id);
             break;
 
         default:

@@ -1,4 +1,4 @@
-class CreateNoteeComments < ActiveRecord::Migration[5.0]
+class CreateNoteeComments < ActiveRecord::Migration
   def change
     create_table :notee_comments do |t|
       t.integer :post_id

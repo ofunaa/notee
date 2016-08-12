@@ -8,6 +8,6 @@ class CreateNoteeTokens < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :notee_tokens, [:access_token], :unique => true
+    add_index :notee_tokens, :access_token, :unique => true
   end
 end
