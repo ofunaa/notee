@@ -9,6 +9,10 @@ import IndexSection from './components/index/IndexSection.react.js'
 import EditSection  from './components/edit/EditSection.react.js'
 import CategorySection  from './components/category/CategorySection.react.js'
 import ImageSection  from './components/image/ImageSection.react.js'
+import CommentSection  from './components/comment/CommentSection.react.js'
+import UserSection  from './components/user/UserSection.react.js'
+import UserEdit  from './components/user/UserEdit.react.js'
+import UserShow  from './components/user/UserShow.react.js'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -36,8 +40,17 @@ const routes = (
     <Route path='notee' component={NoteeApp} >
         <Route path='new' component={EditSection} />
         <Route path='edit/:id' component={EditSection} />
+
         <Route path='category' component={CategorySection} />
         <Route path='image' component={ImageSection} />
+        <Route path='comment' component={CommentSection} />
+
+        <Route path='user' component={UserSection}>
+            <Route path='new' component={UserEdit} />
+            <Route path='edit/:id' component={UserEdit} />
+            <Route path='show/:id' component={UserShow} />
+        </Route>
+
         <IndexRoute component={IndexSection}/>
     </Route>
 );

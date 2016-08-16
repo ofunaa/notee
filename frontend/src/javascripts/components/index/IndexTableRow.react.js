@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import { Link } from "react-router";
 
-export default class CategoryTableRow extends Component {
+export default class IndexTableRow extends Component {
 
     constructor(props) {
         super(props);

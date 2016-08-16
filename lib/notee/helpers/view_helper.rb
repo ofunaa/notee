@@ -3,7 +3,7 @@ require 'redcarpet'
 module Notee
   module Helpers
     module ViewHelper
-      def notee_content (notee)
+      def notee_content(notee)
 
         return if notee.nil?
 

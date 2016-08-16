@@ -6,6 +6,9 @@ Notee::Engine.routes.draw do
   get 'edit/:id'  => 'notees#index'
   get 'category'  => 'notees#index'
   get 'image'     => 'notees#index'
+  get 'user'     => 'notees#index'
+  get 'user/new'     => 'notees#index'
+  get 'user/edit/:id'     => 'notees#index'
 
   post 'secret_published' => 'notees#secret_published'
   resources :tokens, only: [:new, :create, :destroy]
