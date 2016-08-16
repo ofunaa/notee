@@ -1,6 +1,32 @@
 import React, {Component, PropTypes} from 'react';
 
+// notee_user
+import UserStore from '../../stores/UserStore';
+
 export default class UserShow extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                name: "",
+                email: "",
+                profile: "",
+                profile_img: "",
+                sns: "",
+                role: ""
+            }
+        };
+
+        // ajax
+        this.ajaxLoaded = this.ajaxLoaded.bind(this);
+    }
+
+    componentWillMount() {
+        if(this.props.params.id){
+            UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
+        }
+    }
 
     render() {
         var style = {
@@ -23,18 +49,37 @@ export default class UserShow extends Component {
             }
         }
 
-        var content = this.props.content;
-
         return(
             <div style={style.preview.main}>
                 <h3>User: </h3>
-                <p style={style.preview.p}>title:</p>
-                <h1 style={style.preview.p}>{content.title}</h1>
-
-                <p style={style.preview.p}>content:</p>
-                <div id="preview" class="preview"></div>
+                <p style={style.preview.p}>name:</p>
+                <p>{this.state.user.name}</p>
+                <p style={style.preview.p}>email:</p>
+                <p>{this.state.user.email}</p>
+                <p style={style.preview.p}>profile:</p>
+                <p>{this.state.user.profile}</p>
+                <p style={style.preview.p}>profile_img:</p>
+                <img src={this.state.profile_img} />
+                <p style={style.preview.p}>sns:</p>
+                <p>{this.state.user.sns}</p>
+                <p style={style.preview.p}>role:</p>
+                <p>{this.state.user.role}</p>
             </div>
         );
+    }
+
+    ajaxLoaded(content){
+        if(!content){return;}
+        this.setState({
+            user: {
+                name: content.name,
+                email: content.email,
+                profile: content.profile,
+                profile_img: content.profile_img,
+                sns: content.sns,
+                role: content.role
+            }
+        });
     }
 };
 
