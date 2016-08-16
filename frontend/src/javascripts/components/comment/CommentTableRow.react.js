@@ -66,15 +66,15 @@ export default class CommentTableRow extends Component {
     }
 
     updateComment(e){
-        CommentActions.comment_delete(this.props.comment.id);
+        CommentActions.comment_update(this.props.comment.id);
     }
 
     deleteComment(e){
         CommentActions.comment_delete(this.props.comment.id);
     }
 
-    updateSuccessed(){this.props.displaySnackBar("Delete Comment!");}
-    updateFailed(){this.props.displaySnackBar("Sorry..! Delete Failed..!");}
+    updateSuccessed(){this.props.displaySnackBar("Hidden Comment!");}
+    updateFailed(){this.props.displaySnackBar("Sorry..! Hiding Comment is Failed..!");}
     deleteSuccessed(){this.props.displaySnackBar("Delete Comment!");}
     deleteFailed(){this.props.displaySnackBar("Sorry..! Delete Failed..!");}
 
