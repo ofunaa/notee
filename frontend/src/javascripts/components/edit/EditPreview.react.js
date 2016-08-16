@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react';
 import marked from 'marked'
 import highlight from 'highlight.js'
 
@@ -10,12 +10,12 @@ marked.setOptions({
     }
 });
 
-var Preview = React.createClass({
+export default class Preview extends Component {
 
     componentWillReceiveProps(){
         var preview = document.getElementById('preview');
         preview.innerHTML = marked(this.props.content.content);
-    },
+    }
 
     render() {
         var style = {
@@ -53,6 +53,5 @@ var Preview = React.createClass({
             </div>
         );
     }
-});
+};
 
-module.exports = Preview;

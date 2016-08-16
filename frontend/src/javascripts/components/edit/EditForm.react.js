@@ -143,7 +143,7 @@ export default class EditForm extends Component {
 
                     </select>
                     {(() => {
-                        if (this.props.content.status == 2) {
+                        if (this.props.content.status == 2000) {
                             return (
                                 <div>
                                     <p>secret_published_password:</p>

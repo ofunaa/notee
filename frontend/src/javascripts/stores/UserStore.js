@@ -87,7 +87,7 @@ NoteeDispatcher.register(function(action) {
             user_update(action.content);
             break;
         case UserConstants.USER_DELETE:
-            user_delete(action.notee_id);
+            user_delete(action.user_id);
             break;
     }
 });

@@ -3,34 +3,26 @@ import UserConstants from '../constants/UserConstants'
 
 var UserActions = {
 
-    create: function(content) {
-
-        // set default_value
-        if(!content.category_id){content.category_id = 1;};
-        if(!content.thumbnail_id){content.thumbnail_id = 1;};
+    create: function(user) {
 
         NoteeDispatcher.dispatch({
             type: UserConstants.USER_CREATE,
-            content: content
+            content: user
         });
     },
 
-    update: function(content){
-
-        // set default_value
-        if(!content.category_id){content.category_id = 1;};
-        if(!content.thumbnail_id){content.thumbnail_id = 1;};
+    update: function(user){
 
         NoteeDispatcher.dispatch({
             type: UserConstants.USER_UPDATE,
-            content: content
+            content: user
         });
     },
     
-    delete: function(notee_id){
+    delete: function(user_id){
         NoteeDispatcher.dispatch({
             type: UserConstants.USER_DELETE,
-            notee_id: notee_id
+            user_id: user_id
         });
     },
 

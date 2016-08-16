@@ -15,7 +15,7 @@ export default class UserEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: {
+            user: {
                 name: "",
                 email: "",
                 password: "",
@@ -24,6 +24,7 @@ export default class UserEdit extends Component {
                 sns: "",
                 role: ""
             },
+            password_confirm: "",
             status: {},
             snackbar_open: false,
             snackbar_txt: ""
@@ -33,7 +34,7 @@ export default class UserEdit extends Component {
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxStatusesLoaded = this.ajaxStatusesLoaded.bind(this);
 
-        // eventemit_callback for notee
+        // eventemit_callback for user
         this.saveFailed = this.saveFailed.bind(this);
         this.saveSuccessed = this.saveSuccessed.bind(this);
         this.updateFailed = this.updateFailed.bind(this);
@@ -53,11 +54,13 @@ export default class UserEdit extends Component {
         this.handleChangeSns = this.handleChangeSns.bind(this);
         this.handleChangeRole = this.handleChangeRole.bind(this);
         this.saveContent = this.saveContent.bind(this);
+
+        this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
     }
 
     componentWillMount() {
         if(this.props.params.id){
-            NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
+            UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
         }
         // NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
         UserStore.addChangeListener(UserConstants.USER_CREATE, this.saveSuccessed);
@@ -71,113 +74,207 @@ export default class UserEdit extends Component {
         var style = {
             layout: {
                 half: {
-                    width: "50%",
-                    maxWidth: "50%",
+                    width: "48%",
+                    maxWidth: "48%",
+                    marginRight: "1%",
+                    marginLeft: "1%",
                     float: "left"
+                }
+            },
+            form: {
+                main_area: {
+                    width: "100%",
+                    height: "300px",
+                    marginBottom: "10px"
+                },
+                input_text: {
+                    width: "100%",
+                    height: "30px",
+                    marginBottom: "10px"
+                },
+                select: {
+                    width: "100%",
+                    height: "30px",
+                    marginBottom: "10px"
+                },
+                textarea: {
+                    width: "100%",
+                    height: "80px",
+                    marginBottom: "10px"
+                },
+                button: {
+                    width: "100%",
+                    height: "50px",
+                    marginBottom: "10px"
+                },
+                image_button: {
+                    width: "30%",
+                    height: "50px",
+                    marginBottom: "10px"
+                }
+                ,
+                thumbnail: {
+                    width: "100%",
+                    height: "auto",
+                    marginBottom: "10px"
                 }
             }
         }
 
-        var handleChanges = {
-            title: this.handleChangeTitle,
-            content: this.handleChangeContent,
-            slug: this.handleChangeSlug,
-            status: this.handleChangeStatus,
-            category_id: this.handleChangeCategoryId,
-            thumbnail_id: this.handleChangeThumbnailId,
-            seo_keyword: this.handleChangeSeoKeyword,
-            seo_description: this.handleChangeSeoDescription,
-            secret_published_password: this.handleChangeSecretPublishedPassword
+        var statuses = [];
+        for (var key in this.props.statuses) {
+            statuses.push(
+                <option key={this.props.statuses[key]} value={this.props.statuses[key]}>
+                    {key}
+                </option>
+            );
         }
 
         return (
-            <div class="main">
-                <EditForm
-                    handleChanges={handleChanges}
-                    handleChangeProps={this.handleChangeProps}
-                    content={this.state.content}
-                    statuses={this.state.statuses}
-                    categories={this.state.categories}
-                    saveContent={this.saveContent}
-                    displaySnackBar={this.displaySnackBar}
-                />
-                <EditPreview
-                    style={style.layout.half}
-                    content = {this.state.content}/>
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-                />
+            <div style={style.layout.half}>
+
+                {(() => {
+                    if (this.state.display_image) {
+                        return (
+                            <EditImage
+                                insertImage={this.insertImage}
+                                insertThumbnail={this.insertThumbnail}
+                                pushImage={this.pushImage}
+                                mode={this.state.display_mode}
+                            />
+                        );
+                    }
+                })()}
+
+                <button
+                    style={style.form.image_button}
+                    onClick={this.pushImage.bind(this, "image")}>image</button>
+
+
+                <div style={{float: "left", width: "100%"}}>
+                    <p>Name:</p>
+                    <input
+                        style={style.form.input_text}
+                        type="text"
+                        value={this.state.user.name}
+                        onChange={this.handleChangeName}
+                    />
+                    <p>Password:</p>
+                    <input
+                        style={style.form.input_text}
+                        type="password"
+                        value={this.state.user.password}
+                        onChange={this.handleChangePassword}
+                    />
+                    <p>Password Confirm:</p>
+                    <input
+                        style={style.form.input_text}
+                        type="password"
+                        value={this.state.user.password_confirm}
+                        onChange={this.handleChangePasswordConfirm}
+                    />
+                    <p>Profile:</p>
+                    <textarea
+                        id="main_area"
+                        style={style.form.main_area}
+                        type="textarea"
+                        value={this.state.user.profile}
+                        onChange={this.handleChangeProfile}
+                    />
+                    <p>ProfileImg:</p>
+                    <button
+                        style={style.form.image_button}
+                        onClick={console.log("aaaaa")}>image</button>
+                    <img
+                        style={style.form.thumbnail}
+                        alt="thumbnail"
+                        src={window.location.origin + "/notee/" + this.state.profile_img}
+                    />
+                    <input
+                        style={style.form.input_text}
+                        type="hidden"
+                        id="thumbnail_id"
+                        value={this.state.profile_img}
+                        onChange={this.handleChangeProfileImg}
+                    />
+                    <p>SNS:</p>
+                    <input
+                        style={style.form.input_text}
+                        type="text"
+                        value={this.state.sns}
+                        onChange={this.handleChangeSns}
+                    />
+                    <p>Role:</p>
+                    <select
+                        style={style.form.select}
+                        type="select"
+                        value={this.state.user.role}
+                        onChange={this.handleChangeRole}>
+
+                        {statuses}
+
+                    </select>
+                    <button
+                        style={style.form.button}
+                        onClick={this.saveContent}>Submit</button>
+                </div>
             </div>
         );
     }
 
-    handleChangeProps(){
-        this.setState({ content: this.state.content });
+    handleChangeName(e) {
+        this.state.user.title = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+    handleChangeEmail(e) {
+        this.state.user.email = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+    handleChangePassword(e) {
+        this.state.user.password = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+    handleChangeProfile(e) {
+        this.state.user.profile = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+    handleChangeProfileImg(e) {
+        this.state.user.profile_img = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+    handleChangeSns(e) {
+        this.state.user.sns = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+    handleChangeRole(e) {
+        this.state.user.role = e.target.value;
+        this.setState({ user: this.state.user });
     }
 
-    handleChangeTitle(e) {
-        this.state.content.title = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeContent(e) {
-        this.state.content.content = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSlug(e) {
-        this.state.content.slug = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeStatus(e) {
-        this.state.content.status = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeCategoryId(e) {
-        this.state.content.category_id = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeThumbnailId(e) {
-        this.state.content.thumbnail_id = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSeoKeyword(e) {
-        this.state.content.seo_keyword = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSeoDescription(e) {
-        this.state.content.seo_description = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSecretPublishedPassword(e) {
-        this.state.content.secret_published_password = e.target.value;
-        this.setState({ content: this.state.content });
+    handleChangePasswordConfirm(e) {
+        this.setState({ password_confirm: e.target.value });
     }
 
     saveContent(e){
         if(this.props.params.id){
-            var item = {params_id: this.props.params.id, content: this.state.content}
-            NoteeActions.notee_update(item);
+            var item = {params_id: this.props.params.id, user: this.state.user}
+            UserActions.update(item);
         }else{
-            NoteeActions.notee_create(this.state.content);
+            UserActions.create(this.state.user);
         }
     }
 
     saveSuccessed(){
-        this.displaySnackBar("Create New Notee!");
+        this.displaySnackBar("Create New User!");
         this.setState({
-            content: {
-                title: "",
-                content: "",
-                slug: "",
-                status: this.state.statuses["draft"],
-                category_id: "",
-                thumbnail_id: "",
-                seo_keyword: "",
-                seo_description: "",
-                secret_published_password: ""
+            user: {
+                name: "",
+                email: "",
+                password: "",
+                profile: "",
+                profile_img: "",
+                sns: "",
+                role: this.state.statuses["draft"]
             }
         });
     }
@@ -187,15 +284,11 @@ export default class UserEdit extends Component {
     }
 
     updateSuccessed(){
-        this.displaySnackBar("Update Notee!");
+        this.displaySnackBar("Update User!");
     }
 
     updateFailed(){
         this.displaySnackBar("Sorry..! Update Failed..!");
-    }
-
-    saveCategorySuccessed(){
-        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
     displaySnackBar(txt){
@@ -217,23 +310,15 @@ export default class UserEdit extends Component {
     ajaxLoaded(content){
         if(!content){return;}
         this.setState({
-            content: {
-                title: content.title,
-                content: content.content,
-                slug: content.slug,
-                status: content.status,
-                category_id: content.category_id,
-                thumbnail_id: content.thumbnail_id,
-                seo_keyword: content.seo_keyword,
-                seo_description: content.seo_description,
-                secret_published_password: content.secret_published_password
+            user: {
+                name: content.name,
+                email: content.email,
+                profile: content.profile,
+                profile_img: content.profile_img,
+                sns: content.sns,
+                role: content.role
             }
         });
-    }
-
-    ajaxCategoryLoaded(content){
-        if(!content){return;}
-        this.setState({categories: content});
     }
 
     ajaxStatusesLoaded(content){
