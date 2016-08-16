@@ -218,7 +218,17 @@ export default class UserEdit extends Component {
                         style={style.form.button}
                         onClick={this.saveContent}>Submit</button>
                 </div>
+
+                <Snackbar
+                    open={this.state.snackbar_open}
+                    message={this.state.snackbar_txt}
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
+                />
             </div>
+
+
         );
     }
 

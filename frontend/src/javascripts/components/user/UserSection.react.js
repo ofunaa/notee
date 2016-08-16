@@ -20,7 +20,7 @@ export default class UserSection extends Component {
 	}
 
 	componentWillMount() {
-		NoteeStore.loadAllUsers(this.ajaxLoaded);
+		UserStore.loadAllUsers(this.ajaxLoaded);
 	}
 
 	ajaxLoaded(contents) {
