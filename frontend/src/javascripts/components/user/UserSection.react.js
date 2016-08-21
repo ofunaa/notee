@@ -30,7 +30,7 @@ export default class UserSection extends Component {
 	render() {
 		return (
 			<div id="list">
-				<Link to={`/notee/user/new`} activeClassName="active">
+				<Link to={`/notee/users/new`} activeClassName="active">
 					<RaisedButton label="NEW User!!" primary={true} />
 				</Link>
 				<UserTable users={this.state.users} ajaxLoad={this.ajaxLoaded} />

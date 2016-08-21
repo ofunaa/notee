@@ -26,13 +26,13 @@ export default class UserTableRow extends Component {
                 <TableRowColumn>{this.props.user.email}</TableRowColumn>
                 <TableRowColumn>{this.props.user.role}</TableRowColumn>
                 <TableRowColumn>
-                    <Link to={`/notee/user/show/${this.props.user.id}`} activeClassName="active">
+                    <Link to={`/notee/users/show/${this.props.user.id}`} activeClassName="active">
                         <RaisedButton
                         label="show"
                         primary={true} /></Link>
                 </TableRowColumn>
                 <TableRowColumn>
-                    <Link to={`/notee/user/edit/${this.props.user.id}`} activeClassName="active">
+                    <Link to={`/notee/users/edit/${this.props.user.id}`} activeClassName="active">
                         <RaisedButton
                         label="edit"
                         primary={true} /></Link>
