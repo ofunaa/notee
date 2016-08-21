@@ -9,12 +9,7 @@ module Notee
 
     # GET /users
     def index
-      p "////////////"
-      p User
-      p "////////////"
       @users = User.all.order(updated_at: :desc)
-      p @users
-      p "////////////"
       render json: { status: 'success', users: @users}
     end
 
