@@ -15,10 +15,7 @@ import UserEdit  from './components/user/UserEdit.react.js'
 import UserShow  from './components/user/UserShow.react.js'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 
 injectTapEventPlugin();
 
