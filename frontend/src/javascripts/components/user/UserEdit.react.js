@@ -8,8 +8,12 @@ import UserStore from '../../stores/UserStore';
 // material-ui
 import Snackbar from 'material-ui/Snackbar';
 
+// image
+var root_img_src = window.location.origin + "/notee/";
+var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
 export default class UserEdit extends Component {
+
 
 
     constructor(props) {
@@ -21,10 +25,10 @@ export default class UserEdit extends Component {
                 password: "",
                 profile: "",
                 profile_img: "",
-                sns: "",
                 role: ""
             },
             password_confirm: "",
+            display_image_src: root_img_src + "default.png",
             status: {},
             snackbar_open: false,
             snackbar_txt: ""
@@ -45,13 +49,11 @@ export default class UserEdit extends Component {
         this.handleRequestClose = this.handleRequestClose.bind(this);
 
         // handles
-        this.handleChangeProps = this.handleChangeProps.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeProfile = this.handleChangeProfile.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
-        this.handleChangeSns = this.handleChangeSns.bind(this);
         this.handleChangeRole = this.handleChangeRole.bind(this);
         this.saveContent = this.saveContent.bind(this);
 
@@ -73,11 +75,11 @@ export default class UserEdit extends Component {
 
         var style = {
             layout: {
-                half: {
-                    width: "48%",
-                    maxWidth: "48%",
-                    marginRight: "1%",
-                    marginLeft: "1%",
+                main: {
+                    width: "96%",
+                    maxWidth: "96%",
+                    marginRight: "2%",
+                    marginLeft: "2%",
                     float: "left"
                 }
             },
@@ -131,26 +133,7 @@ export default class UserEdit extends Component {
         }
 
         return (
-            <div style={style.layout.half}>
-
-                {(() => {
-                    if (this.state.display_image) {
-                        return (
-                            <EditImage
-                                insertImage={this.insertImage}
-                                insertThumbnail={this.insertThumbnail}
-                                pushImage={this.pushImage}
-                                mode={this.state.display_mode}
-                            />
-                        );
-                    }
-                })()}
-
-                <button
-                    style={style.form.image_button}
-                    onClick={this.pushImage.bind(this, "image")}>image</button>
-
-
+            <div style={style.layout.main}>
                 <div style={{float: "left", width: "100%"}}>
                     <p>Name:</p>
                     <input
@@ -182,27 +165,17 @@ export default class UserEdit extends Component {
                         onChange={this.handleChangeProfile}
                     />
                     <p>ProfileImg:</p>
-                    <button
-                        style={style.form.image_button}
-                        onClick={console.log("aaaaa")}>image</button>
-                    <img
-                        style={style.form.thumbnail}
-                        alt="thumbnail"
-                        src={window.location.origin + "/notee/" + this.state.profile_img}
-                    />
                     <input
                         style={style.form.input_text}
-                        type="hidden"
+                        type="file"
                         id="thumbnail_id"
                         value={this.state.profile_img}
                         onChange={this.handleChangeProfileImg}
                     />
-                    <p>SNS:</p>
-                    <input
-                        style={style.form.input_text}
-                        type="text"
-                        value={this.state.sns}
-                        onChange={this.handleChangeSns}
+                    <img
+                        style={style.form.thumbnail}
+                        alt="thumbnail"
+                        src={this.state.display_image_src}
                     />
                     <p>Role:</p>
                     <select
@@ -233,29 +206,37 @@ export default class UserEdit extends Component {
     }
 
     handleChangeName(e) {
-        this.state.user.title = e.target.value;
+        this.state.user.name = e.target.value;
         this.setState({ user: this.state.user });
     }
+
     handleChangeEmail(e) {
         this.state.user.email = e.target.value;
         this.setState({ user: this.state.user });
     }
+
     handleChangePassword(e) {
         this.state.user.password = e.target.value;
         this.setState({ user: this.state.user });
     }
+
     handleChangeProfile(e) {
         this.state.user.profile = e.target.value;
         this.setState({ user: this.state.user });
     }
+
     handleChangeProfileImg(e) {
-        this.state.user.profile_img = e.target.value;
-        this.setState({ user: this.state.user });
+
+        var files = e.target.files;
+        var image_url = createObjectURL(files[0]);
+        this.state.user.profile_img = image_url;
+
+        this.setState({
+            user: this.state.user,
+            display_image_src: this.state.user.profile_img
+        });
     }
-    handleChangeSns(e) {
-        this.state.user.sns = e.target.value;
-        this.setState({ user: this.state.user });
-    }
+
     handleChangeRole(e) {
         this.state.user.role = e.target.value;
         this.setState({ user: this.state.user });
@@ -283,7 +264,6 @@ export default class UserEdit extends Component {
                 password: "",
                 profile: "",
                 profile_img: "",
-                sns: "",
                 role: this.state.statuses["draft"]
             }
         });
@@ -327,7 +307,8 @@ export default class UserEdit extends Component {
                 profile_img: content.profile_img,
                 sns: content.sns,
                 role: content.role
-            }
+            },
+            display_image_src: root_img_src + this.state.user.profile_img
         });
     }
 

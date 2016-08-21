@@ -1,6 +1,8 @@
 module Notee
   class User < ActiveRecord::Base
 
+		
+
   	# accessors
   	attr_accessor :password
 
