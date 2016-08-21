@@ -7,7 +7,7 @@ module Notee
   	# callback
   	before_save :encrypt_password
   	
-  	def sign_in(name_or_email password)
+  	def sign_in(name_or_email, password)
   	  user = self.find_by(name: name_or_email)
   	  user = self.find_by(email: name_or_email) unless user
   	  return false unless user
