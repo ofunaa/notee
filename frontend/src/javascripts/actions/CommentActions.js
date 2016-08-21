@@ -3,10 +3,10 @@ import CommentConstants from '../constants/CommentConstants'
 
 var CommentActions = {
 
-    comment_update: function(content){
+    comment_update: function(is_hidden){
         NoteeDispatcher.dispatch({
             type: CommentConstants.COMMENT_UPDATE,
-            content: content
+            is_hidden: is_hidden
         });
     },
 

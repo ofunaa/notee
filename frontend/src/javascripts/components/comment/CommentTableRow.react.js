@@ -36,6 +36,14 @@ export default class CommentTableRow extends Component {
     }
 
     render() {
+        
+        var hidden_btn;
+        
+        if(this.props.comment.is_hidden){
+            hidden_btn = "show this!";
+        }else{
+            hidden_btn = "hide this";
+        }
 
         return(
             <TableRow>
@@ -44,11 +52,12 @@ export default class CommentTableRow extends Component {
                 <TableRowColumn>{this.props.comment.name}</TableRowColumn>
                 <TableRowColumn>{this.props.comment.email}</TableRowColumn>
                 <TableRowColumn>{this.props.comment.content}</TableRowColumn>
+                <TableRowColumn>{"hidden?:" + this.props.comment.is_hidden}</TableRowColumn>
 
                 <TableRowColumn>
                     <RaisedButton
                         onClick={this.updateComment}
-                        label="hidden this"
+                        label={hidden_btn}
                         secondary={true}
                         disabled={false}
                     />
@@ -66,6 +75,7 @@ export default class CommentTableRow extends Component {
     }
 
     updateComment(e){
+        if(this.props.comment.is_hidden)
         CommentActions.comment_update(this.props.comment.id);
     }
 

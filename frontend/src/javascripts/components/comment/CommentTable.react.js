@@ -22,7 +22,7 @@ export default class CommentTable extends Component {
                         <TableHeaderColumn>Name</TableHeaderColumn>
                         <TableHeaderColumn>Email</TableHeaderColumn>
                         <TableHeaderColumn>Content</TableHeaderColumn>
-                        <TableHeaderColumn>/</TableHeaderColumn>
+                        <TableHeaderColumn>Hidden</TableHeaderColumn>
                         <TableHeaderColumn>/</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
