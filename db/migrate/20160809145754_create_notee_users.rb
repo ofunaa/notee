@@ -6,7 +6,6 @@ class CreateNoteeUsers < ActiveRecord::Migration
       t.string :encrypted_password, null: false
       t.text :profile
       t.string :profile_img
-      t.text :sns
       t.integer :role, null: false
 
       t.timestamps null: false
