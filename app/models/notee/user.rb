@@ -1,5 +1,5 @@
 module Notee
-  class User < ApplicationRecord
+  class User < ActiveRecord::Base
 
   	# accessors
   	attr_accessor :password
@@ -11,7 +11,7 @@ module Notee
   	  user = self.find_by(name: name_or_email)
   	  user = self.find_by(email: name_or_email) unless user
   	  return false unless user
-	  return false unless user.encrypted_password == encrypt(password)
+	  	return false unless user.encrypted_password == encrypt(password)
   	
   	  return user
   	end

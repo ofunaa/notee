@@ -1,5 +1,5 @@
 module Notee
-  class Comment < ApplicationRecord
+  class Comment < ActiveRecord::Base
     validates :post_id, presence: true
     validates :content, presence: true
   end
