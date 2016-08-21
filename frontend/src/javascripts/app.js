@@ -41,11 +41,11 @@ const routes = (
         <Route path='new' component={EditSection} />
         <Route path='edit/:id' component={EditSection} />
 
-        <Route path='category' component={CategorySection} />
-        <Route path='image' component={ImageSection} />
-        <Route path='comment' component={CommentSection} />
+        <Route path='categories' component={CategorySection} />
+        <Route path='images' component={ImageSection} />
+        <Route path='comments' component={CommentSection} />
 
-        <Route path='user' component={UserSection}>
+        <Route path='users' component={UserSection}>
             <Route path='new' component={UserEdit} />
             <Route path='edit/:id' component={UserEdit} />
             <Route path='show/:id' component={UserShow} />
