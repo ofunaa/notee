@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 
 // notee
-import UserStore from '../../stores/NoteeStore';
+import UserStore from '../../stores/UserStore';
 import UserTable from './UserTable.react';
 
 // material-ui

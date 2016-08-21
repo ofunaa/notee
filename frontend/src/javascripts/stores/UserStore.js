@@ -1,12 +1,12 @@
 import React from 'react';
 import assign from 'object-assign';
 import request from 'superagent';
+
 var EventEmitter = require('events').EventEmitter;
 
 // notee
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import UserConstants from '../constants/UserConstants';
-
 
 function user_create(content) {
     request
@@ -54,7 +54,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
         request.get(url, (err, res) => {
             if(err){return;}
             if(!res.body){return;}
-            callback(res.body.post);
+            callback(res.body.user);
         })
     },
 
@@ -62,7 +62,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
         request.get('/notee/api/users', (err, res) => {
             if(err){return;}
             if(!res.body){return;}
-            callback(res.body.posts);
+            callback(res.body.users);
         });
     },
 
