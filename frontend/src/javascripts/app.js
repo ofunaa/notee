@@ -42,10 +42,11 @@ const routes = (
         <Route path='images' component={ImageSection} />
         <Route path='comments' component={CommentSection} />
 
-        <Route path='users' component={UserSection}>
+        <Route path='users'>
             <Route path='new' component={UserEdit} />
             <Route path='edit/:id' component={UserEdit} />
             <Route path='show/:id' component={UserShow} />
+            <IndexRoute component={UserSection}/>
         </Route>
 
         <IndexRoute component={IndexSection}/>
