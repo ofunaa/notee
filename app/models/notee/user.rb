@@ -1,7 +1,26 @@
 module Notee
   class User < ActiveRecord::Base
 
-		
+		# enums
+		enum role: { writer: 0, editor: 1, manager: 10, suspended: 99 }
+
+    # writer
+		# - create: 	posts, categories, images
+		#	- update: 	my posts, my user
+		#	- delete: 	my posts (Logical delete)
+
+		# editor
+		# - create:		posts, categories, images
+		#	- update:		posts, categories, images, my user
+		#	- delete:		posts, categories, images (Logical delete)
+
+		# manager
+		# - create:		posts, categories, images, users
+		#	- update:		posts, categories, images, users
+		#	- delete:		posts, categories, images, users (Logical delete)
+
+		# root
+		# all
 
   	# accessors
   	attr_accessor :password
