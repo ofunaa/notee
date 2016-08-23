@@ -4,7 +4,7 @@ module Notee
 		# enums
 		enum role: { writer: 0, editor: 10, manager: 20, suspended: 99 }
 
-    # writer
+		# writer
 		# - create: 	posts, categories, images
 		#	- update: 	my posts, my user
 		#	- delete: 	my posts (Logical delete)

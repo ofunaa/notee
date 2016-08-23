@@ -19,9 +19,9 @@ module Notee
         token.destroy
         session.delete(:access_token)
         return false
-      else
-        return true
       end
+
+      return true
     end
 
   end
