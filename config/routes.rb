@@ -15,14 +15,12 @@ Notee::Engine.routes.draw do
   resources :tokens, only: [:new, :create, :destroy]
 
   scope :api, { format: 'json' } do
-
-    get 'auth'       => 'authorities#index'
-
     resources :posts, only: [:index, :show, :create, :update, :destroy]
     resources :users, only: [:index, :show, :create, :update, :destroy]
     resources :images, only: [:index, :show, :create, :destroy]
     resources :categories, only: [:index, :show, :create, :update, :destroy]
     resources :statuses, only: [:index, :show]
     resources :comments, only: [:index, :show, :create, :update, :delete]
+    resources :roles, only: [:index, :show]
   end
 end
