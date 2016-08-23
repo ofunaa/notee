@@ -5,6 +5,9 @@ module Notee
     before_create :generate_access_token
     before_create :set_expires_at
 
+    # relations
+    belongs_to :user
+
     private
 
     def generate_access_token

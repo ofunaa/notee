@@ -2,7 +2,7 @@ module Notee
   class User < ActiveRecord::Base
 
 		# enums
-		enum role: { writer: 0, editor: 1, manager: 10, suspended: 99 }
+		enum role: { writer: 0, editor: 10, manager: 20, suspended: 99 }
 
     # writer
 		# - create: 	posts, categories, images
@@ -19,15 +19,17 @@ module Notee
 		#	- update:		posts, categories, images, users
 		#	- delete:		posts, categories, images, users (Logical delete)
 
-		# root
-		# all
+		# suspended			# root
+		# all none			# all
+
 
   	# accessors
   	attr_accessor :password
 
   	# callback
   	before_save :encrypt_password
-  	
+
+
   	def sign_in(name_or_email, password)
   	  user = self.find_by(name: name_or_email)
   	  user = self.find_by(email: name_or_email) unless user
@@ -37,12 +39,15 @@ module Notee
   	  return user
   	end
 
+
   	def encrypt(password)
   	  return OpenSSL::Digest::MD5.hexdigest(password)
   	end
 
+
   	def encrypt_password
   	  self.encrypted_password = encrypt(self.password)
   	end
-  end
+
+	end
 end
