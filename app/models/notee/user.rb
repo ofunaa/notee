@@ -1,5 +1,5 @@
 module Notee
-  class User < ActiveRecord::Base
+	class User < ActiveRecord::Base
 
 		# enums
 		enum role: { writer: 0, editor: 10, manager: 20, suspended: 99 }
@@ -47,7 +47,6 @@ module Notee
 
   	def encrypt_password
   	  self.encrypted_password = encrypt(self.password)
-  	end
-
+		end
 	end
 end
