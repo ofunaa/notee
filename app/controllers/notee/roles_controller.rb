@@ -10,7 +10,7 @@ module Notee
 
     def show
       token = Token.find_by(access_token: session[:access_token])
-      render json: { status: 'success', role: token.user.role}
+      render json: { status: 'success', user: token.user}
     end
 
   end
