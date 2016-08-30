@@ -1,6 +1,5 @@
 module Notee
   class Token < ActiveRecord::Base
-
     # callbacks
     before_create :generate_access_token
     before_create :set_expires_at
@@ -17,7 +16,7 @@ module Notee
     end
 
     def set_expires_at
-      self.expires_at = Time.current + (60 * 60 * 24 * 7) #7日
+      self.expires_at = Time.current + (60 * 60 * 24 * 7) # 7 days
     end
   end
 end

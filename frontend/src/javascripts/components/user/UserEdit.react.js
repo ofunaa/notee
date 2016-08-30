@@ -1,20 +1,18 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'
 
 // notee
-import UserActions from '../../actions/UserActions';
-import UserConstants from '../../constants/UserConstants';
-import UserStore from '../../stores/UserStore';
+import UserActions from '../../actions/UserActions'
+import UserConstants from '../../constants/UserConstants'
+import UserStore from '../../stores/UserStore'
 
 // material-ui
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from 'material-ui/Snackbar'
 
 // image
 var root_img_src = window.location.origin + "/notee/";
 var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
 export default class UserEdit extends Component {
-
-
 
     constructor(props) {
         super(props);
@@ -23,20 +21,20 @@ export default class UserEdit extends Component {
                 name: "",
                 email: "",
                 password: "",
+                password_confirm: "",
                 profile: "",
                 profile_img: "",
                 role: ""
             },
-            password_confirm: "",
             display_image_src: root_img_src + "default.png",
-            status: {},
+            roles: {},
             snackbar_open: false,
             snackbar_txt: ""
         };
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
-        this.ajaxStatusesLoaded = this.ajaxStatusesLoaded.bind(this);
+        this.ajaxRolesLoaded = this.ajaxRolesLoaded.bind(this);
 
         // eventemit_callback for user
         this.saveFailed = this.saveFailed.bind(this);
@@ -52,19 +50,19 @@ export default class UserEdit extends Component {
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
         this.handleChangeProfile = this.handleChangeProfile.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
         this.handleChangeRole = this.handleChangeRole.bind(this);
         this.saveContent = this.saveContent.bind(this);
 
-        this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
     }
 
     componentWillMount() {
         if(this.props.params.id){
             UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
         }
-        // NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
+        UserStore.loadRoles(this.ajaxRolesLoaded);
         UserStore.addChangeListener(UserConstants.USER_CREATE, this.saveSuccessed);
         UserStore.addChangeListener(UserConstants.USER_CREATE_FAILED, this.saveFailed);
         UserStore.addChangeListener(UserConstants.USER_UPDATE, this.updateSuccessed);
@@ -72,7 +70,6 @@ export default class UserEdit extends Component {
     }
 
     render() {
-
         var style = {
             layout: {
                 main: {
@@ -123,10 +120,10 @@ export default class UserEdit extends Component {
             }
         }
 
-        var statuses = [];
-        for (var key in this.props.statuses) {
-            statuses.push(
-                <option key={this.props.statuses[key]} value={this.props.statuses[key]}>
+        var Roles = [];
+        for (var key in this.state.roles) {
+            Roles.push(
+                <option key={this.state.roles[key]} value={this.state.roles[key]}>
                     {key}
                 </option>
             );
@@ -142,19 +139,12 @@ export default class UserEdit extends Component {
                         value={this.state.user.name}
                         onChange={this.handleChangeName}
                     />
-                    <p>Password:</p>
+                  <p>Email:</p>
                     <input
                         style={style.form.input_text}
-                        type="password"
-                        value={this.state.user.password}
-                        onChange={this.handleChangePassword}
-                    />
-                    <p>Password Confirm:</p>
-                    <input
-                        style={style.form.input_text}
-                        type="password"
-                        value={this.state.user.password_confirm}
-                        onChange={this.handleChangePasswordConfirm}
+                        type="text"
+                        value={this.state.user.email}
+                        onChange={this.handleChangeEmail}
                     />
                     <p>Profile:</p>
                     <textarea
@@ -184,9 +174,23 @@ export default class UserEdit extends Component {
                         value={this.state.user.role}
                         onChange={this.handleChangeRole}>
 
-                        {statuses}
+                        {Roles}
 
                     </select>
+                    <p>Password:</p>
+                    <input
+                        style={style.form.input_text}
+                        type="password"
+                        value={this.state.user.password}
+                        onChange={this.handleChangePassword}
+                    />
+                    <p>Password Confirm:</p>
+                    <input
+                        style={style.form.input_text}
+                        type="password"
+                        value={this.state.user.password_confirm}
+                        onChange={this.handleChangePasswordConfirm}
+                    />
                     <button
                         style={style.form.button}
                         onClick={this.saveContent}>Submit</button>
@@ -200,8 +204,6 @@ export default class UserEdit extends Component {
                     bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
                 />
             </div>
-
-
         );
     }
 
@@ -220,30 +222,29 @@ export default class UserEdit extends Component {
         this.setState({ user: this.state.user });
     }
 
+    handleChangePasswordConfirm(e) {
+        this.state.user.password_confirm = e.target.value;
+        this.setState({ user: this.state.user });
+    }
+
     handleChangeProfile(e) {
         this.state.user.profile = e.target.value;
         this.setState({ user: this.state.user });
     }
 
     handleChangeProfileImg(e) {
-
         var files = e.target.files;
+        this.state.user.profile_img = files[0];
         var image_url = createObjectURL(files[0]);
-        this.state.user.profile_img = image_url;
-
         this.setState({
             user: this.state.user,
-            display_image_src: this.state.user.profile_img
+            display_image_src: image_url
         });
     }
 
     handleChangeRole(e) {
         this.state.user.role = e.target.value;
         this.setState({ user: this.state.user });
-    }
-
-    handleChangePasswordConfirm(e) {
-        this.setState({ password_confirm: e.target.value });
     }
 
     saveContent(e){
@@ -262,9 +263,10 @@ export default class UserEdit extends Component {
                 name: "",
                 email: "",
                 password: "",
+                password_confirm: "",
                 profile: "",
                 profile_img: "",
-                role: this.state.statuses["draft"]
+                role: this.state.roles["writer"]
             }
         });
     }
@@ -294,9 +296,7 @@ export default class UserEdit extends Component {
         });
     }
 
-
     // ajax
-
     ajaxLoaded(content){
         if(!content){return;}
         this.setState({
@@ -305,16 +305,19 @@ export default class UserEdit extends Component {
                 email: content.email,
                 profile: content.profile,
                 profile_img: content.profile_img,
-                sns: content.sns,
                 role: content.role
             },
             display_image_src: root_img_src + this.state.user.profile_img
         });
     }
 
-    ajaxStatusesLoaded(content){
+    ajaxRolesLoaded(content){
         if(!content){return;}
-        this.setState({statuses: content});
+        this.state.user.role = content.writer;
+        this.setState({
+          roles: content,
+          user: this.state.user
+        });
     }
 
 };

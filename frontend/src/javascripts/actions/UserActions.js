@@ -4,7 +4,6 @@ import UserConstants from '../constants/UserConstants'
 var UserActions = {
 
     create: function(user) {
-
         NoteeDispatcher.dispatch({
             type: UserConstants.USER_CREATE,
             content: user
@@ -12,7 +11,6 @@ var UserActions = {
     },
 
     update: function(user){
-
         NoteeDispatcher.dispatch({
             type: UserConstants.USER_UPDATE,
             content: user
@@ -26,7 +24,7 @@ var UserActions = {
         });
     },
 
-    
+
 }
 
 module.exports = UserActions;

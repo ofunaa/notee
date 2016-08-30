@@ -1,49 +1,69 @@
 module Notee
   class User < ActiveRecord::Base
+    # enums
+    enum role: { writer: 0, editor: 10, manager: 20, suspended: 99 }
 
-	# enums
-	enum role: { writer: 0, editor: 10, manager: 20, suspended: 99 }
+    # writer
+    # - create: 	posts, categories, images
+    # - update: 	my posts, my user
+    # - delete: 	my posts (Logical delete)
 
-	# writer
-	# - create: 	posts, categories, images
-	# - update: 	my posts, my user
-	# - delete: 	my posts (Logical delete)
+    # editor
+    # - create: 	posts, categories, images
+    # - update: 	posts, categories, images, my user
+    # - delete: 	posts, categories, images (Logical delete)
 
-	# editor
-	# - create: 	posts, categories, images
-	# - update: 	posts, categories, images, my user
-	# - delete: 	posts, categories, images (Logical delete)
+    # manager
+    # - create: 	posts, categories, images, users
+    # - update: 	posts, categories, images, users
+    # - delete: 	posts, categories, images, users (Logical delete)
 
-	# manager
-	# - create: 	posts, categories, images, users
-	# - update: 	posts, categories, images, users
-	# - delete: 	posts, categories, images, users (Logical delete)
+    # suspended		# root
+    # all none		# all
 
-	# suspended		# root
-	# all none		# all
+    # accessors
+    attr_accessor :password
+    attr_accessor :password_confirm
+    attr_accessor :editor_id
 
-	# accessors
-	attr_accessor :password
-  	attr_accessor :editor_id
+    # callback
+    before_save :confirm_password
+    before_save :encrypt_password
+    before_save :manage_profile_img
 
-	# callback
-	before_save :encrypt_password
+    def sign_in(name_or_email, password)
+      user = find_by(name: name_or_email)
+      user = find_by(email: name_or_email) unless user
+      return false unless user
+      return false unless user.encrypted_password == encrypt(password)
 
-	def sign_in(name_or_email, password)
-	  user = self.find_by(name: name_or_email)
-	  user = self.find_by(email: name_or_email) unless user
-	  return false unless user
-	  return false unless user.encrypted_password == encrypt(password)
+      user
+    end
 
-	  return user
-	end
+    def encrypt(password)
+      OpenSSL::Digest::MD5.hexdigest(password)
+    end
 
-	def encrypt(password)
-	  return OpenSSL::Digest::MD5.hexdigest(password)
-	end
+    def confirm_password
+      return false unless password == password_confirm
+    end
 
-	def encrypt_password
-	  self.encrypted_password = encrypt(self.password)
-	end
+    def encrypt_password
+      self.encrypted_password = encrypt(password)
+    end
+
+    def manage_profile_img
+      return unless profile_img
+
+      image_dir = Rails.root.to_s + '/public/notee/users/'
+      FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
+      image_name = Time.now.strftime('%Y%m%d%H%M%S') + '--' + SecureRandom.uuid + '.jpg'
+      transaction do
+        open(image_dir + '/' + image_name, 'wb') do |output|
+          output.write(profile_img.read)
+        end
+        self.profile_img = image_name
+      end
+    end
   end
 end

@@ -54,7 +54,7 @@ module Notee
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:title, :content, :slug, :status, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description, :secret_published_password)
+      params.require(:user).permit(:name, :email, :password, :password_confirm, :profile, :profile_img, :role)
     end
   end
 end

@@ -11,9 +11,10 @@ import UserConstants from '../constants/UserConstants';
 function user_create(content) {
     request
         .post("/notee/api/users")
-        .send(content)
+        .send({user: content})
+        .attach("image", content)
         .end(function(err, res){
-            if(err || !res.body){
+            if (err || !res.body) {
                 UserStore.emitChange(UserConstants.USER_CREATE_FAILED);
                 return false;
             }
@@ -24,7 +25,8 @@ function user_create(content) {
 function user_update(content) {
     request
         .put("/notee/api/users/" + content.params_id)
-        .send(content.content)
+        .send({user: content.user})
+        .attach("image", content.user.profile_img)
         .end(function(err, res){
             if(err || !res.body){
                 UserStore.emitChange(UserConstants.USER_UPDATE_FAILED);
@@ -48,7 +50,6 @@ function user_delete(notee_src){
 
 var UserStore = assign({}, EventEmitter.prototype, {
 
-
     loadUser: function(user_id, callback) {
         var url = "/notee/api/users/" + user_id;
         request.get(url, (err, res) => {
@@ -64,6 +65,15 @@ var UserStore = assign({}, EventEmitter.prototype, {
             if(!res.body){return;}
             callback(res.body.users);
         });
+    },
+
+    loadRoles: function(callback) {
+        var url = "/notee/api/roles";
+        request.get(url, (err, res) => {
+            if(err){return;}
+            if(!res.body){return;}
+            callback(res.body.roles);
+        })
     },
 
     emitChange: function(change_event) {
