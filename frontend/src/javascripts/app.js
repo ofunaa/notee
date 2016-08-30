@@ -1,35 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import {Router, Route, IndexRoute, browserHistory} from "react-router"
+import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 
 import NoteeHeader from './components/layout/NoteeHeader.react.js'
 import NoteeFooter from './components/layout/NoteeFooter.react.js'
 import IndexSection from './components/index/IndexSection.react.js'
-import EditSection  from './components/edit/EditSection.react.js'
-import CategorySection  from './components/category/CategorySection.react.js'
-import ImageSection  from './components/image/ImageSection.react.js'
-import CommentSection  from './components/comment/CommentSection.react.js'
-import UserSection  from './components/user/UserSection.react.js'
-import UserEdit  from './components/user/UserEdit.react.js'
-import UserShow  from './components/user/UserShow.react.js'
+import EditSection from './components/edit/EditSection.react.js'
+import CategorySection from './components/category/CategorySection.react.js'
+import ImageSection from './components/image/ImageSection.react.js'
+import CommentSection from './components/comment/CommentSection.react.js'
+import UserSection from './components/user/UserSection.react.js'
+import UserEdit from './components/user/UserEdit.react.js'
+import UserShow from './components/user/UserShow.react.js'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-injectTapEventPlugin();
+injectTapEventPlugin()
 
 export default class NoteeApp extends React.Component {
     render () {
-        return (
-            <div className="grid_start">
-                <NoteeHeader />
-                    <div className="ninety grid" style={{margin: "3%", padding: "2%"}}>
-                    {this.props.children}
-                    </div>
-                <NoteeFooter />
+      return (
+        <div className='grid_start'>
+          <NoteeHeader />
+            <div className='ninety grid' style={{margin: '3%', padding: '2%'}}>
+              {this.props.children}
             </div>
-        );
+          <NoteeFooter />
+        </div>
+      )
     }
 };
 
@@ -51,13 +51,13 @@ const routes = (
 
         <IndexRoute component={IndexSection}/>
     </Route>
-);
+)
 
-window.onload = function(){
-    ReactDOM.render(
-        <MuiThemeProvider>
-            <Router history={browserHistory} routes={routes} />
-        </MuiThemeProvider>,
-        document.getElementById('react')
-    )
+window.onload = function () {
+  ReactDOM.render(
+    <MuiThemeProvider>
+      <Router history={browserHistory} routes={routes} />
+    </MuiThemeProvider>,
+    document.getElementById('react')
+  )
 }

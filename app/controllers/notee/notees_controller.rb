@@ -1,8 +1,7 @@
-require_dependency "notee/application_controller"
+require_dependency 'notee/application_controller'
 
 module Notee
   class NoteesController < ApplicationController
-
     # callbacks
     skip_before_action :restrict_access_json, only: [:index]
     before_action :restrict_access, only: [:index]
@@ -18,9 +17,8 @@ module Notee
       # end
 
       unless Token.exists?(access_token: session[:access_token])
-        redirect_to new_token_path and return
+        redirect_to new_token_path && return
       end
-
     end
   end
 end

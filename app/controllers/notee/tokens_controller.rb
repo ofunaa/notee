@@ -1,5 +1,5 @@
 
-require_dependency "notee/application_controller"
+require_dependency 'notee/application_controller'
 
 module Notee
   class TokensController < ApplicationController
@@ -32,6 +32,5 @@ module Notee
       Token.find_by_access_token(session[:access_token]).destroy!
       session.delete(:access_token)
     end
-
   end
 end

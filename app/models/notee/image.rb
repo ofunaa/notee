@@ -2,7 +2,6 @@ require 'securerandom'
 
 module Notee
   class Image < ActiveRecord::Base
-
     # accessors
     attr_accessor :file
 
@@ -11,6 +10,7 @@ module Notee
     before_destroy :protect_default
 
     private
+
     def manage_image
       return unless self.file
 
@@ -28,6 +28,5 @@ module Notee
     def protect_default
       return false if self.id == 1
     end
-
   end
 end

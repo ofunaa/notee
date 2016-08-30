@@ -1,18 +1,18 @@
 
-require_dependency "notee/application_controller"
+require_dependency 'notee/application_controller'
 
 module Notee
   class ImagesController < ApplicationController
 
     def index
       @images = Image.all.order(updated_at: :desc)
-      render json: { status: 'success', images: @images}
+      render json: { status: 'success', images: @images }
     end
 
     def show
       @image = Image.find_by(content: params[:search_txt].to_s) if params[:search_txt]
       @image = Image.find_by(id: params[:search_txt].to_i) if params[:search_txt] && !@image
-      render json: { status: 'success', image: @image}
+      render json: { status: 'success', image: @image }
     end
 
     def create
@@ -44,6 +44,5 @@ module Notee
     def image_params
       params.require(:image).permit(:title, :content, :slug, :status, :image_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
     end
-
   end
 end

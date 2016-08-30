@@ -24,7 +24,7 @@ module Notee
 
 	# accessors
 	attr_accessor :password
-  attr_accessor :editor_id
+  	attr_accessor :editor_id
 
 	# callback
 	before_save :encrypt_password

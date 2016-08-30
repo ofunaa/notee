@@ -1,5 +1,5 @@
 
-require_dependency "notee/application_controller"
+require_dependency 'notee/application_controller'
 
 module Notee
   class CategoriesController < ApplicationController
@@ -7,11 +7,11 @@ module Notee
 
     def index
       @categories = Category.all
-      render json: { status: 'success', categories: @categories}
+      render json: { status: 'success', categories: @categories }
     end
 
     def show
-      render json: { status: 'success', category: @category}
+      render json: { status: 'success', category: @category }
     end
 
     def create
@@ -54,6 +54,5 @@ module Notee
     def set_category
       @category = Category.find_by(id: params[:id])
     end
-
   end
 end

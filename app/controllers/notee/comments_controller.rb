@@ -1,26 +1,25 @@
-require_dependency "notee/application_controller"
+require_dependency 'notee/application_controller'
 
 module Notee
   class CommentsController < ApplicationController
-
     before_action :set_comment, only: [:update, :destroy]
 
     def index
       comments = Comment.all.order(updated_at: :desc)
-      render json: { status: 'success', comments: comments}
+      render json: { status: 'success', comments: comments }
     end
 
     def show
-      @comments = Comment.where(post_id: params[:id]);
-      render json: { status: 'success', comments: @comments}
+      @comments = Comment.where(post_id: params[:id])
+      render json: { status: 'success', comments: @comments }
     end
 
     def create
       @comment = Comment.new(comment_params)
       if @comment.save
-        render json: { status: 'success'}
+        render json: { status: 'success' }
       else
-        render json: { status: 'failed'}
+        render json: { status: 'failed' }
       end
     end
 
@@ -36,7 +35,7 @@ module Notee
 
     def destroy
       @comment.destroy
-      render json: { status: 'success'}
+      render json: { status: 'success' }
     end
 
     private

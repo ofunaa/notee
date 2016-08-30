@@ -10,7 +10,7 @@ module Notee
     private
 
     def confirm_exist_token
-      return Token.exists?(access_token: session[:access_token])
+      Token.exists?(access_token: session[:access_token])
     end
 
     def confirm_expired_token
@@ -21,8 +21,7 @@ module Notee
         return false
       end
 
-      return true
+      true
     end
-
   end
 end

@@ -1,13 +1,11 @@
 module Notee
   class Category < ActiveRecord::Base
-
     # callbacks
     before_save :set_slug
     before_destroy :protect_default
 
     # relations
-    has_many :children, class_name: Notee::Category, :foreign_key => 'parent_id', dependent: :destroy
-
+    has_many :children, class_name: Notee::Category, foreign_key: 'parent_id', dependent: :destroy
 
     private
 
@@ -18,6 +16,5 @@ module Notee
     def protect_default
       return false if self.id == 1
     end
-
   end
 end
