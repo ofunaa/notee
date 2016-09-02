@@ -5,6 +5,7 @@ module Notee
   class UsersController < ApplicationController
     # callbacks
     before_action :set_user, only: [:show, :update, :destroy]
+    before_action :convert_from_string_to_int, only: [:create, :update]
 
     # GET /users
     def index
@@ -20,6 +21,7 @@ module Notee
     # POST /posts
     def create
       @user = User.new(user_params)
+      @user.file = user_params[:profile_img]
       respond_to do |format|
         if @user.save
           format.json { render json: @user, status: 200 }
@@ -31,6 +33,7 @@ module Notee
 
     # PATCH/PUT /posts/1
     def update
+      @user.file = user_params[:profile_img]
       respond_to do |format|
         if @user.update(user_params)
           format.json { render json: @user, status: 200 }
@@ -50,6 +53,10 @@ module Notee
 
     def set_user
       @user = User.find_by(id: params[:id])
+    end
+
+    def convert_from_string_to_int
+      params[:user][:role] = params[:user][:role].to_i
     end
 
     # Only allow a trusted parameter "white list" through.

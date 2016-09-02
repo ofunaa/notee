@@ -299,6 +299,7 @@ export default class UserEdit extends Component {
     // ajax
     ajaxLoaded(content){
         if(!content){return;}
+        console.log(content);
         this.setState({
             user: {
                 name: content.name,
@@ -307,7 +308,7 @@ export default class UserEdit extends Component {
                 profile_img: content.profile_img,
                 role: content.role
             },
-            display_image_src: root_img_src + this.state.user.profile_img
+            display_image_src: root_img_src + "profile/" + content.profile_img
         });
     }
 

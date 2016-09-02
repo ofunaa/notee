@@ -18,10 +18,14 @@ module Notee
     # - update: 	posts, categories, images, users
     # - delete: 	posts, categories, images, users (Logical delete)
 
-    # suspended		# root
-    # all none		# all
+    # suspended
+    # all none
+
+    # root
+    # all
 
     # accessors
+    attr_accessor :file
     attr_accessor :password
     attr_accessor :password_confirm
     attr_accessor :editor_id
@@ -53,17 +57,17 @@ module Notee
     end
 
     def manage_profile_img
-      return unless profile_img
+      return unless file
 
-      image_dir = Rails.root.to_s + '/public/notee/users/'
+      image_dir = Rails.root.to_s + '/public/notee/profile/'
       FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
       image_name = Time.now.strftime('%Y%m%d%H%M%S') + '--' + SecureRandom.uuid + '.jpg'
       transaction do
         open(image_dir + '/' + image_name, 'wb') do |output|
-          output.write(profile_img.read)
+          output.write(file.read)
         end
-        self.profile_img = image_name
       end
+      self.profile_img = image_name
     end
   end
 end
