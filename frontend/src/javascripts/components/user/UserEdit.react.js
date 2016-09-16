@@ -248,6 +248,7 @@ export default class UserEdit extends Component {
     }
 
     saveContent(e){
+        console.log(this.state.user);
         if(this.props.params.id){
             var item = {params_id: this.props.params.id, user: this.state.user}
             UserActions.update(item);
