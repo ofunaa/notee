@@ -17,7 +17,7 @@ module Notee
       # end
 
       unless Token.exists?(access_token: session[:access_token])
-        redirect_to new_token_path && return
+        redirect_to new_token_path
       end
     end
   end
