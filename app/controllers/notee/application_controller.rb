@@ -3,14 +3,19 @@ module Notee
     before_action :restrict_access_json
 
     def restrict_access_json
-      raise unless confirm_exist_token
-      raise unless confirm_expired_token
+      redirect_to new_token_path && return unless confirm_expired_token
+      redirect_to new_token_path && return unless confirm_exist_token
     end
 
     private
 
     def confirm_exist_token
-      Token.exists?(access_token: session[:access_token])
+      if Token.exists?(access_token: session[:access_token])
+        return true
+      else
+        session.delete(:access_token)
+        return false
+      end
     end
 
     def confirm_expired_token
