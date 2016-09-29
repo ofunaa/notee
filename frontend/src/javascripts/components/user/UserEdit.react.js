@@ -305,6 +305,8 @@ export default class UserEdit extends Component {
             user: {
                 name: content.name,
                 email: content.email,
+                password: "",
+                password_confirm: "",
                 profile: content.profile,
                 profile_img: content.profile_img,
                 role: content.role
