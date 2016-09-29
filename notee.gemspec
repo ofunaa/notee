@@ -1,14 +1,14 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
-require "notee/version"
+require 'notee/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "notee"
+  s.name        = 'notee'
   s.version     = Notee::VERSION
-  s.authors     = ["takujifunao"]
-  s.email       = ["takuji.funao@gmail.com"]
+  s.authors     = ['takujifunao']
+  s.email       = ['takuji.funao@gmail.com']
   s.summary       = %q{notee is very simple blogging gem.}
   s.description   = %q{notee create simple blog application.}
   s.homepage      = "https://github.com/maru-3/notee.git"
