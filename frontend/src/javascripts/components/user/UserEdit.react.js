@@ -259,17 +259,6 @@ export default class UserEdit extends Component {
 
     saveSuccessed(){
         this.displaySnackBar("Create New User!");
-        this.setState({
-            user: {
-                name: "",
-                email: "",
-                password: "",
-                password_confirm: "",
-                profile: "",
-                profile_img: "",
-                role: this.state.roles["writer"]
-            }
-        });
     }
 
     saveFailed(){
