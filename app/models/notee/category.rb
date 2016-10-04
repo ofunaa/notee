@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: notee_categories
+#
+#  id         :integer          not null, primary key
+#  name       :string           default("category_name"), not null
+#  slug       :string           default("2016-19-26-54"), not null
+#  parent_id  :integer
+#  status     :integer          default(0), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 module Notee
   class Category < ActiveRecord::Base
     # callbacks

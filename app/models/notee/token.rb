@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: notee_tokens
+#
+#  id           :integer          not null, primary key
+#  access_token :string           not null
+#  expires_at   :datetime         not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 module Notee
   class Token < ActiveRecord::Base
     # callbacks

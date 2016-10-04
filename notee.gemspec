@@ -11,11 +11,11 @@ Gem::Specification.new do |s|
   s.email       = ['takuji.funao@gmail.com']
   s.summary       = %q{notee is very simple blogging gem.}
   s.description   = %q{notee create simple blog application.}
-  s.homepage      = "https://github.com/maru-3/notee.git"
-  s.license       = "MIT"
+  s.homepage      = 'https://github.com/maru-3/notee.git'
+  s.license       = 'MIT'
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.test_files = Dir['test/**/*']
 
   s.add_dependency 'rails'
   s.add_dependency 'sass'

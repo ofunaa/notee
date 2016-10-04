@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: notee_posts
+#
+#  id              :integer          not null, primary key
+#  title           :string           default("no title")
+#  content         :text
+#  slug            :string           default("2016-19-26-54")
+#  status          :integer          default(0)
+#  category_id     :integer          default(0)
+#  thumbnail_id    :integer          default(0)
+#  published_at    :datetime         default(Wed, 13 Jul 2016 10:26:54 UTC +00:00)
+#  seo_keyword     :string           default("")
+#  seo_description :string           default("")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 module Notee
   class Post < ActiveRecord::Base
     # callbacks
