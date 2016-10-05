@@ -6,11 +6,7 @@ module Notee
       :notee_password,
       :recaptcha_key,
       :recaptcha_secret_key,
-      :blog_title,
-      :blog_url,
-      :blog_description,
-      :blog_keywords,
-      :blog_og_image,
+      :blog_meta,
       :google_analytics
     ].freeze
 
@@ -23,11 +19,7 @@ module Notee
     DEFAULT_RECAPTCHA_SECRET_KEY = nil
 
     # blog
-    DEFAULT_BLOG_TITLE = nil
-    DEFAULT_BLOG_URL = nil
-    DEFAULT_BLOG_DESCRIPTION = nil
-    DEFAULT_BLOG_KEYWORDS = nil
-    DEFAULT_BLOG_OG_IMAGE = nil
+    DEFAULT_BLOG_META = nil
 
     # google-analytics
     DEFAULT_GOOGLE_ANALYTICS = nil
@@ -48,6 +40,8 @@ module Notee
       self.notee_password = DEFAULT_NOTEE_PASSWORD
       self.recaptcha_key = DEFAULT_RECAPTCHA_KEY
       self.recaptcha_secret_key = DEFAULT_RECAPTCHA_SECRET_KEY
+      self.blog_meta = DEFAULT_BLOG_META
+      self.google_analytics = DEFAULT_GOOGLE_ANALYTICS
     end
 
   end
