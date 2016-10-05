@@ -73,6 +73,15 @@ module Notee
         @notee_comments = Notee::Post.where(post_id: id)
         @notee_comments
       end
+
+      def notee_set_meta_by_post(post)
+        return {
+            title: post.title,
+            keyword: post.seo_keyword,
+            description: post.seo_description,
+            og_image: request.base_url + "/notee/" + post.thumbnail.content
+        }
+      end
     end
   end
 end

@@ -24,8 +24,9 @@ module Notee
         return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id, :recaptcha => Notee.recaptcha_key }
       end
 
-      def notee_meta_info(post)
-        return render :partial => "notee/partials/meta_info.html.erb", :locals => { :meta => Notee.blog_meta, :post => post :ga => Notee.google_analytics }
+      def notee_meta(meta)
+        meta ||= Notee.blog_meta
+        return render :partial => "notee/partials/meta.html.erb", :locals => { :meta => meta, :ga => Notee.google_analytics }
       end
     end
   end
