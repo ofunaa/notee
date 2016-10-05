@@ -23,6 +23,10 @@ module Notee
       def notee_comment_box(id)
         return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id, :recaptcha => Notee.recaptcha_key}
       end
+
+      def notee_meta_info
+
+      end
     end
   end
 end

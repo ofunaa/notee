@@ -70,11 +70,20 @@ Notee.configure do |config|
   config.recaptcha_secret_key = "hogehoge"
 
   # blog
-  config.blog_title = "title"
-  config.blog_url = "http://hogehoge.com"
-  config.blog_description = "hogehoge"
-  config.blog_keywords = "hoge, hoge, hoge"
-  config.blog_og_image = "http://hogehoge.com/hoge.png"
+  #config.blog_title = "title"
+  #config.blog_url = "http://hogehoge.com"
+  #config.blog_description = "hogehoge"
+  #config.blog_keywords = "hoge, hoge, hoge"
+  #config.blog_og_image = "http://hogehoge.com/hoge.png"
+
+  # blog
+  config.blog_meta = {
+    title: "title",
+    url: "http://hogehoge.com",
+    description: "hogehoge",
+    keywords: "hoge, hoge, hoge",
+    og_image: "http://hogehoge.com/hoge.png"
+  }
 
   # google-analytics
   config.google_analytics = "hogehogehogehoge"
