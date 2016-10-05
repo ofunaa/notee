@@ -60,16 +60,23 @@ require 'notee'
 # Recommendation using .env for manage id & password
 
 Notee.configure do |config|
+
+  # root-user
   config.notee_id = "hogehoge"
   config.notee_password = "hogehoge"
+
+  # recaptcha
   config.recaptcha_key = "hogehoge"
   config.recaptcha_secret_key = "hogehoge"
 
+  # blog
   config.blog_title = "title"
   config.blog_url = "http://hogehoge.com"
   config.blog_description = "hogehoge"
   config.blog_keywords = "hoge, hoge, hoge"
   config.blog_og_image = "http://hogehoge.com/hoge.png"
+
+  # google-analytics
   config.google_analytics = "hogehogehogehoge"
 end
 EOC
