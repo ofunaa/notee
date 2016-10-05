@@ -1,6 +1,5 @@
 Notee::Engine.routes.draw do
 
-  resources :meta_infos
   root to: 'notees#index'
 
   get 'new'             => 'notees#index'

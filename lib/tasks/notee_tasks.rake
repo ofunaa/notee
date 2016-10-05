@@ -64,6 +64,13 @@ Notee.configure do |config|
   config.notee_password = "hogehoge"
   config.recaptcha_key = "hogehoge"
   config.recaptcha_secret_key = "hogehoge"
+
+  config.blog_title = "title"
+  config.blog_url = "http://hogehoge.com"
+  config.blog_description = "hogehoge"
+  config.blog_keywords = "hoge, hoge, hoge"
+  config.blog_og_image = "http://hogehoge.com/hoge.png"
+  config.google_analytics = "hogehogehogehoge"
 end
 EOC
 
