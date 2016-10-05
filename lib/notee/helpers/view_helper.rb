@@ -21,11 +21,11 @@ module Notee
       end
 
       def notee_comment_box(id)
-        return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id, :recaptcha => Notee.recaptcha_key}
+        return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id, :recaptcha => Notee.recaptcha_key }
       end
 
-      def notee_meta_info
-
+      def notee_meta_info(post)
+        return render :partial => "notee/partials/meta_info.html.erb", :locals => { :meta => Notee.blog_meta, :post => post :ga => Notee.google_analytics }
       end
     end
   end
