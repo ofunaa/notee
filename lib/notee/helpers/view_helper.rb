@@ -29,12 +29,21 @@ module Notee
         return render :partial => "notee/partials/meta.html.erb", :locals => { :meta => meta, :ga => Notee.google_analytics }
       end
 
-      def notee_monthly_links
-
-      end
-
+      # def notee_monthly_links
+      #   return render :partial => "notee/partials/monthly_links.html.erb", :locals => { :monthly_notees =>  }
+      # end
+			#
       def notee_category_links
+        notee_hash = {}
+        Notee::Post.select(:category_id).each do |notee|
+          if notee_hash.has_key?("#{notee.category.name}")
+            notee_hash["#{notee.category.name}"] = notee_hash["#{notee.category.name}"] + 1
+          else
+            notee_hash.store(notee.category.name,1)
+          end
+        end
 
+        return render :partial => "notee/partials/category_links.html.erb", :locals => { :category_notees_hash => notee_hash }
       end
     end
   end
