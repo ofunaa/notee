@@ -10,7 +10,8 @@ module Notee
 
     def create
       if Notee.notee_id == params[:id] && Notee.notee_password == params[:password]
-        if token = Token.create!
+        User.root_user_setting
+        if token = Token.create!(user_id: 0)
           session[:access_token] = token.access_token
           return redirect_to root_path
         end
