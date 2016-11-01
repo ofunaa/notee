@@ -28,6 +28,14 @@ module Notee
         meta ||= Notee.blog_meta
         return render :partial => "notee/partials/meta.html.erb", :locals => { :meta => meta, :ga => Notee.google_analytics }
       end
+
+      def notee_monthly_links
+
+      end
+
+      def notee_category_links
+
+      end
     end
   end
 end

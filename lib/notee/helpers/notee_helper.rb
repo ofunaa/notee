@@ -82,14 +82,6 @@ module Notee
             og_image: request.base_url + "/notee/" + post.thumbnail.content
         }
       end
-
-      def notee_links_monthly
-
-      end
-
-      def notee_links_by_category
-
-      end
     end
   end
 end
