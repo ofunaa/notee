@@ -28,6 +28,26 @@ module Notee
         meta ||= Notee.blog_meta
         return render :partial => "notee/partials/meta.html.erb", :locals => { :meta => meta, :ga => Notee.google_analytics }
       end
+
+      def notee_monthly_links
+        monthly_notees = Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts GROUP BY DATE_FORMAT(published_at, '%Y-%m') ORDER BY time DESC;")
+
+        # DATA:
+          # notee.time
+          # notee.count
+
+        return render :partial => "notee/partials/monthly_links.html.erb", :locals => { :monthly_totals => monthly_notees }
+      end
+
+      def notee_category_links
+        category_notees = Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts GROUP BY category_id;")
+
+        # DATA:
+          # notee.category.name
+          # notee.count
+
+        return render :partial => "notee/partials/category_links.html.erb", :locals => { :category_totals => category_notees }
+      end
     end
   end
 end

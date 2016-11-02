@@ -1,7 +1,7 @@
 module Notee
   class User < ActiveRecord::Base
     # enums
-    enum role: { writer: 0, editor: 10, manager: 20, suspended: 99 }
+    enum role: { writer: 0, editor: 10, manager: 20, suspended: 99, root: 9999 }
 
     # writer
     # - create: 	posts, categories, images
@@ -22,7 +22,7 @@ module Notee
     # all none
 
     # root
-    # all
+    # - create:   users
 
     # accessors
     attr_accessor :file
@@ -35,13 +35,20 @@ module Notee
     before_save :encrypt_password
     before_save :manage_profile_img
 
-    def sign_in(name_or_email, password)
+    def self.sign_in(name_or_email, password)
       user = find_by(name: name_or_email)
       user = find_by(email: name_or_email) unless user
       return false unless user
       return false unless user.encrypted_password == encrypt(password)
 
       user
+    end
+
+    def self.root_user_setting
+      unless User.exists?(id: 0)
+        new_user = User.new(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
+        new_user.save
+      end
     end
 
     def encrypt(password)
