@@ -29,21 +29,24 @@ module Notee
         return render :partial => "notee/partials/meta.html.erb", :locals => { :meta => meta, :ga => Notee.google_analytics }
       end
 
-      # def notee_monthly_links
-      #   return render :partial => "notee/partials/monthly_links.html.erb", :locals => { :monthly_notees =>  }
-      # end
-			#
-      def notee_category_links
-        notee_hash = {}
-        Notee::Post.select(:category_id).each do |notee|
-          if notee_hash.has_key?("#{notee.category.name}")
-            notee_hash["#{notee.category.name}"] = notee_hash["#{notee.category.name}"] + 1
-          else
-            notee_hash.store(notee.category.name,1)
-          end
-        end
+      def notee_monthly_links
+        monthly_notees = Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts GROUP BY DATE_FORMAT(published_at, '%Y-%m');")
 
-        return render :partial => "notee/partials/category_links.html.erb", :locals => { :category_notees_hash => notee_hash }
+        # DATA:
+          # notee.time
+          # notee.count
+
+        return render :partial => "notee/partials/monthly_links.html.erb", :locals => { :monthly_notees => monthly_notees }
+      end
+
+      def notee_category_links
+        category_notees = Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts GROUP BY category_id;")
+
+        # DATA:
+          # notee.category.name
+          # notee.count
+
+        return render :partial => "notee/partials/category_links.html.erb", :locals => { :category_notees => category_notees }
       end
     end
   end
