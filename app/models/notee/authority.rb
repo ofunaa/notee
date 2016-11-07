@@ -229,7 +229,8 @@ module Notee
 			# all none
 
 			def suspended
-
+				# error
+				raise AuthorityError, 'This User is Suspended..'
 			end
 
 			# /////////////////////////////////
