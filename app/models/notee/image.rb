@@ -11,7 +11,7 @@
 require 'securerandom'
 
 module Notee
-  class Image < ActiveRecord::Base
+  class Image < ApplicationRecord
     # accessors
     attr_accessor :file
 

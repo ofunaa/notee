@@ -17,7 +17,7 @@
 #
 
 module Notee
-  class Post < ActiveRecord::Base
+  class Post < ApplicationRecord
     # callbacks
     before_create :set_title
     before_create :set_slug

@@ -1,6 +1,11 @@
 module Notee
   class ApplicationController < ActionController::Base
     before_action :restrict_access_json
+    before_filter :set_request_filter
+
+    def set_request_filter
+      Thread.current[:request] = request
+    end
 
     def restrict_access_json
       return redirect_to new_token_path unless confirm_exist_token

@@ -1,28 +1,7 @@
 module Notee
-  class User < ActiveRecord::Base
+  class User < ApplicationRecord
     # enums
     enum role: { writer: 0, editor: 10, manager: 20, suspended: 99, root: 9999 }
-
-    # writer
-    # - create: 	posts, categories, images
-    # - update: 	my posts, my user
-    # - delete: 	my posts (Logical delete)
-
-    # editor
-    # - create: 	posts, categories, images
-    # - update: 	posts, categories, images, my user
-    # - delete: 	posts, categories, images (Logical delete)
-
-    # manager
-    # - create: 	posts, categories, images, users
-    # - update: 	posts, categories, images, users
-    # - delete: 	posts, categories, images, users (Logical delete)
-
-    # suspended
-    # all none
-
-    # root
-    # - create:   users
 
     # accessors
     attr_accessor :file
@@ -64,7 +43,7 @@ module Notee
     end
 
     def manage_profile_img
-      return unless file
+      return unless file.present?
       return if User.exists?(profile_img: file)
 
       image_dir = Rails.root.to_s + '/public/notee/profile/'

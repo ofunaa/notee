@@ -12,7 +12,7 @@
 #
 
 module Notee
-  class Category < ActiveRecord::Base
+  class Category < ApplicationRecord
     # callbacks
     before_save :set_slug
     before_destroy :protect_default
