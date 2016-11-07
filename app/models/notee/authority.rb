@@ -29,7 +29,7 @@ module Notee
 			# /////////////////////////////////
 
 			# - create: 	posts, categories, images
-			# - update: 	my posts, my user
+			# - update: 	my posts, my user, categories, images
 			# - delete: 	my posts (Logical delete)
 
 			def writer(crud, new_model_obj)
@@ -65,13 +65,23 @@ module Notee
 			def writer_update(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
+						# error
+						raise AuthorityError, 'Writer can update only my Post' unless get_user_id == new_model_obj.user_id
 
+						# success
+						logger.debug("Writer update my post")
 					when /Category/ then
-
+						# success
+						logger.debug("Writer update a category")
 					when /Image/ then
-
+						# success
+						logger.debug("Writer update a image")
 					when /User/ then
+						# error
+						raise AuthorityError, 'Writer can update only my Post' unless get_user_id == new_model_obj.id
 
+						# success
+						logger.debug("Writer update my user")
 					else
 
 				end
@@ -80,13 +90,20 @@ module Notee
 			def writer_destroy(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
+						# error
+						raise AuthorityError, 'Writer can destroy only my Post' unless get_user_id == new_model_obj.user_id
 
+						# success
+						logger.debug("Writer destroy my post")
 					when /Category/ then
-
+						# error
+						raise AuthorityError, 'Writer can not destroy Category'
 					when /Image/ then
-
+						# error
+						raise AuthorityError, 'Writer can not destroy Image'
 					when /User/ then
-
+						# error
+						raise AuthorityError, 'Writer can not destroy User'
 					else
 
 				end
@@ -265,6 +282,11 @@ module Notee
 			def get_role
 				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
 				return token.user.role
+			end
+
+			def get_user_id
+				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
+				return token.user.id
 			end
 		end
 	end
