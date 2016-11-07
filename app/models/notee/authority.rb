@@ -1,57 +1,267 @@
 module Notee
 	class Authority < ActiveRecord::Base
 
-		# writer
-		# - create: 	posts, categories, images
-		# - update: 	my posts, my user
-		# - delete: 	my posts (Logical delete)
+		class AuthorityError < StandardError; end
+		class << self
 
-		# editor
-		# - create: 	posts, categories, images
-		# - update: 	posts, categories, images, my user
-		# - delete: 	posts, categories, images (Logical delete)
+			def check(crud, class_name)
+				role = get_role
 
-		# manager
-		# - create: 	posts, categories, images, users
-		# - update: 	posts, categories, images, users
-		# - delete: 	posts, categories, images, users (Logical delete)
+				case role
+					when 'writer' then
+						writer(crud, class_name)
+					when 'editor' then
+						editor(crud, class_name)
+					when 'manager' then
+						manager(crud, class_name)
+					when 'suspended' then
+						suspended
+					when 'root' then
+						root_user(crud, class_name)
+					else
+				end
+			end
 
-		# suspended
-		# all none
+			private
 
-		# root
-		# - create:   users
+			# /////////////////////////////////
+			# WRITER
+			# /////////////////////////////////
 
-		def self.check(crud, class_name)
+			# - create: 	posts, categories, images
+			# - update: 	my posts, my user
+			# - delete: 	my posts (Logical delete)
 
-		end
+			def writer(crud, class_name)
+				case crud
+					when 'create' then
+						writer_create(class_name)
+					when 'update' then
+						writer_update(class_name)
+					when 'destroy' then
+						writer_destroy(class_name)
+					else
+				end
+			end
 
+			def writer_create(class_name)
+				case class_name
+					when /Post/ then
 
-		private
+					when /Category/ then
 
-		# /////////////////////////////////
-		# WRITER
-		# /////////////////////////////////
+					when /Image/ then
 
-		def writer_check
+					when /User/ then
 
-		end
+					else
 
-		def editor_check
+				end
+			end
 
-		end
+			def writer_update(class_name)
+				case class_name
+					when /Post/ then
 
-		def manager_check
+					when /Category/ then
 
-		end
+					when /Image/ then
 
-		def suspended_check
+					when /User/ then
 
-		end
+					else
 
-		def discriminate_role
-			token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
-			return token.user
+				end
+			end
+
+			def writer_destroy(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			# /////////////////////////////////
+			# EDITOR
+			# /////////////////////////////////
+
+			# - create: 	posts, categories, images
+			# - update: 	posts, categories, images, my user
+			# - delete: 	posts, categories, images (Logical delete)
+
+			def editor(crud, class_name)
+				case crud
+					when 'create' then
+						editor_create(class_name)
+					when 'update' then
+						editor_update(class_name)
+					when 'destroy' then
+						editor_destroy(class_name)
+					else
+
+				end
+			end
+
+			def editor_create(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			def editor_update(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			def editor_destroy(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			# /////////////////////////////////
+			# MANAGER
+			# /////////////////////////////////
+
+			# - create: 	posts, categories, images, users
+			# - update: 	posts, categories, images, users
+			# - delete: 	posts, categories, images, users (Logical delete)
+
+			def manager(crud, class_name)
+				case crud
+					when 'create' then
+						manager_create(class_name)
+					when 'update' then
+						manager_update(class_name)
+					when 'destroy' then
+						manager_destroy(class_name)
+					else
+
+				end
+			end
+
+			def manager_create(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			def manager_update(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			def manager_destroy(class_name)
+				case class_name
+					when /Post/ then
+
+					when /Category/ then
+
+					when /Image/ then
+
+					when /User/ then
+
+					else
+
+				end
+			end
+
+			# /////////////////////////////////
+			# SUSPENDED
+			# /////////////////////////////////
+
+			# suspended
+			# all none
+
+			def suspended
+
+			end
+
+			# /////////////////////////////////
+			# ROOT
+			# /////////////////////////////////
+
+			# root
+			# - create:   users
+
+			def root_user(crud, class_name)
+				case crud
+					when 'create' then
+						case class_name
+							when /User/ then
+								# success
+								logger.debug("Root_user create a User")
+							else
+								# error
+								raise AuthorityError, 'Root user only create User'
+						end
+					else
+						# error
+						raise AuthorityError, 'Root user only create User'
+				end
+			end
+
+			# //////////////////////////////////////////////////////////
+
+			def get_role
+				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
+				return token.user.role
+			end
 		end
 	end
 end
