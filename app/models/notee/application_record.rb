@@ -8,15 +8,15 @@ module Notee
     before_destroy :destroy_authority
 
     def create_authority
-      Authority.check('create', self.class.name)
+      Authority.check('create', self)
     end
 
     def update_authority
-      Authority.check('update', self.class.name)
+      Authority.check('update', self)
     end
 
     def destroy_authority
-      Authority.check('destroy', self.class.name)
+      Authority.check('destroy', self)
     end
   end
 end

@@ -4,20 +4,20 @@ module Notee
 		class AuthorityError < StandardError; end
 		class << self
 
-			def check(crud, class_name)
+			def check(crud, new_model_obj)
 				role = get_role
 
 				case role
 					when 'writer' then
-						writer(crud, class_name)
+						writer(crud, new_model_obj)
 					when 'editor' then
-						editor(crud, class_name)
+						editor(crud, new_model_obj)
 					when 'manager' then
-						manager(crud, class_name)
+						manager(crud, new_model_obj)
 					when 'suspended' then
 						suspended
 					when 'root' then
-						root_user(crud, class_name)
+						root_user(crud, new_model_obj)
 					else
 				end
 			end
@@ -32,20 +32,38 @@ module Notee
 			# - update: 	my posts, my user
 			# - delete: 	my posts (Logical delete)
 
-			def writer(crud, class_name)
+			def writer(crud, new_model_obj)
 				case crud
 					when 'create' then
-						writer_create(class_name)
+						writer_create(new_model_obj)
 					when 'update' then
-						writer_update(class_name)
+						writer_update(new_model_obj)
 					when 'destroy' then
-						writer_destroy(class_name)
+						writer_destroy(new_model_obj)
 					else
 				end
 			end
 
-			def writer_create(class_name)
-				case class_name
+			def writer_create(new_model_obj)
+				case new_model_obj.class.name
+					when /Post/ then
+						# success
+						logger.debug("Writer create a post")
+					when /Category/ then
+						# success
+						logger.debug("Writer create a category")
+					when /Image/ then
+						# success
+						logger.debug("Writer create a image")
+					when /User/ then
+						# error
+						raise AuthorityError, 'Writer can not create User'
+					else
+				end
+			end
+
+			def writer_update(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -59,23 +77,8 @@ module Notee
 				end
 			end
 
-			def writer_update(class_name)
-				case class_name
-					when /Post/ then
-
-					when /Category/ then
-
-					when /Image/ then
-
-					when /User/ then
-
-					else
-
-				end
-			end
-
-			def writer_destroy(class_name)
-				case class_name
+			def writer_destroy(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -97,21 +100,21 @@ module Notee
 			# - update: 	posts, categories, images, my user
 			# - delete: 	posts, categories, images (Logical delete)
 
-			def editor(crud, class_name)
+			def editor(crud, new_model_obj)
 				case crud
 					when 'create' then
-						editor_create(class_name)
+						editor_create(new_model_obj)
 					when 'update' then
-						editor_update(class_name)
+						editor_update(new_model_obj)
 					when 'destroy' then
-						editor_destroy(class_name)
+						editor_destroy(new_model_obj)
 					else
 
 				end
 			end
 
-			def editor_create(class_name)
-				case class_name
+			def editor_create(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -125,8 +128,8 @@ module Notee
 				end
 			end
 
-			def editor_update(class_name)
-				case class_name
+			def editor_update(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -140,8 +143,8 @@ module Notee
 				end
 			end
 
-			def editor_destroy(class_name)
-				case class_name
+			def editor_destroy(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -163,21 +166,21 @@ module Notee
 			# - update: 	posts, categories, images, users
 			# - delete: 	posts, categories, images, users (Logical delete)
 
-			def manager(crud, class_name)
+			def manager(crud, new_model_obj)
 				case crud
 					when 'create' then
-						manager_create(class_name)
+						manager_create(new_model_obj)
 					when 'update' then
-						manager_update(class_name)
+						manager_update(new_model_obj)
 					when 'destroy' then
-						manager_destroy(class_name)
+						manager_destroy(new_model_obj)
 					else
 
 				end
 			end
 
-			def manager_create(class_name)
-				case class_name
+			def manager_create(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -191,8 +194,8 @@ module Notee
 				end
 			end
 
-			def manager_update(class_name)
-				case class_name
+			def manager_update(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -206,8 +209,8 @@ module Notee
 				end
 			end
 
-			def manager_destroy(class_name)
-				case class_name
+			def manager_destroy(new_model_obj)
+				case new_model_obj.class.name
 					when /Post/ then
 
 					when /Category/ then
@@ -240,13 +243,13 @@ module Notee
 			# root
 			# - create:   users
 
-			def root_user(crud, class_name)
+			def root_user(crud, new_model_obj)
 				case crud
 					when 'create' then
-						case class_name
+						case new_model_obj.class.name
 							when /User/ then
 								# success
-								logger.debug("Root_user create a User")
+								logger.debug("Root_user create a user")
 							else
 								# error
 								raise AuthorityError, 'Root user only create User'
