@@ -27,7 +27,7 @@ module Notee
     end
 
     def destroy
-      Token.find_by_id(session[:access_token]).destroy!
+      Token.find_by_access_token(session[:access_token]).destroy!
       session.delete(:access_token)
     end
   end
