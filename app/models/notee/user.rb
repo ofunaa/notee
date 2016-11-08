@@ -67,11 +67,13 @@ module Notee
 
     def self.root_user_setting
       unless User.exists?(id: 0)
-        new_user = User.new(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
-        new_user.save
-        if token = Token.create!(user_id: 0)
-          session[:access_token] = token.access_token
-        end
+        User.skip_callback(:create, :before, :create_authority)
+        User.create(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
+        User.set_callback(:create, :before, :create_authority)
+      end
+
+      if token = Token.create!(user_id: 0)
+        session[:access_token] = token.access_token
       end
     end
 

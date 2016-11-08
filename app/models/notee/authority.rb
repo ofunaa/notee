@@ -5,7 +5,15 @@ module Notee
 		class AuthorityError < StandardError; end
 		class << self
 
+			TARGET_ARR = ['Post', 'Category', 'Image', 'User']
+
 			def check(crud, new_model_obj)
+
+				# do not process except targets
+				# target = TARGET_ARR.select { |n| new_model_obj.class.name.include?(n) }
+				# p target
+				# return if target.nil?
+
 				role = get_role
 
 				case role
