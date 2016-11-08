@@ -55,10 +55,17 @@ module Notee
     end
 
     def self.encrypt(password)
-      enc = OpenSSL::Cipher.new('AES-256-CBC')
+      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
       enc.encrypt
-      enc.pkcs5_keyivgen( ENCRYPT_KEY, self.salt )
-      OpenSSL::Digest::MD5.hexdigest(password)
+      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
+      enc.update( password ) + enc.final
+    end
+
+    def self.decrypt(password)
+      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
+      enc.decrypt
+      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
+      enc.update( password ) + enc.final
     end
 
     def self.root_user_setting
