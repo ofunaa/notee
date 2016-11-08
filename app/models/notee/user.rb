@@ -18,15 +18,6 @@ module Notee
     before_save :encrypt_password
     before_save :manage_profile_img
 
-    def self.sign_in(name_or_email, password)
-      user = find_by(name: name_or_email)
-      user = find_by(email: name_or_email) unless user
-      return false unless user
-      return false unless user.encrypted_password == encrypt(password)
-
-      user
-    end
-
     def confirm_password
       return false unless password == password_confirm
     end
@@ -37,6 +28,51 @@ module Notee
 
     def encrypt_password
       self.encrypted_password = encrypt(password)
+    end
+
+    def encrypt(password)
+      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
+      enc.encrypt
+      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
+      enc.update( password ) + enc.final
+    end
+
+    def self.decrypt
+      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
+      enc.decrypt
+      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
+      enc.update(self.encrypted_password) + enc.final
+    end
+
+    def self.sign_in(name_or_email, password)
+      # root-user login
+      if Notee.notee_id == name_or_email && Notee.notee_password == password
+        return root_user_setting
+      end
+
+      # other-user login
+      user = find_by(name: name_or_email)
+      user = find_by(email: name_or_email) unless user
+      return false unless user
+      return false unless password == user.decrypt
+
+      user_setting(user)
+    end
+
+    def self.user_setting(user)
+      if token = Token.create!(user_id: user.id)
+        session[:access_token] = token.access_token
+      end
+    end
+
+    def self.root_user_setting
+      unless User.exists?(id: 0)
+        new_user = User.new(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
+        new_user.save
+        if token = Token.create!(user_id: 0)
+          session[:access_token] = token.access_token
+        end
+      end
     end
 
     def manage_profile_img
@@ -52,27 +88,6 @@ module Notee
         end
       end
       self.profile_img = image_name
-    end
-
-    def self.encrypt(password)
-      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
-      enc.encrypt
-      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
-      enc.update( password ) + enc.final
-    end
-
-    def self.decrypt(password)
-      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
-      enc.decrypt
-      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
-      enc.update( password ) + enc.final
-    end
-
-    def self.root_user_setting
-      unless User.exists?(id: 0)
-        new_user = User.new(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
-        new_user.save
-      end
     end
   end
 end
