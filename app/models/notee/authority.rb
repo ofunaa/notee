@@ -1,5 +1,6 @@
 module Notee
-	class Authority < ActiveRecord::Base
+	class Authority
+		include ActiveModel::Model
 
 		class AuthorityError < StandardError; end
 		class << self

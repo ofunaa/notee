@@ -30,7 +30,9 @@ module Notee
       end
     end
 
-    def encrypt(password)
+    def self.encrypt(password)
+      enc = OpenSSL::Cipher.new('AES-256-CBC')
+      enc.encrypt
       OpenSSL::Digest::MD5.hexdigest(password)
     end
 

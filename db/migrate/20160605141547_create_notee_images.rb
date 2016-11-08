@@ -13,8 +13,9 @@ class CreateNoteeImages < ActiveRecord::Migration
     end
 
     # create default image
-    default_image = Notee::Image.create :content => 'aa'
-    default_image.update_column("content", "default.png")
+    Notee::Image.skip_callback(:create, :before, :create_authority)
+    Notee::Image.create :content => 'default.png'
+    Notee::Image.set_callback(:create, :before, :create_authority)
   end
 
 end
