@@ -1,8 +1,6 @@
 module Notee
   class User < ApplicationRecord
 
-    ENCRYPT_KEY = 'n1o2t3e4e4_5u5s1e2r3'
-
     # enums
     enum role: { writer: 0, editor: 10, manager: 20, suspended: 99, root: 9999 }
 
@@ -14,7 +12,6 @@ module Notee
 
     # callback
     before_save :confirm_password
-    before_save :set_salt
     before_save :encrypt_password
     before_save :manage_profile_img
 
@@ -22,26 +19,21 @@ module Notee
       return false unless password == password_confirm
     end
 
-    def set_salt
-      self.salt = OpenSSL::Random.random_bytes(8)
+    def encrypt_password
+      self.encrypted_password = encrypt(self.password)
     end
 
-    def encrypt_password
-      self.encrypted_password = encrypt(password)
-    end
+    SECURE = 'SOFHGPOIJERPGOKSPDO2SPTI4RJ6POIFDJVS7ETJ1EITJHSPEKMVOEIGU'
+    CIPHER = 'aes-256-cbc'
 
     def encrypt(password)
-      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
-      enc.encrypt
-      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
-      enc.update( password ) + enc.final
+      crypt = ActiveSupport::MessageEncryptor.new(SECURE, CIPHER)
+      crypt.encrypt_and_sign(password)
     end
 
-    def self.decrypt
-      enc = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
-      enc.decrypt
-      enc.pkcs5_keyivgen(ENCRYPT_KEY, self.salt)
-      enc.update(self.encrypted_password) + enc.final
+    def decrypt(password)
+      crypt = ActiveSupport::MessageEncryptor.new(SECURE, CIPHER)
+      crypt.decrypt_and_verify(password)
     end
 
     def self.sign_in(name_or_email, password)
@@ -54,7 +46,7 @@ module Notee
       user = find_by(name: name_or_email)
       user = find_by(email: name_or_email) unless user
       return false unless user
-      return false unless password == user.decrypt
+      return false unless password == decrypt(user.encrypted_password)
 
       user_setting(user)
     end
