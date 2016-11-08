@@ -8,12 +8,6 @@ module Notee
 			TARGET_ARR = ['Post', 'Category', 'Image', 'User']
 
 			def check(crud, new_model_obj)
-
-				# do not process except targets
-				# target = TARGET_ARR.select { |n| new_model_obj.class.name.include?(n) }
-				# p target
-				# return if target.nil?
-
 				role = get_role
 
 				case role
@@ -34,12 +28,12 @@ module Notee
 			private
 
 			# /////////////////////////////////
-			# WRITER
+			# WRITER - Restriction
 			# /////////////////////////////////
 
-			# - create: 	posts, categories, images
-			# - update: 	my posts, my user, categories, images
-			# - delete: 	my posts (Logical delete)
+			# create: 	user
+			# update: 	other posts, other users, my user role
+			# delete:		other posts, categories, images, users
 
 			def writer(crud, new_model_obj)
 				case crud
@@ -57,13 +51,13 @@ module Notee
 				case new_model_obj.class.name
 					when /Post/ then
 						# success
-						logger.debug("Writer create a post")
+						Rails.logger.debug("Writer create a post")
 					when /Category/ then
 						# success
-						logger.debug("Writer create a category")
+						Rails.logger.debug("Writer create a category")
 					when /Image/ then
 						# success
-						logger.debug("Writer create a image")
+						Rails.logger.debug("Writer create a image")
 					when /User/ then
 						# error
 						raise AuthorityError, 'Writer can not create User'
@@ -78,13 +72,13 @@ module Notee
 						raise AuthorityError, 'Writer can update only my Post' unless get_user_id == new_model_obj.user_id
 
 						# success
-						logger.debug("Writer update my post")
+						Rails.logger.debug("Writer update my post")
 					when /Category/ then
 						# success
-						logger.debug("Writer update a category")
+						Rails.logger.debug("Writer update a category")
 					when /Image/ then
 						# success
-						logger.debug("Writer update a image")
+						Rails.logger.debug("Writer update a image")
 					when /User/ then
 						# error
 						raise AuthorityError, 'Writer can update only my Post' unless get_user_id == new_model_obj.id
@@ -103,7 +97,7 @@ module Notee
 						raise AuthorityError, 'Writer can destroy only my Post' unless get_user_id == new_model_obj.user_id
 
 						# success
-						logger.debug("Writer destroy my post")
+						Rails.logger.debug("Writer destroy my post")
 					when /Category/ then
 						# error
 						raise AuthorityError, 'Writer can not destroy Category'
@@ -119,12 +113,12 @@ module Notee
 			end
 
 			# /////////////////////////////////
-			# EDITOR
+			# EDITOR - Restriction
 			# /////////////////////////////////
 
-			# - create: 	posts, categories, images
-			# - update: 	posts, categories, images, my user
-			# - delete: 	posts, categories, images (Logical delete)
+			# - create: 	users
+			# - update: 	other users
+			# - delete: 	users
 
 			def editor(crud, new_model_obj)
 				case crud
@@ -185,12 +179,12 @@ module Notee
 			end
 
 			# /////////////////////////////////
-			# MANAGER
+			# MANAGER - Restriction
 			# /////////////////////////////////
 
-			# - create: 	posts, categories, images, users
-			# - update: 	posts, categories, images, users
-			# - delete: 	posts, categories, images, users (Logical delete)
+			# - create: 	none
+			# - update: 	none
+			# - delete: 	none
 
 			def manager(crud, new_model_obj)
 				case crud
@@ -251,11 +245,11 @@ module Notee
 			end
 
 			# /////////////////////////////////
-			# SUSPENDED
+			# SUSPENDED - Restriction
 			# /////////////////////////////////
 
 			# suspended
-			# all none
+			# all
 
 			def suspended
 				# error
@@ -267,7 +261,7 @@ module Notee
 			# /////////////////////////////////
 
 			# root
-			# - create:   users
+			# Can create:   only users
 
 			def root_user(crud, new_model_obj)
 				case crud
@@ -275,7 +269,7 @@ module Notee
 						case new_model_obj.class.name
 							when /User/ then
 								# success
-								logger.debug("Root_user create a user")
+								Rails.logger.debug("Root user create a user")
 							else
 								# error
 								raise AuthorityError, 'Root user only create User'
@@ -300,3 +294,4 @@ module Notee
 		end
 	end
 end
+

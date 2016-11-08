@@ -53,7 +53,7 @@ module Notee
 
     def self.user_setting(user)
       if token = Token.create!(user_id: user.id)
-        session[:access_token] = token.access_token
+        Thread.current[:request].session[:access_token] = token.access_token
       end
     end
 
@@ -65,7 +65,7 @@ module Notee
       end
 
       if token = Token.create!(user_id: 0)
-        session[:access_token] = token.access_token
+        Thread.current[:request].session[:access_token] = token.access_token
       end
     end
 
