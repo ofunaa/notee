@@ -1,5 +1,8 @@
 module Notee
   class User < ApplicationRecord
+
+    ENCRYPT_KEY = 'n1o2t3e4e4_5u5s1e2r3'
+
     # enums
     enum role: { writer: 0, editor: 10, manager: 20, suspended: 99, root: 9999 }
 
@@ -11,6 +14,7 @@ module Notee
 
     # callback
     before_save :confirm_password
+    before_save :set_salt
     before_save :encrypt_password
     before_save :manage_profile_img
 
@@ -23,21 +27,12 @@ module Notee
       user
     end
 
-    def self.root_user_setting
-      unless User.exists?(id: 0)
-        new_user = User.new(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
-        new_user.save
-      end
-    end
-
-    def self.encrypt(password)
-      enc = OpenSSL::Cipher.new('AES-256-CBC')
-      enc.encrypt
-      OpenSSL::Digest::MD5.hexdigest(password)
-    end
-
     def confirm_password
       return false unless password == password_confirm
+    end
+
+    def set_salt
+      self.salt = OpenSSL::Random.random_bytes(8)
     end
 
     def encrypt_password
@@ -57,6 +52,20 @@ module Notee
         end
       end
       self.profile_img = image_name
+    end
+
+    def self.encrypt(password)
+      enc = OpenSSL::Cipher.new('AES-256-CBC')
+      enc.encrypt
+      enc.pkcs5_keyivgen( ENCRYPT_KEY, self.salt )
+      OpenSSL::Digest::MD5.hexdigest(password)
+    end
+
+    def self.root_user_setting
+      unless User.exists?(id: 0)
+        new_user = User.new(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
+        new_user.save
+      end
     end
   end
 end
