@@ -94,7 +94,8 @@ module Notee
 						raise AuthorityError, 'Writer can update only my Post' unless get_user_id == new_model_obj.id
 
 						# success
-						logger.debug("Writer update my user")
+						new_model_obj.role = 'writer'
+						Rails.logger.debug("Writer update my user")
 					else
 
 				end
