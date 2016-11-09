@@ -25,6 +25,16 @@ module Notee
 				end
 			end
 
+			def get_role
+				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
+				return token.user.role
+			end
+
+			def get_user_id
+				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
+				return token.user.id
+			end
+
 			private
 
 			# /////////////////////////////////
@@ -280,17 +290,6 @@ module Notee
 				end
 			end
 
-			# //////////////////////////////////////////////////////////
-
-			def get_role
-				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
-				return token.user.role
-			end
-
-			def self.get_user_id
-				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
-				return token.user.id
-			end
 		end
 	end
 end
