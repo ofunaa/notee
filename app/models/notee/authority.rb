@@ -94,7 +94,7 @@ module Notee
 						raise AuthorityError, 'Writer can update only my Post' unless get_user_id == new_model_obj.id
 
 						# success
-						new_model_obj.role = 'writer'
+						new_model_obj.role = 0
 						Rails.logger.debug("Writer update my user")
 					else
 
@@ -147,13 +147,17 @@ module Notee
 			def editor_create(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
-
+						# success
+						Rails.logger.debug("Editor create a post")
 					when /Category/ then
-
+						# success
+						Rails.logger.debug("Editor create a category")
 					when /Image/ then
-
+						# success
+						Rails.logger.debug("Editor create a image")
 					when /User/ then
-
+						# error
+						raise AuthorityError, 'Editor can not destroy User'
 					else
 
 				end
@@ -162,13 +166,20 @@ module Notee
 			def editor_update(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
-
+						# success
+						Rails.logger.debug("Editor update a post")
 					when /Category/ then
-
+						# success
+						Rails.logger.debug("Editor update a category")
 					when /Image/ then
-
+						# success
+						Rails.logger.debug("Editor update a image")
 					when /User/ then
+						# error
+						raise AuthorityError, 'Editor can update only my Post' unless get_user_id == new_model_obj.id
 
+						# success
+						Rails.logger.debug("Editor update a user")
 					else
 
 				end
@@ -177,13 +188,17 @@ module Notee
 			def editor_destroy(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
-
+						# success
+						Rails.logger.debug("Editor destroy a post")
 					when /Category/ then
-
+						# success
+						Rails.logger.debug("Editor destroy a category")
 					when /Image/ then
-
+						# success
+						Rails.logger.debug("Editor destroy a image")
 					when /User/ then
-
+						# error
+						raise AuthorityError, 'Editor can not destroy User'
 					else
 
 				end
@@ -213,13 +228,17 @@ module Notee
 			def manager_create(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
-
+						# success
+						Rails.logger.debug("Manager create a post")
 					when /Category/ then
-
+						# success
+						Rails.logger.debug("Manager create a category")
 					when /Image/ then
-
+						# success
+						Rails.logger.debug("Manager create a image")
 					when /User/ then
-
+						# success
+						Rails.logger.debug("Manager create a user")
 					else
 
 				end
@@ -228,13 +247,17 @@ module Notee
 			def manager_update(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
-
+						# success
+						Rails.logger.debug("Manager update a post")
 					when /Category/ then
-
+						# success
+						Rails.logger.debug("Manager update a category")
 					when /Image/ then
-
+						# success
+						Rails.logger.debug("Manager update a image")
 					when /User/ then
-
+						# success
+						Rails.logger.debug("Manager update a user")
 					else
 
 				end
@@ -243,13 +266,17 @@ module Notee
 			def manager_destroy(new_model_obj)
 				case new_model_obj.class.name
 					when /Post/ then
-
+						# success
+						Rails.logger.debug("Manager destroy a post")
 					when /Category/ then
-
+						# success
+						Rails.logger.debug("Manager destroy a category")
 					when /Image/ then
-
+						# success
+						Rails.logger.debug("Manager destroy a image")
 					when /User/ then
-
+						# success
+						Rails.logger.debug("Manager destroy a user")
 					else
 
 				end
