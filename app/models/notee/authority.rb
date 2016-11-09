@@ -287,7 +287,7 @@ module Notee
 				return token.user.role
 			end
 
-			def get_user_id
+			def self.get_user_id
 				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
 				return token.user.id
 			end

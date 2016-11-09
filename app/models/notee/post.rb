@@ -21,6 +21,7 @@ module Notee
     # callbacks
     before_create :set_title
     before_create :set_slug
+    before_create :set_user_id
     before_save :set_published_at
     before_save :check_role
 
@@ -39,6 +40,10 @@ module Notee
 
     def set_slug
       self.slug = self.title.downcase unless self.slug.present?
+    end
+
+    def set_user_id
+      self.user_id = Authority.get_user_id
     end
 
     def set_published_at
