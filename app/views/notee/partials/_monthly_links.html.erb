@@ -1,5 +1,4 @@
 <% if monthly_totals.present? %>
-<% if monthly_totals[0].id  %>
   <ul class="notee_monthly_ul">
     <% monthly_totals.each do |total| %>
       <% slash_time = total.time.gsub("-","/") %>
@@ -10,5 +9,4 @@
       </li>
     <% end %>
   </ul>
-<% end %>
 <% end %>

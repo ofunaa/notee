@@ -1,9 +1,11 @@
-<ul class="notee_category_ul">
-  <% category_totals.each do |total| %>
-    <li class="notee_category_li">
-      <a href="/<%= total.category.slug %>">
-        <%= total.category.name %>(<%= total.count %>)
-      </a>
-    </li>
-  <% end %>
-</ul>
+<% if category_totals.present? %>
+  <ul class="notee_category_ul">
+    <% category_totals.each do |total| %>
+      <li class="notee_category_li">
+        <a href="/<%= total.category.slug %>">
+          <%= total.category.name %>(<%= total.count %>)
+        </a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
