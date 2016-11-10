@@ -30,7 +30,7 @@ module Notee
       end
 
       def notee_monthly_links
-        monthly_notees = Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts GROUP BY DATE_FORMAT(published_at, '%Y-%m') ORDER BY time DESC;")
+        monthly_notees = Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts WHERE status=1 GROUP BY DATE_FORMAT(published_at, '%Y-%m') ORDER BY time DESC;")
 
         # DATA:
           # notee.time
@@ -40,7 +40,7 @@ module Notee
       end
 
       def notee_category_links
-        category_notees = Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts GROUP BY category_id;")
+        category_notees = Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts WHERE status=1 GROUP BY category_id;")
 
         # DATA:
           # notee.category.name
