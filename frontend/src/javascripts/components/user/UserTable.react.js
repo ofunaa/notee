@@ -21,6 +21,7 @@ export default class UserTable extends Component {
                         <TableHeaderColumn>Email</TableHeaderColumn>
                         <TableHeaderColumn>Role</TableHeaderColumn>
                         <TableHeaderColumn>/</TableHeaderColumn>
+                        <TableHeaderColumn>/</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
@@ -28,7 +29,9 @@ export default class UserTable extends Component {
                         return (<UserTableRow
                             user={user}
                             ajaxLoad={this.props.ajaxLoad}
-                            key={user.id} />);
+                            key={user.id}
+                            displaySnackBar={this.props.displaySnackBar}
+                        />);
                     })}
                 </TableBody>
             </Table>
