@@ -1,10 +1,12 @@
-<ul class="notee_monthly_ul">
-  <% monthly_totals.each do |total| %>
-    <% slash_time = total.time.gsub("-","/") %>
-    <li class="notee_monthly_li">
-      <a href="/<%= slash_time %>">
-        <%= slash_time %>(<%= total.count %>)
-      </a>
-    </li>
-  <% end %>
-</ul>
+<% if monthly_totals[0].id  %>
+  <ul class="notee_monthly_ul">
+    <% monthly_totals.each do |total| %>
+      <% slash_time = total.time.gsub("-","/") %>
+      <li class="notee_monthly_li">
+        <a href="/<%= slash_time %>">
+          <%= slash_time %>(<%= total.count %>)
+        </a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
