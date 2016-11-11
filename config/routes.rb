@@ -5,6 +5,7 @@ Notee::Engine.routes.draw do
   get 'new'             => 'notees#index'
   get 'edit/:id'        => 'notees#index'
   get 'categories'      => 'notees#index'
+  get 'categories/edit/:id'  => 'notees#index'
   get 'images'          => 'notees#index'
   get 'comments'        => 'notees#index'
   get 'users'           => 'notees#index'

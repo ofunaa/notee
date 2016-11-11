@@ -8,6 +8,7 @@ import NoteeFooter from './components/layout/NoteeFooter.react.js'
 import IndexSection from './components/notee/IndexSection.react.js'
 import EditSection from './components/notee/EditSection.react.js'
 import CategorySection from './components/category/CategorySection.react.js'
+import CategoryEdit from './components/category/CategoryEdit.react.js'
 import ImageSection from './components/image/ImageSection.react.js'
 import CommentSection from './components/comment/CommentSection.react.js'
 import UserSection from './components/user/UserSection.react.js'
@@ -39,6 +40,7 @@ const routes = (
         <Route path='edit/:id' component={EditSection} />
 
         <Route path='categories' component={CategorySection} />
+        <Route path='categories/edit/:id' component={CategoryEdit} />
         <Route path='images' component={ImageSection} />
         <Route path='comments' component={CommentSection} />
 

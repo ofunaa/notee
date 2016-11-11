@@ -51,8 +51,7 @@ export default class CategorySection extends Component {
                     ajaxCategoryLoaded={this.ajaxCategoryLoaded}
                     displaySnackBar={this.displaySnackBar}
                 />
-                <CategoryTable 
-                    categories={this.state.categories} 
+                <CategoryTable  
                     ajaxLoad={this.ajaxCategoryLoaded}
                     displaySnackBar={this.displaySnackBar}
                 />

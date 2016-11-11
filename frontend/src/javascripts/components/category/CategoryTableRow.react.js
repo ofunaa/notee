@@ -8,6 +8,7 @@ import CategoryConstants from '../../constants/CategoryConstants';
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
+import { Link } from "react-router";
 
 
 export default class CategoryTableRow extends Component {
@@ -34,6 +35,12 @@ export default class CategoryTableRow extends Component {
                 <TableRowColumn>{this.props.category.slug}</TableRowColumn>
                 <TableRowColumn>{this.props.category.parent_id}</TableRowColumn>
                 <TableRowColumn>{this.props.category.is_private}</TableRowColumn>
+                <TableRowColumn>
+                    <Link to={`/notee/categories/edit/${this.props.category.id}`} activeClassName="active">
+                        <RaisedButton
+                            label="edit"
+                            primary={true} /></Link>
+                </TableRowColumn>
                 <TableRowColumn>
 
                     {(()=>{

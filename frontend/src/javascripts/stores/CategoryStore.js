@@ -23,8 +23,8 @@ function category_create(content) {
 
 function category_update(content) {
     request
-        .put("/notee/api/categories/" + content.id)
-        .send(content.content)
+        .put("/notee/api/categories/" + content.params_id)
+        .send(content.category)
         .end(function(err, res){
             if(err || !res.body){
                 CategoryStore.emitChange(CategoryConstants.CATEGORY_UPDATE_FAILED);

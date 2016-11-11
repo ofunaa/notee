@@ -23,6 +23,7 @@ export default class CategoryTable extends Component {
                         <TableHeaderColumn>PARENT_ID</TableHeaderColumn>
                         <TableHeaderColumn>Private</TableHeaderColumn>
                         <TableHeaderColumn>/</TableHeaderColumn>
+                        <TableHeaderColumn>/</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
