@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 import CategoryStore from '../../stores/CategoryStore';
+import CategoryActions from '../../actions/CategoryActions';
 import CategoryConstants from '../../constants/CategoryConstants';
 
 // material-ui
@@ -9,6 +10,9 @@ import { Link } from "react-router";
 import CategoryTable from './CategoryTable.react';
 import CategoryForm from './CategoryForm.react';
 import Snackbar from 'material-ui/Snackbar';
+
+// common-parts
+import NoteeTable from '../common/table/NoteeTable.react';
 
 
 export default class CategorySection extends Component {
@@ -56,6 +60,18 @@ export default class CategorySection extends Component {
                     ajaxLoad={this.ajaxCategoryLoaded}
                     displaySnackBar={this.displaySnackBar}
                 />
+                <p>//////////////////////////</p>
+                <br />
+                <NoteeTable
+                    columns={['id', 'name', 'slug', 'parent_id', 'is_private']}
+                    contents={this.state.categories}
+                    store={CategoryStore}
+                    actions={CategoryActions}
+                    constants={CategoryConstants}
+                    ajaxLoad={this.ajaxCategoryLoaded}
+                    displaySnackBar={this.displaySnackBar}
+                />
+
                 <Snackbar
                     open={this.state.snackbar_open}
                     message={this.state.snackbar_txt}

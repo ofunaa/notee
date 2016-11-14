@@ -30,7 +30,6 @@ export default class IndexTableRow extends Component {
     render() {
 
         var date = new Date( this.props.notee.published_at );
-        console.log(date);
         var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         return(
