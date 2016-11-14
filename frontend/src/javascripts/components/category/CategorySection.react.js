@@ -55,8 +55,9 @@ export default class CategorySection extends Component {
                     ajaxCategoryLoaded={this.ajaxCategoryLoaded}
                     displaySnackBar={this.displaySnackBar}
                 />
-                
+
                 <NoteeTable
+                    modelName="Category"
                     columns={['id', 'name', 'slug', 'parent_id', 'is_private']}
                     contents={this.state.categories}
                     store={CategoryStore}

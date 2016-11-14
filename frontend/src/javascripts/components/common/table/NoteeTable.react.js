@@ -26,9 +26,9 @@ export default class NoteeTable extends Component {
                 fixedHeader={true}>
                 <TableHeader displaySelectAll={false}>
                     <TableRow>
-                        {this.props.columns.map((column)=>{
+                        {this.props.columns.map((column, index)=>{
                             return (
-                                <TableHeaderColumn key={column.id}>{column}</TableHeaderColumn>
+                                <TableHeaderColumn key={index}>{column}</TableHeaderColumn>
                             );
                         })}
                         <TableHeaderColumn>/</TableHeaderColumn>
@@ -39,9 +39,10 @@ export default class NoteeTable extends Component {
                     {this.props.contents.map((content)=>{
                         return (
                             <NoteeTableRow
-                                columns={this.props.columns}
-                                content={content} 
                                 key={content.id}
+                                modelName={this.props.modelName}
+                                columns={this.props.columns}
+                                content={content}
                                 store={this.props.store}
                                 actions={this.props.actions}
                                 constants={this.props.constants}
