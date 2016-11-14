@@ -173,9 +173,9 @@ export default class EditSection extends Component {
     saveContent(e){
         if(this.props.params.id){
             var item = {params_id: this.props.params.id, content: this.state.content}
-            NoteeActions.notee_update(item);
+            NoteeActions.update(item);
         }else{
-            NoteeActions.notee_create(this.state.content);
+            NoteeActions.create(this.state.content);
         }
     }
 
