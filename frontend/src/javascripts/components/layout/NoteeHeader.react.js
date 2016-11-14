@@ -38,9 +38,6 @@ export default class NoteeHeader extends Component {
                         <Link to='/notee'>Index</Link>
                     </MenuItem>
                     <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/new/'>New Notee</Link>
-                    </MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>
                         <Link to='/notee/categories/'>Category</Link>
                     </MenuItem>
                     <MenuItem onTouchTap={this.handleClose}>
