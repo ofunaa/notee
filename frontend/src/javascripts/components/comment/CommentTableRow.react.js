@@ -8,7 +8,7 @@ import { Link } from "react-router";
 // notee
 import CommentActions from '../../actions/CommentActions';
 import CommentStore from '../../stores/CommentStore';
-import CommentConstants from '../../constants/CommentConstants';
+import Constants from '../../constants/NoteeConstants';
 
 export default class CommentTableRow extends Component {
 
@@ -29,10 +29,10 @@ export default class CommentTableRow extends Component {
     }
 
     componentWillMount(){
-        CommentStore.addChangeListener(CommentConstants.COMMENT_UPDATE, this.deleteSuccessed);
-        CommentStore.addChangeListener(CommentConstants.COMMENT_UPDATE_FAILED, this.deleteFailed);
-        CommentStore.addChangeListener(CommentConstants.COMMENT_DELETE, this.deleteSuccessed);
-        CommentStore.addChangeListener(CommentConstants.COMMENT_DELETE_FAILED, this.deleteFailed);
+        CommentStore.addChangeListener(Constants.COMMENT_UPDATE, this.deleteSuccessed);
+        CommentStore.addChangeListener(Constants.COMMENT_UPDATE_FAILED, this.deleteFailed);
+        CommentStore.addChangeListener(Constants.COMMENT_DELETE, this.deleteSuccessed);
+        CommentStore.addChangeListener(Constants.COMMENT_DELETE_FAILED, this.deleteFailed);
     }
 
     render() {

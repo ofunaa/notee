@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react'
 // notee
 import CategoryActions from '../../actions/CategoryActions';
 import CategoryStore from '../../stores/CategoryStore';
-import CategoryConstants from '../../constants/CategoryConstants';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -42,8 +42,8 @@ export default class CategoryForm extends Component {
     }
 
     componentDidMount() {
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.saveSuccessed);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE_FAILED, this.saveFailed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE_FAILED, this.saveFailed);
     }
 
     render() {

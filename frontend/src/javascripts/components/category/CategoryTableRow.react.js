@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react'
 // notee
 import CategoryActions from '../../actions/CategoryActions';
 import CategoryStore from '../../stores/CategoryStore';
-import CategoryConstants from '../../constants/CategoryConstants';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,8 +23,8 @@ export default class CategoryTableRow extends Component {
     }
 
     componentDidMount() {
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_DELETE, this.deleteSuccessed);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_DELETE_FAILED, this.deleteFailed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE, this.deleteSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE_FAILED, this.deleteFailed);
     }
 
     render() {

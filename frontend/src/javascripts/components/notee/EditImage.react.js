@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from "react";
 // notee
 import ImageActions from '../../actions/ImageActions';
 import ImageStore from '../../stores/ImageStore';
-import ImageConstants from '../../constants/ImageConstants';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import Snackbar from 'material-ui/Snackbar';
@@ -45,8 +45,8 @@ export default class Image extends Component {
 
     componentWillMount() {
         this.setImages();
-        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE, this.saveSuccessed);
-        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE_FAILED, this.saveFailed);
+        ImageStore.addChangeListener(Constants.IMAGE_CREATE, this.saveSuccessed);
+        ImageStore.addChangeListener(Constants.IMAGE_CREATE_FAILED, this.saveFailed);
     }
 
     setImages() {

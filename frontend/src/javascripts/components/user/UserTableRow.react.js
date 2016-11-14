@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react'
 // notee
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
-import UserConstants from '../../constants/UserConstants';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,8 +22,8 @@ export default class UserTableRow extends Component {
     }
 
     componentWillMount(){
-        UserStore.addChangeListener(UserConstants.USER_DELETE, this.deleteSuccessed);
-        UserStore.addChangeListener(UserConstants.USER_DELETE_FAILED, this.deleteFailed);
+        UserStore.addChangeListener(Constants.USER_DELETE, this.deleteSuccessed);
+        UserStore.addChangeListener(Constants.USER_DELETE_FAILED, this.deleteFailed);
     }
 
     render() {

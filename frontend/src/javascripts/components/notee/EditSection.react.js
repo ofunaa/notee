@@ -2,9 +2,8 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 import NoteeActions from '../../actions/NoteeActions';
-import NoteeConstants from '../../constants/NoteeConstants';
+import Constants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
-import CategoryConstants from '../../constants/CategoryConstants';
 import CategoryStore from '../../stores/CategoryStore';
 import EditForm  from './EditForm.react.js';
 import EditPreview  from './EditPreview.react.js';
@@ -73,12 +72,12 @@ export default class EditSection extends Component {
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
         NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE, this.saveSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE_CREATE_FAILED, this.saveFailed);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE, this.updateSuccessed);
-        NoteeStore.addChangeListener(NoteeConstants.NOTEE_UPDATE_FAILED, this.updateFailed);
+        NoteeStore.addChangeListener(Constants.NOTEE_CREATE, this.saveSuccessed);
+        NoteeStore.addChangeListener(Constants.NOTEE_CREATE_FAILED, this.saveFailed);
+        NoteeStore.addChangeListener(Constants.NOTEE_UPDATE, this.updateSuccessed);
+        NoteeStore.addChangeListener(Constants.NOTEE_UPDATE_FAILED, this.updateFailed);
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
     }
 
     render() {

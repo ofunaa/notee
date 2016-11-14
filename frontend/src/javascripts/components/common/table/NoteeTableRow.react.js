@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 
+// notee
+import Constants from '../../constants/NoteeConstants';
+
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
@@ -24,8 +27,8 @@ export default class NoteeTableRow extends Component {
     }
 
     componentDidMount() {
-        this.props.store.addChangeListener(this.props.constants.DELETE, this.deleteSuccessed);
-        this.props.store.addChangeListener(this.props.constants.DELETE_FAILED, this.deleteFailed);
+        this.props.store.addChangeListener(Constants.DELETE, this.deleteSuccessed);
+        this.props.store.addChangeListener(Constants.DELETE_FAILED, this.deleteFailed);
         this.setContent();
     }
 

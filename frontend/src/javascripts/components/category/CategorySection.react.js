@@ -3,7 +3,6 @@ import React, {Component, PropTypes} from 'react';
 // notee
 import CategoryStore from '../../stores/CategoryStore';
 import CategoryActions from '../../actions/CategoryActions';
-import CategoryConstants from '../../constants/CategoryConstants';
 
 // material-ui
 import { Link } from "react-router";
@@ -38,9 +37,9 @@ export default class CategorySection extends Component {
 
     componentWillMount() {
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.changeSuccessed);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_UPDATE, this.changeSuccessed);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_DELETE, this.changeSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
     }
 
     ajaxCategoryLoaded(content){
@@ -62,7 +61,6 @@ export default class CategorySection extends Component {
                     contents={this.state.categories}
                     store={CategoryStore}
                     actions={CategoryActions}
-                    constants={CategoryConstants}
                     ajaxLoad={this.ajaxCategoryLoaded}
                     displaySnackBar={this.displaySnackBar}
                 />

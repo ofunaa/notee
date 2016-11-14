@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 import CategoryActions from '../../actions/CategoryActions';
-import CategoryConstants from '../../constants/CategoryConstants';
+import Constants from '../../constants/NoteeConstants';
 import CategoryStore from '../../stores/CategoryStore';
 
 // material-ui
@@ -37,8 +37,8 @@ export default class EditNewCategory extends Component {
     }
 
     componentDidMount() {
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE, this.saveCategorySuccessed);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_CREATE_FAILED, this.saveCategoryFailed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE_FAILED, this.saveCategoryFailed);
     }
 
     render() {

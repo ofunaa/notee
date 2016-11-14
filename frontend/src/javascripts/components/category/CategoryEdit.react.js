@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 
 // notee
+import Constants from '../../constants/NoteeConstants'
 import CategoryActions from '../../actions/CategoryActions'
-import CategoryConstants from '../../constants/CategoryConstants'
 import CategoryStore from '../../stores/CategoryStore'
 
 // material-ui
@@ -56,8 +56,8 @@ export default class CategoryEdit extends Component {
             CategoryStore.loadCategory(this.props.params.id, this.ajaxLoaded);
         }
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_UPDATE, this.updateSuccessed);
-        CategoryStore.addChangeListener(CategoryConstants.CATEGORY_UPDATE_FAILED, this.updateFailed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.updateSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE_FAILED, this.updateFailed);
     }
 
     ajaxCategoryLoaded(content){

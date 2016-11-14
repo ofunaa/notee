@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 
 // notee
 import UserActions from '../../actions/UserActions'
-import UserConstants from '../../constants/UserConstants'
+import Constants from '../../constants/NoteeConstants'
 import UserStore from '../../stores/UserStore'
 
 // material-ui
@@ -63,10 +63,10 @@ export default class UserEdit extends Component {
             UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
         }
         UserStore.loadRoles(this.ajaxRolesLoaded);
-        UserStore.addChangeListener(UserConstants.USER_CREATE, this.saveSuccessed);
-        UserStore.addChangeListener(UserConstants.USER_CREATE_FAILED, this.saveFailed);
-        UserStore.addChangeListener(UserConstants.USER_UPDATE, this.updateSuccessed);
-        UserStore.addChangeListener(UserConstants.USER_UPDATE_FAILED, this.updateFailed);
+        UserStore.addChangeListener(Constants.USER_CREATE, this.saveSuccessed);
+        UserStore.addChangeListener(Constants.USER_CREATE_FAILED, this.saveFailed);
+        UserStore.addChangeListener(Constants.USER_UPDATE, this.updateSuccessed);
+        UserStore.addChangeListener(Constants.USER_UPDATE_FAILED, this.updateFailed);
     }
 
     render() {

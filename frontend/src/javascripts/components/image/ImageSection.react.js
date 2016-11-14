@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from "react";
 
 // notee
 import ImageActions from '../../actions/ImageActions';
-import ImageConstants from '../../constants/ImageConstants';
+import Constants from '../../constants/NoteeConstants';
 import ImageStore from '../../stores/ImageStore';
 
 // material-ui
@@ -46,10 +46,10 @@ export default class ImageSection extends Component {
 
     componentWillMount() {
         this.setImages();
-        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE, this.saveSuccessed);
-        ImageStore.addChangeListener(ImageConstants.IMAGE_CREATE_FAILED, this.saveFailed);
-        ImageStore.addChangeListener(ImageConstants.IMAGE_DELETE, this.deleteSuccessed);
-        ImageStore.addChangeListener(ImageConstants.IMAGE_DELETE_FAILED, this.deleteFailed);
+        ImageStore.addChangeListener(Constants.IMAGE_CREATE, this.saveSuccessed);
+        ImageStore.addChangeListener(Constants.IMAGE_CREATE_FAILED, this.saveFailed);
+        ImageStore.addChangeListener(Constants.IMAGE_DELETE, this.deleteSuccessed);
+        ImageStore.addChangeListener(Constants.IMAGE_DELETE_FAILED, this.deleteFailed);
     }
 
     setImages() {
