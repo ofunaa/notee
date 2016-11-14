@@ -1,25 +1,25 @@
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher'
-import CategoryConstants from '../constants/CategoryConstants'
+import Constants from '../constants/NoteeConstants'
 
 var CategoryActions = {
 
     create: function(content) {
         NoteeDispatcher.dispatch({
-            type: CategoryConstants.CATEGORY_CREATE,
+            type: Constants.CATEGORY_CREATE,
             content: content
         });
     },
 
     update: function(content){
         NoteeDispatcher.dispatch({
-            type: CategoryConstants.CATEGORY_UPDATE,
+            type: Constants.CATEGORY_UPDATE,
             content: content
         });
     },
 
     delete: function(category_id){
         NoteeDispatcher.dispatch({
-            type: CategoryConstants.CATEGORY_DELETE,
+            type: Constants.CATEGORY_DELETE,
             category_id: category_id
         });
     },

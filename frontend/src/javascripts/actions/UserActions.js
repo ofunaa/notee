@@ -1,25 +1,25 @@
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher'
-import UserConstants from '../constants/UserConstants'
+import Constants from '../constants/NoteeConstants'
 
 var UserActions = {
 
     create: function(user) {
         NoteeDispatcher.dispatch({
-            type: UserConstants.CREATE,
+            type: Constants.USER_CREATE,
             content: user
         });
     },
 
     update: function(user){
         NoteeDispatcher.dispatch({
-            type: UserConstants.UPDATE,
+            type: Constants.USER_UPDATE,
             content: user
         });
     },
     
     delete: function(user_id){
         NoteeDispatcher.dispatch({
-            type: UserConstants.DELETE,
+            type: Constants.USER_DELETE,
             user_id: user_id
         });
     },

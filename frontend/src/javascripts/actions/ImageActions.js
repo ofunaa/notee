@@ -1,18 +1,18 @@
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher'
-import ImageConstants from '../constants/ImageConstants'
+import Constants from '../constants/NoteeConstants'
 
 var ImageActions = {
 
     create: function(content) {
         NoteeDispatcher.dispatch({
-            type: ImageConstants.IMAGE_CREATE,
+            type: Constants.IMAGE_CREATE,
             content: content
         });
     },
 
     delete: function(image_src){
         NoteeDispatcher.dispatch({
-            type: ImageConstants.IMAGE_DELETE,
+            type: Constants.IMAGE_DELETE,
             image_src: image_src
         });
     },
