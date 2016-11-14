@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 
 // notee
-import Constants from '../../constants/NoteeConstants';
+import Constants from '../../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
