@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 // notee
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
-import NoteeConstants from '../constants/NoteeConstants';
+import Constants from '../constants/NoteeConstants';
 
 
 function notee_create(content) {
@@ -14,10 +14,10 @@ function notee_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.NOTEE_CREATE_FAILED);
+                NoteeStore.emitChange(Constants.NOTEE_CREATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.NOTEE_CREATE);
+            NoteeStore.emitChange(Constants.NOTEE_CREATE);
         })
 }
 
@@ -27,10 +27,10 @@ function notee_update(content) {
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.NOTEE_UPDATE_FAILED);
+                NoteeStore.emitChange(Constants.NOTEE_UPDATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.NOTEE_UPDATE);
+            NoteeStore.emitChange(Constants.NOTEE_UPDATE);
         })
 }
 
@@ -39,10 +39,10 @@ function notee_delete(notee_src){
         .del("/notee/api/posts/" + notee_src)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(NoteeConstants.NOTEE_DELETE_FAILED);
+                NoteeStore.emitChange(Constants.NOTEE_DELETE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(NoteeConstants.NOTEE_DELETE);
+            NoteeStore.emitChange(Constants.NOTEE_DELETE);
         })
 }
 
@@ -111,13 +111,13 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         // notee
-        case NoteeConstants.NOTEE_CREATE:
+        case Constants.NOTEE_CREATE:
             notee_create(action.content);
             break;
-        case NoteeConstants.NOTEE_UPDATE:
+        case Constants.NOTEE_UPDATE:
             notee_update(action.content);
             break;
-        case NoteeConstants.NOTEE_DELETE:
+        case Constants.NOTEE_DELETE:
             notee_delete(action.notee_id);
             break;
 

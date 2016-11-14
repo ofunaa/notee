@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 // notee
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
-import ImageConstants from '../constants/ImageConstants';
+import Constants from '../constants/NoteeConstants';
 
 function image_create(content){
     request
@@ -13,10 +13,10 @@ function image_create(content){
         .attach("image", content)
         .end(function(err, res){
             if(err || !res.body){
-                ImageStore.emitChange(ImageConstants.IMAGE_CREATE_FAILED);
+                ImageStore.emitChange(Constants.IMAGE_CREATE_FAILED);
                 return false;
             }
-            ImageStore.emitChange(ImageConstants.IMAGE_CREATE);
+            ImageStore.emitChange(Constants.IMAGE_CREATE);
         })
 }
 
@@ -26,10 +26,10 @@ function image_delete(image_src){
         .del("/notee/api/images/0?name=" + delete_file[1])
         .end(function(err, res){
             if(err || !res.body){
-                ImageStore.emitChange(ImageConstants.IMAGE_DELETE_FAILED);
+                ImageStore.emitChange(Constants.IMAGE_DELETE_FAILED);
                 return false;
             }
-            ImageStore.emitChange(ImageConstants.IMAGE_DELETE);
+            ImageStore.emitChange(Constants.IMAGE_DELETE);
         })
 }
 
@@ -77,10 +77,10 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         // image
-        case ImageConstants.IMAGE_CREATE:
+        case Constants.IMAGE_CREATE:
             image_create(action.content);
             break;
-        case ImageConstants.IMAGE_DELETE:
+        case Constants.IMAGE_DELETE:
             image_delete(action.image_src);
             break;
 

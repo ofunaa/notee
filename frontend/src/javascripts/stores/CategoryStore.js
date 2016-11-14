@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 // notee
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
-import CategoryConstants from '../constants/CategoryConstants';
+import Constants from '../constants/NoteeConstants';
 
 
 function category_create(content) {
@@ -14,10 +14,10 @@ function category_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(CategoryConstants.CREATE_FAILED);
+                CategoryStore.emitChange(Constants.CREATE_FAILED);
                 return false;
             }
-            CategoryStore.emitChange(CategoryConstants.CREATE);
+            CategoryStore.emitChange(Constants.CREATE);
         })
 }
 
@@ -27,11 +27,11 @@ function category_update(content) {
         .send(content.category)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(CategoryConstants.UPDATE_FAILED);
+                CategoryStore.emitChange(Constants.UPDATE_FAILED);
                 return false;
             }
 
-            CategoryStore.emitChange(CategoryConstants.UPDATE);
+            CategoryStore.emitChange(Constants.UPDATE);
         })
 }
 
@@ -40,10 +40,10 @@ function category_delete(category_id){
         .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(CategoryConstants.DELETE_FAILED);
+                CategoryStore.emitChange(Constants.DELETE_FAILED);
                 return false;
             }
-            CategoryStore.emitChange(CategoryConstants.DELETE);
+            CategoryStore.emitChange(Constants.DELETE);
         })
 }
 
@@ -85,13 +85,13 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         // category
-        case CategoryConstants.CREATE:
+        case Constants.CATEGORY_CREATE:
             category_create(action.content);
             break;
-        case CategoryConstants.UPDATE:
+        case Constants.CATEGORY_UPDATE:
             category_update(action.content);
             break;
-        case CategoryConstants.DELETE:
+        case Constants.CATEGORY_DELETE:
             category_delete(action.category_id);
             break;
 

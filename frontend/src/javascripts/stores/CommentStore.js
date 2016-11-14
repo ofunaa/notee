@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 // notee
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
-import CommentConstants from '../constants/CommentConstants';
+import Constants from '../constants/NoteeConstants';
 
 
 function comment_update(content) {
@@ -14,10 +14,10 @@ function comment_update(content) {
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                CommentStore.emitChange(CommentConstants.COMMENT_UPDATE_FAILED);
+                CommentStore.emitChange(Constants.COMMENT_UPDATE_FAILED);
                 return false;
             }
-            CommentStore.emitChange(CommentConstants.COMMENT_UPDATE);
+            CommentStore.emitChange(Constants.COMMENT_UPDATE);
         })
 }
 
@@ -26,10 +26,10 @@ function comment_delete(comment_id){
         .del("/notee/api/comments/" + comment_id)
         .end(function(err, res){
             if(err || !res.body){
-                CommentStore.emitChange(CommentConstants.COMMENT_DELETE_FAILED);
+                CommentStore.emitChange(Constants.COMMENT_DELETE_FAILED);
                 return false;
             }
-            CommentStore.emitChange(CommentConstants.COMMENT_DELETE);
+            CommentStore.emitChange(Constants.COMMENT_DELETE);
         })
 }
 
@@ -60,10 +60,10 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         // category
-        case CommentConstants.COMMENT_UPDATE:
+        case Constants.COMMENT_UPDATE:
             comment_update(action.content);
             break;
-        case CommentConstants.COMMENT_DELETE:
+        case Constants.COMMENT_DELETE:
             comment_delete(action.category_id);
             break;
 

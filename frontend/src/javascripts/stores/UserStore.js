@@ -6,7 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 
 // notee
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
-import UserConstants from '../constants/UserConstants';
+import Constants from '../constants/NoteeConstants';
 
 function user_create(content) {
     request
@@ -20,10 +20,10 @@ function user_create(content) {
         .attach("user[profile_img]", content.profile_img)
         .end(function(err, res){
             if (err || !res.body) {
-                UserStore.emitChange(UserConstants.USER_CREATE_FAILED);
+                UserStore.emitChange(Constants.USER_CREATE_FAILED);
                 return false;
             }
-            UserStore.emitChange(UserConstants.USER_CREATE);
+            UserStore.emitChange(Constants.USER_CREATE);
         })
 }
 
@@ -39,10 +39,10 @@ function user_update(content) {
         .attach("user[profile_img]", content.user.profile_img)
         .end(function(err, res){
             if(err || !res.body){
-                UserStore.emitChange(UserConstants.USER_UPDATE_FAILED);
+                UserStore.emitChange(Constants.USER_UPDATE_FAILED);
                 return false;
             }
-            UserStore.emitChange(UserConstants.USER_UPDATE);
+            UserStore.emitChange(Constants.USER_UPDATE);
         })
 }
 
@@ -51,10 +51,10 @@ function user_delete(notee_src){
         .del("/notee/api/users/" + notee_src)
         .end(function(err, res){
             if(err || !res.body){
-                UserStore.emitChange(UserConstants.USER_DELETE_FAILED);
+                UserStore.emitChange(Constants.USER_DELETE_FAILED);
                 return false;
             }
-            UserStore.emitChange(UserConstants.USER_DELETE);
+            UserStore.emitChange(Constants.USER_DELETE);
         })
 }
 
@@ -100,13 +100,13 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         // user
-        case UserConstants.USER_CREATE:
+        case Constants.USER_CREATE:
             user_create(action.content);
             break;
-        case UserConstants.USER_UPDATE:
+        case Constants.USER_UPDATE:
             user_update(action.content);
             break;
-        case UserConstants.USER_DELETE:
+        case Constants.USER_DELETE:
             user_delete(action.user_id);
             break;
     }
