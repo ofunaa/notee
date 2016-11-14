@@ -14,10 +14,10 @@ function category_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(CategoryConstants.CATEGORY_CREATE_FAILED);
+                CategoryStore.emitChange(CategoryConstants.CREATE_FAILED);
                 return false;
             }
-            CategoryStore.emitChange(CategoryConstants.CATEGORY_CREATE);
+            CategoryStore.emitChange(CategoryConstants.CREATE);
         })
 }
 
@@ -27,11 +27,11 @@ function category_update(content) {
         .send(content.category)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(CategoryConstants.CATEGORY_UPDATE_FAILED);
+                CategoryStore.emitChange(CategoryConstants.UPDATE_FAILED);
                 return false;
             }
 
-            CategoryStore.emitChange(CategoryConstants.CATEGORY_UPDATE);
+            CategoryStore.emitChange(CategoryConstants.UPDATE);
         })
 }
 
@@ -40,10 +40,10 @@ function category_delete(category_id){
         .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(CategoryConstants.CATEGORY_DELETE_FAILED);
+                CategoryStore.emitChange(CategoryConstants.DELETE_FAILED);
                 return false;
             }
-            CategoryStore.emitChange(CategoryConstants.CATEGORY_DELETE);
+            CategoryStore.emitChange(CategoryConstants.DELETE);
         })
 }
 
@@ -85,13 +85,13 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         // category
-        case CategoryConstants.CATEGORY_CREATE:
+        case CategoryConstants.CREATE:
             category_create(action.content);
             break;
-        case CategoryConstants.CATEGORY_UPDATE:
+        case CategoryConstants.UPDATE:
             category_update(action.content);
             break;
-        case CategoryConstants.CATEGORY_DELETE:
+        case CategoryConstants.DELETE:
             category_delete(action.category_id);
             break;
 

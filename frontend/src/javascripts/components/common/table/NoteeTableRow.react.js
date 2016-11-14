@@ -10,7 +10,7 @@ export default class NoteeTableRow extends Component {
 
     constructor(props) {
         super(props);
-        this.deleteCategory = this.deleteCategory.bind(this);
+        this.deleteContent = this.deleteContent.bind(this);
 
         // eventemit_callback for category
         this.deleteSuccessed = this.deleteSuccessed.bind(this);
@@ -18,20 +18,20 @@ export default class NoteeTableRow extends Component {
     }
 
     componentDidMount() {
-        this.props.store.addChangeListener(this.props.constants.CATEGORY_DELETE, this.deleteSuccessed);
-        this.props.store.addChangeListener(this.props.constants.CATEGORY_DELETE_FAILED, this.deleteFailed);
+        this.props.store.addChangeListener(this.props.constants.DELETE, this.deleteSuccessed);
+        this.props.store.addChangeListener(this.props.constants.DELETE_FAILED, this.deleteFailed);
     }
 
     render() {
         return(
             <TableRow>
-                <TableRowColumn>{this.props.content.id}</TableRowColumn>
-                <TableRowColumn>{this.props.category.name}</TableRowColumn>
-                <TableRowColumn>{this.props.category.slug}</TableRowColumn>
-                <TableRowColumn>{this.props.category.parent_id}</TableRowColumn>
-                <TableRowColumn>{this.props.category.is_private}</TableRowColumn>
+                {this.props.columns.map((column)=>{
+                    return (
+                        <TableRowColumn>{eval("this.props.content." + column)}</TableRowColumn>
+                    );
+                })}
                 <TableRowColumn>
-                    <Link to={`/notee/categories/edit/${this.props.category.id}`} activeClassName="active">
+                    <Link to={`/notee/categories/edit/${this.props.content.id}`} activeClassName="active">
                         <RaisedButton
                             label="edit"
                             primary={true} /></Link>
@@ -49,7 +49,7 @@ export default class NoteeTableRow extends Component {
     }
 
     deleteContent(e){
-        this.props.actions.category_delete(this.props.content.id);
+        this.props.actions.delete(this.props.content.id);
     }
 
     deleteSuccessed(){

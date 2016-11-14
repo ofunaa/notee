@@ -39,6 +39,7 @@ export default class NoteeTable extends Component {
                     {this.props.contents.map((content)=>{
                         return (
                             <NoteeTableRow
+                                columns={this.props.columns}
                                 content={content} 
                                 key={content.id}
                                 store={this.props.store}

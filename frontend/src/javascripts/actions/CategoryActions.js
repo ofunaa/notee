@@ -3,21 +3,21 @@ import CategoryConstants from '../constants/CategoryConstants'
 
 var CategoryActions = {
 
-    category_create: function(content) {
+    create: function(content) {
         NoteeDispatcher.dispatch({
             type: CategoryConstants.CATEGORY_CREATE,
             content: content
         });
     },
 
-    category_update: function(content){
+    update: function(content){
         NoteeDispatcher.dispatch({
             type: CategoryConstants.CATEGORY_UPDATE,
             content: content
         });
     },
 
-    category_delete: function(category_id){
+    delete: function(category_id){
         NoteeDispatcher.dispatch({
             type: CategoryConstants.CATEGORY_DELETE,
             category_id: category_id
