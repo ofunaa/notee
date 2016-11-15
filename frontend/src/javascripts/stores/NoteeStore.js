@@ -67,13 +67,6 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         });
     },
 
-    loadAllComments: function(callback) {
-        request.get('/notee/api/comments', (err, res) => {
-            if(err){return;}
-            if(!res.body){return;}
-            callback(res.body.posts);
-        });
-    },
 
     loadStatuses: function(callback) {
         var url = "/notee/api/statuses";

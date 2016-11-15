@@ -3,17 +3,17 @@ import Constants from '../constants/NoteeConstants'
 
 var CommentActions = {
 
-    update: function(is_hidden){
+    update: function(id){
         NoteeDispatcher.dispatch({
             type: Constants.COMMENT_UPDATE,
-            is_hidden: is_hidden
+            comment_id: id
         });
     },
 
-    delete: function(comment_id){
+    delete: function(id){
         NoteeDispatcher.dispatch({
             type: Constants.COMMENT_DELETE,
-            comment_id: comment_id
+            comment_id: id
         });
     },
 

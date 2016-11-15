@@ -25,7 +25,7 @@ module Notee
 
     def update
       respond_to do |format|
-        if @comment.update(post_params)
+        if @comment.update(is_hidden: !@comment.is_hidden)
           format.json { render json: @comment, status: 200 }
         else
           format.json { render json: @comment.errors, status: :unprocessable_entity }

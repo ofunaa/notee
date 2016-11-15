@@ -6,6 +6,7 @@ import { TableRow, TableRowColumn } from 'material-ui/Table';
 import { Link } from "react-router";
 
 // notee
+import NoteeStore from '../../stores/NoteeStore';
 import CommentActions from '../../actions/CommentActions';
 
 export default class CommentTableRow extends Component {
@@ -16,34 +17,28 @@ export default class CommentTableRow extends Component {
             post_title: ""
         }
 
+        this.ajaxLoad = this.ajaxLoad.bind(this);
         this.updateComment = this.updateComment.bind(this);
         this.deleteComment = this.deleteComment.bind(this);
     }
 
+    componentWillMount(){
+        NoteeStore.loadNotee(this.props.comment.post_id, this.ajaxLoad);
+    }
 
     render() {
-        
-        var hidden_btn;
-        
-        if(this.props.comment.is_hidden){
-            hidden_btn = "show this!";
-        }else{
-            hidden_btn = "hide this";
-        }
-
         return(
             <TableRow>
-                <TableRowColumn>{this.props.comment.post_id}</TableRowColumn>
                 <TableRowColumn>{this.state.post_title}</TableRowColumn>
                 <TableRowColumn>{this.props.comment.name}</TableRowColumn>
                 <TableRowColumn>{this.props.comment.email}</TableRowColumn>
                 <TableRowColumn>{this.props.comment.content}</TableRowColumn>
-                <TableRowColumn>{"hidden?:" + this.props.comment.is_hidden}</TableRowColumn>
+                <TableRowColumn>{this.props.comment.is_hidden ? "hidden" : "public"}</TableRowColumn>
 
                 <TableRowColumn>
                     <RaisedButton
                         onClick={this.updateComment}
-                        label={hidden_btn}
+                        label={this.props.comment.is_hidden ? "Show" : "Hide"}
                         secondary={true}
                         disabled={false}
                     />
@@ -60,13 +55,18 @@ export default class CommentTableRow extends Component {
         );
     }
 
+    ajaxLoad(post){
+        if(!post){return false}
+        this.setState({post_title: post.title});
+    }
+
     updateComment(e){
-        if(this.props.comment.is_hidden)
         CommentActions.update(this.props.comment.id);
     }
 
     deleteComment(e){
         CommentActions.delete(this.props.comment.id);
     }
+
 
 }

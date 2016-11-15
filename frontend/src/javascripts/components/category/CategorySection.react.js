@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 // notee
 import CategoryStore from '../../stores/CategoryStore';
 import CategoryActions from '../../actions/CategoryActions';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import { Link } from "react-router";
@@ -21,12 +22,13 @@ export default class CategorySection extends Component {
             categories: []
         };
 
-        // ajax
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
-
-        // eventemit
         this.changeSuccessed = this.changeSuccessed.bind(this);
 
+    }
+
+    componentDidMount() {
+        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
     }
 
     componentWillMount() {

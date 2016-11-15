@@ -35,17 +35,21 @@ export default class NoteeTable extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                     {this.props.contents.map((content)=>{
-                        return (
-                            <NoteeTableRow
-                                key={content.id}
-                                modelName={this.props.modelName}
-                                columns={this.props.columns}
-                                content={content}
-                                store={this.props.store}
-                                actions={this.props.actions}
-                                ajaxLoad={this.props.ajaxLoad}
-                            />
-                        );
+                        if(this.props.returnTableRow == null){
+                            return (
+                                <NoteeTableRow
+                                    key={content.id}
+                                    modelName={this.props.modelName}
+                                    columns={this.props.columns}
+                                    content={content}
+                                    store={this.props.store}
+                                    actions={this.props.actions}
+                                    ajaxLoad={this.props.ajaxLoad}
+                                />
+                            );
+                        }else{
+                            return(this.props.returnTableRow(content));
+                        }
                     })}
                 </TableBody>
             </Table>

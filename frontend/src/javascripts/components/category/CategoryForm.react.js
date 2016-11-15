@@ -32,7 +32,6 @@ export default class CategoryForm extends Component {
 
         // eventemit_callback for category
         this.saveSuccessed = this.saveSuccessed.bind(this);
-        this.saveFailed = this.saveFailed.bind(this);
 
         // handles
         this.handleChangeNewCategoryName = this.handleChangeNewCategoryName.bind(this);
@@ -43,7 +42,6 @@ export default class CategoryForm extends Component {
 
     componentDidMount() {
         CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveSuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE_FAILED, this.saveFailed);
     }
 
     render() {
@@ -109,7 +107,6 @@ export default class CategoryForm extends Component {
     }
 
     saveSuccessed(){
-        this.props.displaySnackBar("Create New Category!");
         this.setState({
             new_category: {
                 name: "",
@@ -118,10 +115,6 @@ export default class CategoryForm extends Component {
                 is_private: false
             }
         });
-    }
-
-    saveFailed(){
-        this.props.displaySnackBar("Sorry..! save Failed..!");
     }
 
     /////////////////////////////////////////////////

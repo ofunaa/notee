@@ -8,10 +8,10 @@ import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import Constants from '../constants/NoteeConstants';
 
 
-function comment_update(content) {
+function comment_update(id) {
     request
-        .put("/notee/api/comments/" + content.id)
-        .send(content.content)
+        .put("/notee/api/comments/" + id)
+        .send(id)
         .end(function(err, res){
             if(err || !res.body){
                 CommentStore.emitChange(Constants.COMMENT_UPDATE_FAILED);
@@ -21,9 +21,9 @@ function comment_update(content) {
         })
 }
 
-function comment_delete(comment_id){
+function comment_delete(id){
     request
-        .del("/notee/api/comments/" + comment_id)
+        .del("/notee/api/comments/" + id)
         .end(function(err, res){
             if(err || !res.body){
                 CommentStore.emitChange(Constants.COMMENT_DELETE_FAILED);
@@ -42,7 +42,7 @@ var CommentStore = assign({}, EventEmitter.prototype, {
         request.get(url, (err, res) => {
             if(err){return;}
             if(!res.body){return;}
-            callback(res.body.categories);
+            callback(res.body.comments);
         })
     },
 
@@ -61,10 +61,10 @@ NoteeDispatcher.register(function(action) {
     switch(action.type) {
         // category
         case Constants.COMMENT_UPDATE:
-            comment_update(action.content);
+            comment_update(action.comment_id);
             break;
         case Constants.COMMENT_DELETE:
-            comment_delete(action.category_id);
+            comment_delete(action.comment_id);
             break;
 
         default:
