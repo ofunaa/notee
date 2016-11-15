@@ -3,11 +3,15 @@ import { Link } from "react-router";
 
 // notee
 import NoteeStore from '../../stores/NoteeStore';
-import IndexTable from './IndexTable.react';
+import NoteeActions from '../../actions/NoteeActions';
+import IndexTableRow from './IndexTableRow.react';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 
+// common-parts
+import NoteeTable from '../common/table/NoteeTable.react';
 
 export default class IndexSection extends Component {
 
@@ -18,6 +22,11 @@ export default class IndexSection extends Component {
         }
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.returnTableRow = this.returnTableRow.bind(this);
+    }
+
+    componentDidMount() {
+        NoteeStore.addChangeListener(Constants.NOTEE_DELETE, this.changeSuccessed);
     }
 
     componentWillMount() {
@@ -29,15 +38,35 @@ export default class IndexSection extends Component {
     }
 
     render() {
-
         return (
             <div id="list">
                 <Link to={`/notee/new`} activeClassName="active">
                     <RaisedButton label="NEW Notee!!" primary={true} />
                 </Link>
-                <IndexTable notees={this.state.notees} ajaxLoad={this.ajaxLoaded} />
+                <NoteeTable
+                    modelName="Post"
+                    columns={['title', 'category', 'status', 'published_at']}
+                    contents={this.state.notees}
+                    store={NoteeStore}
+                    actions={NoteeActions}
+                    ajaxLoad={this.ajaxLoaded}
+                    returnTableRow={this.returnTableRow}
+                />
             </div>
         );
+    }
+
+    returnTableRow(notee){
+        return (
+            <IndexTableRow
+                notee={notee}
+                ajaxLoad={this.state.ajaxLoad}
+                key={notee.id} />
+        );
+    }
+
+    changeSuccessed(){
+        NoteeStore.loadAllNotees(this.ajaxLoaded);
     }
 
 };
