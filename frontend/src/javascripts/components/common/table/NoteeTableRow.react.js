@@ -27,8 +27,9 @@ export default class NoteeTableRow extends Component {
     }
 
     componentDidMount() {
-        this.props.store.addChangeListener(Constants.DELETE, this.deleteSuccessed);
-        this.props.store.addChangeListener(Constants.DELETE_FAILED, this.deleteFailed);
+        var tmp_const = Constants;
+        this.props.store.addChangeListener(eval("tmp_const." + this.props.modelName.toUpperCase() + "_DELETE"), this.deleteSuccessed);
+        this.props.store.addChangeListener(eval("tmp_const." + this.props.modelName.toUpperCase() + "_DELETE_FAILED"), this.deleteFailed);
         this.setContent();
     }
 
@@ -59,14 +60,14 @@ export default class NoteeTableRow extends Component {
     }
 
     setContent(){
-        var tmp_arr1 = [];
-        var tmp_arr2 = this.props.content;
+        var arr = [];
+        var tmp_contents = this.props.content;
         this.props.columns.map((column)=>{
-            var content = "tmp_arr2." + column;
-            tmp_arr1.push(eval(content));
+            var content = "tmp_contents." + column;
+            arr.push(eval(content));
         })
 
-        this.setState({contents: tmp_arr1});
+        this.setState({contents: arr});
     }
 
     deleteContent(e){
@@ -74,7 +75,7 @@ export default class NoteeTableRow extends Component {
     }
 
     deleteSuccessed(){
-        this.props.displaySnackBar("Delete Category!");
+        this.props.displaySnackBar("Delete Content!");
     }
 
     deleteFailed(){

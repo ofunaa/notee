@@ -105,7 +105,7 @@ export default class CategoryForm extends Component {
 
     createCategory(){
         if(this.state.new_category.name == ""){ return false; }
-        CategoryActions.category_create(this.state.new_category);
+        CategoryActions.create(this.state.new_category);
     }
 
     saveSuccessed(){
@@ -123,8 +123,6 @@ export default class CategoryForm extends Component {
     saveFailed(){
         this.props.displaySnackBar("Sorry..! save Failed..!");
     }
-
-    
 
     /////////////////////////////////////////////////
     //                   handles

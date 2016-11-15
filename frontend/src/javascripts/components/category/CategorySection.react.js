@@ -3,10 +3,10 @@ import React, {Component, PropTypes} from 'react';
 // notee
 import CategoryStore from '../../stores/CategoryStore';
 import CategoryActions from '../../actions/CategoryActions';
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import { Link } from "react-router";
-import CategoryTable from './CategoryTable.react';
 import CategoryForm from './CategoryForm.react';
 import Snackbar from 'material-ui/Snackbar';
 

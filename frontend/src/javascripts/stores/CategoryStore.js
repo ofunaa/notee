@@ -14,10 +14,10 @@ function category_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(Constants.CREATE_FAILED);
+                CategoryStore.emitChange(Constants.CATEGORY_CREATE_FAILED);
                 return false;
             }
-            CategoryStore.emitChange(Constants.CREATE);
+            CategoryStore.emitChange(Constants.CATEGORY_CREATE);
         })
 }
 
@@ -27,11 +27,11 @@ function category_update(content) {
         .send(content.category)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(Constants.UPDATE_FAILED);
+                CategoryStore.emitChange(Constants.CATEGORY_UPDATE_FAILED);
                 return false;
             }
 
-            CategoryStore.emitChange(Constants.UPDATE);
+            CategoryStore.emitChange(Constants.CATEGORY_UPDATE);
         })
 }
 
@@ -40,10 +40,10 @@ function category_delete(category_id){
         .del("/notee/api/categories/" + category_id)
         .end(function(err, res){
             if(err || !res.body){
-                CategoryStore.emitChange(Constants.DELETE_FAILED);
+                CategoryStore.emitChange(Constants.CATEGORY_DELETE_FAILED);
                 return false;
             }
-            CategoryStore.emitChange(Constants.DELETE);
+            CategoryStore.emitChange(Constants.CATEGORY_DELETE);
         })
 }
 
