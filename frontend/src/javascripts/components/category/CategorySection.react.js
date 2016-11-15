@@ -3,12 +3,10 @@ import React, {Component, PropTypes} from 'react';
 // notee
 import CategoryStore from '../../stores/CategoryStore';
 import CategoryActions from '../../actions/CategoryActions';
-import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import { Link } from "react-router";
 import CategoryForm from './CategoryForm.react';
-import Snackbar from 'material-ui/Snackbar';
 
 // common-parts
 import NoteeTable from '../common/table/NoteeTable.react';
@@ -18,10 +16,9 @@ export default class CategorySection extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            categories: [],
-            snackbar_open: false,
-            snackbar_txt: ""
+            categories: []
         };
 
         // ajax
@@ -30,16 +27,10 @@ export default class CategorySection extends Component {
         // eventemit
         this.changeSuccessed = this.changeSuccessed.bind(this);
 
-        // snackbar
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
     componentWillMount() {
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
     }
 
     ajaxCategoryLoaded(content){
@@ -52,7 +43,6 @@ export default class CategorySection extends Component {
                 <CategoryForm
                     categories={this.state.categories}
                     ajaxCategoryLoaded={this.ajaxCategoryLoaded}
-                    displaySnackBar={this.displaySnackBar}
                 />
 
                 <NoteeTable
@@ -62,15 +52,6 @@ export default class CategorySection extends Component {
                     store={CategoryStore}
                     actions={CategoryActions}
                     ajaxLoad={this.ajaxCategoryLoaded}
-                    displaySnackBar={this.displaySnackBar}
-                />
-
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
                 />
             </div>
         );
@@ -78,19 +59,6 @@ export default class CategorySection extends Component {
 
     changeSuccessed(){
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-    }
-
-    displaySnackBar(txt){
-        this.setState({
-            snackbar_open: true,
-            snackbar_txt: txt
-        });
-    }
-
-    handleRequestClose(){
-        this.setState({
-            snackbar_open: false
-        });
     }
     
 };

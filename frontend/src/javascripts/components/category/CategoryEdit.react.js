@@ -1,12 +1,10 @@
 import React, {Component, PropTypes} from 'react'
 
 // notee
-import Constants from '../../constants/NoteeConstants'
 import CategoryActions from '../../actions/CategoryActions'
 import CategoryStore from '../../stores/CategoryStore'
 
 // material-ui
-import Snackbar from 'material-ui/Snackbar'
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -24,9 +22,7 @@ export default class CategoryEdit extends Component {
                 slug: "",
                 parent_id: "",
                 is_private: ""
-            },
-            snackbar_open: false,
-            snackbar_txt: ""
+            }
         };
 
         // ajax
@@ -34,20 +30,13 @@ export default class CategoryEdit extends Component {
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
 
         // eventemit_callback for user
-        this.updateFailed = this.updateFailed.bind(this);
-        this.updateSuccessed = this.updateSuccessed.bind(this);
         this.updateContent = this.updateContent.bind(this);
-
-        // snackbar
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-        this.handleRequestClose = this.handleRequestClose.bind(this);
 
         // handles
         this.handleChangeCategoryName = this.handleChangeCategoryName.bind(this);
         this.handleChangeCategorySlug = this.handleChangeCategorySlug.bind(this);
         this.handleChangeCategoryParentId = this.handleChangeCategoryParentId.bind(this);
         this.handleChangeCategoryIsPrivate = this.handleChangeCategoryIsPrivate.bind(this);
-
 
     }
 
@@ -56,8 +45,6 @@ export default class CategoryEdit extends Component {
             CategoryStore.loadCategory(this.props.params.id, this.ajaxLoaded);
         }
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.updateSuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE_FAILED, this.updateFailed);
     }
 
     ajaxCategoryLoaded(content){
@@ -166,14 +153,6 @@ export default class CategoryEdit extends Component {
                         className="mb_15"
                         style={{float: "right"}}/>
                 </div>
-
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-                />
             </div>
         );
     }
@@ -204,27 +183,6 @@ export default class CategoryEdit extends Component {
             var item = {params_id: this.props.params.id, category: this.state.category}
             CategoryActions.category_update(item);
         }
-    }
-
-    updateSuccessed(){
-        this.displaySnackBar("Update Category!");
-    }
-
-    updateFailed(){
-        this.displaySnackBar("Sorry..! Update Failed..!");
-    }
-
-    displaySnackBar(txt){
-        this.setState({
-            snackbar_open: true,
-            snackbar_txt: txt
-        });
-    }
-
-    handleRequestClose(){
-        this.setState({
-            snackbar_open: false
-        });
     }
 
     // ajax

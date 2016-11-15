@@ -16,9 +16,7 @@ export default class ImageSection extends Component {
         this.state = {
             images: [],
             upload_file: null,
-            tap_image: "",
-            snackbar_open: false,
-            snackbar_txt: ""
+            tap_image: ""
         };
 
         // imageSection
@@ -27,10 +25,7 @@ export default class ImageSection extends Component {
         this.deleteImage = this.deleteImage.bind(this);
 
         // eventemit
-        this.saveSuccessed = this.saveSuccessed.bind(this);
-        this.saveFailed = this.saveFailed.bind(this);
         this.deleteSuccessed = this.deleteSuccessed.bind(this);
-        this.deleteFailed = this.deleteFailed.bind(this);
 
         // ajax
         this.setImages = this.setImages.bind(this);
@@ -38,18 +33,10 @@ export default class ImageSection extends Component {
 
         // handles
         this.handleChangeImage = this.handleChangeImage.bind(this);
-
-        // snackbar
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
     componentWillMount() {
         this.setImages();
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE, this.saveSuccessed);
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE_FAILED, this.saveFailed);
-        ImageStore.addChangeListener(Constants.IMAGE_DELETE, this.deleteSuccessed);
-        ImageStore.addChangeListener(Constants.IMAGE_DELETE_FAILED, this.deleteFailed);
     }
 
     setImages() {
@@ -145,13 +132,6 @@ export default class ImageSection extends Component {
                             onClick={this.deleteImage}>Delete</button>
                     </div>
                 </div>
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-                />
             </div>
         );
     }
@@ -161,31 +141,16 @@ export default class ImageSection extends Component {
     }
 
     uploadImage() {
-        ImageActions.image_create(this.state.upload_file);
+        ImageActions.create(this.state.upload_file);
     }
 
     deleteImage() {
-        ImageActions.image_delete(this.state.tap_image);
-    }
-
-    saveSuccessed(){
-        this.displaySnackBar("Upload New IMAGE!");
-        this.setImages();
-        this.setState({upload_file: null});
-    }
-
-    saveFailed(){
-        this.displaySnackBar("Sorry..! Upload Failed..!");
+        ImageActions.delete(this.state.tap_image);
     }
 
     deleteSuccessed(){
-        this.displaySnackBar("Delete IMAGE!");
         this.setImages();
         this.setState({tap_image: null});
-    }
-
-    deleteFailed(){
-        this.displaySnackBar("Sorry..! Delete Failed..!");
     }
 
     handleChangeImage(e) {
@@ -193,17 +158,5 @@ export default class ImageSection extends Component {
         this.setState({upload_file: files[0]});
     }
 
-    displaySnackBar(txt){
-        this.setState({
-            snackbar_open: true,
-            snackbar_txt: txt
-        });
-    }
-
-    handleRequestClose(){
-        this.setState({
-            snackbar_open: false
-        });
-    }
 
 };

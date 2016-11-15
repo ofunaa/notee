@@ -1,8 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 
-// notee
-import Constants from '../../../constants/NoteeConstants';
-
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
@@ -21,15 +18,9 @@ export default class NoteeTableRow extends Component {
         this.setContent = this.setContent.bind(this);
         this.deleteContent = this.deleteContent.bind(this);
 
-        // eventemit_callback for category
-        this.deleteSuccessed = this.deleteSuccessed.bind(this);
-        this.deleteFailed = this.deleteFailed.bind(this);
     }
 
     componentDidMount() {
-        var tmp_const = Constants;
-        this.props.store.addChangeListener(eval("tmp_const." + this.props.modelName.toUpperCase() + "_DELETE"), this.deleteSuccessed);
-        this.props.store.addChangeListener(eval("tmp_const." + this.props.modelName.toUpperCase() + "_DELETE_FAILED"), this.deleteFailed);
         this.setContent();
     }
 
@@ -72,13 +63,5 @@ export default class NoteeTableRow extends Component {
 
     deleteContent(e){
         this.props.actions.delete(this.props.content.id);
-    }
-
-    deleteSuccessed(){
-        this.props.displaySnackBar("Delete Content!");
-    }
-
-    deleteFailed(){
-        this.props.displaySnackBar("Sorry..! Delete Failed..!");
     }
 }

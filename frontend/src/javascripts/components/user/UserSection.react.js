@@ -7,7 +7,6 @@ import UserActions from '../../actions/UserActions';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
-import Snackbar from 'material-ui/Snackbar';
 
 // common-parts
 import NoteeTable from '../common/table/NoteeTable.react';
@@ -17,16 +16,11 @@ export default class UserSection extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			users: [],
-			snackbar_open: false,
-			snackbar_txt: ""
+			users: []
 		}
 
 		this.ajaxLoaded = this.ajaxLoaded.bind(this);
 
-		// snackbar
-		this.displaySnackBar = this.displaySnackBar.bind(this);
-		this.handleRequestClose = this.handleRequestClose.bind(this);
 	}
 
 	componentWillMount() {
@@ -52,27 +46,8 @@ export default class UserSection extends Component {
 					ajaxLoad={this.ajaxLoaded}
 					displaySnackBar={this.displaySnackBar}
 				/>
-				<Snackbar
-					open={this.state.snackbar_open}
-					message={this.state.snackbar_txt}
-					autoHideDuration={4000}
-					onRequestClose={this.handleRequestClose}
-					bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-				/>
 			</div>
 		);
 	}
 
-	displaySnackBar(txt){
-		this.setState({
-			snackbar_open: true,
-			snackbar_txt: txt
-		});
-	}
-
-	handleRequestClose(){
-		this.setState({
-			snackbar_open: false
-		});
-	}
 }

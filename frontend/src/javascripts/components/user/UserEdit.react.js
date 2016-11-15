@@ -2,11 +2,7 @@ import React, {Component, PropTypes} from 'react'
 
 // notee
 import UserActions from '../../actions/UserActions'
-import Constants from '../../constants/NoteeConstants'
 import UserStore from '../../stores/UserStore'
-
-// material-ui
-import Snackbar from 'material-ui/Snackbar'
 
 // image
 var root_img_src = window.location.origin + "/notee/";
@@ -27,24 +23,12 @@ export default class UserEdit extends Component {
                 role: ""
             },
             display_image_src: root_img_src + "default.png",
-            roles: {},
-            snackbar_open: false,
-            snackbar_txt: ""
+            roles: {}
         };
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxRolesLoaded = this.ajaxRolesLoaded.bind(this);
-
-        // eventemit_callback for user
-        this.saveFailed = this.saveFailed.bind(this);
-        this.saveSuccessed = this.saveSuccessed.bind(this);
-        this.updateFailed = this.updateFailed.bind(this);
-        this.updateSuccessed = this.updateSuccessed.bind(this);
-
-        // snackbar
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-        this.handleRequestClose = this.handleRequestClose.bind(this);
 
         // handles
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -54,8 +38,8 @@ export default class UserEdit extends Component {
         this.handleChangeProfile = this.handleChangeProfile.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
         this.handleChangeRole = this.handleChangeRole.bind(this);
-        this.saveContent = this.saveContent.bind(this);
 
+        this.saveContent = this.saveContent.bind(this);
     }
 
     componentWillMount() {
@@ -63,10 +47,6 @@ export default class UserEdit extends Component {
             UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
         }
         UserStore.loadRoles(this.ajaxRolesLoaded);
-        UserStore.addChangeListener(Constants.USER_CREATE, this.saveSuccessed);
-        UserStore.addChangeListener(Constants.USER_CREATE_FAILED, this.saveFailed);
-        UserStore.addChangeListener(Constants.USER_UPDATE, this.updateSuccessed);
-        UserStore.addChangeListener(Constants.USER_UPDATE_FAILED, this.updateFailed);
     }
 
     render() {
@@ -195,14 +175,6 @@ export default class UserEdit extends Component {
                         style={style.form.button}
                         onClick={this.saveContent}>Submit</button>
                 </div>
-
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-                />
             </div>
         );
     }
@@ -255,35 +227,6 @@ export default class UserEdit extends Component {
         }else{
             UserActions.create(this.state.user);
         }
-    }
-
-    saveSuccessed(){
-        this.displaySnackBar("Create New User!");
-    }
-
-    saveFailed(){
-        this.displaySnackBar("Sorry..! Save Failed..!");
-    }
-
-    updateSuccessed(){
-        this.displaySnackBar("Update User!");
-    }
-
-    updateFailed(){
-        this.displaySnackBar("Sorry..! Update Failed..!");
-    }
-
-    displaySnackBar(txt){
-        this.setState({
-            snackbar_open: true,
-            snackbar_txt: txt
-        });
-    }
-
-    handleRequestClose(){
-        this.setState({
-            snackbar_open: false
-        });
     }
 
     // ajax

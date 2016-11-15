@@ -2,8 +2,6 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 import CategoryActions from '../../actions/CategoryActions';
-import Constants from '../../constants/NoteeConstants';
-import CategoryStore from '../../stores/CategoryStore';
 
 // material-ui
 import Checkbox from 'material-ui/Checkbox';
@@ -31,14 +29,8 @@ export default class EditNewCategory extends Component {
         this.handleChangeNewCategoryIsPrivate = this.handleChangeNewCategoryIsPrivate.bind(this);
 
         // eventemit_callback for category
-        this.saveCategoryFailed = this.saveCategoryFailed.bind(this);
         this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
 
-    }
-
-    componentDidMount() {
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE_FAILED, this.saveCategoryFailed);
     }
 
     render() {
@@ -127,12 +119,11 @@ export default class EditNewCategory extends Component {
 
     createCategory(){
         if(this.state.new_category.name){
-            CategoryActions.category_create(this.state.new_category);
+            CategoryActions.create(this.state.new_category);
         }
     }
 
     saveCategorySuccessed(){
-        this.props.displaySnackBar("Create New Category!");
         this.setState({create_category: false});
         this.setState({
             new_category: {
@@ -142,10 +133,6 @@ export default class EditNewCategory extends Component {
                 is_private: false
             }
         });
-    }
-
-    saveCategoryFailed(){
-        this.props.displaySnackBar("Sorry..! Save Failed..!");
     }
 
     handleChangeNewCategoryName(e) {

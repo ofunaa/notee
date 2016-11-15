@@ -2,15 +2,10 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 import NoteeActions from '../../actions/NoteeActions';
-import Constants from '../../constants/NoteeConstants';
 import NoteeStore from '../../stores/NoteeStore';
 import CategoryStore from '../../stores/CategoryStore';
 import EditForm  from './EditForm.react.js';
 import EditPreview  from './EditPreview.react.js';
-
-// material-ui
-import Snackbar from 'material-ui/Snackbar';
-
 
 export default class EditSection extends Component {
 
@@ -30,9 +25,7 @@ export default class EditSection extends Component {
                 secret_published_password: ""
             },
             categories: [],
-            status: {},
-            snackbar_open: false,
-            snackbar_txt: ""
+            status: {}
         };
 
         // ajax
@@ -41,17 +34,10 @@ export default class EditSection extends Component {
         this.ajaxStatusesLoaded = this.ajaxStatusesLoaded.bind(this);
 
         // eventemit_callback for notee
-        this.saveFailed = this.saveFailed.bind(this);
         this.saveSuccessed = this.saveSuccessed.bind(this);
-        this.updateFailed = this.updateFailed.bind(this);
-        this.updateSuccessed = this.updateSuccessed.bind(this);
 
         // eventemit_callback for category
         this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
-
-        // snackbar
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-        this.handleRequestClose = this.handleRequestClose.bind(this);
 
         // handles
         this.handleChangeProps = this.handleChangeProps.bind(this);
@@ -72,12 +58,7 @@ export default class EditSection extends Component {
             NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
         }
         NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
-        NoteeStore.addChangeListener(Constants.NOTEE_CREATE, this.saveSuccessed);
-        NoteeStore.addChangeListener(Constants.NOTEE_CREATE_FAILED, this.saveFailed);
-        NoteeStore.addChangeListener(Constants.NOTEE_UPDATE, this.updateSuccessed);
-        NoteeStore.addChangeListener(Constants.NOTEE_UPDATE_FAILED, this.updateFailed);
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
     }
 
     render() {
@@ -118,13 +99,6 @@ export default class EditSection extends Component {
                 <EditPreview
                     style={style.layout.half}
                     content = {this.state.content}/>
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-                />
             </div>
         );
     }
@@ -180,7 +154,6 @@ export default class EditSection extends Component {
     }
 
     saveSuccessed(){
-        this.displaySnackBar("Create New Notee!");
         this.setState({
             content: {
                 title: "",
@@ -196,38 +169,11 @@ export default class EditSection extends Component {
         });
     }
 
-    saveFailed(){
-        this.displaySnackBar("Sorry..! Save Failed..!");
-    }
-
-    updateSuccessed(){
-        this.displaySnackBar("Update Notee!");
-    }
-
-    updateFailed(){
-        this.displaySnackBar("Sorry..! Update Failed..!");
-    }
-
     saveCategorySuccessed(){
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
-    displaySnackBar(txt){
-        this.setState({
-            snackbar_open: true,
-            snackbar_txt: txt
-        });
-    }
-
-    handleRequestClose(){
-        this.setState({
-            snackbar_open: false
-        });
-    }
-
-
     // ajax
-
     ajaxLoaded(content){
         if(!content){return;}
         this.setState({

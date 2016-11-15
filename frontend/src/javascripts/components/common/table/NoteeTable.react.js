@@ -7,7 +7,6 @@ import NoteeTableRow from './NoteeTableRow.react.js'
 // contents: this.state.categories(array)
 // store: CategoryStore
 // actions: CategoryActions
-// displayBar: this.displaySnackBar
 // ajaxLoaded: this.ajaxCategoryLoaded
 
 export default class NoteeTable extends Component {
@@ -45,7 +44,6 @@ export default class NoteeTable extends Component {
                                 store={this.props.store}
                                 actions={this.props.actions}
                                 ajaxLoad={this.props.ajaxLoad}
-                                displaySnackBar={this.props.displaySnackBar}
                             />
                         );
                     })}

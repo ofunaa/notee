@@ -3,10 +3,8 @@ import React, {Component, PropTypes} from "react";
 // notee
 import ImageActions from '../../actions/ImageActions';
 import ImageStore from '../../stores/ImageStore';
-import Constants from '../../constants/NoteeConstants';
 
 // material-ui
-import Snackbar from 'material-ui/Snackbar';
 import { Link } from "react-router";
 
 export default class Image extends Component {
@@ -16,11 +14,8 @@ export default class Image extends Component {
         this.state = {
             images: [],
             upload_file: null,
-            tap_image: "",
-            snackbar_open: false,
-            snackbar_txt: ""
+            tap_image: ""
         };
-
 
         // editImage
         this.clickImage = this.clickImage.bind(this);
@@ -29,7 +24,6 @@ export default class Image extends Component {
 
         // eventemit
         this.saveSuccessed = this.saveSuccessed.bind(this);
-        this.saveFailed = this.saveFailed.bind(this);
 
         // ajax
         this.setImages = this.setImages.bind(this);
@@ -37,16 +31,10 @@ export default class Image extends Component {
 
         // handles
         this.handleChangeImage = this.handleChangeImage.bind(this);
-
-        // snackbar
-        this.displaySnackBar = this.displaySnackBar.bind(this);
-        this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
     componentWillMount() {
         this.setImages();
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE, this.saveSuccessed);
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE_FAILED, this.saveFailed);
     }
 
     setImages() {
@@ -143,14 +131,6 @@ export default class Image extends Component {
                         <button onClick={this.addImage}>Add</button>
                     </div>
                 </div>
-
-                <Snackbar
-                    open={this.state.snackbar_open}
-                    message={this.state.snackbar_txt}
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                    bodyStyle={{backgroundColor: "rgba(0,0,0,0.8)"}}
-                />
             </div>
         );
     }
@@ -168,36 +148,17 @@ export default class Image extends Component {
     }
 
     uploadImage() {
-        ImageActions.image_create(this.state.upload_file);
+        ImageActions.create(this.state.upload_file);
     }
 
     saveSuccessed(){
-        this.displaySnackBar("Upload New IMAGE!");
         this.setState({upload_file: null});
         this.setImages();
     }
 
-    saveFailed(){
-        this.displaySnackBar("Sorry..! Upload Failed..!");
-    }
-
-
     handleChangeImage(e) {
         var files = e.target.files;
         this.setState({upload_file: files[0]});
-    }
-
-    displaySnackBar(txt){
-        this.setState({
-            snackbar_open: true,
-            snackbar_txt: txt
-        });
-    }
-
-    handleRequestClose(){
-        this.setState({
-            snackbar_open: false
-        });
     }
 
 };

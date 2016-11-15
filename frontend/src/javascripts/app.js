@@ -15,12 +15,16 @@ import UserSection from './components/user/UserSection.react.js'
 import UserEdit from './components/user/UserEdit.react.js'
 import UserShow from './components/user/UserShow.react.js'
 
+// common-parts
+import NoteeSnackBar from './components/common/snackbar/NoteeSnackBar.react'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 injectTapEventPlugin()
 
 export default class NoteeApp extends React.Component {
+
     render () {
       return (
         <div className='grid_start'>
@@ -28,6 +32,7 @@ export default class NoteeApp extends React.Component {
             <div className='ninety grid' style={{margin: '3%', padding: '2%'}}>
               {this.props.children}
             </div>
+            <NoteeSnackBar />
           <NoteeFooter />
         </div>
       )
