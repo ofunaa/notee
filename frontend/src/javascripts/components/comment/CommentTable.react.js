@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow } from 'material-ui/Table';
+import CommentTableRow from './CommentTableRow.react'
 
 export default class CommentTable extends Component {
 
@@ -27,7 +28,7 @@ export default class CommentTable extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                     {this.props.comments.map((comment)=>{
-                        // return (<CommentTableRow comment={comment} key={comment.id} />);
+                        return (<CommentTableRow comment={comment} key={comment.id} />);
                     })}
                 </TableBody>
             </Table>

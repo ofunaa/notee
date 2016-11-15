@@ -3,13 +3,7 @@ import { Link } from 'react-router';
 
 // notee
 import CommentStore from '../../stores/CommentStore';
-
-// material-ui
-import RaisedButton from 'material-ui/RaisedButton';
-import Snackbar from 'material-ui/Snackbar';
-
-// common-parts
-import NoteeTable from '../common/table/NoteeTable.react';
+import CommentTable from './CommentTable.react';
 
 export default class CommentSection extends Component {
 

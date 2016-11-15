@@ -69,5 +69,4 @@ export default class CommentTableRow extends Component {
         CommentActions.delete(this.props.comment.id);
     }
 
-
 }
