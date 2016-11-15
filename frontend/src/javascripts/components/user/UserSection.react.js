@@ -3,11 +3,14 @@ import { Link } from 'react-router';
 
 // notee
 import UserStore from '../../stores/UserStore';
-import UserTable from './UserTable.react';
+import UserActions from '../../actions/UserActions';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+
+// common-parts
+import NoteeTable from '../common/table/NoteeTable.react';
 
 export default class UserSection extends Component {
 
@@ -40,8 +43,12 @@ export default class UserSection extends Component {
 				<Link to={`/notee/users/new`} activeClassName="active">
 					<RaisedButton label="NEW User!!" primary={true} />
 				</Link>
-				<UserTable
-					users={this.state.users}
+				<NoteeTable
+					modelName="User"
+					columns={['name', 'email', 'role']}
+					contents={this.state.users}
+					store={UserStore}
+					actions={UserActions}
 					ajaxLoad={this.ajaxLoaded}
 					displaySnackBar={this.displaySnackBar}
 				/>
