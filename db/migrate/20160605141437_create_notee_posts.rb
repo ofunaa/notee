@@ -12,6 +12,7 @@ class CreateNoteePosts < ActiveRecord::Migration
       t.integer :thumbnail_id, default: 0
       t.datetime :published_at
       t.integer :user_id
+      t.boolean :is_delete, null: false, default: false
 
       # seo
       t.string  :seo_keyword, default: ""

@@ -5,7 +5,8 @@ class CreateNoteeComments < ActiveRecord::Migration
       t.text :content
       t.string :name
       t.string :email
-      t.boolean :is_hidden
+      t.boolean :is_hidden, null: false, default: false
+      t.boolean :is_delete, null: false, default: false
 
       t.timestamps
     end

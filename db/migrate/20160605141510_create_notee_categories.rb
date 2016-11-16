@@ -8,6 +8,7 @@ class CreateNoteeCategories < ActiveRecord::Migration
       t.string  :slug, null: false, uniqueness: true
       t.integer :parent_id
       t.boolean :is_private, null: false, default: false
+      t.boolean :is_delete, null: false, default: false
 
       t.timestamps null: false
     end
