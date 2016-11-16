@@ -17,7 +17,7 @@ module Notee
 
     # callbacks
     before_save :manage_image
-    before_destroy :protect_default
+    before_save :protect_default
 
     private
 
