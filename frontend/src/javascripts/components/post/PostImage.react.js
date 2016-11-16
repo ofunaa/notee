@@ -35,7 +35,7 @@ export default class PostImage extends Component {
     }
 
     setImages() {
-        ImageStore.loadAllImages(this.ajaxLoaded);
+        ImageStore.loadImages(this.ajaxLoaded);
     }
 
     ajaxLoaded(content){

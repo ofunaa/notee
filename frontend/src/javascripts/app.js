@@ -69,6 +69,8 @@ const routes = (
             <Route path='show/:id' component={UserShow} />
             <IndexRoute component={UserSection}/>
         </Route>
+
+        <Route path=':model/trash' component={TrashSection} />
         
         <IndexRoute component={PostSection}/>
     </Route>

@@ -1,9 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-
-// material-ui
-import { Link } from "react-router";
+import CategoryStore from '../../stores/CategoryStore';
+import CommentStore from '../../stores/CommentStore';
+import ImageStore from '../../stores/ImageStore';
+import PostStore from '../../stores/PostStore';
+import UserStore from '../../stores/UserStore';
 
 // common-parts
 import NoteeTable from '../common/table/NoteeTable.react';
@@ -15,11 +17,12 @@ export default class TrashSection extends Component {
         super(props);
 
         this.state = {
-            categories: []
+            trash_contents: []
         };
 
-        this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
+        this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.changeSuccessed = this.changeSuccessed.bind(this);
+        this.loadTrashes = this.loadTrashes.bind(this);
 
     }
 
@@ -29,10 +32,11 @@ export default class TrashSection extends Component {
 
     componentWillMount() {
         // CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        this.loadTrashes();
     }
 
-    ajaxCategoryLoaded(content){
-        this.setState({categories: content});
+    ajaxLoaded(contents){
+        this.setState({trash_contents: contents});
     }
 
     render() {
@@ -45,6 +49,10 @@ export default class TrashSection extends Component {
 
     changeSuccessed(){
         // CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+    }
+
+    loadTrashes(){
+
     }
 
 };

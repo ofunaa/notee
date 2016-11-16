@@ -62,7 +62,7 @@ var CategoryStore = assign({}, EventEmitter.prototype, {
             });
     },
 
-    loadAllCategories: function(callback) {
+    loadCategories: function(callback) {
         var url = "/notee/api/categories";
         request.get(url, (err, res) => {
             if(err){return;}

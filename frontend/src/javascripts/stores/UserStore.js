@@ -69,7 +69,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
         })
     },
 
-    loadAllUsers: function(callback) {
+    loadUsers: function(callback) {
         request.get('/notee/api/users', (err, res) => {
             if(err){return;}
             if(!res.body){return;}

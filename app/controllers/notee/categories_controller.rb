@@ -40,7 +40,7 @@ module Notee
         if @category.update(is_delete: true)
           format.json { render json: @category, status: 200 }
         else
-          format.json { render json: @category.errors, status: :internal_server_error }
+          format.json { render json: @category.errors, status: :unprocessable_entity }
         end
       end
     end

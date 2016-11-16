@@ -58,7 +58,7 @@ export default class PostEdit extends Component {
             PostStore.loadPost(this.props.params.id, this.ajaxLoaded);
         }
         PostStore.loadStatuses(this.ajaxStatusesLoaded);
-        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
     }
 
     render() {
@@ -170,7 +170,7 @@ export default class PostEdit extends Component {
     }
 
     saveCategorySuccessed(){
-        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
     }
 
     // ajax

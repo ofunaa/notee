@@ -24,7 +24,7 @@ export default class UserSection extends Component {
 	}
 
 	componentWillMount() {
-		UserStore.loadAllUsers(this.ajaxLoaded);
+		UserStore.loadUsers(this.ajaxLoaded);
 	}
 
 	ajaxLoaded(contents) {

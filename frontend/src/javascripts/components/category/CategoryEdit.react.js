@@ -44,7 +44,7 @@ export default class CategoryEdit extends Component {
         if(this.props.params.id){
             CategoryStore.loadCategory(this.props.params.id, this.ajaxLoaded);
         }
-        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
     }
 
     ajaxCategoryLoaded(content){

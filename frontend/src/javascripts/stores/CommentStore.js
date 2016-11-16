@@ -37,7 +37,7 @@ function comment_delete(id){
 var CommentStore = assign({}, EventEmitter.prototype, {
 
 
-    loadAllComments: function(callback) {
+    loadComments: function(callback) {
         var url = "/notee/api/comments";
         request.get(url, (err, res) => {
             if(err){return;}

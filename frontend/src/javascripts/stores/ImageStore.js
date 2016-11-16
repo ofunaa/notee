@@ -57,7 +57,7 @@ var ImageStore = assign({}, EventEmitter.prototype, {
         });
     },
 
-    loadAllImages: function(callback) {
+    loadImages: function(callback) {
         request.get('/notee/api/images', (err, res) => {
             callback(res.body.images);
         });

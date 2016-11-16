@@ -30,7 +30,7 @@ export default class PostSection extends Component {
     }
 
     componentWillMount() {
-        PostStore.loadAllPosts(this.ajaxLoaded);
+        PostStore.loadPosts(this.ajaxLoaded);
     }
 
     ajaxLoaded(contents) {
@@ -46,7 +46,7 @@ export default class PostSection extends Component {
                 <NoteeTable
                     modelName="Post"
                     columns={['title', 'category', 'status', 'published_at']}
-                    contents={this.state.notees}
+                    contents={this.state.posts}
                     store={PostStore}
                     actions={PostActions}
                     ajaxLoad={this.ajaxLoaded}
@@ -66,7 +66,7 @@ export default class PostSection extends Component {
     }
 
     changeSuccessed(){
-        PostStore.loadAllPosts(this.ajaxLoaded);
+        PostStore.loadPosts(this.ajaxLoaded);
     }
 
 };

@@ -28,7 +28,7 @@ export default class CommentSection extends Component {
     }
     
     componentWillMount() {
-        CommentStore.loadAllComments(this.ajaxLoaded);
+        CommentStore.loadComments(this.ajaxLoaded);
     }
 
     ajaxLoaded(contents) {
@@ -58,6 +58,6 @@ export default class CommentSection extends Component {
     }
 
     changeSuccessed(){
-        CommentStore.loadAllComments(this.ajaxLoaded);
+        CommentStore.loadComments(this.ajaxLoaded);
     }
 }

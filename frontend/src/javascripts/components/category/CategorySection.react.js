@@ -32,7 +32,7 @@ export default class CategorySection extends Component {
     }
 
     componentWillMount() {
-        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
     }
 
     ajaxCategoryLoaded(content){
@@ -60,7 +60,7 @@ export default class CategorySection extends Component {
     }
 
     changeSuccessed(){
-        CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
     }
     
 };

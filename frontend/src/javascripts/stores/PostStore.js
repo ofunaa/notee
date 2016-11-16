@@ -59,7 +59,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
         })
     },
 
-    loadAllPosts: function(callback) {
+    loadPosts: function(callback) {
         request.get('/notee/api/posts', (err, res) => {
             if(err){return;}
             if(!res.body){return;}
