@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from "react";
 // notee
 import ImageActions from '../../actions/ImageActions';
 import ImageStore from '../../stores/ImageStore';
+import Constants from '../../constants/NoteeConstants';
 
 export default class ImageSection extends Component {
 
@@ -28,6 +29,11 @@ export default class ImageSection extends Component {
 
         // handles
         this.handleChangeImage = this.handleChangeImage.bind(this);
+    }
+
+    componentDidMount() {
+        ImageStore.addChangeListener(Constants.IMAGE_CREATE, this.setImages);
+        ImageStore.addChangeListener(Constants.IMAGE_DELETE, this.setImages);
     }
 
     componentWillMount() {
