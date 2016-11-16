@@ -27,9 +27,12 @@ module Notee
 
     def update
       respond_to do |format|
+        Category.skip_callback(:save, :before, :set_slug)
         if @category.update(category_params)
+          Category.set_callback(:save, :before, :set_slug)
           format.json { render json: @category, status: 200 }
         else
+          Category.set_callback(:save, :before, :set_slug)
           format.json { render json: @category.errors, status: :unprocessable_entity }
         end
       end
@@ -37,7 +40,7 @@ module Notee
 
     def destroy
       respond_to do |format|
-        if @category.update(is_delete: true)
+        if @category.update(slug: nil, is_delete: true)
           format.json { render json: @category, status: 200 }
         else
           format.json { render json: @category.errors, status: :unprocessable_entity }

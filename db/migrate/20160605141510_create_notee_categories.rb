@@ -5,7 +5,7 @@ class CreateNoteeCategories < ActiveRecord::Migration
     create_table :notee_categories do |t|
 
       t.string  :name, null: false, default: "category_name"
-      t.string  :slug, null: false, uniqueness: true
+      t.string  :slug, uniqueness: true
       t.integer :parent_id
       t.boolean :is_private, null: false, default: false
       t.boolean :is_delete, null: false, default: false
