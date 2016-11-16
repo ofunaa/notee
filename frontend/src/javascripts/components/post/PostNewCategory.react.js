@@ -6,7 +6,7 @@ import CategoryActions from '../../actions/CategoryActions';
 // material-ui
 import Checkbox from 'material-ui/Checkbox';
 
-export default class EditNewCategory extends Component {
+export default class PostNewCategory extends Component {
 
     constructor(props) {
         super(props);

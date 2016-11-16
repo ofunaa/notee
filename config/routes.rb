@@ -2,15 +2,16 @@ Notee::Engine.routes.draw do
 
   root to: 'notees#index'
 
-  get 'new'             => 'notees#index'
-  get 'edit/:id'        => 'notees#index'
-  get 'categories'      => 'notees#index'
-  get 'categories/edit/:id'  => 'notees#index'
-  get 'images'          => 'notees#index'
-  get 'comments'        => 'notees#index'
-  get 'users'           => 'notees#index'
-  get 'users/new'       => 'notees#index'
-  get 'users/edit/:id'  => 'notees#index'
+  get 'posts'                 => 'notees#index'
+  get 'posts/new'             => 'notees#index'
+  get 'posts/edit/:id'        => 'notees#index'
+  get 'categories'            => 'notees#index'
+  get 'categories/edit/:id'   => 'notees#index'
+  get 'images'                => 'notees#index'
+  get 'comments'              => 'notees#index'
+  get 'users'                 => 'notees#index'
+  get 'users/new'             => 'notees#index'
+  get 'users/edit/:id'        => 'notees#index'
 
 	get 'tmp' => 'tokens#destroy'
 

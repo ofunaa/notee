@@ -6,7 +6,7 @@ import { TableRow, TableRowColumn } from 'material-ui/Table';
 import { Link } from "react-router";
 
 // notee
-import NoteeStore from '../../stores/NoteeStore';
+import PostStore from '../../stores/PostStore';
 import CommentActions from '../../actions/CommentActions';
 
 export default class CommentTableRow extends Component {
@@ -23,7 +23,7 @@ export default class CommentTableRow extends Component {
     }
 
     componentWillMount(){
-        NoteeStore.loadNotee(this.props.comment.post_id, this.ajaxLoad);
+        PostStore.loadPost(this.props.comment.post_id, this.ajaxLoad);
     }
 
     render() {

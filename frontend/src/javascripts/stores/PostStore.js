@@ -8,49 +8,49 @@ import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import Constants from '../constants/NoteeConstants';
 
 
-function notee_create(content) {
+function post_create(content) {
     request
         .post("/notee/api/posts")
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(Constants.NOTEE_CREATE_FAILED);
+                PostStore.emitChange(Constants.POST_CREATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(Constants.NOTEE_CREATE);
+            PostStore.emitChange(Constants.POST_CREATE);
         })
 }
 
-function notee_update(content) {
+function post_update(content) {
     request
         .put("/notee/api/posts/" + content.params_id)
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(Constants.NOTEE_UPDATE_FAILED);
+                PostStore.emitChange(Constants.POST_UPDATE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(Constants.NOTEE_UPDATE);
+            PostStore.emitChange(Constants.POST_UPDATE);
         })
 }
 
-function notee_delete(notee_src){
+function post_delete(notee_src){
     request
         .del("/notee/api/posts/" + notee_src)
         .end(function(err, res){
             if(err || !res.body){
-                NoteeStore.emitChange(Constants.NOTEE_DELETE_FAILED);
+                PostStore.emitChange(Constants.POST_DELETE_FAILED);
                 return false;
             }
-            NoteeStore.emitChange(Constants.NOTEE_DELETE);
+            PostStore.emitChange(Constants.POST_DELETE);
         })
 }
 
 
 
-var NoteeStore = assign({}, EventEmitter.prototype, {
+var PostStore = assign({}, EventEmitter.prototype, {
 
-    loadNotee: function(notee_id, callback) {
+    loadPost: function(notee_id, callback) {
         var url = "/notee/api/posts/" + notee_id;
         request.get(url, (err, res) => {
             if(err){return;}
@@ -59,7 +59,7 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
         })
     },
 
-    loadAllNotees: function(callback) {
+    loadAllPosts: function(callback) {
         request.get('/notee/api/posts', (err, res) => {
             if(err){return;}
             if(!res.body){return;}
@@ -103,15 +103,14 @@ var NoteeStore = assign({}, EventEmitter.prototype, {
 NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
-        // notee
-        case Constants.NOTEE_CREATE:
-            notee_create(action.content);
+        case Constants.POST_CREATE:
+            post_create(action.content);
             break;
-        case Constants.NOTEE_UPDATE:
-            notee_update(action.content);
+        case Constants.POST_UPDATE:
+            post_update(action.content);
             break;
-        case Constants.NOTEE_DELETE:
-            notee_delete(action.notee_id);
+        case Constants.POST_DELETE:
+            post_delete(action.post_id);
             break;
 
         default:
@@ -120,4 +119,4 @@ NoteeDispatcher.register(function(action) {
     }
 });
 
-module.exports = NoteeStore;
+module.exports = PostStore;

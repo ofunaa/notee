@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 
 // notee
-import NoteeStore from '../../stores/NoteeStore';
+import PostStore from '../../stores/PostStore';
 import CategoryStore from '../../stores/CategoryStore';
 
 // material-ui
@@ -23,23 +23,23 @@ export default class IndexTableRow extends Component {
     }
 
     componentWillMount(){
-        CategoryStore.loadCategory(this.props.notee.category_id, this.ajaxCategoryLoad);
-        NoteeStore.loadStatus(this.props.notee.status, this.ajaxStatusLoad);
+        CategoryStore.loadCategory(this.props.post.category_id, this.ajaxCategoryLoad);
+        PostStore.loadStatus(this.props.post.status, this.ajaxStatusLoad);
     }
 
     render() {
 
-        var date = new Date( this.props.notee.published_at );
+        var date = new Date( this.props.post.published_at );
         var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         return(
             <TableRow>
-                <TableRowColumn>{this.props.notee.title}</TableRowColumn>
+                <TableRowColumn>{this.props.post.title}</TableRowColumn>
                 <TableRowColumn>{this.state.category}</TableRowColumn>
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
-                    <Link to={`/notee/edit/${this.props.notee.id}`} activeClassName="active">
+                    <Link to={`/notee/edit/${this.props.post.id}`} activeClassName="active">
                         <RaisedButton
                         label="edit"
                         primary={true} /></Link>

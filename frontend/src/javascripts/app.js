@@ -6,8 +6,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 // notee
 import NoteeHeader from './components/layout/NoteeHeader.react.js'
 import NoteeFooter from './components/layout/NoteeFooter.react.js'
-import IndexSection from './components/notee/IndexSection.react.js'
-import EditSection from './components/notee/EditSection.react.js'
+import PostSection from './components/post/PostSection.react.js'
+import PostEdit from './components/post/PostEdit.react.js'
 import CategorySection from './components/category/CategorySection.react.js'
 import CategoryEdit from './components/category/CategoryEdit.react.js'
 import ImageSection from './components/image/ImageSection.react.js'
@@ -43,14 +43,25 @@ export default class NoteeApp extends React.Component {
 
 const routes = (
     <Route path='notee' component={NoteeApp} >
-        <Route path='new' component={EditSection} />
-        <Route path='edit/:id' component={EditSection} />
 
-        <Route path='categories' component={CategorySection} />
-        <Route path='categories/edit/:id' component={CategoryEdit} />
-        <Route path='images' component={ImageSection} />
-        <Route path='comments' component={CommentSection} />
-        <Route path='trash/:model' component={TrashSection} />
+        <Route path='posts'>
+            <Route path='new' component={PostEdit} />
+            <Route path='edit/:id' component={PostEdit} />
+            <IndexRoute component={PostSection}/>
+        </Route>
+
+        <Route path='categories'>
+            <Route path='edit/:id' component={CategoryEdit} />
+            <IndexRoute component={CategorySection}/>
+        </Route>
+
+        <Route path='comments'>
+            <IndexRoute component={CommentSection}/>
+        </Route>
+
+        <Route path='images'>
+            <IndexRoute component={ImageSection}/>
+        </Route>
 
         <Route path='users'>
             <Route path='new' component={UserEdit} />
@@ -58,8 +69,8 @@ const routes = (
             <Route path='show/:id' component={UserShow} />
             <IndexRoute component={UserSection}/>
         </Route>
-
-        <IndexRoute component={IndexSection}/>
+        
+        <IndexRoute component={PostSection}/>
     </Route>
 )
 

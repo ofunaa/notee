@@ -10,7 +10,7 @@ marked.setOptions({
     }
 });
 
-export default class Preview extends Component {
+export default class PostPreview extends Component {
 
     componentWillReceiveProps(){
         var preview = document.getElementById('preview');

@@ -7,7 +7,7 @@ import ImageStore from '../../stores/ImageStore';
 // material-ui
 import { Link } from "react-router";
 
-export default class Image extends Component {
+export default class PostImage extends Component {
 
     constructor(props) {
         super(props);

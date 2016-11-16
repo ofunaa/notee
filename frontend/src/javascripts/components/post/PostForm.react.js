@@ -2,10 +2,10 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 import ImageStore from '../../stores/ImageStore';
-import EditImage  from './EditImage.react.js';
-import EditNewCategory  from './EditNewCategory.react.js';
+import PostImage  from './PostImage.react.js';
+import PostNewCategory  from './PostNewCategory.react.js';
 
-export default class EditForm extends Component {
+export default class PostForm extends Component {
 
     constructor(props) {
         super(props);
@@ -96,7 +96,7 @@ export default class EditForm extends Component {
                 {(() => {
                     if (this.state.display_image) {
                         return (
-                            <EditImage
+                            <PostImage
                                 insertImage={this.insertImage}
                                 insertThumbnail={this.insertThumbnail}
                                 pushImage={this.pushImage}
@@ -167,7 +167,7 @@ export default class EditForm extends Component {
                         {categories}
                     </select>
 
-                    <EditNewCategory 
+                    <PostNewCategory
                         categories={this.props.categories}
                         displaySnackBar={this.props.displaySnackBar}
                     />

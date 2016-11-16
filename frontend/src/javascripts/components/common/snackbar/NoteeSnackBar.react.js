@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 // notee
 
-import NoteeStore from '../../../stores/NoteeStore';
+import PostStore from '../../../stores/PostStore';
 import CategoryStore from '../../../stores/CategoryStore';
 import UserStore from '../../../stores/UserStore';
 import ImageStore from '../../../stores/ImageStore';
@@ -32,13 +32,13 @@ export default class NoteeSnackBar extends Component {
 
         var tmpDisplaySnackBar = this.displaySnackBar;
 
-        // notee
-        NoteeStore.addChangeListener(Constants.NOTEE_CREATE, function(){tmpDisplaySnackBar("Create Notee!")});
-        NoteeStore.addChangeListener(Constants.NOTEE_UPDATE, function(){tmpDisplaySnackBar("Update Notee!")});
-        NoteeStore.addChangeListener(Constants.NOTEE_DELETE, function(){tmpDisplaySnackBar("Delete Notee!")});
-        NoteeStore.addChangeListener(Constants.NOTEE_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
-        NoteeStore.addChangeListener(Constants.NOTEE_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
-        NoteeStore.addChangeListener(Constants.NOTEE_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        // post
+        PostStore.addChangeListener(Constants.POST_CREATE, function(){tmpDisplaySnackBar("Create Post!")});
+        PostStore.addChangeListener(Constants.POST_UPDATE, function(){tmpDisplaySnackBar("Update Post!")});
+        PostStore.addChangeListener(Constants.POST_DELETE, function(){tmpDisplaySnackBar("Delete Post!")});
+        PostStore.addChangeListener(Constants.POST_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
+        PostStore.addChangeListener(Constants.POST_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+        PostStore.addChangeListener(Constants.POST_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
 
         // category
         CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, function(){tmpDisplaySnackBar("Create Category!")});

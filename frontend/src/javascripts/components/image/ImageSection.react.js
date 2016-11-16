@@ -2,11 +2,9 @@ import React, {Component, PropTypes} from "react";
 
 // notee
 import ImageActions from '../../actions/ImageActions';
-import Constants from '../../constants/NoteeConstants';
 import ImageStore from '../../stores/ImageStore';
 
 // material-ui
-import Snackbar from 'material-ui/Snackbar';
 import { Link } from "react-router";
 
 export default class ImageSection extends Component {

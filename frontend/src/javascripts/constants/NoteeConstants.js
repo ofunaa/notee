@@ -3,12 +3,12 @@ var keyMirror = require('keymirror');
 module.exports = keyMirror({
 
     // notee
-    NOTEE_CREATE: null,
-    NOTEE_CREATE_FAILED: null,
-    NOTEE_UPDATE: null,
-    NOTEE_UPDATE_FAILED: null,
-    NOTEE_DELETE: null,
-    NOTEE_DELETE_FAILED: null,
+    POST_CREATE: null,
+    POST_CREATE_FAILED: null,
+    POST_UPDATE: null,
+    POST_UPDATE_FAILED: null,
+    POST_DELETE: null,
+    POST_DELETE_FAILED: null,
 
     // category
     CATEGORY_CREATE: null,

@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import { Link } from "react-router";
 
 // notee
-import NoteeStore from '../../stores/NoteeStore';
-import NoteeActions from '../../actions/NoteeActions';
-import IndexTableRow from './IndexTableRow.react';
+import PostStore from '../../stores/PostStore';
+import PostActions from '../../actions/PostActions';
+import IndexTableRow from './PostTableRow.react.js';
 import Constants from '../../constants/NoteeConstants';
 
 // material-ui
@@ -13,12 +13,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 // common-parts
 import NoteeTable from '../common/table/NoteeTable.react';
 
-export default class IndexSection extends Component {
+export default class PostSection extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            notees: []
+            posts: []
         }
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
@@ -26,15 +26,15 @@ export default class IndexSection extends Component {
     }
 
     componentDidMount() {
-        NoteeStore.addChangeListener(Constants.NOTEE_DELETE, this.changeSuccessed);
+        PostStore.addChangeListener(Constants.POST_DELETE, this.changeSuccessed);
     }
 
     componentWillMount() {
-        NoteeStore.loadAllNotees(this.ajaxLoaded);
+        PostStore.loadAllPosts(this.ajaxLoaded);
     }
 
     ajaxLoaded(contents) {
-        this.setState({notees: contents});
+        this.setState({posts: contents});
     }
 
     render() {
@@ -47,8 +47,8 @@ export default class IndexSection extends Component {
                     modelName="Post"
                     columns={['title', 'category', 'status', 'published_at']}
                     contents={this.state.notees}
-                    store={NoteeStore}
-                    actions={NoteeActions}
+                    store={PostStore}
+                    actions={PostActions}
                     ajaxLoad={this.ajaxLoaded}
                     returnTableRow={this.returnTableRow}
                 />
@@ -56,17 +56,17 @@ export default class IndexSection extends Component {
         );
     }
 
-    returnTableRow(notee){
+    returnTableRow(post){
         return (
-            <IndexTableRow
-                notee={notee}
+            <PostTableRow
+                post={post}
                 ajaxLoad={this.state.ajaxLoad}
-                key={notee.id} />
+                key={post.id} />
         );
     }
 
     changeSuccessed(){
-        NoteeStore.loadAllNotees(this.ajaxLoaded);
+        PostStore.loadAllPosts(this.ajaxLoaded);
     }
 
 };

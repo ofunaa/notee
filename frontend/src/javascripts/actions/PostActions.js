@@ -1,7 +1,7 @@
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher'
 import NoteeConstants from '../constants/NoteeConstants'
 
-var NoteeActions = {
+var PostActions = {
 
     create: function(content) {
 
@@ -10,7 +10,7 @@ var NoteeActions = {
         if(!content.thumbnail_id){content.thumbnail_id = 1;};
 
         NoteeDispatcher.dispatch({
-            type: NoteeConstants.NOTEE_CREATE,
+            type: NoteeConstants.POST_CREATE,
             content: content
         });
     },
@@ -22,18 +22,18 @@ var NoteeActions = {
         if(!content.thumbnail_id){content.thumbnail_id = 1;};
 
         NoteeDispatcher.dispatch({
-            type: NoteeConstants.NOTEE_UPDATE,
+            type: NoteeConstants.POST_UPDATE,
             content: content
         });
     },
     
-    delete: function(notee_id){
+    delete: function(id){
         NoteeDispatcher.dispatch({
-            type: NoteeConstants.NOTEE_DELETE,
-            notee_id: notee_id
+            type: NoteeConstants.POST_DELETE,
+            post_id: id
         });
     }
     
 }
 
-module.exports = NoteeActions;
+module.exports = PostActions;

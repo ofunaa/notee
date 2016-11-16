@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-import NoteeActions from '../../actions/NoteeActions';
-import NoteeStore from '../../stores/NoteeStore';
+import PostActions from '../../actions/PostActions';
+import PostStore from '../../stores/PostStore';
 import CategoryStore from '../../stores/CategoryStore';
-import EditForm  from './EditForm.react.js';
-import EditPreview  from './EditPreview.react.js';
+import PostForm  from './PostForm.react.js';
+import PostPreview  from './PostPreview.react.js';
 
-export default class EditSection extends Component {
+export default class PostEdit extends Component {
 
 
     constructor(props) {
@@ -55,9 +55,9 @@ export default class EditSection extends Component {
 
     componentWillMount() {
         if(this.props.params.id){
-            NoteeStore.loadNotee(this.props.params.id, this.ajaxLoaded);
+            PostStore.loadPost(this.props.params.id, this.ajaxLoaded);
         }
-        NoteeStore.loadStatuses(this.ajaxStatusesLoaded);
+        PostStore.loadStatuses(this.ajaxStatusesLoaded);
         CategoryStore.loadAllCategories(this.ajaxCategoryLoaded);
     }
 
@@ -87,7 +87,7 @@ export default class EditSection extends Component {
 
         return (
             <div class="main">
-                <EditForm
+                <PostForm
                     handleChanges={handleChanges}
                     handleChangeProps={this.handleChangeProps}
                     content={this.state.content}
@@ -96,9 +96,9 @@ export default class EditSection extends Component {
                     saveContent={this.saveContent}
                     displaySnackBar={this.displaySnackBar}
                 />
-                <EditPreview
+                <PostPreview
                     style={style.layout.half}
-                    content = {this.state.content}/>
+                    content={this.state.content}/>
             </div>
         );
     }
@@ -147,9 +147,9 @@ export default class EditSection extends Component {
     saveContent(e){
         if(this.props.params.id){
             var item = {params_id: this.props.params.id, content: this.state.content}
-            NoteeActions.update(item);
+            PostActions.update(item);
         }else{
-            NoteeActions.create(this.state.content);
+            PostActions.create(this.state.content);
         }
     }
 
