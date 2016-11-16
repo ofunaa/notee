@@ -13,8 +13,6 @@ Notee::Engine.routes.draw do
   get 'users/new'             => 'notees#index'
   get 'users/edit/:id'        => 'notees#index'
 
-	get 'tmp' => 'tokens#destroy'
-
   # post 'secret_published' => 'notees#secret_published'
   resources :tokens, only: [:new, :create, :destroy]
 
@@ -26,5 +24,6 @@ Notee::Engine.routes.draw do
     resources :statuses, only: [:index, :show]
     resources :comments, only: [:index, :show, :create, :update, :destroy]
     resources :roles, only: [:index, :show]
+    resources :trashes, only: [:index, :update]
   end
 end
