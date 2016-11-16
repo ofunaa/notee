@@ -15,7 +15,7 @@ module Notee
   class Category < ApplicationRecord
     # callbacks
     before_save :set_slug
-    before_destroy :protect_default
+    before_save :protect_default
 
     # relations
     has_many :children, class_name: Notee::Category, foreign_key: 'parent_id', dependent: :destroy
