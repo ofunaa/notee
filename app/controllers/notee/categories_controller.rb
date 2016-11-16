@@ -37,7 +37,7 @@ module Notee
 
     def destroy
       respond_to do |format|
-        if @category.destroy
+        if @category.update(is_delete: true)
           format.json { render json: @category, status: 200 }
         else
           format.json { render json: @category.errors, status: :internal_server_error }

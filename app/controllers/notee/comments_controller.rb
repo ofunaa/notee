@@ -34,8 +34,13 @@ module Notee
     end
 
     def destroy
-      @comment.destroy
-      render json: { status: 'success' }
+      respond_to do |format|
+        if @comment.update(is_delete: true)
+          format.json { render json: @comment, status: 200 }
+        else
+          format.json { render json: @comment.errors, status: :internal_server_error }
+        end
+      end
     end
 
     private

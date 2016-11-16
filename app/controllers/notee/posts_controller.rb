@@ -41,8 +41,13 @@ module Notee
 
     # DELETE /posts/1
     def destroy
-      @post.destroy
-      render json: { status: 'success' }
+      respond_to do |format|
+        if @post.update(is_delete: true)
+          format.json { render json: @post, status: 200 }
+        else
+          format.json { render json: @post.errors, status: :internal_server_error }
+        end
+      end
     end
 
     private

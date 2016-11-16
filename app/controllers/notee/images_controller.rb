@@ -31,7 +31,7 @@ module Notee
       return unless @del_img = Image.find_by(content: params[:name])
 
       respond_to do |format|
-        if @del_img.destroy
+        if @del_img.update(is_delete: true)
           format.json { render json: @del_img, status: 200 }
         else
           format.json { render json: @del_img.errors, status: :internal_server_error }
