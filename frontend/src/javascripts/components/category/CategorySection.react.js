@@ -22,20 +22,22 @@ export default class CategorySection extends Component {
             categories: []
         };
 
-        this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
+        this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.changeSuccessed = this.changeSuccessed.bind(this);
 
     }
 
     componentDidMount() {
+        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
         CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
+        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
     }
 
     componentWillMount() {
-        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxLoaded);
     }
 
-    ajaxCategoryLoaded(content){
+    ajaxLoaded(content){
         this.setState({categories: content});
     }
 
@@ -44,7 +46,6 @@ export default class CategorySection extends Component {
             <div class="main">
                 <CategoryForm
                     categories={this.state.categories}
-                    ajaxCategoryLoaded={this.ajaxCategoryLoaded}
                 />
 
                 <NoteeTable
@@ -53,14 +54,14 @@ export default class CategorySection extends Component {
                     contents={this.state.categories}
                     store={CategoryStore}
                     actions={CategoryActions}
-                    ajaxLoad={this.ajaxCategoryLoaded}
+                    ajaxLoad={this.ajaxLoaded}
                 />
             </div>
         );
     }
 
     changeSuccessed(){
-        CategoryStore.loadCategories(this.ajaxCategoryLoaded);
+        CategoryStore.loadCategories(this.ajaxLoaded);
     }
     
 };
