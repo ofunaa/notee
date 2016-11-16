@@ -9,7 +9,7 @@ module Notee
 
     # GET /users
     def index
-      @users = User.all.order(updated_at: :desc)
+      @users = User.where(is_delete: false).order(updated_at: :desc)
       render json: { status: 'success', users: @users }
     end
 

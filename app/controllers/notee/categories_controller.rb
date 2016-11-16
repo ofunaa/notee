@@ -6,7 +6,7 @@ module Notee
     before_action :set_category, only: [:show, :update, :destroy]
 
     def index
-      @categories = Category.all
+      @categories = Category.where(is_delete: false)
       render json: { status: 'success', categories: @categories }
     end
 

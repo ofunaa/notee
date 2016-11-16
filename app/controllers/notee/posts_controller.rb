@@ -7,7 +7,7 @@ module Notee
 
     # GET /posts
     def index
-      @posts = Post.all.order(updated_at: :desc)
+      @posts = Post.where(is_delete: false).order(updated_at: :desc)
       render json: { status: 'success', posts: @posts }
     end
 

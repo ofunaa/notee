@@ -5,7 +5,7 @@ module Notee
     before_action :set_comment, only: [:update, :destroy]
 
     def index
-      comments = Comment.all.order(updated_at: :desc)
+      comments = Comment.where(is_delete: false).order(updated_at: :desc)
       render json: { status: 'success', comments: comments }
     end
 
