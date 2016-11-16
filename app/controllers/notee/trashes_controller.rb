@@ -2,6 +2,8 @@ require_dependency 'notee/application_controller'
 
 module Notee
 	class TrashesController < ApplicationController
+		before_action :set_trash, only: [:update]
+
 		def index
 			trash_model = get_model
 			if @trashes = trash_model.where(is_delete: true)
@@ -12,7 +14,13 @@ module Notee
 		end
 
 		def update
-
+			respond_to do |format|
+				if @trash.update(is_delete: false)
+					format.json { render json: @trash, status: 200 }
+				else
+					format.json { render json: @trash.errors, status: :unprocessable_entity }
+				end
+			end
 		end
 
 		private
@@ -30,6 +38,10 @@ module Notee
 				when 'comment'
 					return Comment
 			end
+		end
+
+		def set_trash
+			@trash = get_model.find_by(id: params[:id])
 		end
 	end
 end
