@@ -181,7 +181,7 @@ export default class CategoryEdit extends Component {
     updateContent(e){
         if(this.props.params.id){
             var item = {params_id: this.props.params.id, category: this.state.category}
-            CategoryActions.category_update(item);
+            CategoryActions.update(item);
         }
     }
 
