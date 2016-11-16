@@ -39,7 +39,7 @@ export default class IndexTableRow extends Component {
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
-                    <Link to={`/notee/edit/${this.props.post.id}`} activeClassName="active">
+                    <Link to={`/notee/posts/edit/${this.props.post.id}`} activeClassName="active">
                         <RaisedButton
                         label="edit"
                         primary={true} /></Link>

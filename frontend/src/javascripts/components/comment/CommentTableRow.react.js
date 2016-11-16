@@ -3,7 +3,6 @@ import React, {Component, PropTypes} from 'react'
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
-import { Link } from "react-router";
 
 // notee
 import PostStore from '../../stores/PostStore';

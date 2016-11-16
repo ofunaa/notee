@@ -35,7 +35,7 @@ export default class NoteeHeader extends Component {
                     onRequestChange={(open) => this.setState({open})}
                 >
                     <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee'>Notee</Link>
+                        <Link to='/notee/posts'>Post</Link>
                     </MenuItem>
                     <MenuItem onTouchTap={this.handleClose}>
                         <Link to='/notee/categories/'>Category</Link>

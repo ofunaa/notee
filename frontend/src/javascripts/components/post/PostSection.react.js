@@ -4,7 +4,7 @@ import { Link } from "react-router";
 // notee
 import PostStore from '../../stores/PostStore';
 import PostActions from '../../actions/PostActions';
-import IndexTableRow from './PostTableRow.react.js';
+import PostTableRow from './PostTableRow.react.js';
 import Constants from '../../constants/NoteeConstants';
 
 // material-ui
@@ -40,7 +40,7 @@ export default class PostSection extends Component {
     render() {
         return (
             <div id="list">
-                <Link to={`/notee/new`} activeClassName="active">
+                <Link to={`/notee/posts/new`} activeClassName="active">
                     <RaisedButton label="NEW Notee!!" primary={true} />
                 </Link>
                 <NoteeTable

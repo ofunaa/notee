@@ -4,9 +4,6 @@ import React, {Component, PropTypes} from "react";
 import ImageActions from '../../actions/ImageActions';
 import ImageStore from '../../stores/ImageStore';
 
-// material-ui
-import { Link } from "react-router";
-
 export default class ImageSection extends Component {
 
     constructor(props) {

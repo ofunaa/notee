@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-
 import PostStore from '../../../stores/PostStore';
 import CategoryStore from '../../../stores/CategoryStore';
 import UserStore from '../../../stores/UserStore';
