@@ -6,7 +6,6 @@ module Notee
     :published          => 1,
     # TODO: secret_mode
     # :secret_published   => 2,
-    :privated           => 3,
-    :deleted            => 4
+    :privated           => 3
   }
 end
