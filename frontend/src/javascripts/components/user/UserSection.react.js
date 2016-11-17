@@ -44,7 +44,6 @@ export default class UserSection extends Component {
 					store={UserStore}
 					actions={UserActions}
 					ajaxLoad={this.ajaxLoaded}
-					displaySnackBar={this.displaySnackBar}
 				/>
 			</div>
 		);

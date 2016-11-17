@@ -7,27 +7,27 @@ var EventEmitter = require('events').EventEmitter;
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import Constants from '../constants/NoteeConstants';
 
-function trash_update(content) {
+function trash_update(id, model_name) {
     request
-        .put("/notee/api/posts/" + content.params_id)
+        .put("/notee/api/trashes/" + id + "&model_name=" + model_name)
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                PostStore.emitChange(Constants.POST_UPDATE_FAILED);
+                TrashStore.emitChange(Constants.TRASH_UPDATE_FAILED);
                 return false;
             }
-            PostStore.emitChange(Constants.POST_UPDATE);
+            TrashStore.emitChange(Constants.TRASH_UPDATE);
         })
 }
 
 
 var TrashStore = assign({}, EventEmitter.prototype, {
 
-    loadTrashes: function(callback) {
-        request.get('/notee/api/trashes', (err, res) => {
+    loadTrashes: function(model_name, callback) {
+        request.get('/notee/api/trashes?model=' + model_name, (err, res) => {
             if(err){return;}
             if(!res.body){return;}
-            callback(res.body.posts);
+            callback(res.body.trashes);
         });
     },
 
@@ -44,10 +44,10 @@ var TrashStore = assign({}, EventEmitter.prototype, {
 NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
-        case Constants.POST_UPDATE:
-            trash_update(action.content);
+        case Constants.TRASH_UPDATE:
+            trash_update(actions.content_id, action.model_name);
             break;
     }
 });
 
-module.exports = PostStore;
+module.exports = TrashStore;

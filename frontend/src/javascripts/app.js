@@ -70,7 +70,8 @@ const routes = (
             <IndexRoute component={UserSection}/>
         </Route>
 
-        <Route path=':model/trash' component={TrashSection} />
+        <Route path='trashes' component={TrashSection} />
+        <Route path='trashes/:model' component={TrashSection} />
         
         <IndexRoute component={PostSection}/>
     </Route>

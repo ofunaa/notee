@@ -27,15 +27,15 @@ module Notee
 
 		def get_model
 			case params[:model]
-				when 'post'
+				when 'posts'
 					return Post
-				when 'category'
+				when 'categories'
 					return Category
-				when 'image'
+				when 'images'
 					return Image
-				when 'user'
+				when 'users'
 					return User
-				when 'comment'
+				when 'comments'
 					return Comment
 			end
 		end

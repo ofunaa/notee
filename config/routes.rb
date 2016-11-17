@@ -12,6 +12,8 @@ Notee::Engine.routes.draw do
   get 'users'                 => 'notees#index'
   get 'users/new'             => 'notees#index'
   get 'users/edit/:id'        => 'notees#index'
+  get 'trashes'               => 'notees#index'
+  get 'trashes/:model'        => 'notees#index'
 
   # post 'secret_published' => 'notees#secret_published'
   resources :tokens, only: [:new, :create, :destroy]
