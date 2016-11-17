@@ -1,11 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
 // notee
-import CategoryStore from '../../stores/CategoryStore';
-import CommentStore from '../../stores/CommentStore';
-import ImageStore from '../../stores/ImageStore';
-import PostStore from '../../stores/PostStore';
-import UserStore from '../../stores/UserStore';
 
 // common-parts
 import NoteeTable from '../common/table/NoteeTable.react';

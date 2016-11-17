@@ -83,10 +83,6 @@ NoteeDispatcher.register(function(action) {
         case Constants.IMAGE_DELETE:
             image_delete(action.image_src);
             break;
-
-        default:
-            console.log("default");
-        // no op
     }
 });
 

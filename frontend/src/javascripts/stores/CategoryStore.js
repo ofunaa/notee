@@ -95,9 +95,6 @@ NoteeDispatcher.register(function(action) {
             category_delete(action.category_id);
             break;
 
-        default:
-            console.log("default");
-        // no op
     }
 });
 

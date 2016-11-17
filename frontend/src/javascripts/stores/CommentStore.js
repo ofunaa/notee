@@ -66,10 +66,6 @@ NoteeDispatcher.register(function(action) {
         case Constants.COMMENT_DELETE:
             comment_delete(action.comment_id);
             break;
-
-        default:
-            console.log("default");
-        // no op
     }
 });
 
