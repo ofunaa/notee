@@ -83,7 +83,6 @@ export default class TrashMain extends Component {
         return (
             <TrashTableRow
                 post={post}
-                ajaxLoad={this.state.ajaxLoad}
                 key={post.id} />
         );
     }

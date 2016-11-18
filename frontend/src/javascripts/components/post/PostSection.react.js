@@ -59,7 +59,6 @@ export default class PostSection extends Component {
         return (
             <PostTableRow
                 post={post}
-                ajaxLoad={this.state.ajaxLoad}
                 key={post.id} />
         );
     }

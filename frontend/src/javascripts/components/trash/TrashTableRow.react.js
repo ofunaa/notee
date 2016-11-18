@@ -28,8 +28,8 @@ export default class TrashTableRow extends Component {
                 })}
                 <TableRowColumn>
                     <RaisedButton
-                        onClick={this.deleteComment}
-                        label="delete"
+                        onClick={this.updateTrash}
+                        label="Restore"
                         secondary={true}
                         disabled={false}
                     />
