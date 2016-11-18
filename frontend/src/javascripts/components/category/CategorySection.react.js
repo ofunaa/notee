@@ -52,7 +52,6 @@ export default class CategorySection extends Component {
                     modelName="Category"
                     columns={['id', 'name', 'slug', 'parent_id', 'is_private']}
                     contents={this.state.categories}
-                    store={CategoryStore}
                     actions={CategoryActions}
                 />
             </div>

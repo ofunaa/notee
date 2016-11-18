@@ -41,9 +41,7 @@ export default class UserSection extends Component {
 					modelName="User"
 					columns={['name', 'email', 'role']}
 					contents={this.state.users}
-					store={UserStore}
 					actions={UserActions}
-					ajaxLoad={this.ajaxLoaded}
 				/>
 			</div>
 		);

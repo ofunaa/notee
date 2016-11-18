@@ -42,9 +42,7 @@ export default class CommentSection extends Component {
                     modelName="Comment"
                     columns={['post_title', 'name', 'email', 'content', 'is_hidden']}
                     contents={this.state.comments}
-                    store={CommentStore}
                     actions={CommentActions}
-                    ajaxLoad={this.ajaxLoaded}
                     returnTableRow={this.returnTableRow}
                 />
             </div>

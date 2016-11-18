@@ -47,9 +47,7 @@ export default class PostSection extends Component {
                     modelName="Post"
                     columns={['title', 'category', 'status', 'published_at']}
                     contents={this.state.posts}
-                    store={PostStore}
                     actions={PostActions}
-                    ajaxLoad={this.ajaxLoaded}
                     returnTableRow={this.returnTableRow}
                     buttonNum={1}
                 />
