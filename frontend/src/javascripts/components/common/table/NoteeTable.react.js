@@ -9,6 +9,10 @@ import NoteeTableRow from './NoteeTableRow.react.js'
 // actions: CategoryActions
 // ajaxLoaded: this.ajaxCategoryLoaded
 
+// props-option
+// returnTableRow <- originalTableRow // default -> NoteeTableRow
+// buttonNum default -> 2
+
 export default class NoteeTable extends Component {
 
     constructor(props) {
@@ -16,6 +20,13 @@ export default class NoteeTable extends Component {
     }
 
     render() {
+
+        var btnNum = this.props.buttonNum == null ? 2 : this.props.buttonNum;
+        var btnColumns = [];
+        for (var i = 0; i < btnNum; i++) {
+            btnColumns.push(<TableHeaderColumn key={i}>/</TableHeaderColumn>);
+        }
+
         return(
             <Table
                 className="mt_20"
@@ -29,8 +40,7 @@ export default class NoteeTable extends Component {
                                 <TableHeaderColumn key={index}>{column}</TableHeaderColumn>
                             );
                         })}
-                        <TableHeaderColumn>/</TableHeaderColumn>
-                        <TableHeaderColumn>/</TableHeaderColumn>
+                        {btnColumns}
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
