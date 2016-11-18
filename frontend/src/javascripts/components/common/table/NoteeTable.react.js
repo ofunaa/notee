@@ -5,7 +5,6 @@ import NoteeTableRow from './NoteeTableRow.react.js'
 // props
 // columns: ['id', 'slug', ...]
 // contents: this.state.categories(array)
-// store: CategoryStore
 // actions: CategoryActions
 
 // props-option
@@ -51,7 +50,6 @@ export default class NoteeTable extends Component {
                                     modelName={this.props.modelName}
                                     columns={this.props.columns}
                                     content={content}
-                                    store={this.props.store}
                                     actions={this.props.actions}
                                 />
                             );
