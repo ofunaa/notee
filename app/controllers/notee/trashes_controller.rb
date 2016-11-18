@@ -41,7 +41,9 @@ module Notee
 		end
 
 		def set_trash
-			@trash = get_model.find_by(id: params[:id])
+			trash_model = get_model
+			p trash_model
+			@trash = trash_model.find_by(id: params[:id])
 		end
 	end
 end

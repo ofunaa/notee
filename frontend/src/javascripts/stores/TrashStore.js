@@ -9,8 +9,8 @@ import Constants from '../constants/NoteeConstants';
 
 function trash_update(id, model_name) {
     request
-        .put("/notee/api/trashes/" + id + "&model_name=" + model_name)
-        .send(content.content)
+        .put("/notee/api/trashes/" + id)
+        .send({model: model_name})
         .end(function(err, res){
             if(err || !res.body){
                 TrashStore.emitChange(Constants.TRASH_UPDATE_FAILED);
@@ -45,7 +45,7 @@ NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         case Constants.TRASH_UPDATE:
-            trash_update(actions.content_id, action.model_name);
+            trash_update(action.content_id, action.model_name);
             break;
     }
 });

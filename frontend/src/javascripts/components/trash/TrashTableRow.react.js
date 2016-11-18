@@ -50,7 +50,7 @@ export default class TrashTableRow extends Component {
     }
 
     updateTrash(e){
-        this.props.actions.update(this.props.content.id);
+        this.props.actions.update(this.props.content.id, this.props.model_name);
     }
 
 

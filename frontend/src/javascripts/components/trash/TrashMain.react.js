@@ -79,11 +79,14 @@ export default class TrashMain extends Component {
         }
     }
 
-    returnTableRow(post){
+    returnTableRow(content){
         return (
             <TrashTableRow
-                post={post}
-                key={post.id} />
+                content={content}
+                columns={this.state.columns}
+                model_name={this.props.model_name}
+                actions={TrashActions}
+                key={content.id} />
         );
     }
 
