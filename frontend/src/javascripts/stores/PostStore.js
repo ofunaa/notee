@@ -113,9 +113,6 @@ NoteeDispatcher.register(function(action) {
             post_delete(action.post_id);
             break;
 
-        default:
-            console.log("default");
-        // no op
     }
 });
 
