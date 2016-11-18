@@ -51,6 +51,7 @@ export default class PostSection extends Component {
                     actions={PostActions}
                     ajaxLoad={this.ajaxLoaded}
                     returnTableRow={this.returnTableRow}
+                    buttonNum={1}
                 />
             </div>
         );

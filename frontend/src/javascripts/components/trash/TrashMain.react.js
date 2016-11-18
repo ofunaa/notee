@@ -5,6 +5,8 @@ import TrashStore from '../../stores/TrashStore';
 import TrashActions from '../../actions/TrashActions';
 import Constants from '../../constants/NoteeConstants';
 
+import TrashTableRow from './TrashTableRow.react';
+
 // common-parts
 import NoteeTable from '../common/table/NoteeTable.react';
 
@@ -22,6 +24,7 @@ export default class TrashMain extends Component {
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.changeSuccessed = this.changeSuccessed.bind(this);
         this.setColumns = this.setColumns.bind(this);
+        this.returnTableRow = this.returnTableRow.bind(this);
     }
 
     componentWillReceiveProps(props) {
@@ -45,7 +48,7 @@ export default class TrashMain extends Component {
                 contents={this.state.trash_contents}
                 store={TrashStore}
                 actions={TrashActions}
-                ajaxLoad={this.ajaxLoaded}
+                returnTableRow={this.returnTableRow}
                 buttonNum={1}
             />
         );
@@ -74,6 +77,15 @@ export default class TrashMain extends Component {
                 this.setState({columns: ['post_title', 'name', 'email', 'content', 'is_hidden']});
                 break;
         }
+    }
+
+    returnTableRow(post){
+        return (
+            <TrashTableRow
+                post={post}
+                ajaxLoad={this.state.ajaxLoad}
+                key={post.id} />
+        );
     }
 
 

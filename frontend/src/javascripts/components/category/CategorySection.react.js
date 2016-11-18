@@ -54,7 +54,6 @@ export default class CategorySection extends Component {
                     contents={this.state.categories}
                     store={CategoryStore}
                     actions={CategoryActions}
-                    ajaxLoad={this.ajaxLoaded}
                 />
             </div>
         );
