@@ -46,6 +46,7 @@ export default class TrashMain extends Component {
                 store={TrashStore}
                 actions={TrashActions}
                 ajaxLoad={this.ajaxLoaded}
+                buttonNum={1}
             />
         );
     }
