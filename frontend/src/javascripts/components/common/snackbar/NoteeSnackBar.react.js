@@ -6,6 +6,7 @@ import CategoryStore from '../../../stores/CategoryStore';
 import UserStore from '../../../stores/UserStore';
 import ImageStore from '../../../stores/ImageStore';
 import CommentStore from '../../../stores/CommentStore';
+import TrashStore from '../../../stores/TrashStore';
 import Constants from '../../../constants/NoteeConstants';
 
 // material-ui
@@ -66,6 +67,11 @@ export default class NoteeSnackBar extends Component {
         CommentStore.addChangeListener(Constants.COMMENT_DELETE, function(){tmpDisplaySnackBar("Delete Comment!")});
         CommentStore.addChangeListener(Constants.COMMENT_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
         CommentStore.addChangeListener(Constants.COMMENT_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+
+        // trash
+        TrashStore.addChangeListener(Constants.TRASH_UPDATE, function(){tmpDisplaySnackBar("Restore Content!")});
+        TrashStore.addChangeListener(Constants.TRASH_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Restore Failed..!")});
+
 
 
     }
