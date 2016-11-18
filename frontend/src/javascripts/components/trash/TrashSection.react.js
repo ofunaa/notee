@@ -40,6 +40,10 @@ export default class TrashSection extends Component {
         TrashStore.addChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
     }
 
+    componentWillUnmount(){
+        TrashStore.removeChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
+    }
+
     render() {
         var models = ["posts", "categories", "users", "images", "comments"];
         var click = this.setModelName;
