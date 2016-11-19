@@ -65,8 +65,16 @@ export default class TrashTableRow extends Component {
         var arr = [];
         var tmp_contents = this.props.content;
         this.props.columns.map((column)=>{
-            var content = "tmp_contents." + column;
-            arr.push(eval(content));
+            if(column == "time_limit"){
+                var js_updated_at =  Date.parse(tmp_contents.updated_at);
+                var now = new Date().getTime();
+                var tmp_mili = 86400000 * 30 - (now - js_updated_at);
+                var time_limit = String(Math.ceil(tmp_mili / 1000 / 60 / 60 / 24)) + " days";
+                arr.push(time_limit);
+            }else{
+                var content = "tmp_contents." + column;
+                arr.push(eval(content));
+            }
         })
 
         this.setState({contents: arr});

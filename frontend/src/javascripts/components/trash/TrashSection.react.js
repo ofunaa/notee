@@ -88,19 +88,19 @@ export default class TrashSection extends Component {
 
         switch (name){
             case "categories":
-                this.setState({columns: ['id', 'name', 'slug', 'parent_id', 'is_private']});
+                this.setState({columns: ['id', 'name', 'slug', 'parent_id', 'is_private', 'time_limit']});
                 break;
             case "posts":
-                this.setState({columns: ['title', 'category', 'status', 'published_at']});
+                this.setState({columns: ['title', 'category', 'status', 'published_at', 'time_limit']});
                 break;
             case "users":
-                this.setState({columns: ['name', 'email', 'role']});
+                this.setState({columns: ['name', 'email', 'role', 'time_limit']});
                 break;
             case "images":
-                this.setState({columns: ['id', 'content']});
+                this.setState({columns: ['id', 'content', 'time_limit']});
                 break;
             case "comments":
-                this.setState({columns: ['post_title', 'name', 'email', 'content', 'is_hidden']});
+                this.setState({columns: ['post_title', 'name', 'email', 'content', 'is_hidden', 'time_limit']});
                 break;
         }
     }
