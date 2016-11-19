@@ -6,7 +6,7 @@ module Notee
 
 		def index
 			trash_model = get_model
-			if @trashes = trash_model.where(is_delete: true)
+			if @trashes = trash_model.trash
 				render json: { status: 'success', trashes: @trashes }
 			else
 				render json: @trashes.errors, status: 422
@@ -21,6 +21,14 @@ module Notee
 					format.json { render json: @trash.errors, status: :unprocessable_entity }
 				end
 			end
+		end
+
+		def self.cleanup
+			Post.trash.time_limit.delete_all
+			Category.trash.time_limit.delete_all
+			Image.trash.time_limit.delete_all
+			User.trash.time_limit.delete_all
+			Comment.trash.time_limit.delete_all
 		end
 
 		private
@@ -42,7 +50,6 @@ module Notee
 
 		def set_trash
 			trash_model = get_model
-			p trash_model
 			@trash = trash_model.find_by(id: params[:id])
 		end
 	end
