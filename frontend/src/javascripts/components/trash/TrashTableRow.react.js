@@ -19,13 +19,36 @@ export default class TrashTableRow extends Component {
     }
 
     render() {
+
+        var style = {
+            image: {
+                width: "auto",
+                height: "100px",
+                float: "left",
+                backgroundColor: "rgba(255, 255, 255, 0.9)"
+            }
+        }
+
         return(
             <TableRow>
-                {this.state.contents.map((content, index)=>{
-                    return (
-                        <TableRowColumn key={index}>{content}</TableRowColumn>
-                    );
-                })}
+                {
+                    this.state.contents.map((content, index)=>{
+                        if(String(content).match("jpg")){
+                            return (
+                                <TableRowColumn key={index}>
+                                    <img
+                                        style={style.image}
+                                        src={window.location.origin + "/notee/" + content}
+                                    />
+                                </TableRowColumn>
+                            );
+                        }else{
+                            return (
+                                <TableRowColumn key={index}>{content}</TableRowColumn>
+                            );
+                        }
+                    })
+                }
                 <TableRowColumn>
                     <RaisedButton
                         onClick={this.updateTrash}
