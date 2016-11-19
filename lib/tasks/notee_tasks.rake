@@ -6,8 +6,10 @@ namespace :notee do
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     create_initializer_file
+    create_schedule_file
     create_css_file
     setup_default
+    sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
   def notee_mark
@@ -90,11 +92,28 @@ EOC
     puts 'you should change notee_id & notee_password'
   end
 
-  def create_css_file
-    image_dir = Rails.root.to_s + '/app/assets/stylesheets/notee/'
-    FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
+  def create_schedule_file
+    file_path = "#{Rails.root}/config/schedule.rb"
+    return if File.exist?(file_path)
 
-    file_path = image_dir + 'notee_default.css'
+    schejule = File.open(File.expand_path('../config/schedule.rb', __FILE__))
+    new_schejule = String.new
+    schejule.each_line do |line|
+      new_schejule += line
+    end
+
+
+    File.open(file_path,"w") do |file|
+      file.puts new_schejule
+    end
+    puts 'create file in "/config/schejule.rb"'
+  end
+
+  def create_css_file
+    css_dir = Rails.root.to_s + '/app/assets/stylesheets/notee/'
+    FileUtils.mkdir_p(css_dir) unless FileTest.exist?(css_dir)
+
+    file_path = css_dir + 'notee_default.css'
     return if File.exist?(file_path)
 
     css = File.open(File.expand_path('../css/notee_default.css', __FILE__))
