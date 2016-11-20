@@ -14,6 +14,8 @@ module Notee
 		end
 
 		def update
+			get_model.skip_callback(:update, :before, :update_authority)
+
 			respond_to do |format|
 				if @trash.update(is_delete: false)
 					format.json { render json: @trash, status: 200 }
@@ -21,6 +23,8 @@ module Notee
 					format.json { render json: @trash.errors, status: :unprocessable_entity }
 				end
 			end
+
+			get_model.set_callback(:update, :before, :update_authority)
 		end
 
 		def self.cleanup

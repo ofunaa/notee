@@ -9,7 +9,7 @@ module Notee
     # authority check
     before_create :create_authority
     before_update :update_authority
-    before_destroy :destroy_authority
+    before_update :destroy_authority, if: :is_destroy?
 
     def create_authority
       Authority.check('create', self)
@@ -21,6 +21,11 @@ module Notee
 
     def destroy_authority
       Authority.check('destroy', self)
+    end
+
+    def is_destroy?
+      return true if self.is_delete == true
+      false
     end
   end
 end
