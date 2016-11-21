@@ -7,6 +7,7 @@ import UserStore from '../../../stores/UserStore';
 import ImageStore from '../../../stores/ImageStore';
 import CommentStore from '../../../stores/CommentStore';
 import TrashStore from '../../../stores/TrashStore';
+import TokenStore from '../../../stores/TokenStore';
 import Constants from '../../../constants/NoteeConstants';
 
 // material-ui
@@ -72,6 +73,9 @@ export default class NoteeSnackBar extends Component {
         TrashStore.addChangeListener(Constants.TRASH_UPDATE, function(){tmpDisplaySnackBar("Restore Content!")});
         TrashStore.addChangeListener(Constants.TRASH_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Restore Failed..!")});
 
+        // token
+        TokenStore.addChangeListener(Constants.TOKEN_DELETE, function(){tmpDisplaySnackBar("Logout now!")});
+        TokenStore.addChangeListener(Constants.TOKEN_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Logout Failed..!")});
 
 
     }
