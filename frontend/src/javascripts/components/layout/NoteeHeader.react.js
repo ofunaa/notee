@@ -3,6 +3,10 @@ import { Link } from "react-router"
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+
+// notee
+import TokenActions from '../../actions/TokenActions';
 
 export default class NoteeHeader extends Component {
 
@@ -11,6 +15,7 @@ export default class NoteeHeader extends Component {
         this.state = {open: false};
         this.handleToggle = this.handleToggle.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     handleToggle() {
@@ -27,6 +32,7 @@ export default class NoteeHeader extends Component {
                 <AppBar
                     onLeftIconButtonTouchTap={this.handleToggle}
                     title={<Link to='/notee' style={{color: "white"}}>Notee</Link>}
+                    iconElementRight={<FlatButton onClick={this.logout} label="Logout" />}
                 />
                 <Drawer
                     docked={false}
@@ -55,6 +61,10 @@ export default class NoteeHeader extends Component {
                 </Drawer>
             </header>
         );
+    }
+
+    logout() {
+        TokenActions.delete();
     }
 
 
