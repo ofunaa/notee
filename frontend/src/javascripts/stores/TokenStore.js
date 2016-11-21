@@ -32,7 +32,7 @@ var TokenStore = assign({}, EventEmitter.prototype, {
 
 });
 
-NoteeDispatcher.register(function() {
+NoteeDispatcher.register(function(action) {
 
     switch(action.type) {
         case Constants.TOKEN_DELETE:
