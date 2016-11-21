@@ -40,6 +40,10 @@ module.exports = keyMirror({
 
     // trash
     TRASH_UPDATE: null,
-    TRASH_UPDATE_FAILED: null
+    TRASH_UPDATE_FAILED: null,
+
+    // token
+    TOKEN_DELETE: null,
+    TOKEN_DELETE_FAILED: null
 
 });
