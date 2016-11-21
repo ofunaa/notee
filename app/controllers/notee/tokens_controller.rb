@@ -14,8 +14,14 @@ module Notee
     end
 
     def destroy
-      Token.find_by_access_token(session[:access_token]).destroy!
-      session.delete(:access_token)
+      respond_to do |format|
+        if @token = Token.find_by_access_token(session[:access_token]).destroy!
+          session.delete(:access_token)
+          format.json { render json: @token, status: 200 }
+          else
+          format.json { render json: @token.errors, status: :unprocessable_entity }
+        end
+      end
     end
   end
 end

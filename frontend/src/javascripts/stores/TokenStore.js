@@ -9,7 +9,7 @@ import Constants from '../constants/NoteeConstants';
 
 function token_delete(){
     request
-        .del("/notee/api/tokens/1")
+        .del("/notee/tokens/1")
         .end(function(err, res){
             if(err || !res.body){
                 TokenStore.emitChange(Constants.TOKEN_DELETE_FAILED);
