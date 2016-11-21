@@ -16,6 +16,7 @@ function token_delete(){
                 return false;
             }
             TokenStore.emitChange(Constants.TOKEN_DELETE);
+            location.reload();
         })
 }
 
