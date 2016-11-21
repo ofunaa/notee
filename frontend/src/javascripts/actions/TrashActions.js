@@ -3,9 +3,11 @@ import Constants from '../constants/NoteeConstants'
 
 var TrashActions = {
 
-    update: function(){
+    update: function(id, model_name){
         NoteeDispatcher.dispatch({
-            type: Constants.TRASH_UPDATE
+            type: Constants.TRASH_UPDATE,
+            content_id: id,
+            model_name: model_name
         });
     }
 
