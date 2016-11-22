@@ -31,13 +31,8 @@ export default class UserEdit extends Component {
         this.ajaxRolesLoaded = this.ajaxRolesLoaded.bind(this);
 
         // handles
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
-        this.handleChangeProfile = this.handleChangeProfile.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
-        this.handleChangeRole = this.handleChangeRole.bind(this);
 
         this.saveContent = this.saveContent.bind(this);
     }
@@ -109,6 +104,8 @@ export default class UserEdit extends Component {
             );
         }
 
+        var handleChange = this.handleChange;
+
         return (
             <div style={style.layout.main}>
                 <div style={{float: "left", width: "100%"}}>
@@ -117,14 +114,14 @@ export default class UserEdit extends Component {
                         style={style.form.input_text}
                         type="text"
                         value={this.state.user.name}
-                        onChange={this.handleChangeName}
+                        onChange={function(e){handleChange(e, "name")}}
                     />
                   <p>Email:</p>
                     <input
                         style={style.form.input_text}
                         type="text"
                         value={this.state.user.email}
-                        onChange={this.handleChangeEmail}
+                        onChange={function(e){handleChange(e, "email")}}
                     />
                     <p>Profile:</p>
                     <textarea
@@ -132,7 +129,7 @@ export default class UserEdit extends Component {
                         style={style.form.main_area}
                         type="textarea"
                         value={this.state.user.profile}
-                        onChange={this.handleChangeProfile}
+                        onChange={function(e){handleChange(e, "profile")}}
                     />
                     <p>ProfileImg:</p>
                     <input
@@ -152,7 +149,7 @@ export default class UserEdit extends Component {
                         style={style.form.select}
                         type="select"
                         value={this.state.user.role}
-                        onChange={this.handleChangeRole}>
+                        onChange={function(e){handleChange(e, "role")}}>
 
                         {Roles}
 
@@ -162,14 +159,14 @@ export default class UserEdit extends Component {
                         style={style.form.input_text}
                         type="password"
                         value={this.state.user.password}
-                        onChange={this.handleChangePassword}
+                        onChange={function(e){handleChange(e, "password")}}
                     />
                     <p>Password Confirm:</p>
                     <input
                         style={style.form.input_text}
                         type="password"
                         value={this.state.user.password_confirm}
-                        onChange={this.handleChangePasswordConfirm}
+                        onChange={function(e){handleChange(e, "password_confirm")}}
                     />
                     <button
                         style={style.form.button}
@@ -179,30 +176,30 @@ export default class UserEdit extends Component {
         );
     }
 
-    handleChangeName(e) {
-        this.state.user.name = e.target.value;
+    handleChange(e, target){
+        switch(target){
+            case "name":
+                this.state.user.name = e.target.value;
+                break;
+            case "email":
+                this.state.user.email = e.target.value;
+                break;
+            case "password":
+                this.state.user.password = e.target.value;
+                break;
+            case "password_confirm":
+                this.state.user.password_confirm = e.target.value;
+                break;
+            case "profile":
+                this.state.user.profile = e.target.value;
+                break;
+            case "role":
+                this.state.user.role = e.target.value;
+                break;
+        }
         this.setState({ user: this.state.user });
     }
 
-    handleChangeEmail(e) {
-        this.state.user.email = e.target.value;
-        this.setState({ user: this.state.user });
-    }
-
-    handleChangePassword(e) {
-        this.state.user.password = e.target.value;
-        this.setState({ user: this.state.user });
-    }
-
-    handleChangePasswordConfirm(e) {
-        this.state.user.password_confirm = e.target.value;
-        this.setState({ user: this.state.user });
-    }
-
-    handleChangeProfile(e) {
-        this.state.user.profile = e.target.value;
-        this.setState({ user: this.state.user });
-    }
 
     handleChangeProfileImg(e) {
         var files = e.target.files;
@@ -214,13 +211,7 @@ export default class UserEdit extends Component {
         });
     }
 
-    handleChangeRole(e) {
-        this.state.user.role = e.target.value;
-        this.setState({ user: this.state.user });
-    }
-
     saveContent(e){
-        console.log(this.state.user);
         if(this.props.params.id){
             var item = {params_id: this.props.params.id, user: this.state.user}
             UserActions.update(item);
@@ -232,7 +223,6 @@ export default class UserEdit extends Component {
     // ajax
     ajaxLoaded(content){
         if(!content){return;}
-        console.log(content);
         this.setState({
             user: {
                 name: content.name,
