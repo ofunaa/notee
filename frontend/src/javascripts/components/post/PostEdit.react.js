@@ -25,7 +25,8 @@ export default class PostEdit extends Component {
                 secret_published_password: ""
             },
             categories: [],
-            status: {}
+            status: {},
+            is_save: true
         };
 
         // ajax
@@ -40,16 +41,7 @@ export default class PostEdit extends Component {
         this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
 
         // handles
-        this.handleChangeProps = this.handleChangeProps.bind(this);
-        this.handleChangeTitle = this.handleChangeTitle.bind(this);
-        this.handleChangeContent = this.handleChangeContent.bind(this);
-        this.handleChangeSlug = this.handleChangeSlug.bind(this);
-        this.handleChangeStatus = this.handleChangeStatus.bind(this);
-        this.handleChangeCategoryId = this.handleChangeCategoryId.bind(this);
-        this.handleChangeThumbnailId = this.handleChangeThumbnailId.bind(this);
-        this.handleChangeSeoKeyword = this.handleChangeSeoKeyword.bind(this);
-        this.handleChangeSeoDescription = this.handleChangeSeoDescription.bind(this);
-        this.handleChangeSecretPublishedPassword = this.handleChangeSecretPublishedPassword.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.saveContent = this.saveContent.bind(this);
     }
 
@@ -73,28 +65,14 @@ export default class PostEdit extends Component {
             }
         }
 
-        var handleChanges = {
-            title: this.handleChangeTitle,
-            content: this.handleChangeContent,
-            slug: this.handleChangeSlug,
-            status: this.handleChangeStatus,
-            category_id: this.handleChangeCategoryId,
-            thumbnail_id: this.handleChangeThumbnailId,
-            seo_keyword: this.handleChangeSeoKeyword,
-            seo_description: this.handleChangeSeoDescription,
-            secret_published_password: this.handleChangeSecretPublishedPassword
-        }
-
         return (
             <div class="main">
                 <PostForm
-                    handleChanges={handleChanges}
-                    handleChangeProps={this.handleChangeProps}
+                    handleChange={this.handleChange}
                     content={this.state.content}
                     statuses={this.state.statuses}
                     categories={this.state.categories}
                     saveContent={this.saveContent}
-                    displaySnackBar={this.displaySnackBar}
                 />
                 <PostPreview
                     style={style.layout.half}
@@ -103,44 +81,36 @@ export default class PostEdit extends Component {
         );
     }
 
-    handleChangeProps(){
-        this.setState({ content: this.state.content });
-    }
-
-    handleChangeTitle(e) {
-        this.state.content.title = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeContent(e) {
-        this.state.content.content = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSlug(e) {
-        this.state.content.slug = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeStatus(e) {
-        this.state.content.status = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeCategoryId(e) {
-        this.state.content.category_id = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeThumbnailId(e) {
-        this.state.content.thumbnail_id = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSeoKeyword(e) {
-        this.state.content.seo_keyword = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSeoDescription(e) {
-        this.state.content.seo_description = e.target.value;
-        this.setState({ content: this.state.content });
-    }
-    handleChangeSecretPublishedPassword(e) {
-        this.state.content.secret_published_password = e.target.value;
+    handleChange(e, target){
+        switch(target){
+            case "title":
+                this.state.content.title = e.target.value;
+                break;
+            case "content":
+                this.state.content.content = e.target.value;
+                break;
+            case "slug":
+                this.state.content.slug = e.target.value;
+                break;
+            case "status":
+                this.state.content.status = e.target.value;
+                break;
+            case "secret_published_password":
+                this.state.content.secret_published_password = e.target.value;
+                break;
+            case "category_id":
+                this.state.content.category_id = e.target.value;
+                break;
+            case "thumbnail_id":
+                this.state.content.thumbnail_id = e.target.value;
+                break;
+            case "seo_keyword":
+                this.state.content.seo_keyword = e.target.value;
+                break;
+            case "seo_description":
+                this.state.content.seo_description = e.target.value;
+                break;
+        }
         this.setState({ content: this.state.content });
     }
 
@@ -155,17 +125,7 @@ export default class PostEdit extends Component {
 
     saveSuccessed(){
         this.setState({
-            content: {
-                title: "",
-                content: "",
-                slug: "",
-                status: this.state.statuses["draft"],
-                category_id: "",
-                thumbnail_id: "",
-                seo_keyword: "",
-                seo_description: "",
-                secret_published_password: ""
-            }
+            is_save: true
         });
     }
 

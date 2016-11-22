@@ -91,6 +91,8 @@ export default class PostForm extends Component {
             return <option key={category.id} value={category.id}>{category.name}</option>;
         });
 
+        var handleChange = this.props.handleChange;
+
         return (
             <div style={style.layout.half}>
                 {(() => {
@@ -112,7 +114,7 @@ export default class PostForm extends Component {
                         style={style.form.input_text}
                         type="text"
                         value={this.props.content.title}
-                        onChange={this.props.handleChanges.title}
+                        onChange={function(e){handleChange(e, "title")}}
                     />
                     <p>Content:</p>
                     <button
@@ -123,21 +125,21 @@ export default class PostForm extends Component {
                         style={style.form.main_area}
                         type="textarea"
                         value={this.props.content.content}
-                        onChange={this.props.handleChanges.content}
+                        onChange={function(e){handleChange(e, "content")}}
                     />
                     <p>slug:</p>
                     <input
                         style={style.form.input_text}
                         type="text"
                         value={this.props.content.slug}
-                        onChange={this.props.handleChanges.slug}
+                        onChange={function(e){handleChange(e, "slug")}}
                     />
                     <p>status:</p>
                     <select
                         style={style.form.select}
                         type="select"
                         value={this.props.content.status}
-                        onChange={this.props.handleChanges.status}>
+                        onChange={function(e){handleChange(e, "status")}}>
 
                         {statuses}
 
@@ -151,7 +153,7 @@ export default class PostForm extends Component {
                                         style={style.form.input_text}
                                         type="text"
                                         value={this.props.content.secret_published_password}
-                                        onChange={this.props.handleChanges.secret_published_password}
+                                        onChange={function(e){handleChange(e, "secret_published_password")}}
                                     />
                                 </div>
                             );
@@ -163,13 +165,12 @@ export default class PostForm extends Component {
                         style={style.form.select}
                         type="select"
                         value={this.props.content.category_id}
-                        onChange={this.props.handleChanges.category_id}>
+                        onChange={function(e){handleChange(e, "category_id")}}>
                         {categories}
                     </select>
 
                     <PostNewCategory
                         categories={this.props.categories}
-                        displaySnackBar={this.props.displaySnackBar}
                     />
                     <p>thumbnail:</p>
                     <button
@@ -185,21 +186,21 @@ export default class PostForm extends Component {
                         type="hidden"
                         id="thumbnail_id"
                         value={this.props.content.thumbnail_id}
-                        onChange={this.props.handleChanges.thumbnail_id}
+                        onChange={function(e){handleChange(e, "thumbnail_id")}}
                     />
                     <p>seo_keyword:</p>
                     <input
                         style={style.form.input_text}
                         type="text"
                         value={this.props.content.seo_keyword}
-                        onChange={this.props.handleChanges.seo_keyword}
+                        onChange={function(e){handleChange(e, "seo_keyword")}}
                     />
                     <p>seo_description:</p>
                     <textarea
                         style={style.form.textarea}
                         type="textarea"
                         value={this.props.content.seo_description}
-                        onChange={this.props.handleChanges.seo_description}
+                        onChange={function(e){handleChange(e, "seo_description")}}
                     />
                     <button
                         style={style.form.button}
@@ -232,13 +233,13 @@ export default class PostForm extends Component {
         mainArea.value = leftPart + image_txt + rightPart;
         this.props.content.content = mainArea.value;
         this.setState({display_image: false});
-        this.props.handleChangeProps();
+        this.props.handleChange();
     }
 
     insertThumbnail(thumbnail){
         this.props.content.thumbnail_id = thumbnail.id;
         this.setState({display_image: false});
-        this.props.handleChangeProps();
+        this.props.handleChange();
     }
 
     setThumbnail(thumbnail){
