@@ -13,6 +13,7 @@
 
 module Notee
   class Category < ApplicationRecord
+
     # callbacks
     before_save :set_slug
     before_save :protect_default
@@ -28,6 +29,18 @@ module Notee
 
     def protect_default
       return false if self.id == 1
+    end
+
+    def self.before_destroy_parent(id)
+      @child_with_parent =Category.where(parent_id: id)
+
+      Category.skip_callback(:update, :before, :update_authority)
+      Category.skip_callback(:update, :before, :destroy_authority)
+      @child_with_parent.each do |child|
+        child.update(parent_id: nil)
+      end
+      Category.set_callback(:update, :before, :update_authority)
+      Category.set_callback(:update, :before, :destroy_authority)
     end
   end
 end

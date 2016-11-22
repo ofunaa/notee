@@ -10,7 +10,6 @@ import Constants from '../../constants/NoteeConstants';
 
 export default class PostEdit extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {

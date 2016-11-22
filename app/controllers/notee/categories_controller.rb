@@ -41,6 +41,7 @@ module Notee
     def destroy
       respond_to do |format|
         if @category.update(slug: nil, is_delete: true)
+          Category.before_destroy_parent(@category.id)
           format.json { render json: @category, status: 200 }
         else
           format.json { render json: @category.errors, status: :unprocessable_entity }
