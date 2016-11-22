@@ -6,6 +6,7 @@ import PostStore from '../../stores/PostStore';
 import CategoryStore from '../../stores/CategoryStore';
 import PostForm  from './PostForm.react.js';
 import PostPreview  from './PostPreview.react.js';
+import Constants from '../../constants/NoteeConstants';
 
 export default class PostEdit extends Component {
 
@@ -36,6 +37,7 @@ export default class PostEdit extends Component {
 
         // eventemit_callback for notee
         this.saveSuccessed = this.saveSuccessed.bind(this);
+        this.updateSuccessed = this.updateSuccessed.bind(this);
 
         // eventemit_callback for category
         this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
@@ -51,6 +53,11 @@ export default class PostEdit extends Component {
         }
         PostStore.loadStatuses(this.ajaxStatusesLoaded);
         CategoryStore.loadCategories(this.ajaxCategoryLoaded);
+    }
+
+    componentDidMount() {
+        PostStore.addChangeListener(Constants.POST_CREATE, this.saveSuccessed);
+        PostStore.addChangeListener(Constants.POST_UPDATE, this.updateSuccessed);
     }
 
     render() {
@@ -124,9 +131,13 @@ export default class PostEdit extends Component {
     }
 
     saveSuccessed(){
-        this.setState({
-            is_save: true
-        });
+        this.setState({is_save: true});
+        history.replaceState('','','/notee/posts');
+        location.reload();
+    }
+
+    updateSuccessed(){
+        this.setState({is_save: true});
     }
 
     saveCategorySuccessed(){
