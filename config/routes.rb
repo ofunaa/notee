@@ -14,12 +14,17 @@ Notee::Engine.routes.draw do
   get 'users/edit/:id'        => 'notees#index'
   get 'trashes'               => 'notees#index'
   get 'trashes/:model'        => 'notees#index'
+  get 'mypage'                => 'notees#index'
+  get 'mypage/edit'           => 'notees#index'
+  get 'mypage/edit/password'  => 'notees#index'
 
   # post 'secret_published' => 'notees#secret_published'
   resources :tokens, only: [:new, :create, :destroy]
 
   scope :api, { format: 'json' } do
     resources :posts, only: [:index, :show, :create, :update, :destroy]
+    get 'users/mypage' => 'users#mypage'
+    put 'users/mypage' => 'users#update_password'
     resources :users, only: [:index, :show, :create, :update, :destroy]
     resources :images, only: [:index, :show, :create, :destroy]
     resources :categories, only: [:index, :show, :create, :update, :destroy]
