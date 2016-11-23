@@ -25,6 +25,8 @@ module.exports = keyMirror({
     USER_UPDATE_FAILED: null,
     USER_DELETE: null,
     USER_DELETE_FAILED: null,
+    USER_PASSWORD_UPDATE: null,
+    USER_PASSWORD_UPDATE_FAILED: null,
 
     // image
     IMAGE_CREATE: null,
