@@ -4,9 +4,6 @@ import React, {Component, PropTypes} from 'react';
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
 
-// material
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 
 // image
 var root_img_src = window.location.origin + "/notee/";
@@ -26,7 +23,6 @@ export default class UserEdit extends Component {
                 password_confirm: "",
                 role: ""
             },
-            auth_password: "",
             display_image_src: root_img_src + "default.png",
             roles: {},
             open: false
@@ -115,20 +111,6 @@ export default class UserEdit extends Component {
             );
         }
 
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={this.updateContent}
-            />,
-        ];
-
         var handleChange = this.handleChange;
 
         return (
@@ -202,20 +184,6 @@ export default class UserEdit extends Component {
                             );
                         }
                     })()}
-                    <Dialog
-                        title="Enter Your Password"
-                        actions={actions}
-                        modal={false}
-                        open={this.state.open}
-                        onRequestClose={this.handleClose}
-                    >
-                        <input
-                            style={style.form.input_text}
-                            type="password"
-                            value={this.state.auth_password}
-                            onChange={this.handleChangePassword}
-                        />
-                    </Dialog>
                     <button
                         style={style.form.button}
                         onClick={this.submit}>Submit</button>
@@ -264,19 +232,10 @@ export default class UserEdit extends Component {
         });
     }
 
-    handleOpen() {
-        this.setState({open: true});
-    }
-
-    handleClose() {
-        this.setState({open: false});
-    }
-
     submit(e){
         if(this.props.params.id){
-            this.handleOpen();
-            // var item = {params_id: this.props.params.id, user: this.state.user}
-            // UserActions.update(item);
+            var item = {params_id: this.props.params.id, user: this.state.user}
+            UserActions.update(item);
         }else{
             this.createContent();
         }
