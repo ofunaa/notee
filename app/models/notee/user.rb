@@ -6,27 +6,22 @@ module Notee
 
     # accessors
     attr_accessor :file
+    attr_accessor :now_password
     attr_accessor :password
     attr_accessor :password_confirm
     attr_accessor :editor_id
 
     # callback
     before_create :confirm_password
-    before_update :confirm_password, if: :has_password?
     before_create :encrypt_password
-    before_update :encrypt_password, if: :has_password?
+    before_update :confirm_password, if: :has_password?  # 1
+    before_update :encrypt_password, if: :has_password?  # 2
     before_save :manage_profile_img
 
-    def has_password?
-      self.password.present?
-    end
-
-    def confirm_password
-      return false unless password == password_confirm
-    end
-
-    def encrypt_password
-      self.encrypted_password = encrypt(self.password)
+    def update_password(params)
+      return false unless params[:now_password] == User.decrypt(self.encrypted_password)
+      return false unless params[:password] == params[:password_confirm]
+      self.update(params)
     end
 
     SECURE = 'SOFHGPOIJERPGOKSPDO2SPTI4RJ6POIFDJVS7ETJ1EITJHSPEKMVOEIGU'
@@ -66,7 +61,7 @@ module Notee
     def self.root_user_setting
       unless User.exists?(id: 0)
         User.skip_callback(:create, :before, :create_authority)
-        User.create(id: 0, name: "root", email: "root", password: SecureRandom.hex, role: 9999)
+        User.create(id: 0, name: Notee.notee_id, email: "root", password: SecureRandom.hex, role: 9999)
         User.set_callback(:create, :before, :create_authority)
       end
 
@@ -88,6 +83,22 @@ module Notee
         end
       end
       self.profile_img = image_name
+    end
+
+    def has_password?
+      self.password.present?
+    end
+
+    def has_now_password?
+      self.now_password.present?
+    end
+
+    def confirm_password
+      return false unless password == password_confirm
+    end
+
+    def encrypt_password
+      self.encrypted_password = encrypt(self.password)
     end
   end
 end
