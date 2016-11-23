@@ -24,8 +24,7 @@ export default class UserEdit extends Component {
                 role: ""
             },
             display_image_src: root_img_src + "default.png",
-            roles: {},
-            open: false
+            roles: {}
         };
 
         // ajax
@@ -36,8 +35,6 @@ export default class UserEdit extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
 
         this.submit = this.submit.bind(this);
         this.createContent = this.createContent.bind(this);
