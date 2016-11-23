@@ -44,6 +44,21 @@ function user_update(content) {
         })
 }
 
+function user_password_update(content) {
+    request
+        .put("/notee/api/users/mypage")
+        .field('user[now_password]', content.now_password)
+        .field('user[password]', content.password)
+        .field('user[password_confirm]', content.password_confirm)
+        .end(function(err, res){
+            if(err || !res.body){
+                UserStore.emitChange(Constants.USER_PASSWORD_UPDATE_FAILED);
+                return false;
+            }
+            UserStore.emitChange(Constants.USER_PASSWORD_UPDATE);
+        })
+}
+
 function user_delete(notee_src){
     request
         .del("/notee/api/users/" + notee_src)
@@ -84,6 +99,15 @@ var UserStore = assign({}, EventEmitter.prototype, {
         })
     },
 
+    loadUserByToken: function(callback) {
+        var url = "/notee/api/users/mypage";
+        request.get(url, (err, res) => {
+            if(err){return;}
+            if(!res.body){return;}
+            callback(res.body.user);
+        })
+    },
+
     emitChange: function(change_event) {
         this.emit(change_event);
     },
@@ -103,6 +127,9 @@ NoteeDispatcher.register(function(action) {
             break;
         case Constants.USER_UPDATE:
             user_update(action.content);
+            break;
+        case Constants.USER_PASSWORD_UPDATE:
+            user_password_update(action.content);
             break;
         case Constants.USER_DELETE:
             user_delete(action.user_id);
