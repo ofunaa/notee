@@ -16,6 +16,13 @@ var UserActions = {
             content: user
         });
     },
+
+    update_password: function(user){
+        NoteeDispatcher.dispatch({
+            type: Constants.USER_PASSWORD_UPDATE,
+            content: user
+        });
+    },
     
     delete: function(user_id){
         NoteeDispatcher.dispatch({
