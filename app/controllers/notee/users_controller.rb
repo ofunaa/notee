@@ -19,6 +19,11 @@ module Notee
       render json: { status: 'success', user: @user }
     end
 
+    def mypage
+      @user = Token.find_by(access_token: session[:access_token]).user
+      render json: { status: 'success', user: @user }
+    end
+
     # POST /posts
     def create
       @user = User.new(user_params)
@@ -38,6 +43,17 @@ module Notee
       p user_params
       respond_to do |format|
         if @user.update(user_params)
+          format.json { render json: @user, status: 200 }
+        else
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    def update_password
+      @user = Token.find_by(access_token: session[:access_token]).user
+      respond_to do |format|
+        if @user.update_password(user_params)
           format.json { render json: @user, status: 200 }
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -68,7 +84,7 @@ module Notee
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirm, :profile, :profile_img, :role)
+      params.require(:user).permit(:name, :email, :now_password, :password, :password_confirm, :profile, :profile_img, :role)
     end
   end
 end
