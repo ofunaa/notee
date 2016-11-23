@@ -23,6 +23,8 @@ export default class PostSection extends Component {
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.returnTableRow = this.returnTableRow.bind(this);
+        this.changeSuccessed = this.changeSuccessed.bind(this);
+        this.deletePost = this.deletePost.bind(this);
     }
 
     componentDidMount() {
@@ -49,7 +51,7 @@ export default class PostSection extends Component {
                     contents={this.state.posts}
                     actions={PostActions}
                     returnTableRow={this.returnTableRow}
-                    buttonNum={1}
+                    buttonNum={2}
                 />
             </div>
         );
@@ -59,12 +61,17 @@ export default class PostSection extends Component {
         return (
             <PostTableRow
                 post={post}
+                deletePost={this.deletePost}
                 key={post.id} />
         );
     }
 
     changeSuccessed(){
         PostStore.loadPosts(this.ajaxLoaded);
+    }
+
+    deletePost(id){
+        PostActions.delete(id);
     }
 
 };

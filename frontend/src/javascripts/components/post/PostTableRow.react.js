@@ -29,6 +29,9 @@ export default class IndexTableRow extends Component {
 
     render() {
 
+        var deletePost = this.props.deletePost;
+        var delete_id = this.props.post.id;
+
         var date = new Date( this.props.post.published_at );
         var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
@@ -44,6 +47,14 @@ export default class IndexTableRow extends Component {
                         label="edit"
                         primary={true} /></Link>
                 </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={function(){deletePost(delete_id)}}
+                        label="delete"
+                        secondary={true}
+                        disabled={false}
+                    />
+                </TableRowColumn>
             </TableRow>
         );
     }
@@ -57,4 +68,6 @@ export default class IndexTableRow extends Component {
         if(!status){return false}
         this.setState({status: status});
     }
+
+    
 }

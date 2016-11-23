@@ -18,7 +18,6 @@ module Notee
     before_save :manage_profile_img
 
     def has_password?
-      p self.password.present?
       self.password.present?
     end
 

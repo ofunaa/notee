@@ -34,9 +34,9 @@ function post_update(content) {
         })
 }
 
-function post_delete(notee_src){
+function post_delete(id){
     request
-        .del("/notee/api/posts/" + notee_src)
+        .del("/notee/api/posts/" + id)
         .end(function(err, res){
             if(err || !res.body){
                 PostStore.emitChange(Constants.POST_DELETE_FAILED);
