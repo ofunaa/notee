@@ -56,6 +56,9 @@ export default class NoteeSnackBar extends Component {
         UserStore.addChangeListener(Constants.USER_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
         UserStore.addChangeListener(Constants.USER_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
         UserStore.addChangeListener(Constants.USER_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        UserStore.addChangeListener(Constants.USER_PASSWORD_UPDATE, function(){tmpDisplaySnackBar("Update Password!")});
+        UserStore.addChangeListener(Constants.USER_PASSWORD_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+
 
         // image
         ImageStore.addChangeListener(Constants.IMAGE_CREATE, function(){tmpDisplaySnackBar("Create Image!")});
