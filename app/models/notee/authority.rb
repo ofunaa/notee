@@ -25,6 +25,7 @@ module Notee
 				end
 			end
 
+
 			def get_role
 				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
 				return token.user.role
@@ -128,7 +129,7 @@ module Notee
 			# /////////////////////////////////
 
 			# - create: 	users
-			# - update: 	other users
+			# - update: 	other users, my user role
 			# - delete: 	users
 
 			def editor(crud, new_model_obj)
@@ -179,6 +180,7 @@ module Notee
 						raise AuthorityError, 'Editor can update only my Post' unless get_user_id == new_model_obj.id
 
 						# success
+						new_model_obj.role = 10
 						Rails.logger.debug("Editor update a user")
 					else
 
