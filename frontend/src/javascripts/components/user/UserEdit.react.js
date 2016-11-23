@@ -1,8 +1,12 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 // notee
-import UserActions from '../../actions/UserActions'
-import UserStore from '../../stores/UserStore'
+import UserActions from '../../actions/UserActions';
+import UserStore from '../../stores/UserStore';
+
+// material
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 // image
 var root_img_src = window.location.origin + "/notee/";
@@ -18,15 +22,14 @@ export default class UserEdit extends Component {
                 email: "",
                 profile: "",
                 profile_img: "",
+                password: "",
+                password_confirm: "",
                 role: ""
             },
-            password: {
-                main: "",
-                confirm: ""
-            },
-
+            auth_password: "",
             display_image_src: root_img_src + "default.png",
-            roles: {}
+            roles: {},
+            open: false
         };
 
         // ajax
@@ -37,8 +40,11 @@ export default class UserEdit extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
 
-        this.saveContent = this.saveContent.bind(this);
+        this.submit = this.submit.bind(this);
+        this.createContent = this.createContent.bind(this);
     }
 
     componentWillMount() {
@@ -109,8 +115,21 @@ export default class UserEdit extends Component {
             );
         }
 
+        const actions = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleClose}
+            />,
+            <FlatButton
+                label="Submit"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={this.updateContent}
+            />,
+        ];
+
         var handleChange = this.handleChange;
-        var handleChangePassword = this.handleChangePassword;
 
         return (
             <div style={style.layout.main}>
@@ -169,23 +188,37 @@ export default class UserEdit extends Component {
                                         style={style.form.input_text}
                                         type="password"
                                         value={this.state.user.password}
-                                        onChange={function(e){handleChangePassword(e, "password")}}
+                                        onChange={function(e){handleChange(e, "password")}}
                                     />
                                     <p>Password Confirm:</p>
                                     <input
                                         style={style.form.input_text}
                                         type="password"
                                         value={this.state.user.password_confirm}
-                                        onChange={function(e){handleChangePassword(e, "password_confirm")}}
+                                        onChange={function(e){handleChange(e, "password_confirm")}}
                                     />
+
                                 </div>
                             );
                         }
                     })()}
-
+                    <Dialog
+                        title="Enter Your Password"
+                        actions={actions}
+                        modal={false}
+                        open={this.state.open}
+                        onRequestClose={this.handleClose}
+                    >
+                        <input
+                            style={style.form.input_text}
+                            type="password"
+                            value={this.state.auth_password}
+                            onChange={this.handleChangePassword}
+                        />
+                    </Dialog>
                     <button
                         style={style.form.button}
-                        onClick={this.saveContent}>Submit</button>
+                        onClick={this.submit}>Submit</button>
                 </div>
             </div>
         );
@@ -215,16 +248,9 @@ export default class UserEdit extends Component {
         this.setState({ user: this.state.user });
     }
 
-    handleChangePassword(e, target){
-        switch(target){
-            case "password":
-                this.state.password.main = e.target.value;
-                break;
-            case "password_confirm":
-                this.state.password.confirm = e.target.value;
-                break;
-        }
-        this.setState({ password: this.state.password });
+    handleChangePassword(e){
+        this.state.auth_password = e.target.value;
+        this.setState({ auth_password: this.state.auth_password });
     }
 
 
@@ -238,14 +264,27 @@ export default class UserEdit extends Component {
         });
     }
 
-    saveContent(e){
+    handleOpen() {
+        this.setState({open: true});
+    }
+
+    handleClose() {
+        this.setState({open: false});
+    }
+
+    submit(e){
         if(this.props.params.id){
-            var item = {params_id: this.props.params.id, user: this.state.user}
-            UserActions.update(item);
+            this.handleOpen();
+            // var item = {params_id: this.props.params.id, user: this.state.user}
+            // UserActions.update(item);
         }else{
-            var item = {user: this.state.user, password: this.state.password}
-            UserActions.create(item);
+            this.createContent();
         }
+    }
+
+    createContent(){
+        var item = {user: this.state.user, password: this.state.password}
+        UserActions.create(item);
     }
 
     // ajax
