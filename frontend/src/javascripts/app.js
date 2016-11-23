@@ -14,7 +14,10 @@ import ImageSection from './components/image/ImageSection.react.js'
 import CommentSection from './components/comment/CommentSection.react.js'
 import UserSection from './components/user/UserSection.react.js'
 import UserEdit from './components/user/UserEdit.react.js'
-import UserShow from './components/user/UserShow.react.js'
+import MypageSection from './components/mypage/MypageSection.react.js'
+import MypageEdit from './components/mypage/MypageEdit.react.js'
+import MypageEditPassword from './components/mypage/MypageEditPassword.react.js'
+import UserShow from './components/mypage/MypageSection.react.js'
 import TrashSection from './components/trash/TrashSection.react.js'
 
 // common-parts
@@ -68,6 +71,12 @@ const routes = (
             <Route path='edit/:id' component={UserEdit} />
             <Route path='show/:id' component={UserShow} />
             <IndexRoute component={UserSection}/>
+        </Route>
+
+        <Route path='mypage'>
+            <Route path='edit' component={MypageEdit} />
+            <Route path='edit/password' component={MypageEditPassword} />
+            <IndexRoute component={MypageSection}/>
         </Route>
 
         <Route path='trashes'>
