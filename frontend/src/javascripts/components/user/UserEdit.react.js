@@ -16,12 +16,15 @@ export default class UserEdit extends Component {
             user: {
                 name: "",
                 email: "",
-                password: "",
-                password_confirm: "",
                 profile: "",
                 profile_img: "",
                 role: ""
             },
+            password: {
+                main: "",
+                confirm: ""
+            },
+
             display_image_src: root_img_src + "default.png",
             roles: {}
         };
@@ -32,6 +35,7 @@ export default class UserEdit extends Component {
 
         // handles
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeProfileImg = this.handleChangeProfileImg.bind(this);
 
         this.saveContent = this.saveContent.bind(this);
@@ -45,6 +49,7 @@ export default class UserEdit extends Component {
     }
 
     render() {
+
         var style = {
             layout: {
                 main: {
@@ -105,6 +110,7 @@ export default class UserEdit extends Component {
         }
 
         var handleChange = this.handleChange;
+        var handleChangePassword = this.handleChangePassword;
 
         return (
             <div style={style.layout.main}>
@@ -154,20 +160,29 @@ export default class UserEdit extends Component {
                         {Roles}
 
                     </select>
-                    <p>Password:</p>
-                    <input
-                        style={style.form.input_text}
-                        type="password"
-                        value={this.state.user.password}
-                        onChange={function(e){handleChange(e, "password")}}
-                    />
-                    <p>Password Confirm:</p>
-                    <input
-                        style={style.form.input_text}
-                        type="password"
-                        value={this.state.user.password_confirm}
-                        onChange={function(e){handleChange(e, "password_confirm")}}
-                    />
+                    {(()=>{
+                        if(!this.props.params.id){
+                            return (
+                                <div>
+                                    <p>Password:</p>
+                                    <input
+                                        style={style.form.input_text}
+                                        type="password"
+                                        value={this.state.user.password}
+                                        onChange={function(e){handleChangePassword(e, "password")}}
+                                    />
+                                    <p>Password Confirm:</p>
+                                    <input
+                                        style={style.form.input_text}
+                                        type="password"
+                                        value={this.state.user.password_confirm}
+                                        onChange={function(e){handleChangePassword(e, "password_confirm")}}
+                                    />
+                                </div>
+                            );
+                        }
+                    })()}
+
                     <button
                         style={style.form.button}
                         onClick={this.saveContent}>Submit</button>
@@ -200,6 +215,18 @@ export default class UserEdit extends Component {
         this.setState({ user: this.state.user });
     }
 
+    handleChangePassword(e, target){
+        switch(target){
+            case "password":
+                this.state.password.main = e.target.value;
+                break;
+            case "password_confirm":
+                this.state.password.confirm = e.target.value;
+                break;
+        }
+        this.setState({ password: this.state.password });
+    }
+
 
     handleChangeProfileImg(e) {
         var files = e.target.files;
@@ -216,7 +243,8 @@ export default class UserEdit extends Component {
             var item = {params_id: this.props.params.id, user: this.state.user}
             UserActions.update(item);
         }else{
-            UserActions.create(this.state.user);
+            var item = {user: this.state.user, password: this.state.password}
+            UserActions.create(item);
         }
     }
 
@@ -227,8 +255,6 @@ export default class UserEdit extends Component {
             user: {
                 name: content.name,
                 email: content.email,
-                password: "",
-                password_confirm: "",
                 profile: content.profile,
                 profile_img: content.profile_img,
                 role: content.role

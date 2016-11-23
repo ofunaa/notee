@@ -3,6 +3,7 @@ require_dependency 'notee/application_controller'
 
 module Notee
   class UsersController < ApplicationController
+    
     # callbacks
     before_action :set_user, only: [:show, :update, :destroy]
     before_action :convert_from_string_to_int, only: [:create, :update]
@@ -34,6 +35,7 @@ module Notee
     # PATCH/PUT /posts/1
     def update
       @user.file = user_params[:profile_img]
+      p user_params
       respond_to do |format|
         if @user.update(user_params)
           format.json { render json: @user, status: 200 }

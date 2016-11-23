@@ -11,9 +11,16 @@ module Notee
     attr_accessor :editor_id
 
     # callback
-    before_save :confirm_password
-    before_save :encrypt_password
+    before_create :confirm_password
+    before_update :confirm_password, if: :has_password?
+    before_create :encrypt_password
+    before_update :encrypt_password, if: :has_password?
     before_save :manage_profile_img
+
+    def has_password?
+      p self.password.present?
+      self.password.present?
+    end
 
     def confirm_password
       return false unless password == password_confirm

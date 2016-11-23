@@ -11,13 +11,13 @@ import Constants from '../constants/NoteeConstants';
 function user_create(content) {
     request
         .post("/notee/api/users")
-        .field('user[name]', content.name)
-        .field('user[email]', content.email)
-        .field('user[password]', content.password)
-        .field('user[password_confirm]', content.password_confirm)
-        .field('user[profile]', content.profile)
-        .field('user[role]', content.role)
-        .attach("user[profile_img]", content.profile_img)
+        .field('user[name]', content.user.name)
+        .field('user[email]', content.user.email)
+        .field('user[password]', content.password.main)
+        .field('user[password_confirm]', content.password.confirm)
+        .field('user[profile]', content.user.profile)
+        .field('user[role]', content.user.role)
+        .attach("user[profile_img]", content.user.profile_img)
         .end(function(err, res){
             if (err || !res.body) {
                 UserStore.emitChange(Constants.USER_CREATE_FAILED);
@@ -32,8 +32,6 @@ function user_update(content) {
         .put("/notee/api/users/" + content.params_id)
         .field('user[name]', content.user.name)
         .field('user[email]', content.user.email)
-        .field('user[password]', content.user.password)
-        .field('user[password_confirm]', content.user.password_confirm)
         .field('user[profile]', content.user.profile)
         .field('user[role]', content.user.role)
         .attach("user[profile_img]", content.user.profile_img)
