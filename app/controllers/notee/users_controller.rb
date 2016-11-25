@@ -28,6 +28,7 @@ module Notee
     def create
       @user = User.new(user_params)
       @user.file = user_params[:profile_img]
+      p @user.file
       respond_to do |format|
         if @user.save
           format.json { render json: @user, status: 200 }
