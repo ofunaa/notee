@@ -11,7 +11,7 @@ module Notee
       user = find_user_by_access_token
 
       if user
-        render json: { status: 'success', user: user }
+        render json: { status: 'success', role: user.role }
       else
         render json: { status: 'failed' }
       end
