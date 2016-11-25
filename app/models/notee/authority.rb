@@ -39,10 +39,16 @@ module Notee
 			private
 
 			# /////////////////////////////////
-			# WRITER - Restriction
+			# WRITER
 			# /////////////////////////////////
 
-			# create: 	user
+			# you can
+			# create: 	posts, categories, images
+			# update:		my posts, categories, images, my user without role
+			# delete:		my posts
+
+			# you cannot
+			# create: 	users
 			# update: 	other posts, other users, my user role
 			# delete:		other posts, categories, images, users
 
@@ -128,6 +134,12 @@ module Notee
 			# EDITOR - Restriction
 			# /////////////////////////////////
 
+			# you can
+			# create: 	posts, categories, images
+			# update:		posts, categories, images, my user without role
+			# delete: 	posts, categories, images
+
+			# you cannot
 			# - create: 	users
 			# - update: 	other users, my user role
 			# - delete: 	users
@@ -210,6 +222,12 @@ module Notee
 			# MANAGER - Restriction
 			# /////////////////////////////////
 
+			# you can
+			# create: 	posts, categories, images, users
+			# update:		posts, categories, images, users
+			# delete: 	posts, categories, images, users
+
+			# you cannot
 			# - create: 	none
 			# - update: 	none
 			# - delete: 	none
@@ -300,8 +318,15 @@ module Notee
 			# ROOT
 			# /////////////////////////////////
 
-			# root
-			# Can create:   only users
+			# you can
+			# create: 	users
+			# update:		none
+			# delete: 	none
+
+			# you cannot
+			# - create: 	posts, categories, images
+			# - update: 	posts, categories, images, users
+			# - delete: 	posts, categories, images, users
 
 			def root_user(crud, new_model_obj)
 				case crud
