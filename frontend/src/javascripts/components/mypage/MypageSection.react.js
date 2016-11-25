@@ -124,7 +124,7 @@ export default class UserShow extends Component {
                 <p>profile:</p>
                 <h3>{this.state.user.profile}</h3>
                 <p>profile_img:</p>
-                <img src={this.state.profile_img} />
+                <img src={window.location.origin + "/notee/profile/" + this.state.user.profile_img} />
                 <p>role:</p>
                 <h3>{this.state.user.role}</h3>
                 {RoleDescription(this.state.user.role)}
