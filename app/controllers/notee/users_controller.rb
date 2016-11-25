@@ -40,7 +40,6 @@ module Notee
     # PATCH/PUT /posts/1
     def update
       @user.file = user_params[:profile_img]
-      p user_params
       respond_to do |format|
         if @user.update(user_params)
           format.json { render json: @user, status: 200 }
