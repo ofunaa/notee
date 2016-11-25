@@ -90,15 +90,6 @@ var UserStore = assign({}, EventEmitter.prototype, {
         });
     },
 
-    loadRoles: function(callback) {
-        var url = "/notee/api/roles";
-        request.get(url, (err, res) => {
-            if(err){return;}
-            if(!res.body){return;}
-            callback(res.body.roles);
-        })
-    },
-
     loadUserByToken: function(callback) {
         var url = "/notee/api/users/mypage";
         request.get(url, (err, res) => {
