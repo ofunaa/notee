@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 // notee
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
+import RoleStore from '../../stores/RoleStore';
 
 
 // image
@@ -44,7 +45,7 @@ export default class UserEdit extends Component {
         if(this.props.params.id){
             UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
         }
-        UserStore.loadRoles(this.ajaxRolesLoaded);
+        RoleStore.loadRoles(this.ajaxRolesLoaded);
     }
 
     render() {

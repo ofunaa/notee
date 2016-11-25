@@ -4,6 +4,7 @@ import { Link } from "react-router";
 // notee
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
+import RoleStore from '../../stores/RoleStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -42,7 +43,7 @@ export default class MypageEdit extends Component {
 
     componentWillMount() {
         UserStore.loadUserByToken(this.ajaxLoaded);
-        UserStore.loadRoles(this.ajaxRolesLoaded);
+        RoleStore.loadRoles(this.ajaxRolesLoaded);
     }
 
     render() {
