@@ -47,7 +47,7 @@ export default class PostSection extends Component {
                 </Link>
                 <NoteeTable
                     modelName="Post"
-                    columns={['title', 'category', 'user_id', 'status', 'published_at']}
+                    columns={['title', 'category', 'user', 'status', 'published_at']}
                     contents={this.state.posts}
                     actions={PostActions}
                     returnTableRow={this.returnTableRow}

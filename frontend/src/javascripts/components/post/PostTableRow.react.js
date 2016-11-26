@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react'
 // notee
 import PostStore from '../../stores/PostStore';
 import CategoryStore from '../../stores/CategoryStore';
+import UserStore from '../../stores/UserStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,11 +22,13 @@ export default class IndexTableRow extends Component {
 
         this.ajaxCategoryLoad = this.ajaxCategoryLoad.bind(this);
         this.ajaxStatusLoad = this.ajaxStatusLoad.bind(this);
+        this.ajaxUserLoad = this.ajaxUserLoad.bind(this);
     }
 
     componentWillMount(){
         CategoryStore.loadCategory(this.props.post.category_id, this.ajaxCategoryLoad);
         PostStore.loadStatus(this.props.post.status, this.ajaxStatusLoad);
+        UserStore.loadUser(this.props.post.user_id, this.ajaxUserLoad);
     }
 
     render() {
@@ -40,7 +43,7 @@ export default class IndexTableRow extends Component {
             <TableRow>
                 <TableRowColumn>{this.props.post.title}</TableRowColumn>
                 <TableRowColumn>{this.state.category}</TableRowColumn>
-                <TableRowColumn>{this.props.post.user_id}</TableRowColumn>
+                <TableRowColumn>{this.state.user.name}</TableRowColumn>
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
@@ -70,6 +73,12 @@ export default class IndexTableRow extends Component {
         if(!status){return false}
         this.setState({status: status});
     }
+
+    ajaxUserLoad(user){
+        if(!user){return false}
+        this.setState({user: user});
+    }
+
 
     
 }
