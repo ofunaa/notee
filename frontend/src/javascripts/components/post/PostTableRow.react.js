@@ -39,8 +39,14 @@ export default class IndexTableRow extends Component {
         var date = new Date( this.props.post.published_at );
         var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
+        var myPostStyle = function(now_user_id, user_id){
+            if(now_user_id == user_id){
+                return {backgroundColor: "rgba(250,200,80,0.7)"};
+            }
+        }
+
         return(
-            <TableRow className={if }>
+            <TableRow style={myPostStyle(this.props.now_user.id, this.props.post.user_id)}>
                 <TableRowColumn>{this.props.post.title}</TableRowColumn>
                 <TableRowColumn>{this.state.category}</TableRowColumn>
                 <TableRowColumn>{this.state.user.name}</TableRowColumn>

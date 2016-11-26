@@ -70,6 +70,7 @@ export default class PostSection extends Component {
             <PostTableRow
                 post={post}
                 deletePost={this.deletePost}
+                now_user={this.state.now_user}
                 key={post.id} />
         );
     }
