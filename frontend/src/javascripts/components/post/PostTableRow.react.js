@@ -15,7 +15,8 @@ export default class IndexTableRow extends Component {
         super(props);
         this.state = {
             category: "",
-            status: ""
+            status: "",
+            user: ""
         }
 
         this.ajaxCategoryLoad = this.ajaxCategoryLoad.bind(this);
@@ -39,6 +40,7 @@ export default class IndexTableRow extends Component {
             <TableRow>
                 <TableRowColumn>{this.props.post.title}</TableRowColumn>
                 <TableRowColumn>{this.state.category}</TableRowColumn>
+                <TableRowColumn>{this.props.post.user_id}</TableRowColumn>
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
