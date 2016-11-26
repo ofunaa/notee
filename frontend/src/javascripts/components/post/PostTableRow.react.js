@@ -40,7 +40,7 @@ export default class IndexTableRow extends Component {
         var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         return(
-            <TableRow>
+            <TableRow className={if }>
                 <TableRowColumn>{this.props.post.title}</TableRowColumn>
                 <TableRowColumn>{this.state.category}</TableRowColumn>
                 <TableRowColumn>{this.state.user.name}</TableRowColumn>

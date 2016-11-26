@@ -6,6 +6,7 @@ import PostStore from '../../stores/PostStore';
 import PostActions from '../../actions/PostActions';
 import PostTableRow from './PostTableRow.react.js';
 import Constants from '../../constants/NoteeConstants';
+import UserStore from '../../stores/UserStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,10 +19,12 @@ export default class PostSection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: [],
+            now_user: ""
         }
 
-        this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.ajaxPostLoaded = this.ajaxPostLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
         this.returnTableRow = this.returnTableRow.bind(this);
         this.changeSuccessed = this.changeSuccessed.bind(this);
         this.deletePost = this.deletePost.bind(this);
@@ -32,11 +35,16 @@ export default class PostSection extends Component {
     }
 
     componentWillMount() {
-        PostStore.loadPosts(this.ajaxLoaded);
+        PostStore.loadPosts(this.ajaxPostLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
-    ajaxLoaded(contents) {
+    ajaxPostLoaded(contents) {
         this.setState({posts: contents});
+    }
+
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
     }
 
     render() {
@@ -67,7 +75,7 @@ export default class PostSection extends Component {
     }
 
     changeSuccessed(){
-        PostStore.loadPosts(this.ajaxLoaded);
+        PostStore.loadPosts(this.ajaxPostLoaded);
     }
 
     deletePost(id){
