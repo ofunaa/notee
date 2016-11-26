@@ -17,7 +17,7 @@ function user_create(content) {
         .field('user[password_confirm]', content.user.password_confirm)
         .field('user[profile]', content.user.profile)
         .field('user[role]', content.user.role)
-        .attach("user[profile_img]", content.user.profile_img)
+        .attach("user[file]", content.user.profile_img)
         .end(function(err, res){
             if (err || !res.body) {
                 UserStore.emitChange(Constants.USER_CREATE_FAILED);
@@ -34,7 +34,7 @@ function user_update(content) {
         .field('user[email]', content.user.email)
         .field('user[profile]', content.user.profile)
         .field('user[role]', content.user.role)
-        .attach("user[profile_img]", content.user.profile_img)
+        .attach("user[file]", content.user.profile_img)
         .end(function(err, res){
             if(err || !res.body){
                 UserStore.emitChange(Constants.USER_UPDATE_FAILED);

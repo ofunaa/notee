@@ -71,7 +71,7 @@ module Notee
     end
 
     def manage_profile_img
-      return unless self.file
+      return  unless self.file.present?
 
       image_dir = Rails.root.to_s + "/public/notee/profile/"
       FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)

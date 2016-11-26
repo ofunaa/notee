@@ -4,7 +4,6 @@ import { Link } from "react-router";
 // notee
 import UserActions from '../../actions/UserActions';
 import UserStore from '../../stores/UserStore';
-import RoleStore from '../../stores/RoleStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,8 +22,7 @@ export default class MypageEdit extends Component {
                 name: "",
                 email: "",
                 profile: "",
-                profile_img: "",
-                role: ""
+                profile_img: ""
             },
             display_image_src: root_img_src + "default.png",
             roles: {}
@@ -32,7 +30,6 @@ export default class MypageEdit extends Component {
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
-        this.ajaxRolesLoaded = this.ajaxRolesLoaded.bind(this);
 
         // handles
         this.handleChange = this.handleChange.bind(this);
@@ -43,7 +40,6 @@ export default class MypageEdit extends Component {
 
     componentWillMount() {
         UserStore.loadUserByToken(this.ajaxLoaded);
-        RoleStore.loadRoles(this.ajaxRolesLoaded);
     }
 
     render() {
@@ -98,14 +94,6 @@ export default class MypageEdit extends Component {
             }
         }
 
-        var Roles = [];
-        for (var key in this.state.roles) {
-            Roles.push(
-                <option key={this.state.roles[key]} value={this.state.roles[key]}>
-                    {key}
-                </option>
-            );
-        }
 
         var handleChange = this.handleChange;
 
@@ -154,16 +142,6 @@ export default class MypageEdit extends Component {
                         alt="thumbnail"
                         src={this.state.display_image_src}
                     />
-                    <p>Role:</p>
-                    <select
-                        style={style.form.select}
-                        type="select"
-                        value={this.state.user.role}
-                        onChange={function(e){handleChange(e, "role")}}>
-
-                        {Roles}
-
-                    </select>
                     <button
                         style={style.form.button}
                         onClick={this.submit}>Submit</button>
@@ -188,9 +166,6 @@ export default class MypageEdit extends Component {
                 break;
             case "profile":
                 this.state.user.profile = e.target.value;
-                break;
-            case "role":
-                this.state.user.role = e.target.value;
                 break;
         }
         this.setState({ user: this.state.user });
@@ -221,20 +196,11 @@ export default class MypageEdit extends Component {
                 name: content.name,
                 email: content.email,
                 profile: content.profile,
-                profile_img: content.profile_img,
-                role: content.role
+                profile_img: content.profile_img
             },
             display_image_src: root_img_src + "profile/" + content.profile_img
         });
     }
 
-    ajaxRolesLoaded(content){
-        if(!content){return;}
-        this.state.user.role = content.writer; // initialize
-        this.setState({
-            roles: content,
-            user: this.state.user
-        });
-    }
 
 };

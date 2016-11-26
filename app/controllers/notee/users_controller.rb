@@ -27,8 +27,6 @@ module Notee
     # POST /posts
     def create
       @user = User.new(user_params)
-      @user.file = user_params[:profile_img]
-      p @user.file
       respond_to do |format|
         if @user.save
           format.json { render json: @user, status: 200 }
@@ -40,7 +38,6 @@ module Notee
 
     # PATCH/PUT /posts/1
     def update
-      @user.file = user_params[:profile_img]
       respond_to do |format|
         if @user.update(user_params)
           format.json { render json: @user, status: 200 }
@@ -84,7 +81,7 @@ module Notee
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :now_password, :password, :password_confirm, :profile, :profile_img, :role)
+      params.require(:user).permit(:name, :email, :now_password, :password, :password_confirm, :profile, :profile_img, :role, :file)
     end
   end
 end
