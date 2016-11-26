@@ -7,15 +7,29 @@ import FlatButton from 'material-ui/FlatButton';
 
 // notee
 import TokenActions from '../../actions/TokenActions';
+import RoleStore from '../../stores/RoleStore';
 
 export default class NoteeHeader extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {open: false};
+        this.state = {
+            open: false,
+            now_role: ""
+        };
         this.handleToggle = this.handleToggle.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.logout = this.logout.bind(this);
+        this.ajaxLoaded = this.ajaxLoaded.bind(this);
+    }
+
+    componentWillMount() {
+        RoleStore.loadRole(this.ajaxLoaded);
+    }
+
+    ajaxLoaded(content){
+        if(!content){return;}
+        this.setState({now_role: content});
     }
 
     handleToggle() {
@@ -27,6 +41,30 @@ export default class NoteeHeader extends Component {
     }
 
     render() {
+
+        var handleClose = this.handleClose;
+
+        var setLinks = function(role){
+            switch(role){
+                case "writer":
+                    return false;
+                case "editor":
+                    return false;
+                case "manager":
+                    return (
+                        <MenuItem onTouchTap={handleClose}>
+                            <Link to='/notee/users/'>User</Link>
+                        </MenuItem>
+                    );
+                case "root":
+                    return (
+                        <MenuItem onTouchTap={handleClose}>
+                            <Link to='/notee/users/'>User</Link>
+                        </MenuItem>
+                    );
+            }
+        }
+
         return (
             <header>
                 <AppBar
@@ -52,9 +90,7 @@ export default class NoteeHeader extends Component {
                     <MenuItem onTouchTap={this.handleClose}>
                         <Link to='/notee/comments/'>Comments</Link>
                     </MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/users/'>User</Link>
-                    </MenuItem>
+                    {setLinks(this.state.now_role)}
                     <MenuItem onTouchTap={this.handleClose}>
                         <Link to='/notee/trashes/'>TrashBox</Link>
                     </MenuItem>
