@@ -61,22 +61,22 @@ export default class UserShow extends Component {
                 switch(role){
                     case "writer":
                         return [
-                            "Create: posts, categories, images, comments",
+                            "Create: posts, categories, images",
                             "Update: my posts, categories, images, my user without role, comments",
                             "Delete: my posts, comments"]
                     case "editor":
                         return [
-                            "Create: posts, categories, images, comments",
+                            "Create: posts, categories, images",
                             "Update: posts, categories, images, my user without role, comments",
                             "Delete: posts, categories, images, comments"]
                     case "manager":
                         return [
-                            "Create: posts, categories, images, users, comments",
+                            "Create: posts, categories, images, users",
                             "Update: posts, categories, images, users, comments",
                             "Delete: posts, categories, images, users, comments"]
                     case "root":
                         return [
-                            "Create: users, comments",
+                            "Create: users",
                             "Update: none, comments",
                             "Delete: none, comments"]
                 }
