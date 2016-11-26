@@ -61,24 +61,24 @@ export default class UserShow extends Component {
                 switch(role){
                     case "writer":
                         return [
-                            "Create: posts, categories, images",
-                            "Update: my posts, categories, images, my user without role",
-                            "Delete: my posts"]
+                            "Create: posts, categories, images, comments",
+                            "Update: my posts, categories, images, my user without role, comments",
+                            "Delete: my posts, comments"]
                     case "editor":
                         return [
-                            "Create: posts, categories, images",
-                            "Update: posts, categories, images, my user without role",
-                            "Delete: posts, categories, images"]
+                            "Create: posts, categories, images, comments",
+                            "Update: posts, categories, images, my user without role, comments",
+                            "Delete: posts, categories, images, comments"]
                     case "manager":
                         return [
-                            "Create: posts, categories, images, users",
-                            "Update: posts, categories, images, users",
-                            "Delete: posts, categories, images, users"]
+                            "Create: posts, categories, images, users, comments",
+                            "Update: posts, categories, images, users, comments",
+                            "Delete: posts, categories, images, users, comments"]
                     case "root":
                         return [
-                            "Create: users",
-                            "Update: none",
-                            "Delete: none"]
+                            "Create: users, comments",
+                            "Update: none, comments",
+                            "Delete: none, comments"]
                 }
             }else{
                 switch(role){
