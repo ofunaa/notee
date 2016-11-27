@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 
-// notee
+// actions
 import CategoryActions from '../../actions/CategoryActions'
+
+// stores
 import CategoryStore from '../../stores/CategoryStore'
 
 // material-ui
