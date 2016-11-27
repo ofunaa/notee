@@ -5,9 +5,8 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
 
-// utils
-import pluralize from 'pluralize';
-
+// components
+import AuthorityEditColumn from '../authority/AuthorityEditColumn.react';
 
 export default class NoteeTableRow extends Component {
 
@@ -25,40 +24,6 @@ export default class NoteeTableRow extends Component {
     }
 
     render() {
-
-        var editButtonLink = function(model, now_user, content){
-            switch(model) {
-                case "Category":
-                    switch (now_user.role) {
-                        case "root":
-                            return (
-                                <RaisedButton
-                                    label="no permit"
-                                    disabled={true}/>
-                            );
-                    }
-                case "User":
-                    switch (now_user.role) {
-                        case "writer":
-                        case "editor":
-                        case "root":
-                            return (
-                                <RaisedButton
-                                    label="no permit"
-                                    disabled={true}/>
-                            );
-                    }
-            }
-
-            // default
-            return (
-                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
-                    <RaisedButton
-                        label="edit"
-                        primary={true} />
-                </Link>
-            );
-        }
 
         var deleteButton = function(model, now_user, deleteMethod){
             switch(model){
@@ -114,11 +79,12 @@ export default class NoteeTableRow extends Component {
                         <TableRowColumn key={index}>{content}</TableRowColumn>
                     );
                 })}
-                <TableRowColumn>
-                    {
-                        editButtonLink(this.props.modelName, this.props.now_user, this.state.contents)
-                    }
-                </TableRowColumn>
+                
+                <AuthorityEditColumn
+                    modelName={this.props.modelName}
+                    now_user={this.props.now_user}
+                    content={this.state.contents}
+                />
                 <TableRowColumn>
                     {
                         deleteButton(this.props.modelName, this.props.now_user, this.deleteContent)
