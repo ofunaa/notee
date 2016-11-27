@@ -201,7 +201,7 @@ export default class MypageSectionEdit extends Component {
                 id: content.id,
                 name: content.name,
                 email: content.email,
-                profile: content.profile,
+                profile: content.profile == null ? "" : content.profile,
                 profile_img: content.profile_img
             },
             display_image_src: root_img_src + "profile/" + content.profile_img
