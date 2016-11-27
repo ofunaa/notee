@@ -46,7 +46,7 @@ export default class UserSection extends Component {
 
 	render() {
 
-		// AuthorityUtil.checkAuthority("UserSection", this.state.now_user);
+		AuthorityUtil.checkAuthority("UserSection", this.state.now_user);
 
 		return (
 			<div id="list">

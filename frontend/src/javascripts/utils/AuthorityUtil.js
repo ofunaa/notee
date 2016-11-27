@@ -8,6 +8,8 @@ var AuthorityUtil = {
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "PostSectionEdit":
                 switch(now_user.role){
@@ -27,24 +29,32 @@ var AuthorityUtil = {
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "CategorySectionEdit":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "ImageSection":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "CommentSection":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "UserSection":
                 switch(now_user.role){
@@ -52,6 +62,8 @@ var AuthorityUtil = {
                     case "editor":
                         history.replaceState('', '', '/notee/');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "UserSectionEdit":
                 switch(now_user.role){
@@ -64,28 +76,37 @@ var AuthorityUtil = {
                             history.replaceState('', '', '/notee/user');
                             location.reload();
                         }
+                    default:
+                        return true;
                 }
             case "MypageSection":
                 switch(now_user.role){
-
+                    default:
+                        return true;
                 }
             case "MypageSectionEdit":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "MypageSectionEditPassword":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
             case "TrashSection":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                    default:
+                        return true;
                 }
         }
     }
