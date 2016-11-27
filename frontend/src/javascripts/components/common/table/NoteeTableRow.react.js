@@ -31,6 +31,28 @@ export default class NoteeTableRow extends Component {
                 case "Category":
                     switch(now_user.role){
                         case "writer":
+                        case "root":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}
+                                />
+                            );
+                        default:
+                            return (
+                                <RaisedButton
+                                    onClick={this.deleteContent}
+                                    label="delete"
+                                    secondary={true}
+                                    disabled={false}
+                                />
+                            );
+                    }
+                case "User":
+                    switch(now_user.role){
+                        case "writer":
+                        case "editor":
+                        case "root":
                             return (
                                 <RaisedButton
                                     label="no permit"

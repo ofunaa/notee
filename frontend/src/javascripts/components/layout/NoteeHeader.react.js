@@ -45,6 +45,7 @@ export default class NoteeHeader extends Component {
         var handleClose = this.handleClose;
 
         var Links = function(str){
+
             return (
                 <div>
                     <MenuItem onTouchTap={handleClose}>
