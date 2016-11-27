@@ -1,12 +1,20 @@
 import React, {Component, PropTypes} from 'react';
 
-// notee
+// actions
 import PostActions from '../../actions/PostActions';
+
+// stores
 import PostStore from '../../stores/PostStore';
 import CategoryStore from '../../stores/CategoryStore';
+import UserStore from '../../stores/UserStore';
+
+// components
 import PostForm  from './PostForm.react.js';
 import PostPreview  from './PostPreview.react.js';
+
+// constants
 import Constants from '../../constants/NoteeConstants';
+
 
 export default class PostEdit extends Component {
 
@@ -20,19 +28,22 @@ export default class PostEdit extends Component {
                 status: 0,
                 category_id: "",
                 thumbnail_id: "",
+                user_id: "",
                 seo_keyword: "",
                 seo_description: "",
                 secret_published_password: ""
             },
             categories: [],
             status: {},
-            is_save: true
+            is_save: true,
+            now_user: ""
         };
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
         this.ajaxStatusesLoaded = this.ajaxStatusesLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
 
         // eventemit_callback for notee
         this.saveSuccessed = this.saveSuccessed.bind(this);
@@ -44,11 +55,15 @@ export default class PostEdit extends Component {
         // handles
         this.handleChange = this.handleChange.bind(this);
         this.saveContent = this.saveContent.bind(this);
+
+        // check_authority
+        this.checkAuthority = this.checkAuthority.bind(this);
     }
 
     componentWillMount() {
         if(this.props.params.id){
             PostStore.loadPost(this.props.params.id, this.ajaxLoaded);
+            UserStore.loadUserByToken(this.ajaxNowUserLoaded);
         }
         PostStore.loadStatuses(this.ajaxStatusesLoaded);
         CategoryStore.loadCategories(this.ajaxCategoryLoaded);
@@ -60,6 +75,7 @@ export default class PostEdit extends Component {
     }
 
     render() {
+        this.checkAuthority(this.state.now_user, this.state.content);
 
         var style = {
             layout: {
@@ -154,6 +170,7 @@ export default class PostEdit extends Component {
                 status: content.status,
                 category_id: content.category_id,
                 thumbnail_id: content.thumbnail_id,
+                user_id: content.user_id,
                 seo_keyword: content.seo_keyword,
                 seo_description: content.seo_description,
                 secret_published_password: content.secret_published_password
@@ -169,6 +186,24 @@ export default class PostEdit extends Component {
     ajaxStatusesLoaded(content){
         if(!content){return;}
         this.setState({statuses: content});
+    }
+
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
+    }
+
+    checkAuthority(now_user, content){
+        if(this.props.params.id){
+            switch(now_user.role){
+                case "writer":
+                    if(now_user.id != content.user_id) {
+                        history.replaceState('', '', '/notee/posts');
+                        location.reload();
+                    }
+                default:
+                    return true;
+            }
+        }
     }
 
 };

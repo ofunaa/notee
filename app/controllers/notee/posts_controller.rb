@@ -30,6 +30,7 @@ module Notee
 
     # PATCH/PUT /posts/1
     def update
+      post_params[:user_id] = @post.user_id
       respond_to do |format|
         if @post.update(post_params)
           format.json { render json: @post, status: 200 }
