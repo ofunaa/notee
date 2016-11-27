@@ -1,17 +1,25 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from "react-router";
 
-// notee
-import TrashStore from '../../stores/TrashStore';
+// actions
 import TrashActions from '../../actions/TrashActions';
+
+// stores
+import TrashStore from '../../stores/TrashStore';
+import UserStore from '../../stores/UserStore';
+
+// components
+import NoteeTable from '../common/table/NoteeTable.react';
 import TrashTableRow from './TrashTableRow.react';
+
+// constants
 import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 
-// common-parts
-import NoteeTable from '../common/table/NoteeTable.react';
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 export default class TrashSection extends Component {
 
@@ -20,13 +28,22 @@ export default class TrashSection extends Component {
         this.state = {
             trash_contents: [],
             columns: [],
-            model_name: null
+            model_name: null,
+            now_user: ""
         };
 
+        // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
+
+        // callbacks
         this.changeSuccessed = this.changeSuccessed.bind(this);
+
+        // trashsection
         this.setModelName = this.setModelName.bind(this);
         this.setColumns = this.setColumns.bind(this);
+
+        // table
         this.returnTableRow = this.returnTableRow.bind(this);
     }
     
@@ -40,11 +57,18 @@ export default class TrashSection extends Component {
         TrashStore.addChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
     }
 
+    componentWillMount() {
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
     componentWillUnmount(){
         TrashStore.removeChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
     }
 
     render() {
+
+        AuthorityUtil.checkAuthority("TrashSection", this.state.now_user);
+
         var models = ["posts", "categories", "users", "images", "comments"];
         var click = this.setModelName;
         return (
@@ -72,6 +96,10 @@ export default class TrashSection extends Component {
 
     ajaxLoaded(contents){
         this.setState({trash_contents: contents});
+    }
+
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
     }
 
     changeSuccessed(){
