@@ -2,11 +2,11 @@ import React, {Component, PropTypes} from 'react'
 import { Link } from 'react-router';
 
 // material-ui
-import RaisedButton from 'material-ui/RaisedButton';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
 
 // components
 import AuthorityEditColumn from '../authority/AuthorityEditColumn.react';
+import AuthorityDeleteColumn from '../authority/AuthorityDeleteColumn.react';
 
 export default class NoteeTableRow extends Component {
 
@@ -24,54 +24,6 @@ export default class NoteeTableRow extends Component {
     }
 
     render() {
-
-        var deleteButton = function(model, now_user, deleteMethod){
-            switch(model){
-                case "Category":
-                    switch(now_user.role){
-                        case "writer":
-                        case "root":
-                            return (
-                                <RaisedButton
-                                    label="no permit"
-                                    disabled={true}
-                                />
-                            );
-                        default:
-                            return (
-                                <RaisedButton
-                                    onClick={deleteMethod}
-                                    label="delete"
-                                    secondary={true}
-                                    disabled={false}
-                                />
-                            );
-                    }
-                case "User":
-                    switch(now_user.role){
-                        case "writer":
-                        case "editor":
-                        case "root":
-                            return (
-                                <RaisedButton
-                                    label="no permit"
-                                    disabled={true}
-                                />
-                            );
-                        default:
-                            return (
-                                <RaisedButton
-                                    onClick={deleteMethod}
-                                    label="delete"
-                                    secondary={true}
-                                    disabled={false}
-                                />
-                            );
-                    }
-            }
-
-        }
-
         return(
             <TableRow>
                 {this.state.contents.map((content, index)=>{
@@ -85,11 +37,11 @@ export default class NoteeTableRow extends Component {
                     now_user={this.props.now_user}
                     content={this.state.contents}
                 />
-                <TableRowColumn>
-                    {
-                        deleteButton(this.props.modelName, this.props.now_user, this.deleteContent)
-                    }
-                </TableRowColumn>
+                <AuthorityDeleteColumn
+                    modelName={this.props.modelName}
+                    now_user={this.props.now_user}
+                    deleteMethod={this.deleteContent}
+                />
             </TableRow>
         );
     }
