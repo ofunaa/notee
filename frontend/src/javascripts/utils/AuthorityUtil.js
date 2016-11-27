@@ -2,6 +2,10 @@
 var AuthorityUtil = {
 
     checkAuthority(page, now_user, content){
+
+        if(!now_user){return false}
+        if(!content){return false}
+
         switch(page){
             case "PostSection":
                 switch(now_user.role){
@@ -18,11 +22,13 @@ var AuthorityUtil = {
                             history.replaceState('', '', '/notee/posts');
                             location.reload();
                         }
+                        return;
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "CategorySection":
                 switch(now_user.role){
@@ -30,7 +36,7 @@ var AuthorityUtil = {
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                     default:
-                        return true;
+                        return;
                 }
             case "CategorySectionEdit":
                 switch(now_user.role){
@@ -38,7 +44,7 @@ var AuthorityUtil = {
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                     default:
-                        return true;
+                        return;
                 }
             case "ImageSection":
                 switch(now_user.role){
