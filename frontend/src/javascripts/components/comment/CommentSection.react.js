@@ -1,24 +1,39 @@
 import React, {Component, PropTypes} from 'react';
 
-// notee
-import CommentStore from '../../stores/CommentStore';
+// actions
 import CommentActions from '../../actions/CommentActions';
+
+// stores
+import CommentStore from '../../stores/CommentStore';
+import UserStore from '../../stores/UserStore';
+
+// components
+import NoteeTable from '../common/table/NoteeTable.react';
 import CommentTableRow from './CommentTableRow.react';
+
+// constants
 import Constants from '../../constants/NoteeConstants';
 
-// common-parts
-import NoteeTable from '../common/table/NoteeTable.react';
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 export default class CommentSection extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            comments: []
+            comments: [],
+            now_user: ""
         }
 
+        // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
+
+        // table
         this.returnTableRow = this.returnTableRow.bind(this);
+
+        // callbacks
         this.changeSuccessed = this.changeSuccessed.bind(this);
     }
 
@@ -29,13 +44,21 @@ export default class CommentSection extends Component {
     
     componentWillMount() {
         CommentStore.loadComments(this.ajaxLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     ajaxLoaded(contents) {
         this.setState({comments: contents});
     }
 
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
+    }
+
     render() {
+
+        AuthorityUtil.checkAuthority("CommentSection", this.state.now_user);
+
         return (
             <div id="list">
                 <NoteeTable

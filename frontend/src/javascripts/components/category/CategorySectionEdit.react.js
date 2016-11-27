@@ -1,10 +1,11 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 // actions
-import CategoryActions from '../../actions/CategoryActions'
+import CategoryActions from '../../actions/CategoryActions';
 
 // stores
-import CategoryStore from '../../stores/CategoryStore'
+import CategoryStore from '../../stores/CategoryStore';
+import UserStore from '../../stores/UserStore';
 
 // material-ui
 import TextField from 'material-ui/TextField';
@@ -12,6 +13,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 export default class CategorySectionEdit extends Component {
 
@@ -24,12 +28,14 @@ export default class CategorySectionEdit extends Component {
                 slug: "",
                 parent_id: "",
                 is_private: ""
-            }
+            },
+            now_user: ""
         };
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
 
         // eventemit_callback for user
         this.updateContent = this.updateContent.bind(this);
@@ -47,13 +53,33 @@ export default class CategorySectionEdit extends Component {
             CategoryStore.loadCategory(this.props.params.id, this.ajaxLoaded);
         }
         CategoryStore.loadCategories(this.ajaxCategoryLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
+    // ajax
+    ajaxLoaded(content){
+        if(!content){return;}
+        this.setState({
+            category: {
+                name: content.name,
+                slug: content.slug,
+                parent_id: content.parent_id,
+                is_private: content.is_private
+            }
+        });
     }
 
     ajaxCategoryLoaded(content){
         this.setState({categories: content});
     }
 
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
+    }
+
     render() {
+
+        AuthorityUtil.checkAuthority("CategorySectionEdit", this.state.now_user);
 
         var use_categories = this.state.categories.map(function(category) {
             return <MenuItem key={category.id} value={category.id} primaryText={category.name} />;
@@ -185,19 +211,6 @@ export default class CategorySectionEdit extends Component {
             var item = {params_id: this.props.params.id, category: this.state.category}
             CategoryActions.update(item);
         }
-    }
-
-    // ajax
-    ajaxLoaded(content){
-        if(!content){return;}
-        this.setState({
-            category: {
-                name: content.name,
-                slug: content.slug,
-                parent_id: content.parent_id,
-                is_private: content.is_private
-            }
-        });
     }
 
 };

@@ -6,6 +6,7 @@ import CategoryActions from '../../actions/CategoryActions';
 
 // stores
 import CategoryStore from '../../stores/CategoryStore';
+import UserStore from '../../stores/UserStore';
 
 // components
 import CategoryForm from './CategoryForm.react';
@@ -14,6 +15,8 @@ import NoteeTable from '../common/table/NoteeTable.react';
 // constants
 import Constants from '../../constants/NoteeConstants';
 
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 export default class CategorySection extends Component {
 
@@ -21,7 +24,8 @@ export default class CategorySection extends Component {
         super(props);
 
         this.state = {
-            categories: []
+            categories: [],
+            now_user: ""
         };
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
@@ -37,13 +41,21 @@ export default class CategorySection extends Component {
 
     componentWillMount() {
         CategoryStore.loadCategories(this.ajaxLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     ajaxLoaded(content){
         this.setState({categories: content});
     }
 
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
+    }
+
     render() {
+
+        AuthorityUtil.checkAuthority("CategorySection", this.state.now_user);
+
         return (
             <div class="main">
                 <CategoryForm

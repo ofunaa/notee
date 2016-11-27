@@ -1,11 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from "react-router";
 
-// notee
+// actions
 import UserActions from '../../actions/UserActions';
+
+// stores
+import UserStore from '../../stores/UserStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
+
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 export default class MypageSectionEditPassword extends Component {
 
@@ -16,15 +22,28 @@ export default class MypageSectionEditPassword extends Component {
                 now_password: "",
                 password: "",
                 password_confirm: ""
-            }
+            },
+            now_user: ""
         };
+
+        // ajax
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
 
         // handles
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
     }
 
+    componentWillMount() {
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
+    }
+
     render() {
+        AuthorityUtil.checkAuthority("MypageSectionEditPassword", this.state.now_user);
 
         var handleChange = this.handleChange;
 

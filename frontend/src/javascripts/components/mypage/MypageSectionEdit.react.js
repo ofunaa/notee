@@ -1,12 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from "react-router";
 
-// notee
+// actions
 import UserActions from '../../actions/UserActions';
+
+// stores
 import UserStore from '../../stores/UserStore';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
+
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 // image
 var root_img_src = window.location.origin + "/notee/";
@@ -43,6 +48,7 @@ export default class MypageSectionEdit extends Component {
     }
 
     render() {
+        AuthorityUtil.checkAuthority("MypageSectionEdit", this.state.user);
 
         var style = {
             layout: {

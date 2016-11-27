@@ -10,6 +10,9 @@ import AuthorityDescription from '../../components/common/authority/AuthorityDes
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
+
 export default class UserShow extends Component {
 
     constructor(props) {
@@ -34,6 +37,7 @@ export default class UserShow extends Component {
     }
 
     render() {
+        AuthorityUtil.checkAuthority("MypageSection", this.state.user);
 
         return(
             <div>

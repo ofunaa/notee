@@ -15,6 +15,9 @@ import PostPreview  from './PostPreview.react.js';
 // constants
 import Constants from '../../constants/NoteeConstants';
 
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
+
 
 export default class PostSectionEdit extends Component {
 
@@ -55,9 +58,6 @@ export default class PostSectionEdit extends Component {
         // handles
         this.handleChange = this.handleChange.bind(this);
         this.saveContent = this.saveContent.bind(this);
-
-        // check_authority
-        this.checkAuthority = this.checkAuthority.bind(this);
     }
 
     componentWillMount() {
@@ -75,7 +75,9 @@ export default class PostSectionEdit extends Component {
     }
 
     render() {
-        this.checkAuthority(this.state.now_user, this.state.content);
+        if(this.props.params.id) {
+            AuthorityUtil.checkAuthority("PostSectionEdit", this.state.now_user, this.state.content);
+        }
 
         var style = {
             layout: {
@@ -190,23 +192,6 @@ export default class PostSectionEdit extends Component {
 
     ajaxNowUserLoaded(content) {
         this.setState({now_user: content});
-    }
-
-    checkAuthority(now_user, content){
-        if(this.props.params.id){
-            switch(now_user.role){
-                case "writer":
-                    if(now_user.id != content.user_id) {
-                        history.replaceState('', '', '/notee/posts');
-                        location.reload();
-                    }
-                case "root":
-                    history.replaceState('', '', '/notee/users');
-                    location.reload();
-                default:
-                    return true;
-            }
-        }
     }
 
 };

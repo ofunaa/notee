@@ -1,10 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 
-// notee
+// actions
 import UserActions from '../../actions/UserActions';
+
+// stores
 import UserStore from '../../stores/UserStore';
 import RoleStore from '../../stores/RoleStore';
 
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 // image
 var root_img_src = window.location.origin + "/notee/";
@@ -25,12 +29,14 @@ export default class UserSectionEdit extends Component {
                 role: ""
             },
             display_image_src: root_img_src + "default.png",
-            roles: {}
+            roles: {},
+            now_user: ""
         };
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxRolesLoaded = this.ajaxRolesLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
 
         // handles
         this.handleChange = this.handleChange.bind(this);
@@ -46,10 +52,12 @@ export default class UserSectionEdit extends Component {
             UserStore.loadUser(this.props.params.id, this.ajaxLoaded);
         }
         RoleStore.loadRoles(this.ajaxRolesLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     render() {
-
+        AuthorityUtil.checkAuthority("UserSectionEdit", this.state.now_user, this.props.params.id == null ? null : this.props.params.id);
+        
         var style = {
             layout: {
                 main: {

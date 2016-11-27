@@ -1,9 +1,17 @@
 import React, {Component, PropTypes} from "react";
 
-// notee
+// actions
 import ImageActions from '../../actions/ImageActions';
+
+// stores
 import ImageStore from '../../stores/ImageStore';
+import UserStore from '../../stores/UserStore';
+
+// constatns
 import Constants from '../../constants/NoteeConstants';
+
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
 
 export default class ImageSection extends Component {
 
@@ -12,7 +20,8 @@ export default class ImageSection extends Component {
         this.state = {
             images: [],
             upload_file: null,
-            tap_image: ""
+            tap_image: "",
+            now_user: ""
         };
 
         // imageSection
@@ -24,8 +33,8 @@ export default class ImageSection extends Component {
         this.deleteSuccessed = this.deleteSuccessed.bind(this);
 
         // ajax
-        this.setImages = this.setImages.bind(this);
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
 
         // handles
         this.handleChangeImage = this.handleChangeImage.bind(this);
@@ -37,11 +46,8 @@ export default class ImageSection extends Component {
     }
 
     componentWillMount() {
-        this.setImages();
-    }
-
-    setImages() {
         ImageStore.loadImages(this.ajaxLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     ajaxLoaded(content){
@@ -49,7 +55,12 @@ export default class ImageSection extends Component {
         this.setState({images: content});
     }
 
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
+    }
+
     render() {
+        AuthorityUtil.checkAuthority("ImageSection", this.state.now_user);
 
         var style = {
             image: {
@@ -150,7 +161,7 @@ export default class ImageSection extends Component {
     }
 
     deleteSuccessed(){
-        this.setImages();
+        ImageStore.loadImages(this.ajaxLoaded);
         this.setState({tap_image: null});
     }
 

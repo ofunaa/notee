@@ -18,6 +18,9 @@ import Constants from '../../constants/NoteeConstants';
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 
+// utils
+import AuthorityUtil from '../../utils/AuthorityUtil';
+
 
 export default class PostSection extends Component {
 
@@ -40,9 +43,6 @@ export default class PostSection extends Component {
 
         // noteetable
         this.returnTableRow = this.returnTableRow.bind(this);
-
-        // check_authority
-        this.checkAuthority = this.checkAuthority.bind(this);
     }
 
     componentDidMount() {
@@ -63,7 +63,7 @@ export default class PostSection extends Component {
     }
 
     render() {
-        this.checkAuthority(this.state.now_user);
+        AuthorityUtil.checkAuthority("PostSection", this.state.now_user);
 
         return (
             <div id="list">
@@ -98,16 +98,6 @@ export default class PostSection extends Component {
 
     deletePost(id){
         PostActions.delete(id);
-    }
-
-    checkAuthority(now_user){
-        switch(now_user.role){
-            case "root":
-                history.replaceState('', '', '/notee/users');
-                location.reload();
-            default:
-                return true;
-        }
     }
 
 };
