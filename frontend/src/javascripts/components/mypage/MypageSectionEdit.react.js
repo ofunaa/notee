@@ -30,7 +30,8 @@ export default class MypageSectionEdit extends Component {
                 profile_img: ""
             },
             display_image_src: root_img_src + "default.png",
-            roles: {}
+            roles: {},
+            now_user: ""
         };
 
         // ajax
@@ -48,7 +49,7 @@ export default class MypageSectionEdit extends Component {
     }
 
     render() {
-        AuthorityUtil.checkAuthority("MypageSectionEdit", this.state.user);
+        AuthorityUtil.checkAuthority("MypageSectionEdit", this.state.now_user);
 
         var style = {
             layout: {
@@ -204,6 +205,7 @@ export default class MypageSectionEdit extends Component {
                 profile: content.profile == null ? "" : content.profile,
                 profile_img: content.profile_img
             },
+            now_user: content,
             display_image_src: root_img_src + "profile/" + content.profile_img
         });
     }
