@@ -261,6 +261,10 @@ export default class UserEdit extends Component {
 
     ajaxRolesLoaded(content){
         if(!content){return;}
+
+        // delete root select
+        delete content.root;
+
         this.state.user.role = content.writer;
         this.setState({
           roles: content,
