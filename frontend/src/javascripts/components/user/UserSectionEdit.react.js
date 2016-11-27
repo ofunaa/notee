@@ -57,7 +57,7 @@ export default class UserSectionEdit extends Component {
 
     render() {
         AuthorityUtil.checkAuthority("UserSectionEdit", this.state.now_user, this.props.params.id == null ? null : this.props.params.id);
-        
+
         var style = {
             layout: {
                 main: {
@@ -278,6 +278,10 @@ export default class UserSectionEdit extends Component {
           roles: content,
           user: this.state.user
         });
+    }
+
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
     }
 
 };
