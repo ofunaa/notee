@@ -28,11 +28,21 @@ export default class PostSection extends Component {
             now_user: ""
         }
 
+        // crud
+        this.deletePost = this.deletePost.bind(this);
+
+        // ajax
         this.ajaxPostLoaded = this.ajaxPostLoaded.bind(this);
         this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
-        this.returnTableRow = this.returnTableRow.bind(this);
+
+        // eventemit
         this.changeSuccessed = this.changeSuccessed.bind(this);
-        this.deletePost = this.deletePost.bind(this);
+
+        // noteetable
+        this.returnTableRow = this.returnTableRow.bind(this);
+
+        // check_authority
+        this.checkAuthority = this.checkAuthority.bind(this);
     }
 
     componentDidMount() {
@@ -53,6 +63,8 @@ export default class PostSection extends Component {
     }
 
     render() {
+        this.checkAuthority(this.state.now_user);
+
         return (
             <div id="list">
                 <Link to={`/notee/posts/new`} activeClassName="active">
@@ -86,6 +98,16 @@ export default class PostSection extends Component {
 
     deletePost(id){
         PostActions.delete(id);
+    }
+
+    checkAuthority(now_user){
+        switch(now_user.role){
+            case "root":
+                history.replaceState('', '', '/notee/users');
+                location.reload();
+            default:
+                return true;
+        }
     }
 
 };

@@ -200,6 +200,9 @@ export default class PostEdit extends Component {
                         history.replaceState('', '', '/notee/posts');
                         location.reload();
                     }
+                case "root":
+                    history.replaceState('', '', '/notee/users');
+                    location.reload();
                 default:
                     return true;
             }

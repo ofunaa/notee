@@ -44,23 +44,59 @@ export default class NoteeHeader extends Component {
 
         var handleClose = this.handleClose;
 
+        var Links = function(str){
+            return (
+                <div>
+                    <MenuItem onTouchTap={handleClose}>
+                        <Link to='/notee/posts'>Post</Link>
+                    </MenuItem>
+                    <MenuItem onTouchTap={handleClose}>
+                        <Link to='/notee/categories/'>Category</Link>
+                    </MenuItem>
+                    <MenuItem onTouchTap={handleClose}>
+                        <Link to='/notee/images/'>Image</Link>
+                    </MenuItem>
+                    <MenuItem onTouchTap={handleClose}>
+                        <Link to='/notee/comments/'>Comments</Link>
+                    </MenuItem>
+                    {function(str){
+                        if(str == "full"){
+                            return(
+                                <MenuItem onTouchTap={handleClose}>
+                                    <Link to='/notee/users/'>User</Link>
+                                </MenuItem>
+                            );
+                        }
+                    }}
+                    <MenuItem onTouchTap={handleClose}>
+                        <Link to='/notee/trashes/'>TrashBox</Link>
+                    </MenuItem>
+                    <MenuItem onTouchTap={handleClose}>
+                        <Link to='/notee/mypage/'>Mypage</Link>
+                    </MenuItem>
+                </div>
+            );
+        }
+
         var setLinks = function(role){
             switch(role){
                 case "writer":
-                    return false;
+                    return Links(null);
                 case "editor":
-                    return false;
+                    return Links(null);
                 case "manager":
-                    return (
-                        <MenuItem onTouchTap={handleClose}>
-                            <Link to='/notee/users/'>User</Link>
-                        </MenuItem>
-                    );
+                    return Links("full")
                 case "root":
                     return (
-                        <MenuItem onTouchTap={handleClose}>
-                            <Link to='/notee/users/'>User</Link>
-                        </MenuItem>
+                        <div>
+                            <MenuItem onTouchTap={handleClose}>
+                                <Link to='/notee/users/'>User</Link>
+                            </MenuItem>
+                            <MenuItem onTouchTap={handleClose}>
+                                <Link to='/notee/mypage/'>Mypage</Link>
+                            </MenuItem>
+                        </div>
+
                     );
             }
         }
@@ -78,25 +114,7 @@ export default class NoteeHeader extends Component {
                     open={this.state.open}
                     onRequestChange={(open) => this.setState({open})}
                 >
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/posts'>Post</Link>
-                    </MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/categories/'>Category</Link>
-                    </MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/images/'>Image</Link>
-                    </MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/comments/'>Comments</Link>
-                    </MenuItem>
                     {setLinks(this.state.now_role)}
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/trashes/'>TrashBox</Link>
-                    </MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>
-                        <Link to='/notee/mypage/'>Mypage</Link>
-                    </MenuItem>
                 </Drawer>
             </header>
         );
