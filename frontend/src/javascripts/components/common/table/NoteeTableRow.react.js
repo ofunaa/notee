@@ -26,7 +26,41 @@ export default class NoteeTableRow extends Component {
 
     render() {
 
-        var deleteButton = function(model, now_user){
+        var editButtonLink = function(model, now_user, content){
+            switch(model) {
+                case "Category":
+                    switch (now_user.role) {
+                        case "root":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}/>
+                            );
+                    }
+                case "User":
+                    switch (now_user.role) {
+                        case "writer":
+                        case "editor":
+                        case "root":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}/>
+                            );
+                    }
+            }
+
+            // default
+            return (
+                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
+                    <RaisedButton
+                        label="edit"
+                        primary={true} />
+                </Link>
+            );
+        }
+
+        var deleteButton = function(model, now_user, deleteMethod){
             switch(model){
                 case "Category":
                     switch(now_user.role){
@@ -41,7 +75,7 @@ export default class NoteeTableRow extends Component {
                         default:
                             return (
                                 <RaisedButton
-                                    onClick={this.deleteContent}
+                                    onClick={deleteMethod}
                                     label="delete"
                                     secondary={true}
                                     disabled={false}
@@ -62,7 +96,7 @@ export default class NoteeTableRow extends Component {
                         default:
                             return (
                                 <RaisedButton
-                                    onClick={this.deleteContent}
+                                    onClick={deleteMethod}
                                     label="delete"
                                     secondary={true}
                                     disabled={false}
@@ -81,13 +115,14 @@ export default class NoteeTableRow extends Component {
                     );
                 })}
                 <TableRowColumn>
-                    <Link to={`/notee/${pluralize(this.props.modelName).toLowerCase()}/edit/${this.props.content.id}`} activeClassName="active">
-                        <RaisedButton
-                            label="edit"
-                            primary={true} /></Link>
+                    {
+                        editButtonLink(this.props.modelName, this.props.now_user, this.state.contents)
+                    }
                 </TableRowColumn>
                 <TableRowColumn>
-                    {deleteButton(this.props.modelName, this.props.now_user)}
+                    {
+                        deleteButton(this.props.modelName, this.props.now_user, this.deleteContent)
+                    }
                 </TableRowColumn>
             </TableRow>
         );
