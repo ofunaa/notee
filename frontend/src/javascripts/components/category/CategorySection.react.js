@@ -28,7 +28,11 @@ export default class CategorySection extends Component {
             now_user: ""
         };
 
+        // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
+
+        // callback
         this.changeSuccessed = this.changeSuccessed.bind(this);
 
     }

@@ -67,7 +67,7 @@ var AuthorityUtil = {
                 }
             case "MypageSection":
                 switch(now_user.role){
-                    
+
                 }
             case "MypageSectionEdit":
                 switch(now_user.role){
@@ -87,7 +87,6 @@ var AuthorityUtil = {
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                 }
-
         }
     }
 

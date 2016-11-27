@@ -66,7 +66,6 @@ export default class TrashSection extends Component {
     }
 
     render() {
-
         AuthorityUtil.checkAuthority("TrashSection", this.state.now_user);
 
         var models = ["posts", "categories", "users", "images", "comments"];
