@@ -1,18 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from "react-router";
 
-// notee
-import PostStore from '../../stores/PostStore';
+// actions
 import PostActions from '../../actions/PostActions';
-import PostTableRow from './PostTableRow.react.js';
-import Constants from '../../constants/NoteeConstants';
+
+// stores
+import PostStore from '../../stores/PostStore';
 import UserStore from '../../stores/UserStore';
+
+// components
+import PostTableRow from './PostTableRow.react.js';
+import NoteeTable from '../common/table/NoteeTable.react';
+
+// constants
+import Constants from '../../constants/NoteeConstants';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 
-// common-parts
-import NoteeTable from '../common/table/NoteeTable.react';
 
 export default class PostSection extends Component {
 

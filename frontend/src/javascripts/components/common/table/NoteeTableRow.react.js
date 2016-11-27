@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
+import { Link } from 'react-router';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
-import { Link } from 'react-router';
 
 // utils
 import pluralize from 'pluralize';
@@ -25,6 +25,32 @@ export default class NoteeTableRow extends Component {
     }
 
     render() {
+
+        var deleteButton = function(model, now_user){
+            switch(model){
+                case "Category":
+                    switch(now_user.role){
+                        case "writer":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}
+                                />
+                            );
+                        default:
+                            return (
+                                <RaisedButton
+                                    onClick={this.deleteContent}
+                                    label="delete"
+                                    secondary={true}
+                                    disabled={false}
+                                />
+                            );
+                    }
+            }
+
+        }
+
         return(
             <TableRow>
                 {this.state.contents.map((content, index)=>{
@@ -39,12 +65,7 @@ export default class NoteeTableRow extends Component {
                             primary={true} /></Link>
                 </TableRowColumn>
                 <TableRowColumn>
-                    <RaisedButton
-                        onClick={this.deleteContent}
-                        label="delete"
-                        secondary={true}
-                        disabled={false}
-                    />
+                    {deleteButton(this.props.modelName, this.props.now_user)}
                 </TableRowColumn>
             </TableRow>
         );

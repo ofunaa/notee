@@ -1,16 +1,18 @@
 import React, {Component, PropTypes} from 'react';
-
-// notee
-import CategoryStore from '../../stores/CategoryStore';
-import CategoryActions from '../../actions/CategoryActions';
-import Constants from '../../constants/NoteeConstants';
-
-// material-ui
 import { Link } from "react-router";
-import CategoryForm from './CategoryForm.react';
 
-// common-parts
+// actions
+import CategoryActions from '../../actions/CategoryActions';
+
+// stores
+import CategoryStore from '../../stores/CategoryStore';
+
+// components
+import CategoryForm from './CategoryForm.react';
 import NoteeTable from '../common/table/NoteeTable.react';
+
+// constants
+import Constants from '../../constants/NoteeConstants';
 
 
 export default class CategorySection extends Component {
@@ -23,6 +25,7 @@ export default class CategorySection extends Component {
         };
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
+        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
         this.changeSuccessed = this.changeSuccessed.bind(this);
 
     }
@@ -39,6 +42,10 @@ export default class CategorySection extends Component {
 
     ajaxLoaded(content){
         this.setState({categories: content});
+    }
+    
+    ajaxNowUserLoaded(content) {
+        this.setState({now_user: content});
     }
 
     render() {

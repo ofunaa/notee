@@ -85,7 +85,6 @@ export default class IndexTableRow extends Component {
                             />
                         );
                     }
-
                     return (
                         <RaisedButton
                             onClick={function(){deletePost(delete_id)}}
