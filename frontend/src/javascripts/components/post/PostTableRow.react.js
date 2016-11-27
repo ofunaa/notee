@@ -74,6 +74,38 @@ export default class IndexTableRow extends Component {
             }
         }
 
+        var deleteButton = function(now_user, post){
+            switch(now_user.role){
+                case "writer":
+                    if(now_user.id != post.user_id){
+                        return (
+                            <RaisedButton
+                                label="no permit"
+                                disabled={true}
+                            />
+                        );
+                    }
+
+                    return (
+                        <RaisedButton
+                            onClick={function(){deletePost(delete_id)}}
+                            label="delete"
+                            secondary={true}
+                            disabled={false}
+                        />
+                    );
+                default:
+                    return (
+                        <RaisedButton
+                            onClick={function(){deletePost(delete_id)}}
+                            label="delete"
+                            secondary={true}
+                            disabled={false}
+                        />
+                    );
+            }
+        }
+
         return(
             <TableRow style={myPostStyle(this.props.now_user.id, this.props.post.user_id)}>
                 <TableRowColumn>{this.props.post.title}</TableRowColumn>
@@ -85,12 +117,7 @@ export default class IndexTableRow extends Component {
                     {editButtonLink(this.props.now_user, this.props.post)}
                 </TableRowColumn>
                 <TableRowColumn>
-                    <RaisedButton
-                        onClick={function(){deletePost(delete_id)}}
-                        label="delete"
-                        secondary={true}
-                        disabled={false}
-                    />
+                    {deleteButton(this.props.now_user, this.props.post)}
                 </TableRowColumn>
             </TableRow>
         );
