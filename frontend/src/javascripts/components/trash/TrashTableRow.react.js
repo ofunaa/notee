@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 
+// notee_user
+import UserStore from '../../stores/UserStore';
+
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
@@ -72,8 +75,9 @@ export default class TrashTableRow extends Component {
                 var time_limit = String(Math.ceil(tmp_mili / 1000 / 60 / 60 / 24)) + " days";
                 arr.push(time_limit);
             }else{
-                var content = "tmp_contents." + column;
-                arr.push(eval(content));
+                var content_str = "tmp_contents." + column;
+                var content = eval(content_str);
+                arr.push(content);
             }
         })
 
