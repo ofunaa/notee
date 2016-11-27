@@ -41,7 +41,36 @@ export default class IndexTableRow extends Component {
 
         var myPostStyle = function(now_user_id, user_id){
             if(now_user_id == user_id){
-                return {backgroundColor: "rgba(250,200,80,0.7)"};
+                return {backgroundColor: "rgba(250,200,80,0.5)"};
+            }
+        }
+
+        var editButtonLink = function(now_user, post){
+            switch(now_user.role){
+                case "writer":
+                    if(now_user.id != post.user_id){
+                        return (
+                            <RaisedButton
+                                label="no permit"
+                                disabled={true} />
+                        );
+                    }
+
+                    return (
+                        <Link to={`/notee/posts/edit/${post.id}`} activeClassName="active">
+                            <RaisedButton
+                                label="edit"
+                                primary={true} />
+                        </Link>
+                    );
+                default:
+                    return (
+                        <Link to={`/notee/posts/edit/${post.id}`} activeClassName="active">
+                            <RaisedButton
+                                label="edit"
+                                primary={true} />
+                        </Link>
+                    );
             }
         }
 
@@ -53,10 +82,7 @@ export default class IndexTableRow extends Component {
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
-                    <Link to={`/notee/posts/edit/${this.props.post.id}`} activeClassName="active">
-                        <RaisedButton
-                        label="edit"
-                        primary={true} /></Link>
+                    {editButtonLink(this.props.now_user, this.props.post)}
                 </TableRowColumn>
                 <TableRowColumn>
                     <RaisedButton
