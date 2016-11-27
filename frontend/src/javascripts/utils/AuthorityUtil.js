@@ -73,7 +73,7 @@ var AuthorityUtil = {
                         location.reload();
                     case "root":
                         if(content != null){
-                            history.replaceState('', '', '/notee/user');
+                            history.replaceState('', '', '/notee/users');
                             location.reload();
                         }
                     default:
