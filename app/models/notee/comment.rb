@@ -2,7 +2,7 @@ module Notee
   class Comment < ActiveRecord::Base
 
     # scopes
-    scope :trash, -> { where(is_delete: true) }
+    scope :trash, -> { where(is_deleted: true) }
     scope :time_limit, -> { where('updated_at <= ?', Time.current - 60*60*24*30) }
 
     # validates

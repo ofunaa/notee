@@ -6,7 +6,7 @@ module Notee
     before_action :set_category, only: [:show, :update, :destroy]
 
     def index
-      @categories = Category.where(is_delete: false)
+      @categories = Category.where(is_deleted: false)
       render json: { status: 'success', categories: @categories }
     end
 
@@ -40,7 +40,7 @@ module Notee
 
     def destroy
       respond_to do |format|
-        if @category.update(slug: nil, is_delete: true)
+        if @category.update(slug: nil, is_deleted: true)
           Category.before_destroy_parent(@category.id)
           format.json { render json: @category, status: 200 }
         else

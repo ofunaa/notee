@@ -17,7 +17,7 @@ module Notee
 			get_model.skip_callback(:update, :before, :update_authority)
 
 			respond_to do |format|
-				if @trash.update(is_delete: false)
+				if @trash.update(is_deleted: false)
 					format.json { render json: @trash, status: 200 }
 				else
 					format.json { render json: @trash.errors, status: :unprocessable_entity }

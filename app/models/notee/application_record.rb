@@ -3,7 +3,7 @@ module Notee
     self.abstract_class = true
 
     # scopes
-    scope :trash, -> { where(is_delete: true) }
+    scope :trash, -> { where(is_deleted: true) }
     scope :time_limit, -> { where('updated_at <= ?', Time.current - 60*60*24*30) }
 
     # authority check
@@ -24,7 +24,7 @@ module Notee
     end
 
     def is_destroy?
-      return true if self.is_delete == true
+      return true if self.is_deleted == true
       false
     end
   end

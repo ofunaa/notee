@@ -5,7 +5,7 @@ class CreateNoteeImages < ActiveRecord::Migration
     create_table :notee_images do |t|
 
       t.string :content, null: false, uniqueness: true
-      t.boolean :is_delete, null: false, default: false
+      t.boolean :is_deleted, null: false, default: false
 
       # if you have user_id
       # t.integer :user_id

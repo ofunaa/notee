@@ -5,7 +5,7 @@ module Notee
   class ImagesController < ApplicationController
 
     def index
-      @images = Image.where(is_delete: false).order(updated_at: :desc)
+      @images = Image.where(is_deleted: false).order(updated_at: :desc)
       render json: { status: 'success', images: @images }
     end
 
@@ -31,7 +31,7 @@ module Notee
       return unless @del_img = Image.find_by(content: params[:name])
 
       respond_to do |format|
-        if @del_img.update(is_delete: true)
+        if @del_img.update(is_deleted: true)
           format.json { render json: @del_img, status: 200 }
         else
           format.json { render json: @del_img.errors, status: :internal_server_error }

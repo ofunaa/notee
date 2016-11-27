@@ -5,7 +5,7 @@ module Notee
     before_action :set_comment, only: [:update, :destroy]
 
     def index
-      comments = Comment.where(is_delete: false).order(updated_at: :desc)
+      comments = Comment.where(is_deleted: false).order(updated_at: :desc)
       render json: { status: 'success', comments: comments }
     end
 
@@ -35,7 +35,7 @@ module Notee
 
     def destroy
       respond_to do |format|
-        if @comment.update(is_delete: true)
+        if @comment.update(is_deleted: true)
           format.json { render json: @comment, status: 200 }
         else
           format.json { render json: @comment.errors, status: :internal_server_error }

@@ -7,7 +7,7 @@ class CreateNoteeUsers < ActiveRecord::Migration
       t.text :profile
       t.string :profile_img
       t.integer :role, null: false
-      t.boolean :is_delete, null: false, default: false
+      t.boolean :is_deleted, null: false, default: false
 
       t.timestamps null: false
     end

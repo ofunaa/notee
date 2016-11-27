@@ -7,7 +7,7 @@ module Notee
 
     # GET /posts
     def index
-      @posts = Post.where(is_delete: false).order(updated_at: :desc)
+      @posts = Post.where(is_deleted: false).order(updated_at: :desc)
       render json: { status: 'success', posts: @posts }
     end
 
@@ -43,7 +43,7 @@ module Notee
     # DELETE /posts/1
     def destroy
       respond_to do |format|
-        if @post.update(is_delete: true)
+        if @post.update(is_deleted: true)
           format.json { render json: @post, status: 200 }
         else
           format.json { render json: @post.errors, status: :internal_server_error }
