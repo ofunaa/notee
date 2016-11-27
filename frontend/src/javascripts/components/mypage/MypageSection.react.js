@@ -38,12 +38,20 @@ export default class UserShow extends Component {
         return(
             <div>
                 <h2>Mypage</h2>
-                <Link to={`/notee/mypage/edit`} activeClassName="active" class="mr_20">
-                    <RaisedButton label="Edit Profile" primary={true} />
-                </Link>
-                <Link to={`/notee/mypage/edit/password`} activeClassName="active" class="mr_20">
-                    <RaisedButton label="Edit Password" primary={true} />
-                </Link>
+                {function(){
+                    if(this.state.role != "root"){
+                        return(
+                            <div>
+                                <Link to={`/notee/mypage/edit`} activeClassName="active" class="mr_20">
+                                    <RaisedButton label="Edit Profile" primary={true} />
+                                </Link>
+                                <Link to={`/notee/mypage/edit/password`} activeClassName="active" class="mr_20">
+                                    <RaisedButton label="Edit Password" primary={true} />
+                                </Link>
+                            </div>
+                        );
+                    }
+                }}
                 <p>name:</p>
                 <h3>{this.state.user.name}</h3>
                 <p>email:</p>
