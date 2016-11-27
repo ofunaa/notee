@@ -6,18 +6,31 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 // notee
 import NoteeHeader from './components/layout/NoteeHeader.react.js'
 import NoteeFooter from './components/layout/NoteeFooter.react.js'
+
+// post
 import PostSection from './components/post/PostSection.react.js'
 import PostSectionEdit from './components/post/PostSectionEdit.react.js'
+
+// category
 import CategorySection from './components/category/CategorySection.react.js'
 import CategorySectionEdit from './components/category/CategorySectionEdit.react.js'
+
+// image
 import ImageSection from './components/image/ImageSection.react.js'
+
+// comment
 import CommentSection from './components/comment/CommentSection.react.js'
+
+// user
 import UserSection from './components/user/UserSection.react.js'
 import UserSectionEdit from './components/user/UserSectionEdit.react.js'
+
+// mypage
 import MypageSection from './components/mypage/MypageSection.react.js'
 import MypageSectionEdit from './components/mypage/MypageSectionEdit.react.js'
 import MypageSectionEditPassword from './components/mypage/MypageSectionEditPassword.react.js'
-import UserShow from './components/mypage/MypageSection.react.js'
+
+// trash
 import TrashSection from './components/trash/TrashSection.react.js'
 
 // common-parts
@@ -69,7 +82,6 @@ const routes = (
         <Route path='users'>
             <Route path='new' component={UserSectionEdit} />
             <Route path='edit/:id' component={UserSectionEdit} />
-            <Route path='show/:id' component={UserShow} />
             <IndexRoute component={UserSection}/>
         </Route>
 
