@@ -25,6 +25,7 @@ export default class ImageSection extends Component {
         };
 
         // imageSection
+        this.setImages = this.setImages.bind(this);
         this.clickImage = this.clickImage.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
@@ -146,6 +147,10 @@ export default class ImageSection extends Component {
                 </div>
             </div>
         );
+    }
+
+    setImages() {
+        ImageStore.loadImages(this.ajaxLoaded);
     }
 
     clickImage(e) {
