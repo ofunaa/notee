@@ -12,7 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 var root_img_src = window.location.origin + "/notee/";
 var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
-export default class MypageEdit extends Component {
+export default class MypageSectionEdit extends Component {
 
     constructor(props) {
         super(props);

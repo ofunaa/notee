@@ -7,16 +7,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import NoteeHeader from './components/layout/NoteeHeader.react.js'
 import NoteeFooter from './components/layout/NoteeFooter.react.js'
 import PostSection from './components/post/PostSection.react.js'
-import PostEdit from './components/post/PostEdit.react.js'
+import PostSectionEdit from './components/post/PostSectionEdit.react.js'
 import CategorySection from './components/category/CategorySection.react.js'
-import CategoryEdit from './components/category/CategoryEdit.react.js'
+import CategorySectionEdit from './components/category/CategorySectionEdit.react.js'
 import ImageSection from './components/image/ImageSection.react.js'
 import CommentSection from './components/comment/CommentSection.react.js'
 import UserSection from './components/user/UserSection.react.js'
-import UserEdit from './components/user/UserEdit.react.js'
+import UserSectionEdit from './components/user/UserSectionEdit.react.js'
 import MypageSection from './components/mypage/MypageSection.react.js'
-import MypageEdit from './components/mypage/MypageEdit.react.js'
-import MypageEditPassword from './components/mypage/MypageEditPassword.react.js'
+import MypageSectionEdit from './components/mypage/MypageSectionEdit.react.js'
+import MypageSectionEditPassword from './components/mypage/MypageSectionEditPassword.react.js'
 import UserShow from './components/mypage/MypageSection.react.js'
 import TrashSection from './components/trash/TrashSection.react.js'
 
@@ -48,13 +48,13 @@ const routes = (
     <Route path='notee' component={NoteeApp} >
 
         <Route path='posts'>
-            <Route path='new' component={PostEdit} />
-            <Route path='edit/:id' component={PostEdit} />
+            <Route path='new' component={PostSectionEdit} />
+            <Route path='edit/:id' component={PostSectionEdit} />
             <IndexRoute component={PostSection}/>
         </Route>
 
         <Route path='categories'>
-            <Route path='edit/:id' component={CategoryEdit} />
+            <Route path='edit/:id' component={CategorySectionEdit} />
             <IndexRoute component={CategorySection}/>
         </Route>
 
@@ -67,15 +67,15 @@ const routes = (
         </Route>
 
         <Route path='users'>
-            <Route path='new' component={UserEdit} />
-            <Route path='edit/:id' component={UserEdit} />
+            <Route path='new' component={UserSectionEdit} />
+            <Route path='edit/:id' component={UserSectionEdit} />
             <Route path='show/:id' component={UserShow} />
             <IndexRoute component={UserSection}/>
         </Route>
 
         <Route path='mypage'>
-            <Route path='edit' component={MypageEdit} />
-            <Route path='edit/password' component={MypageEditPassword} />
+            <Route path='edit' component={MypageSectionEdit} />
+            <Route path='edit/password' component={MypageSectionEditPassword} />
             <IndexRoute component={MypageSection}/>
         </Route>
 

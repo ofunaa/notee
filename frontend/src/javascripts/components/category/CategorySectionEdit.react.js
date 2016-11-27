@@ -13,7 +13,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 
-export default class CategoryEdit extends Component {
+export default class CategorySectionEdit extends Component {
 
     constructor(props) {
         super(props);

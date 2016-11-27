@@ -10,7 +10,7 @@ import RoleStore from '../../stores/RoleStore';
 var root_img_src = window.location.origin + "/notee/";
 var createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
-export default class UserEdit extends Component {
+export default class UserSectionEdit extends Component {
 
     constructor(props) {
         super(props);

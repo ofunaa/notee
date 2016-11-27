@@ -7,7 +7,7 @@ import UserActions from '../../actions/UserActions';
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
 
-export default class MypageEditPassword extends Component {
+export default class MypageSectionEditPassword extends Component {
 
     constructor(props) {
         super(props);

@@ -16,7 +16,7 @@ import PostPreview  from './PostPreview.react.js';
 import Constants from '../../constants/NoteeConstants';
 
 
-export default class PostEdit extends Component {
+export default class PostSectionEdit extends Component {
 
     constructor(props) {
         super(props);
