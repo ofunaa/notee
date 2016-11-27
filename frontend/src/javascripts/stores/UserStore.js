@@ -78,11 +78,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
         request.get(url, (err, res) => {
             if(err){return;}
             if(!res.body){return;}
-            if(callback){
-                callback(res.body.user);
-            }
-
-            return "aa";
+            callback(res.body.user);
         })
     },
 
