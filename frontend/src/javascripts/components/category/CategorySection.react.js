@@ -25,7 +25,6 @@ export default class CategorySection extends Component {
         };
 
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
-        this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
         this.changeSuccessed = this.changeSuccessed.bind(this);
 
     }
@@ -42,10 +41,6 @@ export default class CategorySection extends Component {
 
     ajaxLoaded(content){
         this.setState({categories: content});
-    }
-    
-    ajaxNowUserLoaded(content) {
-        this.setState({now_user: content});
     }
 
     render() {
