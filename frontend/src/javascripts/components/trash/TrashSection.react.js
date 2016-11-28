@@ -20,6 +20,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
+import EventUtil from '../../utils/EventUtil';
 
 export default class TrashSection extends Component {
 
@@ -46,7 +47,11 @@ export default class TrashSection extends Component {
         // table
         this.returnTableRow = this.returnTableRow.bind(this);
     }
-    
+
+    componentWillMount() {
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
     componentDidMount() {
         var now_model = "posts";
         if(this.props.params.model){now_model = this.props.params.model;}
@@ -54,15 +59,11 @@ export default class TrashSection extends Component {
         this.setState({model_name: now_model});
         this.setColumns(now_model);
         TrashStore.loadTrashes(now_model, this.ajaxLoaded);
-        TrashStore.addChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
-    }
-
-    componentWillMount() {
-        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+        EventUtil.addChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
     }
 
     componentWillUnmount(){
-        TrashStore.removeChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
+        EventUtil.removeChangeListener(Constants.TRASH_UPDATE, this.changeSuccessed);
     }
 
     render() {
