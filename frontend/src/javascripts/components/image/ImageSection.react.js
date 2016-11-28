@@ -8,7 +8,7 @@ import ImageStore from '../../stores/ImageStore';
 import UserStore from '../../stores/UserStore';
 
 // components
-import AuthorityDeleteButton from '../../components/common/authority/AuthorityDeleteButton.react';
+import AuthorityButtonDelete from '../common/authority/AuthorityButtonDelete.react.js';
 
 // constatns
 import Constants from '../../constants/NoteeConstants';
@@ -133,7 +133,7 @@ export default class ImageSection extends Component {
                         <img style={style.image.preview} src={this.state.tap_image} />
                     </div>
                     <div>
-                        <AuthorityDeleteButton
+                        <AuthorityButtonDelete
                             modelName="Image"
                             now_user={this.state.now_user}
                             deleteMethod={this.deleteImage}

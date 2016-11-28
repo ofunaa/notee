@@ -8,7 +8,7 @@ import {TableRowColumn} from 'material-ui/Table';
 // utils
 import pluralize from 'pluralize';
 
-export default class AuthorityEditColumn extends Component {
+export default class AuthorityButtonEdit extends Component {
 
     constructor(props) {
         super(props);
