@@ -16,9 +16,6 @@ import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.rea
 // constants
 import Constants from '../../constants/NoteeConstants';
 
-// material-ui
-import RaisedButton from 'material-ui/RaisedButton';
-
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
 
