@@ -4,7 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {TableRowColumn} from 'material-ui/Table';
 
-export default class AuthorityDeleteColumn extends Component {
+export default class AuthorityDeleteButton extends Component {
 
     constructor(props) {
         super(props);
@@ -59,9 +59,9 @@ export default class AuthorityDeleteColumn extends Component {
         }
 
         return(
-            <TableRowColumn>
+            <div>
                 {deleteButton(this.props.modelName, this.props.now_user, this.props.deleteMethod)}
-            </TableRowColumn>
+            </div>
         );
     }
 
