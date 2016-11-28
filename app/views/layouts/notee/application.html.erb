@@ -3,7 +3,9 @@
 <head>
   <title>Notee</title>
   <%= stylesheet_link_tag    "notee/application", media: "all" %>
-  <%= javascript_include_tag "notee/application" %>
+  <% unless new_token_path.include?(request.path_info) %>
+    <%= javascript_include_tag "notee/application" %>
+  <% end %>
   <%= favicon_link_tag(asset_path "favicon.ico") %>
   <%= csrf_meta_tags %>
 </head>
