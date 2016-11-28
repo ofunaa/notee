@@ -7,6 +7,9 @@ import ImageActions from '../../actions/ImageActions';
 import ImageStore from '../../stores/ImageStore';
 import UserStore from '../../stores/UserStore';
 
+// components
+import AuthorityDeleteButton from '../../components/common/authority/AuthorityDeleteButton.react';
+
 // constatns
 import Constants from '../../constants/NoteeConstants';
 
@@ -97,15 +100,6 @@ export default class ImageSection extends Component {
                     paddingTop: "30px",
                     float: "left"
                 }
-            },
-
-            form: {
-                input_file: {
-
-                },
-                button: {
-
-                }
             }
         }
 
@@ -113,7 +107,6 @@ export default class ImageSection extends Component {
             <div style={style.image.main}>
                 <div style={style.image.header}>
                     <input
-                        style={style.form.input_file}
                         type="file"
                         ref="image"
                         onChange={this.handleChangeImage}
@@ -140,9 +133,11 @@ export default class ImageSection extends Component {
                         <img style={style.image.preview} src={this.state.tap_image} />
                     </div>
                     <div>
-                        <button
-                            style={style.form.button}
-                            onClick={this.deleteImage}>Delete</button>
+                        <AuthorityDeleteButton
+                            modelName="Image"
+                            now_user={this.state.now_user}
+                            deleteMethod={this.deleteImage}
+                        />
                     </div>
                 </div>
             </div>

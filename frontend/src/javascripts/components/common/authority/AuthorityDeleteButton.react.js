@@ -10,13 +10,20 @@ export default class AuthorityDeleteButton extends Component {
         super(props);
     }
 
+    shouldComponentUpdate(){
+        if(!this.props.now_user){return false;}
+        return true;
+    }
+
     render() {
+
         var deleteButton = function(model, now_user, deleteMethod){
             switch(model){
                 case "Category":
                     switch(now_user.role){
                         case "writer":
                         case "root":
+                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -38,6 +45,28 @@ export default class AuthorityDeleteButton extends Component {
                         case "writer":
                         case "editor":
                         case "root":
+                        case "suspended":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}
+                                />
+                            );
+                        default:
+                            return (
+                                <RaisedButton
+                                    onClick={deleteMethod}
+                                    label="delete"
+                                    secondary={true}
+                                    disabled={false}
+                                />
+                            );
+                    }
+                case "Image":
+                    switch(now_user.role){
+                        case "writer":
+                        case "root":
+                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"

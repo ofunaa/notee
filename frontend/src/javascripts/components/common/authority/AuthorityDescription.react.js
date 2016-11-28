@@ -25,7 +25,7 @@ export default class AuthorityDescription extends Component {
                         return [
                             "Create: users",
                             "Update: none",
-                            "Delete: none"]
+                            "Delete: none, comments"]
                 }
             }else{
                 switch(role){
