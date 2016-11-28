@@ -69,6 +69,10 @@ var ImageStore = assign({}, EventEmitter.prototype, {
 
     addChangeListener: function(change_event, callback) {
         this.on(change_event, callback);
+    },
+
+    removeChangeListener: function(change_event, callback) {
+        this.removeListener(change_event, callback);
     }
 
 });
