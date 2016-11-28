@@ -1,9 +1,16 @@
 import React, {Component, PropTypes} from 'react'
 
-// notee
+// actions
 import CategoryActions from '../../actions/CategoryActions';
+
+// stores
 import CategoryStore from '../../stores/CategoryStore';
+
+// constants
 import Constants from '../../constants/NoteeConstants';
+
+// components
+import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -89,12 +96,11 @@ export default class CategoryForm extends Component {
                         defaultChecked={false}
                     />
 
-                    <RaisedButton
-                        label="Create Category"
-                        primary={true}
-                        onClick={this.createCategory}
-                        className="mb_15"
-                        style={{float: "right"}}/>
+                    <AuthorityButtonCreate
+                        modelName="Category"
+                        now_user={this.props.now_user}
+                        createMethod={this.createCategory}
+                    />
                 </CardText>
                 
             </Card>

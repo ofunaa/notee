@@ -33,11 +33,12 @@ export default class AuthorityButtonCreate extends Component {
                     }
                 case "Category":
                     switch(now_user.role){
-                        case "writer":
                         case "root":
                         case "suspended":
                             return (
                                 <RaisedButton
+                                    className="mb_15"
+                                    style={{float: "right"}}
                                     label="no permit"
                                     disabled={true}
                                 />
@@ -45,9 +46,11 @@ export default class AuthorityButtonCreate extends Component {
                         default:
                             return (
                                 <RaisedButton
+                                    className="mb_15"
+                                    style={{float: "right"}}
                                     onClick={createMethod}
-                                    label="delete"
-                                    secondary={true}
+                                    label="create"
+                                    primary={true}
                                     disabled={false}
                                 />
                             );
