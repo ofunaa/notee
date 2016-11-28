@@ -17,6 +17,7 @@ import Constants from '../../constants/NoteeConstants';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
+import EventUtil from '../../utils/EventUtil';
 
 export default class CategorySection extends Component {
 
@@ -38,9 +39,15 @@ export default class CategorySection extends Component {
     }
 
     componentDidMount() {
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
-        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
+        EventUtil.addChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
+        EventUtil.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
+        EventUtil.addChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
+        EventUtil.removeChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
+        EventUtil.removeChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
     }
 
     componentWillMount() {

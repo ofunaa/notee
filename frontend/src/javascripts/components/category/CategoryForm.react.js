@@ -13,12 +13,14 @@ import Constants from '../../constants/NoteeConstants';
 import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
 
 // material-ui
-import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
+
+// utils
+import EventUtil from '../../utils/EventUtil';
 
 
 export default class CategoryForm extends Component {
@@ -48,7 +50,11 @@ export default class CategoryForm extends Component {
     }
 
     componentDidMount() {
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, this.saveSuccessed);
+        EventUtil.addChangeListener(Constants.CATEGORY_CREATE, this.saveSuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.CATEGORY_CREATE, this.saveSuccessed);
     }
 
     render() {
