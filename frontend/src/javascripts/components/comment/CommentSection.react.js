@@ -16,6 +16,7 @@ import Constants from '../../constants/NoteeConstants';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
+import EventUtil from '../../utils/EventUtil';
 
 export default class CommentSection extends Component {
 
@@ -38,8 +39,13 @@ export default class CommentSection extends Component {
     }
 
     componentDidMount() {
-        CommentStore.addChangeListener(Constants.COMMENT_UPDATE, this.changeSuccessed);
-        CommentStore.addChangeListener(Constants.COMMENT_DELETE, this.changeSuccessed);
+        EventUtil.addChangeListener(Constants.COMMENT_UPDATE, this.changeSuccessed);
+        EventUtil.addChangeListener(Constants.COMMENT_DELETE, this.changeSuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.COMMENT_UPDATE, this.changeSuccessed);
+        EventUtil.removeChangeListener(Constants.COMMENT_DELETE, this.changeSuccessed);
     }
     
     componentWillMount() {
