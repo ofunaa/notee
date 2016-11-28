@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
 
 // components
-import AuthorityEditColumn from '../authority/AuthorityEditButton.react.js';
+import AuthorityEditButton from '../authority/AuthorityEditButton.react.js';
 import AuthorityDeleteButton from '../authority/AuthorityDeleteButton.react.js';
 
 export default class NoteeTableRow extends Component {
@@ -31,12 +31,13 @@ export default class NoteeTableRow extends Component {
                         <TableRowColumn key={index}>{content}</TableRowColumn>
                     );
                 })}
-                
-                <AuthorityEditColumn
-                    modelName={this.props.modelName}
-                    now_user={this.props.now_user}
-                    content={this.state.contents}
-                />
+                <TableRowColumn>
+                    <AuthorityEditButton
+                        modelName={this.props.modelName}
+                        now_user={this.props.now_user}
+                        content={this.state.contents}
+                    />
+                </TableRowColumn>
                 <TableRowColumn>
                     <AuthorityDeleteButton
                         modelName={this.props.modelName}

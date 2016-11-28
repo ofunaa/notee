@@ -50,9 +50,9 @@ export default class AuthorityEditColumn extends Component {
         }
 
         return(
-            <TableRowColumn>
+            <div>
                 {editButtonLink(this.props.modelName, this.props.now_user, this.props.content)}
-            </TableRowColumn>
+            </div>
         );
     }
 
