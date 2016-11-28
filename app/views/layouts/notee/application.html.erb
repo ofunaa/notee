@@ -3,7 +3,7 @@
 <head>
   <title>Notee</title>
   <%= stylesheet_link_tag    "notee/application", media: "all" %>
-  <% unless new_token_path.include?(request.path_info) %>
+  <% unless new_token_path == "/notee" + request.path_info %>
     <%= javascript_include_tag "notee/application" %>
   <% end %>
   <%= favicon_link_tag(asset_path "favicon.ico") %>
