@@ -16,6 +16,7 @@ module Notee
     before_create :encrypt_password
     before_update :confirm_password, if: :has_password?  # 1
     before_update :encrypt_password, if: :has_password?  # 2
+    before_update :restrict_change_own_role
     before_save :manage_profile_img
 
     def update_password(params)
@@ -70,8 +71,13 @@ module Notee
       end
     end
 
+    def restrict_change_own_role
+      now_user = Token.find_by_access_token(Thread.current[:request].session[:access_token]).user
+      self.role = now_user.role if self.id == now_user.id
+    end
+
     def manage_profile_img
-      return  unless self.file.present?
+      return unless self.file.present?
 
       image_dir = Rails.root.to_s + "/public/notee/profile/"
       FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
