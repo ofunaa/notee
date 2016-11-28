@@ -130,13 +130,14 @@ EOC
   end
 
   def setup_default
-    copy_default_image
+    copy_default_image("/public/notee")
+    copy_default_image("/public/notee/profile")
   end
 
   private
 
-  def copy_default_image
-    image_dir = Rails.root.to_s + '/public/notee'
+  def copy_default_image(image_path)
+    image_dir = Rails.root.to_s + image_path
     FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
 
     image_url = image_dir + '/default.png'

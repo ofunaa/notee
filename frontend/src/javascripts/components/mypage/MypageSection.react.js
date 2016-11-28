@@ -54,6 +54,8 @@ export default class UserShow extends Component {
             }
         }
 
+        var image_path = !this.state.user.profile_img ? "default.png" : this.state.user.profile_img;
+
         return(
             <div>
                 <h2>Mypage</h2>
@@ -65,7 +67,7 @@ export default class UserShow extends Component {
                 <p>profile:</p>
                 <h3>{this.state.user.profile}</h3>
                 <p>profile_img:</p>
-                <img src={window.location.origin + "/notee/profile/" + this.state.user.profile_img} />
+                <img src={window.location.origin + "/notee/profile/" + image_path} />
                 <p>role:</p>
                 <h3>{this.state.user.role}</h3>
                 <AuthorityDescription role={this.state.user.role} />

@@ -197,16 +197,17 @@ export default class MypageSectionEdit extends Component {
     // ajax
     ajaxLoaded(content){
         if(!content){return;}
+        var tmp_profile_image = !content.profile_img ? "default.png" : content.profile_img;
         this.setState({
             user: {
                 id: content.id,
                 name: content.name,
                 email: content.email,
-                profile: content.profile == null ? "" : content.profile,
-                profile_img: content.profile_img
+                profile: !content.profile ? "" : content.profile,
+                profile_img: tmp_profile_image
             },
             now_user: content,
-            display_image_src: root_img_src + "profile/" + content.profile_img
+            display_image_src: root_img_src + "profile/" + tmp_profile_image
         });
     }
 
