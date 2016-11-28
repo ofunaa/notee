@@ -11,6 +11,9 @@ import UserStore from '../../stores/UserStore';
 import NoteeTable from '../common/table/NoteeTable.react';
 import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
 
+// constants
+import Constants from '../../constants/NoteeConstants';
+
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
 
@@ -27,11 +30,18 @@ export default class UserSection extends Component {
 		this.ajaxLoaded = this.ajaxLoaded.bind(this);
 		this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
 
+		// callback
+		this.changeSuccessed = this.changeSuccessed.bind(this);
+
 	}
 
 	componentWillMount() {
 		UserStore.loadUsers(this.ajaxLoaded);
 		UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+	}
+
+	componentDidMount() {
+		UserStore.addChangeListener(Constants.USER_DELETE, this.changeSuccessed);
 	}
 
 	ajaxLoaded(contents) {
@@ -60,6 +70,10 @@ export default class UserSection extends Component {
 				/>
 			</div>
 		);
+	}
+
+	changeSuccessed(){
+		UserStore.loadUsers(this.ajaxLoaded);
 	}
 
 }
