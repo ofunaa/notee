@@ -259,7 +259,7 @@ export default class UserSectionEdit extends Component {
             user: {
                 name: content.name,
                 email: content.email,
-                profile: content.profile,
+                profile: content.profile == null ? "" : content.profile,
                 profile_img: content.profile_img,
                 role: content.role
             },
