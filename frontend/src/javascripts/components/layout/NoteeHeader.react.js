@@ -43,9 +43,9 @@ export default class NoteeHeader extends Component {
     render() {
 
         var handleClose = this.handleClose;
+        var now_role = this.state.now_role;
 
-        var Links = function(str){
-
+        var Links = function(){
             return (
                 <div>
                     <MenuItem onTouchTap={handleClose}>
@@ -60,15 +60,15 @@ export default class NoteeHeader extends Component {
                     <MenuItem onTouchTap={handleClose}>
                         <Link to='/notee/comments/'>Comments</Link>
                     </MenuItem>
-                    {function(str){
-                        if(str == "full"){
+                    {(() => {
+                        if (now_role == "manager")
                             return(
                                 <MenuItem onTouchTap={handleClose}>
                                     <Link to='/notee/users/'>User</Link>
                                 </MenuItem>
                             );
-                        }
-                    }}
+                    })()}
+
                     <MenuItem onTouchTap={handleClose}>
                         <Link to='/notee/trashes/'>TrashBox</Link>
                     </MenuItem>
@@ -82,11 +82,11 @@ export default class NoteeHeader extends Component {
         var setLinks = function(role){
             switch(role){
                 case "writer":
-                    return Links(null);
+                    return Links();
                 case "editor":
-                    return Links(null);
+                    return Links();
                 case "manager":
-                    return Links("full")
+                    return Links()
                 case "root":
                     return (
                         <div>
