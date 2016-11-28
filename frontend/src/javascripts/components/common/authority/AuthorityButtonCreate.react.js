@@ -10,11 +10,6 @@ export default class AuthorityButtonCreate extends Component {
         super(props);
     }
 
-    shouldComponentUpdate(){
-        if(!this.props.now_user){return false;}
-        return true;
-    }
-
     render() {
 
         var createButton = function(model, now_user, createMethod){

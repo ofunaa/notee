@@ -9,11 +9,6 @@ export default class AuthorityButtonDelete extends Component {
         super(props);
     }
 
-    shouldComponentUpdate(){
-        if(!this.props.now_user){return false;}
-        return true;
-    }
-
     render() {
 
         var deleteButton = function(model, now_user, deleteMethod){
