@@ -14,7 +14,11 @@ export default class AuthorityButtonEdit extends Component {
     }
 
     render() {
+
         var editButtonLink = function(model, now_user, content){
+
+            if(!now_user){return;}
+
             switch(model) {
                 case "Post":
                     switch (now_user.role) {
@@ -41,14 +45,31 @@ export default class AuthorityButtonEdit extends Component {
                                     label="no permit"
                                     disabled={true}/>
                             );
+                        default:
+                            return (
+                                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
+                                    <RaisedButton
+                                        label="edit"
+                                        primary={true} />
+                                </Link>
+                            );
                     }
                 case "Category":
                     switch (now_user.role) {
                         case "root":
+                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
                                     disabled={true}/>
+                            );
+                        default:
+                            return (
+                                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content[0]}`} activeClassName="active">
+                                    <RaisedButton
+                                        label="edit"
+                                        primary={true} />
+                                </Link>
                             );
                     }
                 case "User":
@@ -56,22 +77,23 @@ export default class AuthorityButtonEdit extends Component {
                         case "writer":
                         case "editor":
                         case "root":
+                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
                                     disabled={true}/>
                             );
+                        default:
+                            return (
+                                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
+                                    <RaisedButton
+                                        label="edit"
+                                        primary={true} />
+                                </Link>
+                            );
                     }
             }
 
-            // default
-            return (
-                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
-                    <RaisedButton
-                        label="edit"
-                        primary={true} />
-                </Link>
-            );
         }
 
         return(
