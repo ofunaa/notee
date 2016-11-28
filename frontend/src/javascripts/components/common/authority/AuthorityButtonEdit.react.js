@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
-import {TableRowColumn} from 'material-ui/Table';
 
 // utils
 import pluralize from 'pluralize';

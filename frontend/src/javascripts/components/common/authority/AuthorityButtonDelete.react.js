@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
-import {TableRowColumn} from 'material-ui/Table';
 
 export default class AuthorityButtonDelete extends Component {
 

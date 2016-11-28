@@ -112,7 +112,6 @@ export default class ImageSection extends Component {
                         onChange={this.handleChangeImage}
                     />
                     <button
-                        style={style.form.button}
                         onClick={this.uploadImage}>Upload</button>
                 </div>
                 <div style={style.image.left}>
