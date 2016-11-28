@@ -17,7 +17,7 @@ import Constants from '../../constants/NoteeConstants';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
-
+import EventUtil from '../../utils/EventUtil';
 
 export default class PostSectionEdit extends Component {
 
@@ -70,8 +70,13 @@ export default class PostSectionEdit extends Component {
     }
 
     componentDidMount() {
-        PostStore.addChangeListener(Constants.POST_CREATE, this.saveSuccessed);
-        PostStore.addChangeListener(Constants.POST_UPDATE, this.updateSuccessed);
+        EventUtil.addChangeListener(Constants.POST_CREATE, this.saveSuccessed);
+        EventUtil.addChangeListener(Constants.POST_UPDATE, this.updateSuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.POST_CREATE, this.saveSuccessed);
+        EventUtil.removeChangeListener(Constants.POST_UPDATE, this.updateSuccessed);
     }
 
     render() {

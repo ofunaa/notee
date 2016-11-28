@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from "react";
 
-// notee
+// actions
 import ImageActions from '../../actions/ImageActions';
+
+// stores
 import ImageStore from '../../stores/ImageStore';
 
 export default class PostImage extends Component {

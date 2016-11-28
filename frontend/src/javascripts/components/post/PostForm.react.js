@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
-// notee
+// stores
 import ImageStore from '../../stores/ImageStore';
+
+// components
 import PostImage  from './PostImage.react.js';
 import PostNewCategory  from './PostNewCategory.react.js';
 

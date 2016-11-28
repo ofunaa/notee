@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-// notee
+// actions
 import CategoryActions from '../../actions/CategoryActions';
 
 // material-ui

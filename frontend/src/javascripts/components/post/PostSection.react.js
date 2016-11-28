@@ -18,6 +18,7 @@ import Constants from '../../constants/NoteeConstants';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
+import EventUtil from '../../utils/EventUtil';
 
 
 export default class PostSection extends Component {
@@ -43,13 +44,17 @@ export default class PostSection extends Component {
         this.returnTableRow = this.returnTableRow.bind(this);
     }
 
-    componentDidMount() {
-        PostStore.addChangeListener(Constants.POST_DELETE, this.changeSuccessed);
-    }
-
     componentWillMount() {
         PostStore.loadPosts(this.ajaxPostLoaded);
         UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
+    componentDidMount() {
+        EventUtil.addChangeListener(Constants.POST_DELETE, this.changeSuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.POST_DELETE, this.changeSuccessed);
     }
 
     ajaxPostLoaded(contents) {
