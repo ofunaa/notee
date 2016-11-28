@@ -12,6 +12,7 @@ import TokenActions from '../../actions/TokenActions';
 
 // stores
 import RoleStore from '../../stores/RoleStore';
+import TokenStore from '../../stores/TokenStore';
 
 export default class NoteeHeader extends Component {
 
