@@ -7,35 +7,10 @@ var EventEmitter = require('events').EventEmitter;
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import Constants from '../constants/NoteeConstants';
 
-
-function comment_update(id) {
-    request
-        .put("/notee/api/comments/" + id)
-        .send(id)
-        .end(function(err, res){
-            if(err || !res.body){
-                CommentStore.emitChange(Constants.COMMENT_UPDATE_FAILED);
-                return false;
-            }
-            CommentStore.emitChange(Constants.COMMENT_UPDATE);
-        })
-}
-
-function comment_delete(id){
-    request
-        .del("/notee/api/comments/" + id)
-        .end(function(err, res){
-            if(err || !res.body){
-                CommentStore.emitChange(Constants.COMMENT_DELETE_FAILED);
-                return false;
-            }
-            CommentStore.emitChange(Constants.COMMENT_DELETE);
-        })
-}
-
+// utils
+import EventUtil from '../utils/EventUtil';
 
 var CommentStore = assign({}, EventEmitter.prototype, {
-
 
     loadComments: function(callback) {
         var url = "/notee/api/comments";
@@ -44,21 +19,34 @@ var CommentStore = assign({}, EventEmitter.prototype, {
             if(!res.body){return;}
             callback(res.body.comments);
         })
-    },
-
-    emitChange: function(change_event) {
-        this.emit(change_event);
-    },
-
-    addChangeListener: function(change_event, callback) {
-        this.on(change_event, callback);
-    },
-
-    removeChangeListener: function(change_event, callback) {
-        this.removeListener(change_event, callback);
     }
-
 });
+
+function comment_update(id) {
+    request
+        .put("/notee/api/comments/" + id)
+        .send(id)
+        .end(function(err, res){
+            if(err || !res.body){
+                EventUtil.emitChange(Constants.COMMENT_UPDATE_FAILED);
+                return false;
+            }
+            EventUtil.emitChange(Constants.COMMENT_UPDATE);
+        })
+}
+
+function comment_delete(id){
+    request
+        .del("/notee/api/comments/" + id)
+        .end(function(err, res){
+            if(err || !res.body){
+                EventUtil.emitChange(Constants.COMMENT_DELETE_FAILED);
+                return false;
+            }
+            EventUtil.emitChange(Constants.COMMENT_DELETE);
+        })
+}
+
 
 NoteeDispatcher.register(function(action) {
 

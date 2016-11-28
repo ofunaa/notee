@@ -7,6 +7,9 @@ var EventEmitter = require('events').EventEmitter;
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import Constants from '../constants/NoteeConstants';
 
+// utils
+import EventUtil from '../utils/EventUtil';
+
 
 function post_create(content) {
     request
@@ -14,10 +17,10 @@ function post_create(content) {
         .send(content)
         .end(function(err, res){
             if(err || !res.body){
-                PostStore.emitChange(Constants.POST_CREATE_FAILED);
+                EventUtil.emitChange(Constants.POST_CREATE_FAILED);
                 return false;
             }
-            PostStore.emitChange(Constants.POST_CREATE);
+            EventUtil.emitChange(Constants.POST_CREATE);
         })
 }
 
@@ -27,10 +30,10 @@ function post_update(content) {
         .send(content.content)
         .end(function(err, res){
             if(err || !res.body){
-                PostStore.emitChange(Constants.POST_UPDATE_FAILED);
+                EventUtil.emitChange(Constants.POST_UPDATE_FAILED);
                 return false;
             }
-            PostStore.emitChange(Constants.POST_UPDATE);
+            EventUtil.emitChange(Constants.POST_UPDATE);
         })
 }
 
@@ -39,10 +42,10 @@ function post_delete(id){
         .del("/notee/api/posts/" + id)
         .end(function(err, res){
             if(err || !res.body){
-                PostStore.emitChange(Constants.POST_DELETE_FAILED);
+                EventUtil.emitChange(Constants.POST_DELETE_FAILED);
                 return false;
             }
-            PostStore.emitChange(Constants.POST_DELETE);
+            EventUtil.emitChange(Constants.POST_DELETE);
         })
 }
 
@@ -88,18 +91,6 @@ var PostStore = assign({}, EventEmitter.prototype, {
                 if(!res.body){return;}
                 callback(res.body.name);
         });
-    },
-
-    emitChange: function(change_event) {
-        this.emit(change_event);
-    },
-
-    addChangeListener: function(change_event, callback) {
-        this.on(change_event, callback);
-    },
-
-    removeChangeListener: function(change_event, callback) {
-        this.removeListener(change_event, callback);
     }
 
 });

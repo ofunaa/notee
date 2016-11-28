@@ -23,18 +23,6 @@ var RoleStore = assign({}, EventEmitter.prototype, {
             if(!res.body){return;}
             callback(res.body.roles);
         })
-    },
-
-    emitChange: function(change_event) {
-        this.emit(change_event);
-    },
-
-    addChangeListener: function(change_event, callback) {
-        this.on(change_event, callback);
-    },
-
-    removeChangeListener: function(change_event, callback) {
-        this.removeListener(change_event, callback);
     }
 
 });

@@ -7,33 +7,8 @@ var EventEmitter = require('events').EventEmitter;
 import NoteeDispatcher from '../dispatcher/NoteeDispatcher';
 import Constants from '../constants/NoteeConstants';
 
-function image_create(content){
-    request
-        .post("/notee/api/images")
-        .attach("image", content)
-        .end(function(err, res){
-            if(err || !res.body){
-                ImageStore.emitChange(Constants.IMAGE_CREATE_FAILED);
-                return false;
-            }
-            ImageStore.emitChange(Constants.IMAGE_CREATE);
-        })
-}
-
-function image_delete(image_src){
-    var delete_file = image_src.split("/notee/");
-    request
-        .del("/notee/api/images/0?name=" + delete_file[1])
-        .end(function(err, res){
-            if(err || !res.body){
-                ImageStore.emitChange(Constants.IMAGE_DELETE_FAILED);
-                return false;
-            }
-            ImageStore.emitChange(Constants.IMAGE_DELETE);
-        })
-}
-
-
+// utils
+import EventUtil from '../utils/EventUtil';
 
 var ImageStore = assign({}, EventEmitter.prototype, {
 
@@ -61,24 +36,38 @@ var ImageStore = assign({}, EventEmitter.prototype, {
         request.get('/notee/api/images', (err, res) => {
             callback(res.body.images);
         });
-    },
-
-    emitChange: function(change_event) {
-        this.emit(change_event);
-    },
-
-    addChangeListener: function(change_event, callback) {
-        this.on(change_event, callback);
-    },
-
-    removeChangeListener: function(change_event, callback) {
-        this.removeListener(change_event, callback);
     }
 
 });
 
-NoteeDispatcher.register(function(action) {
+function image_create(content){
+    request
+        .post("/notee/api/images")
+        .attach("image", content)
+        .end(function(err, res){
+            if(err || !res.body){
+                EventUtil.emitChange(Constants.IMAGE_CREATE_FAILED);
+                return false;
+            }
+            EventUtil.emitChange(Constants.IMAGE_CREATE);
+        })
+}
 
+function image_delete(image_src){
+    var delete_file = image_src.split("/notee/");
+    request
+        .del("/notee/api/images/0?name=" + delete_file[1])
+        .end(function(err, res){
+            if(err || !res.body){
+                EventUtil.emitChange(Constants.IMAGE_DELETE_FAILED);
+                return false;
+            }
+            EventUtil.emitChange(Constants.IMAGE_DELETE);
+        })
+}
+
+
+NoteeDispatcher.register(function(action) {
     switch(action.type) {
         // image
         case Constants.IMAGE_CREATE:
