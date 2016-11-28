@@ -16,6 +16,32 @@ export default class AuthorityButtonEdit extends Component {
     render() {
         var editButtonLink = function(model, now_user, content){
             switch(model) {
+                case "Post":
+                    switch (now_user.role) {
+                        case "writer":
+                            if(now_user.id != content.user_id){
+                                return (
+                                    <RaisedButton
+                                        label="no permit"
+                                        disabled={true} />
+                                );
+                            }
+
+                            return (
+                                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
+                                    <RaisedButton
+                                        label="edit"
+                                        primary={true} />
+                                </Link>
+                            );
+                        case "root":
+                        case "suspended":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}/>
+                            );
+                    }
                 case "Category":
                     switch (now_user.role) {
                         case "root":

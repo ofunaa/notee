@@ -1,14 +1,17 @@
 import React, {Component, PropTypes} from 'react'
+import { Link } from "react-router";
 
-// notee
+// stores
 import PostStore from '../../stores/PostStore';
 import CategoryStore from '../../stores/CategoryStore';
 import UserStore from '../../stores/UserStore';
 
+// components
+import AuthorityButtonEdit from '../../components/common/authority/AuthorityButtonEdit.react.js';
+import AuthorityButtonDelete from '../../components/common/authority/AuthorityButtonDelete.react.js';
+
 // material-ui
-import RaisedButton from 'material-ui/RaisedButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
-import { Link } from "react-router";
 
 export default class IndexTableRow extends Component {
 
@@ -32,76 +35,12 @@ export default class IndexTableRow extends Component {
     }
 
     render() {
-
-        var deletePost = this.props.deletePost;
-        var delete_id = this.props.post.id;
-
         var date = new Date( this.props.post.published_at );
         var display_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         var myPostStyle = function(now_user_id, user_id){
             if(now_user_id == user_id){
                 return {backgroundColor: "rgba(250,200,80,0.5)"};
-            }
-        }
-
-        var editButtonLink = function(now_user, post){
-            switch(now_user.role){
-                case "writer":
-                    if(now_user.id != post.user_id){
-                        return (
-                            <RaisedButton
-                                label="no permit"
-                                disabled={true} />
-                        );
-                    }
-
-                    return (
-                        <Link to={`/notee/posts/edit/${post.id}`} activeClassName="active">
-                            <RaisedButton
-                                label="edit"
-                                primary={true} />
-                        </Link>
-                    );
-                default:
-                    return (
-                        <Link to={`/notee/posts/edit/${post.id}`} activeClassName="active">
-                            <RaisedButton
-                                label="edit"
-                                primary={true} />
-                        </Link>
-                    );
-            }
-        }
-
-        var deleteButton = function(now_user, post){
-            switch(now_user.role){
-                case "writer":
-                    if(now_user.id != post.user_id){
-                        return (
-                            <RaisedButton
-                                label="no permit"
-                                disabled={true}
-                            />
-                        );
-                    }
-                    return (
-                        <RaisedButton
-                            onClick={function(){deletePost(delete_id)}}
-                            label="delete"
-                            secondary={true}
-                            disabled={false}
-                        />
-                    );
-                default:
-                    return (
-                        <RaisedButton
-                            onClick={function(){deletePost(delete_id)}}
-                            label="delete"
-                            secondary={true}
-                            disabled={false}
-                        />
-                    );
             }
         }
 
@@ -113,10 +52,19 @@ export default class IndexTableRow extends Component {
                 <TableRowColumn>{this.state.status}</TableRowColumn>
                 <TableRowColumn>{display_date}</TableRowColumn>
                 <TableRowColumn>
-                    {editButtonLink(this.props.now_user, this.props.post)}
+                    <AuthorityButtonEdit
+                        modelName="Post"
+                        now_user={this.props.now_user}
+                        content={this.props.post}
+                    />
                 </TableRowColumn>
                 <TableRowColumn>
-                    {deleteButton(this.props.now_user, this.props.post)}
+                    <AuthorityButtonDelete
+                        modelName="Post"
+                        now_user={this.props.now_user}
+                        deleteMethod={this.props.deletePost}
+                        content={this.props.post}
+                    />
                 </TableRowColumn>
             </TableRow>
         );

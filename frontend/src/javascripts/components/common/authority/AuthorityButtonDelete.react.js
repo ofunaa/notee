@@ -11,8 +11,45 @@ export default class AuthorityButtonDelete extends Component {
 
     render() {
 
-        var deleteButton = function(model, now_user, deleteMethod){
+        var deleteButton = function(model, now_user, deleteMethod, content){
             switch(model){
+                case "Post":
+                    switch(now_user.role){
+                        case "writer":
+                            if(now_user.id != content.user_id) {
+                                return (
+                                    <RaisedButton
+                                        label="no permit"
+                                        disabled={true}
+                                    />
+                                );
+                            }
+                            return (
+                                <RaisedButton
+                                    onClick={function(){deleteMethod(content.id)}}
+                                    label="delete"
+                                    secondary={true}
+                                    disabled={false}
+                                />
+                            );
+                        case "root":
+                        case "suspended":
+                            return (
+                                <RaisedButton
+                                    label="no permit"
+                                    disabled={true}
+                                />
+                            );
+                        default:
+                            return (
+                                <RaisedButton
+                                    onClick={function(){deleteMethod(content.id)}}
+                                    label="delete"
+                                    secondary={true}
+                                    disabled={false}
+                                />
+                            );
+                    }
                 case "Category":
                     switch(now_user.role){
                         case "writer":
@@ -83,7 +120,12 @@ export default class AuthorityButtonDelete extends Component {
 
         return(
             <div>
-                {deleteButton(this.props.modelName, this.props.now_user, this.props.deleteMethod)}
+                {deleteButton(
+                    this.props.modelName,
+                    this.props.now_user,
+                    this.props.deleteMethod,
+                    this.props.content
+                )}
             </div>
         );
     }
