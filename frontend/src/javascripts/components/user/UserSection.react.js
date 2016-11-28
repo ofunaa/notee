@@ -64,7 +64,7 @@ export default class UserSection extends Component {
 				/>
 				<NoteeTable
 					modelName="User"
-					columns={['name', 'email', 'role']}
+					columns={['id', 'name', 'email', 'role']}
 					contents={this.state.users}
 					actions={UserActions}
 				/>

@@ -85,7 +85,7 @@ export default class AuthorityButtonEdit extends Component {
                             );
                         default:
                             return (
-                                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content.id}`} activeClassName="active">
+                                <Link to={`/notee/${pluralize(model).toLowerCase()}/edit/${content[0]}`} activeClassName="active">
                                     <RaisedButton
                                         label="edit"
                                         primary={true} />
