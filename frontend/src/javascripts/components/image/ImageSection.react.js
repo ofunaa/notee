@@ -16,6 +16,7 @@ import Constants from '../../constants/NoteeConstants';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
+import EventUtil from '../../utils/EventUtil';
 
 export default class ImageSection extends Component {
 
@@ -46,8 +47,13 @@ export default class ImageSection extends Component {
     }
 
     componentDidMount() {
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE, this.setImages);
-        ImageStore.addChangeListener(Constants.IMAGE_DELETE, this.setImages);
+        EventUtil.addChangeListener(Constants.IMAGE_CREATE, this.setImages);
+        EventUtil.addChangeListener(Constants.IMAGE_DELETE, this.setImages);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.IMAGE_CREATE, this.setImages);
+        EventUtil.removeChangeListener(Constants.IMAGE_DELETE, this.setImages);
     }
 
     componentWillMount() {
