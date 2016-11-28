@@ -7,11 +7,9 @@ import UserActions from '../../actions/UserActions';
 // stores
 import UserStore from '../../stores/UserStore';
 
-// material-ui
-import RaisedButton from 'material-ui/RaisedButton';
-
 // components
 import NoteeTable from '../common/table/NoteeTable.react';
+import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
@@ -50,9 +48,10 @@ export default class UserSection extends Component {
 
 		return (
 			<div id="list">
-				<Link to={`/notee/users/new`} activeClassName="active">
-					<RaisedButton label="NEW User!!" primary={true} />
-				</Link>
+				<AuthorityButtonCreate
+					modelName="User"
+					now_user={this.state.now_user}
+				/>
 				<NoteeTable
 					modelName="User"
 					columns={['name', 'email', 'role']}

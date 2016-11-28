@@ -59,7 +59,6 @@ export default class AuthorityButtonCreate extends Component {
                     switch(now_user.role){
                         case "writer":
                         case "editor":
-                        case "root":
                         case "suspended":
                             return (
                                 <RaisedButton
@@ -69,12 +68,9 @@ export default class AuthorityButtonCreate extends Component {
                             );
                         default:
                             return (
-                                <RaisedButton
-                                    onClick={createMethod}
-                                    label="delete"
-                                    secondary={true}
-                                    disabled={false}
-                                />
+                                <Link to={`/notee/users/new`} activeClassName="active">
+                                    <RaisedButton label="NEW User!!" primary={true} />
+                                </Link>
                             );
                     }
                 case "Image":
@@ -92,7 +88,7 @@ export default class AuthorityButtonCreate extends Component {
                                 <RaisedButton
                                     onClick={createMethod}
                                     label="Upload"
-                                    secondary={true}
+                                    primary={true}
                                     disabled={false}
                                 />
                             );
