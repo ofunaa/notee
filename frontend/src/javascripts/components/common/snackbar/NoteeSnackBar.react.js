@@ -1,13 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
-// notee
-import PostStore from '../../../stores/PostStore';
-import CategoryStore from '../../../stores/CategoryStore';
-import UserStore from '../../../stores/UserStore';
-import ImageStore from '../../../stores/ImageStore';
-import CommentStore from '../../../stores/CommentStore';
-import TrashStore from '../../../stores/TrashStore';
-import TokenStore from '../../../stores/TokenStore';
+// utils
+import EventUtil from '../../../utils/EventUtil';
+
+// constants
 import Constants from '../../../constants/NoteeConstants';
 
 // material-ui
@@ -34,51 +30,51 @@ export default class NoteeSnackBar extends Component {
         var tmpDisplaySnackBar = this.displaySnackBar;
 
         // post
-        PostStore.addChangeListener(Constants.POST_CREATE, function(){tmpDisplaySnackBar("Create Post!")});
-        PostStore.addChangeListener(Constants.POST_UPDATE, function(){tmpDisplaySnackBar("Update Post!")});
-        PostStore.addChangeListener(Constants.POST_DELETE, function(){tmpDisplaySnackBar("Delete Post!")});
-        PostStore.addChangeListener(Constants.POST_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
-        PostStore.addChangeListener(Constants.POST_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
-        PostStore.addChangeListener(Constants.POST_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        EventUtil.addChangeListener(Constants.POST_CREATE, function(){tmpDisplaySnackBar("Create Post!")});
+        EventUtil.addChangeListener(Constants.POST_UPDATE, function(){tmpDisplaySnackBar("Update Post!")});
+        EventUtil.addChangeListener(Constants.POST_DELETE, function(){tmpDisplaySnackBar("Delete Post!")});
+        EventUtil.addChangeListener(Constants.POST_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
+        EventUtil.addChangeListener(Constants.POST_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+        EventUtil.addChangeListener(Constants.POST_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
 
         // category
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE, function(){tmpDisplaySnackBar("Create Category!")});
-        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE, function(){tmpDisplaySnackBar("Update Category!")});
-        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE, function(){tmpDisplaySnackBar("Delete Category!")});
-        CategoryStore.addChangeListener(Constants.CATEGORY_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
-        CategoryStore.addChangeListener(Constants.CATEGORY_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
-        CategoryStore.addChangeListener(Constants.CATEGORY_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        EventUtil.addChangeListener(Constants.CATEGORY_CREATE, function(){tmpDisplaySnackBar("Create Category!")});
+        EventUtil.addChangeListener(Constants.CATEGORY_UPDATE, function(){tmpDisplaySnackBar("Update Category!")});
+        EventUtil.addChangeListener(Constants.CATEGORY_DELETE, function(){tmpDisplaySnackBar("Delete Category!")});
+        EventUtil.addChangeListener(Constants.CATEGORY_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
+        EventUtil.addChangeListener(Constants.CATEGORY_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+        EventUtil.addChangeListener(Constants.CATEGORY_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
 
         // user
-        UserStore.addChangeListener(Constants.USER_CREATE, function(){tmpDisplaySnackBar("Create User!")});
-        UserStore.addChangeListener(Constants.USER_UPDATE, function(){tmpDisplaySnackBar("Update User!")});
-        UserStore.addChangeListener(Constants.USER_DELETE, function(){tmpDisplaySnackBar("Delete User!")});
-        UserStore.addChangeListener(Constants.USER_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
-        UserStore.addChangeListener(Constants.USER_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
-        UserStore.addChangeListener(Constants.USER_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
-        UserStore.addChangeListener(Constants.USER_PASSWORD_UPDATE, function(){tmpDisplaySnackBar("Update Password!")});
-        UserStore.addChangeListener(Constants.USER_PASSWORD_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+        EventUtil.addChangeListener(Constants.USER_CREATE, function(){tmpDisplaySnackBar("Create User!")});
+        EventUtil.addChangeListener(Constants.USER_UPDATE, function(){tmpDisplaySnackBar("Update User!")});
+        EventUtil.addChangeListener(Constants.USER_DELETE, function(){tmpDisplaySnackBar("Delete User!")});
+        EventUtil.addChangeListener(Constants.USER_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
+        EventUtil.addChangeListener(Constants.USER_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+        EventUtil.addChangeListener(Constants.USER_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        EventUtil.addChangeListener(Constants.USER_PASSWORD_UPDATE, function(){tmpDisplaySnackBar("Update Password!")});
+        EventUtil.addChangeListener(Constants.USER_PASSWORD_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
 
 
         // image
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE, function(){tmpDisplaySnackBar("Create Image!")});
-        ImageStore.addChangeListener(Constants.IMAGE_DELETE, function(){tmpDisplaySnackBar("Delete Image!")});
-        ImageStore.addChangeListener(Constants.IMAGE_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
-        ImageStore.addChangeListener(Constants.IMAGE_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        EventUtil.addChangeListener(Constants.IMAGE_CREATE, function(){tmpDisplaySnackBar("Create Image!")});
+        EventUtil.addChangeListener(Constants.IMAGE_DELETE, function(){tmpDisplaySnackBar("Delete Image!")});
+        EventUtil.addChangeListener(Constants.IMAGE_CREATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Create Failed..!")});
+        EventUtil.addChangeListener(Constants.IMAGE_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
 
         // comment
-        CommentStore.addChangeListener(Constants.COMMENT_UPDATE, function(){tmpDisplaySnackBar("Update Comment status!")});
-        CommentStore.addChangeListener(Constants.COMMENT_DELETE, function(){tmpDisplaySnackBar("Delete Comment!")});
-        CommentStore.addChangeListener(Constants.COMMENT_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
-        CommentStore.addChangeListener(Constants.COMMENT_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
+        EventUtil.addChangeListener(Constants.COMMENT_UPDATE, function(){tmpDisplaySnackBar("Update Comment status!")});
+        EventUtil.addChangeListener(Constants.COMMENT_DELETE, function(){tmpDisplaySnackBar("Delete Comment!")});
+        EventUtil.addChangeListener(Constants.COMMENT_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Update Failed..!")});
+        EventUtil.addChangeListener(Constants.COMMENT_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Delete Failed..!")});
 
         // trash
-        TrashStore.addChangeListener(Constants.TRASH_UPDATE, function(){tmpDisplaySnackBar("Restore Content!")});
-        TrashStore.addChangeListener(Constants.TRASH_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Restore Failed..!")});
+        EventUtil.addChangeListener(Constants.TRASH_UPDATE, function(){tmpDisplaySnackBar("Restore Content!")});
+        EventUtil.addChangeListener(Constants.TRASH_UPDATE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Restore Failed..!")});
 
         // token
-        TokenStore.addChangeListener(Constants.TOKEN_DELETE, function(){tmpDisplaySnackBar("Logout now!")});
-        TokenStore.addChangeListener(Constants.TOKEN_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Logout Failed..!")});
+        EventUtil.addChangeListener(Constants.TOKEN_DELETE, function(){tmpDisplaySnackBar("Logout now!")});
+        EventUtil.addChangeListener(Constants.TOKEN_DELETE_FAILED, function(){tmpDisplaySnackBar("Sorry..! Logout Failed..!")});
 
 
     }
