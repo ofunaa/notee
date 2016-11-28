@@ -11,6 +11,7 @@ import UserStore from '../../stores/UserStore';
 // components
 import PostTableRow from './PostTableRow.react.js';
 import NoteeTable from '../common/table/NoteeTable.react';
+import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react';
 
 // constants
 import Constants from '../../constants/NoteeConstants';
@@ -67,9 +68,10 @@ export default class PostSection extends Component {
 
         return (
             <div id="list">
-                <Link to={`/notee/posts/new`} activeClassName="active">
-                    <RaisedButton label="NEW Notee!!" primary={true} />
-                </Link>
+                <AuthorityButtonCreate
+                    modelName="Post"
+                    now_user={this.state.now_user}
+                />
                 <NoteeTable
                     modelName="Post"
                     columns={['title', 'category', 'user', 'status', 'published_at']}

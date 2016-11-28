@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import { Link } from "react-router";
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,6 +19,23 @@ export default class AuthorityButtonCreate extends Component {
 
         var createButton = function(model, now_user, createMethod){
             switch(model){
+                case "Post":
+                    switch(now_user.role){
+                        case "root":
+                        case "suspended":
+                            return (
+                                <RaisedButton
+                                    label="can't create"
+                                    disabled={true}
+                                />
+                            );
+                        default:
+                            return (
+                                <Link to={`/notee/posts/new`} activeClassName="active">
+                                    <RaisedButton label="NEW Notee!!" primary={true} />
+                                </Link>
+                            );
+                    }
                 case "Category":
                     switch(now_user.role){
                         case "writer":

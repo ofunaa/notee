@@ -18,7 +18,6 @@ var AuthorityUtil = {
             case "PostSectionEdit":
                 switch(now_user.role){
                     case "writer":
-                    case "suspended":
                         if(now_user.id != content.user_id) {
                             history.replaceState('', '', '/notee');
                             location.reload();
@@ -28,6 +27,9 @@ var AuthorityUtil = {
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                         return;
+                    case "suspended":
+                        history.replaceState('', '', '/notee');
+                        location.reload();
                     default:
                         return;
                 }
