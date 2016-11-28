@@ -9,18 +9,18 @@ export default class AuthorityDescription extends Component {
                     case "writer":
                         return [
                             "Create: posts, categories, images",
-                            "Update: my posts, categories, images, my user without role, comments",
-                            "Delete: my posts, comments"]
+                            "Update: my posts, categories, images, my user without role",
+                            "Delete: my posts"]
                     case "editor":
                         return [
                             "Create: posts, categories, images",
-                            "Update: posts, categories, images, my user without role, comments",
-                            "Delete: posts, categories, images, comments"]
+                            "Update: posts, categories, images, my user without role",
+                            "Delete: posts, categories, images"]
                     case "manager":
                         return [
                             "Create: posts, categories, images, users",
-                            "Update: posts, categories, images, users, comments",
-                            "Delete: posts, categories, images, users, comments"]
+                            "Update: posts, categories, images, users",
+                            "Delete: posts, categories, images, users"]
                     case "root":
                         return [
                             "Create: users",
