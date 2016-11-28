@@ -46,6 +46,11 @@ export default class ImageSection extends Component {
         this.handleChangeImage = this.handleChangeImage.bind(this);
     }
 
+    componentWillMount() {
+        ImageStore.loadImages(this.ajaxLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
     componentDidMount() {
         EventUtil.addChangeListener(Constants.IMAGE_CREATE, this.setImages);
         EventUtil.addChangeListener(Constants.IMAGE_DELETE, this.setImages);
@@ -54,11 +59,6 @@ export default class ImageSection extends Component {
     componentWillUnmount(){
         EventUtil.removeChangeListener(Constants.IMAGE_CREATE, this.setImages);
         EventUtil.removeChangeListener(Constants.IMAGE_DELETE, this.setImages);
-    }
-
-    componentWillMount() {
-        ImageStore.loadImages(this.ajaxLoaded);
-        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     ajaxLoaded(content){

@@ -38,6 +38,11 @@ export default class CommentSection extends Component {
         this.changeSuccessed = this.changeSuccessed.bind(this);
     }
 
+    componentWillMount() {
+        CommentStore.loadComments(this.ajaxLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
     componentDidMount() {
         EventUtil.addChangeListener(Constants.COMMENT_UPDATE, this.changeSuccessed);
         EventUtil.addChangeListener(Constants.COMMENT_DELETE, this.changeSuccessed);
@@ -46,11 +51,6 @@ export default class CommentSection extends Component {
     componentWillUnmount(){
         EventUtil.removeChangeListener(Constants.COMMENT_UPDATE, this.changeSuccessed);
         EventUtil.removeChangeListener(Constants.COMMENT_DELETE, this.changeSuccessed);
-    }
-    
-    componentWillMount() {
-        CommentStore.loadComments(this.ajaxLoaded);
-        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     ajaxLoaded(contents) {

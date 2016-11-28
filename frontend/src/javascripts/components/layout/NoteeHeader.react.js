@@ -1,12 +1,16 @@
 import React, {Component, PropTypes} from "react"
 import { Link } from "react-router"
+
+// material-ui
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 
-// notee
+// actions
 import TokenActions from '../../actions/TokenActions';
+
+// stores
 import RoleStore from '../../stores/RoleStore';
 
 export default class NoteeHeader extends Component {

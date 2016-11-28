@@ -38,6 +38,11 @@ export default class CategorySection extends Component {
 
     }
 
+    componentWillMount() {
+        CategoryStore.loadCategories(this.ajaxLoaded);
+        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
+    }
+
     componentDidMount() {
         EventUtil.addChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
         EventUtil.addChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
@@ -48,11 +53,6 @@ export default class CategorySection extends Component {
         EventUtil.removeChangeListener(Constants.CATEGORY_CREATE, this.changeSuccessed);
         EventUtil.removeChangeListener(Constants.CATEGORY_UPDATE, this.changeSuccessed);
         EventUtil.removeChangeListener(Constants.CATEGORY_DELETE, this.changeSuccessed);
-    }
-
-    componentWillMount() {
-        CategoryStore.loadCategories(this.ajaxLoaded);
-        UserStore.loadUserByToken(this.ajaxNowUserLoaded);
     }
 
     ajaxLoaded(content){
