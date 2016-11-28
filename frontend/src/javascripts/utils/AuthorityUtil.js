@@ -18,8 +18,9 @@ var AuthorityUtil = {
             case "PostSectionEdit":
                 switch(now_user.role){
                     case "writer":
+                    case "suspended":
                         if(now_user.id != content.user_id) {
-                            history.replaceState('', '', '/notee/posts');
+                            history.replaceState('', '', '/notee');
                             location.reload();
                         }
                         return;
@@ -42,6 +43,9 @@ var AuthorityUtil = {
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
+                        location.reload();
+                    case "suspended":
+                        history.replaceState('', '', '/notee');
                         location.reload();
                     default:
                         return;
@@ -75,6 +79,7 @@ var AuthorityUtil = {
                 switch(now_user.role){
                     case "writer":
                     case "editor":
+                    case "suspended":
                         history.replaceState('', '', '/notee/');
                         location.reload();
                     case "root":
@@ -93,6 +98,7 @@ var AuthorityUtil = {
             case "MypageSectionEdit":
                 switch(now_user.role){
                     case "root":
+                    case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                     default:
@@ -101,6 +107,7 @@ var AuthorityUtil = {
             case "MypageSectionEditPassword":
                 switch(now_user.role){
                     case "root":
+                    case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                     default:
@@ -109,6 +116,7 @@ var AuthorityUtil = {
             case "TrashSection":
                 switch(now_user.role){
                     case "root":
+                    case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                     default:
