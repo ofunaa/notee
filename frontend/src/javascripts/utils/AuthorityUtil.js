@@ -4,7 +4,6 @@ var AuthorityUtil = {
     checkAuthority(page, now_user, content){
 
         if(!now_user){return false}
-        if(!content){return false}
 
         switch(page){
             case "PostSection":
