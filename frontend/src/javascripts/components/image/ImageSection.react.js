@@ -8,6 +8,7 @@ import ImageStore from '../../stores/ImageStore';
 import UserStore from '../../stores/UserStore';
 
 // components
+import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
 import AuthorityButtonDelete from '../common/authority/AuthorityButtonDelete.react.js';
 
 // constatns
@@ -111,8 +112,14 @@ export default class ImageSection extends Component {
                         ref="image"
                         onChange={this.handleChangeImage}
                     />
-                    <button
-                        onClick={this.uploadImage}>Upload</button>
+                    <div className="mt_15">
+                        <AuthorityButtonCreate
+                            className="mt_15"
+                            modelName="Image"
+                            now_user={this.state.now_user}
+                            createMethod={this.uploadImage}
+                        />
+                    </div>
                 </div>
                 <div style={style.image.left}>
                     {this.state.images.map((image)=>{
@@ -131,7 +138,7 @@ export default class ImageSection extends Component {
                     <div>
                         <img style={style.image.preview} src={this.state.tap_image} />
                     </div>
-                    <div>
+                    <div className="mt_15">
                         <AuthorityButtonDelete
                             modelName="Image"
                             now_user={this.state.now_user}

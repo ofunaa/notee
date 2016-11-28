@@ -63,7 +63,6 @@ export default class AuthorityButtonCreate extends Component {
                     }
                 case "Image":
                     switch(now_user.role){
-                        case "writer":
                         case "root":
                         case "suspended":
                             return (
@@ -76,7 +75,7 @@ export default class AuthorityButtonCreate extends Component {
                             return (
                                 <RaisedButton
                                     onClick={createMethod}
-                                    label="delete"
+                                    label="Upload"
                                     secondary={true}
                                     disabled={false}
                                 />
