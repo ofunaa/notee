@@ -16,6 +16,7 @@ import Constants from '../../constants/NoteeConstants';
 
 // utils
 import AuthorityUtil from '../../utils/AuthorityUtil';
+import EventUtil from '../../utils/EventUtil';
 
 export default class UserSection extends Component {
 
@@ -41,7 +42,11 @@ export default class UserSection extends Component {
 	}
 
 	componentDidMount() {
-		UserStore.addChangeListener(Constants.USER_DELETE, this.changeSuccessed);
+		EventUtil.addChangeListener(Constants.USER_DELETE, this.changeSuccessed);
+	}
+
+	componentWillUnmount(){
+		EventUtil.removeChangeListener(Constants.USER_DELETE, this.changeSuccessed);
 	}
 
 	ajaxLoaded(contents) {
