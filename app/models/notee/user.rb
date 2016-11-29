@@ -45,8 +45,8 @@ module Notee
       end
 
       # other-user login
-      user = find_by(name: name_or_email)
-      user = find_by(email: name_or_email) unless user
+      user = not_trash.find_by(name: name_or_email)
+      user = not_trash.find_by(email: name_or_email) unless user
       return false unless user
       return false unless password == decrypt(user.encrypted_password)
 
