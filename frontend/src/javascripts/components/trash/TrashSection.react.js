@@ -69,18 +69,33 @@ export default class TrashSection extends Component {
     render() {
         AuthorityUtil.checkAuthority("TrashSection", this.state.now_user);
 
-        var models = ["posts", "categories", "users", "images", "comments"];
+        var models;
+        switch(this.state.now_user.role){
+            case "writer":
+            case "editor":
+                models = ["posts", "categories", "images", "comments"];
+                break;
+            case "manager":
+                models = ["posts", "categories","users", "images", "comments"];
+                break;
+        }
+
         var click = this.setModelName;
+
         return (
             <div class="main">
                 <h2>Trashbox: {this.state.model_name}</h2>
-                {models.map((content, index)=>{
-                    return (
-                        <Link to={`/notee/trashes/${content}`} activeClassName="active" class="mr_20" key={index}>
-                            <RaisedButton onClick={function(){click(content)}} label={content} primary={true} />
-                        </Link>
-                    );
-                })}
+                {(() => {
+                    if (models){
+                        return models.map((content, index)=>{
+                            return (
+                                <Link to={`/notee/trashes/${content}`} activeClassName="active" class="mr_20" key={index}>
+                                    <RaisedButton onClick={function(){click(content)}} label={content} primary={true} />
+                                </Link>
+                            );
+                        })
+                    }
+                })()}
                 <NoteeTable
                     modelName="Trash"
                     columns={this.state.columns}

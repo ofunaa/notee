@@ -45,9 +45,11 @@ var AuthorityUtil = {
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     case "suspended":
                         history.replaceState('', '', '/notee');
                         location.reload();
+                        return;
                     default:
                         return;
                 }
@@ -56,16 +58,18 @@ var AuthorityUtil = {
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "CommentSection":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "UserSection":
                 switch(now_user.role){
@@ -73,8 +77,9 @@ var AuthorityUtil = {
                     case "editor":
                         history.replaceState('', '', '/notee/');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "UserSectionEdit":
                 switch(now_user.role){
@@ -83,18 +88,21 @@ var AuthorityUtil = {
                     case "suspended":
                         history.replaceState('', '', '/notee/');
                         location.reload();
+                        return;
                     case "root":
                         if(content != null){
                             history.replaceState('', '', '/notee/users');
                             location.reload();
+                            return;
                         }
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "MypageSection":
                 switch(now_user.role){
                     default:
-                        return true;
+                        return;
                 }
             case "MypageSectionEdit":
                 switch(now_user.role){
@@ -102,8 +110,9 @@ var AuthorityUtil = {
                     case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "MypageSectionEditPassword":
                 switch(now_user.role){
@@ -111,8 +120,9 @@ var AuthorityUtil = {
                     case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
             case "TrashSection":
                 switch(now_user.role){
@@ -120,8 +130,9 @@ var AuthorityUtil = {
                     case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        return;
                     default:
-                        return true;
+                        return;
                 }
         }
     }
