@@ -19,14 +19,15 @@ module Notee
     before_update :restrict_change_own_role
     before_save :manage_profile_img
 
+    # constants
+    SECURE = 'SOFHGPOIJERPGOKSPDO2SPTI4RJ6POIFDJVS7ETJ1EITJHSPEKMVOEIGU'
+    CIPHER = 'aes-256-cbc'
+
     def update_password(params)
       return false unless params[:now_password] == User.decrypt(self.encrypted_password)
       return false unless params[:password] == params[:password_confirm]
       self.update(params)
     end
-
-    SECURE = 'SOFHGPOIJERPGOKSPDO2SPTI4RJ6POIFDJVS7ETJ1EITJHSPEKMVOEIGU'
-    CIPHER = 'aes-256-cbc'
 
     def encrypt(password)
       crypt = ActiveSupport::MessageEncryptor.new(SECURE, CIPHER)
@@ -70,6 +71,8 @@ module Notee
         Thread.current[:request].session[:access_token] = token.access_token
       end
     end
+
+    private
 
     def restrict_change_own_role
       now_user = Token.find_by_access_token(Thread.current[:request].session[:access_token]).user
