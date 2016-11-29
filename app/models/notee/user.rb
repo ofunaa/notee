@@ -97,10 +97,6 @@ module Notee
       self.password.present?
     end
 
-    def has_now_password?
-      self.now_password.present?
-    end
-
     def confirm_password
       return false unless password == password_confirm
     end
