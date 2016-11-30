@@ -3,6 +3,8 @@ var AuthorityUtil = {
 
     checkAuthority(page, now_user, content){
 
+        // TODO: check is_deleted? and destroy session
+
         if(!now_user){return false}
 
         switch(page){
@@ -11,8 +13,9 @@ var AuthorityUtil = {
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
+                        break;
                     default:
-                        return true;
+                        break;
                 }
             case "PostSectionEdit":
                 switch(now_user.role){
@@ -21,16 +24,13 @@ var AuthorityUtil = {
                             history.replaceState('', '', '/notee');
                             location.reload();
                         }
-                        return;
+                        break;
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
-                    case "suspended":
-                        history.replaceState('', '', '/notee');
-                        location.reload();
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "CategorySection":
                 switch(now_user.role){
@@ -38,38 +38,34 @@ var AuthorityUtil = {
                         history.replaceState('', '', '/notee/users');
                         location.reload();
                     default:
-                        return;
+                        break;
                 }
             case "CategorySectionEdit":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
-                    case "suspended":
-                        history.replaceState('', '', '/notee');
-                        location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "ImageSection":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "CommentSection":
                 switch(now_user.role){
                     case "root":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "UserSection":
                 switch(now_user.role){
@@ -77,62 +73,58 @@ var AuthorityUtil = {
                     case "editor":
                         history.replaceState('', '', '/notee/');
                         location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "UserSectionEdit":
                 switch(now_user.role){
                     case "writer":
                     case "editor":
-                    case "suspended":
                         history.replaceState('', '', '/notee/');
                         location.reload();
-                        return;
+                        break;
                     case "root":
                         if(content != null){
                             history.replaceState('', '', '/notee/users');
                             location.reload();
-                            return;
+                            break;
                         }
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "MypageSection":
                 switch(now_user.role){
                     default:
-                        return;
+                        break;
                 }
             case "MypageSectionEdit":
                 switch(now_user.role){
                     case "root":
-                    case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "MypageSectionEditPassword":
                 switch(now_user.role){
                     case "root":
-                    case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
             case "TrashSection":
                 switch(now_user.role){
                     case "root":
-                    case "suspended":
                         history.replaceState('', '', '/notee/users');
                         location.reload();
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
         }
     }
