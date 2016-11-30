@@ -2,7 +2,7 @@ module Notee
   class User < ApplicationRecord
 
     # enums
-    enum role: { writer: 0, editor: 10, manager: 20, suspended: 99, root: 9999 }
+    enum role: { writer: 0, editor: 10, manager: 20, root: 9999 }
 
     # accessors
     attr_accessor :file

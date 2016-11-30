@@ -17,7 +17,6 @@ export default class AuthorityButtonCreate extends Component {
                 case "Post":
                     switch(now_user.role){
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="can't create"
@@ -34,7 +33,6 @@ export default class AuthorityButtonCreate extends Component {
                 case "Category":
                     switch(now_user.role){
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     className="mb_15"
@@ -59,7 +57,6 @@ export default class AuthorityButtonCreate extends Component {
                     switch(now_user.role){
                         case "writer":
                         case "editor":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -76,7 +73,6 @@ export default class AuthorityButtonCreate extends Component {
                 case "Image":
                     switch(now_user.role){
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"

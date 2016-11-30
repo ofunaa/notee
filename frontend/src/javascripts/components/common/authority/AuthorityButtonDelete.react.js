@@ -33,7 +33,6 @@ export default class AuthorityButtonDelete extends Component {
                                 />
                             );
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -54,7 +53,6 @@ export default class AuthorityButtonDelete extends Component {
                     switch(now_user.role){
                         case "writer":
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -76,7 +74,6 @@ export default class AuthorityButtonDelete extends Component {
                         case "writer":
                         case "editor":
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -97,7 +94,6 @@ export default class AuthorityButtonDelete extends Component {
                     switch(now_user.role){
                         case "writer":
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"

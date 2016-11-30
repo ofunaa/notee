@@ -39,7 +39,6 @@ export default class AuthorityButtonEdit extends Component {
                                 </Link>
                             );
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -57,7 +56,6 @@ export default class AuthorityButtonEdit extends Component {
                 case "Category":
                     switch (now_user.role) {
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"
@@ -77,7 +75,6 @@ export default class AuthorityButtonEdit extends Component {
                         case "writer":
                         case "editor":
                         case "root":
-                        case "suspended":
                             return (
                                 <RaisedButton
                                     label="no permit"

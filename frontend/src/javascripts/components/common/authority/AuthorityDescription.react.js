@@ -26,11 +26,6 @@ export default class AuthorityDescription extends Component {
                             "Create: users",
                             "Update: none",
                             "Delete: none"]
-                    case "suspended":
-                        return [
-                            "Create: none",
-                            "Update: none",
-                            "Delete: none"]
                 }
             }else{
                 switch(role){
@@ -52,11 +47,6 @@ export default class AuthorityDescription extends Component {
                     case "root":
                         return [
                             "Create: posts, categories, images",
-                            "Update: posts, categories, images, users",
-                            "Delete: posts, categories, images, users"]
-                    case "suspended":
-                        return [
-                            "Create: posts, categories, images, users",
                             "Update: posts, categories, images, users",
                             "Delete: posts, categories, images, users"]
                 }

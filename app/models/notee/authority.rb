@@ -8,19 +8,23 @@ module Notee
 			TARGET_ARR = ['Post', 'Category', 'Image', 'User']
 
 			def check(crud, new_model_obj)
+
+				# TODO: is_deleted check
 				role = get_role
 
 				case role
 					when 'writer' then
 						writer(crud, new_model_obj)
+						break
 					when 'editor' then
 						editor(crud, new_model_obj)
+						break
 					when 'manager' then
 						manager(crud, new_model_obj)
-					when 'suspended' then
-						suspended
+						break
 					when 'root' then
 						root_user(crud, new_model_obj)
+						break
 					else
 				end
 			end
@@ -301,18 +305,6 @@ module Notee
 			end
 
 			# /////////////////////////////////
-			# SUSPENDED - Restriction
-			# /////////////////////////////////
-
-			# suspended
-			# all
-
-			def suspended
-				# error
-				raise AuthorityError, 'This User is Suspended..'
-			end
-
-			# /////////////////////////////////
 			# ROOT
 			# /////////////////////////////////
 
@@ -341,6 +333,25 @@ module Notee
 						# error
 						raise AuthorityError, 'Root user only create User'
 				end
+			end
+
+			# /////////////////////////////////
+			# DELETED
+			# /////////////////////////////////
+
+			# you can
+			# create: 	none
+			# update:		none
+			# delete: 	none
+
+			# you cannot
+			# - create: 	all
+			# - update: 	all
+			# - delete: 	all
+
+			def deleted
+				# error
+				raise AuthorityError, 'This User is Deleted..'
 			end
 
 		end
