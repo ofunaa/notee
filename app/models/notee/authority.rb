@@ -9,7 +9,7 @@ module Notee
 
 			def check(crud, new_model_obj)
 
-				# TODO: is_deleted check
+				check_deleted
 				role = get_role
 
 				case role
@@ -349,9 +349,12 @@ module Notee
 			# - update: 	all
 			# - delete: 	all
 
-			def deleted
-				# error
-				raise AuthorityError, 'This User is Deleted..'
+			def check_deleted
+				token = Token.find_by(access_token: Thread.current[:request].session[:access_token])
+				if token.user.is_deleted
+					# error
+					raise AuthorityError, 'This User is Deleted..'
+				end
 			end
 
 		end

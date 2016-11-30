@@ -1,11 +1,12 @@
+// actions
+import TokenActions from '../actions/TokenActions';
 
 var AuthorityUtil = {
 
     checkAuthority(page, now_user, content){
 
-        // TODO: check is_deleted? and destroy session
-
         if(!now_user){return false}
+        this.checkDeleted(now_user);
 
         switch(page){
             case "PostSection":
@@ -126,6 +127,12 @@ var AuthorityUtil = {
                     default:
                         break;
                 }
+        }
+    },
+
+    checkDeleted(user){
+        if(user.is_deleted){
+            TokenActions.delete();  // logout
         }
     }
 
