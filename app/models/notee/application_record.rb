@@ -9,7 +9,7 @@ module Notee
 
     # authority check
     before_create :create_authority
-    before_update :update_authority
+    before_update :update_authority, unless: :is_destroy?
     before_update :destroy_authority, if: :is_destroy?
 
     def create_authority

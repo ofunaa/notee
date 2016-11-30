@@ -16,6 +16,7 @@ module Notee
     before_create :encrypt_password
     before_update :confirm_password, if: :has_password?  # 1
     before_update :encrypt_password, if: :has_password?  # 2
+    before_update :set_user_id_to_root, if: :is_destroy?
     before_update :restrict_change_own_role
     before_save :manage_profile_img
 
@@ -98,8 +99,17 @@ module Notee
       end
     end
 
-    def has_password?
-      self.password.present?
+    def set_user_id_to_root
+      posts = Post.where(user_id: self.id)
+
+      Post.skip_callback(:update, :before, :destroy_authority)
+      Post.transaction do
+        posts.each do |post|
+          post.update(user_id: 0)
+        end
+      end
+      Post.set_callback(:update, :before, :destroy_authority)
+
     end
 
     def confirm_password
@@ -108,6 +118,10 @@ module Notee
 
     def encrypt_password
       self.encrypted_password = encrypt(self.password)
+    end
+
+    def has_password?
+      self.password.present?
     end
   end
 end
