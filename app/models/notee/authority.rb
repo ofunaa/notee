@@ -317,17 +317,35 @@ module Notee
 			def root_user(crud, new_model_obj)
 				case crud
 					when 'create' then
-						case new_model_obj.class.name
-							when /User/ then
-								# success
-								Rails.logger.debug("Root user create a user")
-							else
-								# error
-								raise AuthorityError, 'Root user only create User'
-						end
+						root_create(new_model_obj)
+					when 'update' then
+						root_update(new_model_obj)
+					else
+						# error
+						raise AuthorityError, 'Root user only create User, and update own profile'
+				end
+			end
+
+			def root_create(new_model_obj)
+				case new_model_obj.class.name
+					when /User/ then
+						# success
+						Rails.logger.debug("Root user create a user")
 					else
 						# error
 						raise AuthorityError, 'Root user only create User'
+				end
+			end
+
+			def root_update(new_model_obj)
+				case new_model_obj.class.name
+					when /User/ then
+						raise AuthorityError, 'Root user only update own profile' unless new_model_obj.id == 0
+						# success
+						Rails.logger.debug("Root user update own profile")
+					else
+						# error
+						raise AuthorityError, 'Root user only update own profile'
 				end
 			end
 
