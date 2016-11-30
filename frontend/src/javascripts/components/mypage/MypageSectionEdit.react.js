@@ -101,6 +101,15 @@ export default class MypageSectionEdit extends Component {
             }
         }
 
+        var editButton = function(role){
+            if(role != "root"){
+                return(
+                    <Link to={`/notee/mypage/edit/password`} activeClassName="active" class="mr_20">
+                        <RaisedButton label="Edit Password" primary={true} />
+                    </Link>
+                );
+            }
+        }
 
         var handleChange = this.handleChange;
 
@@ -110,9 +119,7 @@ export default class MypageSectionEdit extends Component {
                 <Link to={`/notee/mypage/`} activeClassName="active" class="mr_20">
                     <RaisedButton label="Mypage" primary={true} />
                 </Link>
-                <Link to={`/notee/mypage/edit/password`} activeClassName="active" class="mr_20">
-                    <RaisedButton label="Edit Password" primary={true} />
-                </Link>
+                {editButton(this.state.now_user.role)}
                 <div style={{float: "left", width: "100%"}}>
                     <p>Name:</p>
                     <input

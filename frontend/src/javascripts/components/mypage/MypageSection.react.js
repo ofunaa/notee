@@ -42,14 +42,9 @@ export default class UserShow extends Component {
         var editButton = function(role){
             if(role != "root"){
                 return(
-                    <div>
-                        <Link to={`/notee/mypage/edit`} activeClassName="active" class="mr_20">
-                            <RaisedButton label="Edit Profile" primary={true} />
-                        </Link>
-                        <Link to={`/notee/mypage/edit/password`} activeClassName="active" class="mr_20">
-                            <RaisedButton label="Edit Password" primary={true} />
-                        </Link>
-                    </div>
+                    <Link to={`/notee/mypage/edit/password`} activeClassName="active" class="mr_20">
+                        <RaisedButton label="Edit Password" primary={true} />
+                    </Link>
                 );
             }
         }
@@ -59,6 +54,9 @@ export default class UserShow extends Component {
         return(
             <div>
                 <h2>Mypage</h2>
+                <Link to={`/notee/mypage/edit`} activeClassName="active" class="mr_20">
+                    <RaisedButton label="Edit Profile" primary={true} />
+                </Link>
                 {editButton(this.state.user.role)}
                 <p>name:</p>
                 <h3>{this.state.user.name}</h3>

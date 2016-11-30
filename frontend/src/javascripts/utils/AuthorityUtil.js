@@ -121,10 +121,6 @@ var AuthorityUtil = {
 
             case "MypageSectionEdit":
                 switch(now_user.role){
-                    case "root":
-                        history.replaceState('', '', '/notee/users');
-                        location.reload();
-                        break;
                     default:
                         break;
                 }
@@ -151,7 +147,7 @@ var AuthorityUtil = {
                         break;
                 }
                 break;
-            
+
         }
     },
 

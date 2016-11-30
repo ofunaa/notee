@@ -40,6 +40,7 @@ module Notee
     end
 
     def self.sign_in(name_or_email, password)
+
       # root-user login
       if Notee.notee_id == name_or_email && Notee.notee_password == password
         return root_user_setting
@@ -49,6 +50,7 @@ module Notee
       user = not_trash.find_by(name: name_or_email)
       user = not_trash.find_by(email: name_or_email) unless user
       return false unless user
+      return false if user.id == 0 # root_user
       return false unless password == decrypt(user.encrypted_password)
 
       user_setting(user)

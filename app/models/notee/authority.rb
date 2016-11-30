@@ -15,16 +15,12 @@ module Notee
 				case role
 					when 'writer' then
 						writer(crud, new_model_obj)
-						break
 					when 'editor' then
 						editor(crud, new_model_obj)
-						break
 					when 'manager' then
 						manager(crud, new_model_obj)
-						break
 					when 'root' then
 						root_user(crud, new_model_obj)
-						break
 					else
 				end
 			end
