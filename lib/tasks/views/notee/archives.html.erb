@@ -1,0 +1,11 @@
+<% render :partial => "notee/header.html.erb" %>
+<h2>Archive List</h2>
+<% @archives.each do |archive| %>
+    <% slash_time = archive.time.gsub("-","/") %>
+    <div>
+      <a href="/archive/<%= slash_time %>">
+        <h3><%= slash_time %>(<%= archive.count %>)</h3>
+      </a>
+    </div>
+<% end %>
+<% render :partial => "notee/sidebar.html.erb" %>

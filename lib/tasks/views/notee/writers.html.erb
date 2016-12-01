@@ -1,0 +1,12 @@
+<% render :partial => "notee/header.html.erb" %>
+<h2>Writer List</h2>
+<% @writers.each do |writer| %>
+    <div>
+      <a href="/writer/<%= writer.name %>">
+        <img src="/notee/<%= writer.profile_img %>">
+        <h3><%= writer.name %></h3>
+        <p>More Read</p>
+      </a>
+    </div>
+<% end %>
+<% render :partial => "notee/sidebar.html.erb" %>

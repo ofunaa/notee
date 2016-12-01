@@ -1,0 +1,10 @@
+<% render :partial => "notee/header.html.erb" %>
+<h2>Category List</h2>
+<% @categories.each do |category| %>
+    <div>
+      <a href="/category/<%= category.name %>">
+        <h3><%= category.name %></h3>
+      </a>
+    </div>
+<% end %>
+<% render :partial => "notee/sidebar.html.erb" %>
