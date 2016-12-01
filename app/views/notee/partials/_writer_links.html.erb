@@ -1,0 +1,11 @@
+<% if writers.present? %>
+    <ul class="notee_writers_ul">
+      <% writers.each do |writer| %>
+          <li class="notee_writer_li">
+            <a href="/writer/<%= writer.id %>">
+              <%= writer.name %>(<%= writer.posts.count %>)
+            </a>
+          </li>
+      <% end %>
+    </ul>
+<% end %>

@@ -72,6 +72,16 @@ module Notee
       end
 
 
+      def notee_writers
+        users = Notee::User.where(is_delete: false)
+        writers = users.map do |user|
+          return user if user.posts.count > 0
+        end
+
+        return writers
+      end
+
+
       def notee_comments(id)
         return if id.nil?
         @notee_comments = Notee::Comment.where(post_id: id, is_hidden: false, is_deleted: false)
