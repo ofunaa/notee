@@ -1,5 +1,7 @@
 class NoteeController < ApplicationController
 
+  before_action :set_meta_info, except: [:show]
+
   # GET "/"
   def index
     @posts = notees
@@ -9,6 +11,7 @@ class NoteeController < ApplicationController
   def show
     redirect_to root_path if params[:id_or_slug].nil?
     @post = notee(params[:id_or_slug])
+    @notee_meta = notee_set_meta_by_post(@post)
   end
 
   # GET "/category"
@@ -43,6 +46,11 @@ class NoteeController < ApplicationController
   def writer_posts
     redirect_to root_path if params[:name_or_id].nil?
     @posts = writer_notees(params[:name_or_id])
+  end
+
+  private
+  def set_meta_info
+    @notee_meta = Notee.blog_meta
   end
 
 end
