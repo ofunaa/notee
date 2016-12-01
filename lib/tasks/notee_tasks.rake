@@ -17,10 +17,10 @@ namespace :notee do
 ________________________________
 ________________________________
 
-|\\   |
-| \\  |  ___  __|__ __|__  __
-|  \\ | |   |   |     |   /__\\
-|   \\| |___|   |     |   \\___
+|\   |
+| \  |  ___  __|__ __|__  __
+|  \ | |   |   |     |   /__\
+|   \| |___|   |     |   \___
 
 ________________________________
 ________________________________
@@ -34,6 +34,18 @@ ________________________________
     return if File.open("#{Rails.root}/config/routes.rb","r").read.include?("Notee::Engine")
 
     text = <<-EOC
+
+  # ################## #
+  # default notee path #
+  # ################## #
+
+  get '/'                                   => 'notees#index'
+  get '/:id_or_slug'                        => 'notees#show'
+  get '/category'                           => 'notees#category'
+  get '/category/:category_name'            => 'notees#category'
+  get '/archive'                            => 'notees#archive'
+  get '/archive/:year'                      => 'notees#archive'
+  get '/archive/:year/:month'               => 'notees#archive'
 
   mount Notee::Engine => "/notee"
 EOC
