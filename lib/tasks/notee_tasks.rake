@@ -41,11 +41,12 @@ ________________________________
 
   get '/'                                   => 'notees#index'
   get '/:id_or_slug'                        => 'notees#show'
-  get '/category'                           => 'notees#category'
-  get '/category/:category_name'            => 'notees#category'
-  get '/archive'                            => 'notees#archive'
-  get '/archive/:year'                      => 'notees#archive'
-  get '/archive/:year/:month'               => 'notees#archive'
+  get '/category'                           => 'notees#categories'
+  get '/category/:name_or_slug'             => 'notees#category_posts'
+  get '/archive'                            => 'notees#archives'
+  get '/archive/:year'                      => 'notees#archive_posts'
+  get '/archive/:year/:month'               => 'notees#archive_posts'
+  get '/new'                                => 'notees#new_arrival'
 
   mount Notee::Engine => "/notee"
 EOC

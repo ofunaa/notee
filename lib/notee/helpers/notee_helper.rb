@@ -4,76 +4,70 @@ module Notee
 
       def notee(search_txt)
         return false unless search_txt
-        @notee = Notee::Post.find_by(id: search_txt)
-        @notee = Notee::Post.find_by(slug: search_txt) unless @notee
+        post = Notee::Post.find_by(id: search_txt)
+        post = Notee::Post.find_by(slug: search_txt) unless post
 
-        return if @notee.status == Notee::STATUS[:draft] ||
-                  @notee.status == Notee::STATUS[:deleted] ||
-                  @notee.status == Notee::STATUS[:privated] ||
-                  @notee.is_deleted == true
-        @notee
+        return if post.status == Notee::STATUS[:draft] ||
+                  post.status == Notee::STATUS[:deleted] ||
+                  post.status == Notee::STATUS[:privated] ||
+                  post.is_deleted == true
+        post
       end
 
-      def notees(search_txt = 'all')
-        @notees = []
 
-        if search_txt == 'all'
-          # all_notees
-          @notees = Notee::Post.where(status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
+      def notees
+        @posts = Notee::Post.where(status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
+        @posts
+      end
+
+
+      def category_notees(search_txt)
+        # search_by_category_slug
+        category = Notee::Category.find_by(slug: search_txt)
+        category = Notee::Category.find_by(name: search_txt) unless category
+        return false unless category
+        return false if category.is_deleted
+
+        @posts = Notee::Post.where(category_id: category.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
+        @posts
+      end
+
+
+      def archive_notees(year, month)
+        if month
+          tmp_month = (month.to_s.size != 2 ? "0" : "") + month.to_s
+          tmp_date = year.to_s + tmp_month + "01"
+          begin_time = tmp_date.beginning_of_month
+          end_time = tmp_date.end_of_month
         else
-          # search_by_category_slug
-          category_id = Notee::Category.find_by(slug: search_txt)
-          category_id = Notee::Category.find_by(name: search_txt) unless category_id
-          return false unless category_id
-
-          @notees = Notee::Post.where(category_id: category_id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
+          tmp_date = year.to_s + "0101"
+          begin_time = tmp_date.beginning_of_year
+          end_time = tmp_date.end_of_year
         end
 
-        @notees
+        @posts = Notee::Post.where(published_at: begin_time..end_time).order(published_at: :desc)
+        @posts
       end
 
-      # TODO: secret_mode
-      # def secret_notees
-      #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
-      # end
 
-      def notee_categories(sort = nil)
-        @notee_categories = Notee::Category.where(is_private: false, is_deleted: false).order(created_at: :desc)
-
-        case sort
-          when 'alphabetal'
-            @notee_categories = @notee_categories.sort
-          when 'size'
-            @notee_categories = @notee_categories.sort_by {|category| category.name.size }
-        end
-
-        @notee_categories
+      def notee_categories
+        # DATA: {notee.category.name, notee.count}
+        Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts WHERE status=1 and is_deleted=false GROUP BY category_id;")
       end
 
-      def notee_archives(year, month)
-        start_date = Date.new(year, month, 1)
-        end_date = Date.new(year, month, -1)
-        @notee_archives = Notee::Post.where(status: Notee::STATUS[:published], :published_at => start_date...end_date, is_deleted: false)
 
-        @notee_archives
+      def notee_archives
+        # DATA: {notee.time, notee.count}
+        Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts WHERE status=1 and is_deleted=false GROUP BY DATE_FORMAT(published_at, '%Y-%m') ORDER BY time DESC;")
       end
 
-      def notee_archives_menu(type = nil)
-        case type
-          when 'year'
-            return Notee::Post.where(status: Notee::STATUS[:published], is_deleted: false).group('year(published_at)').count
-          when 'month'
-            return Notee::Post.where(status: Notee::STATUS[:published], is_deleted: false).group('year(published_at)').group('month(published_at)').count
-          else
-            return Notee::Post.where(status: Notee::STATUS[:published], is_deleted: false).group('year(published_at)').group('month(published_at)').count
-        end
-      end
 
       def notee_comments(id)
         return if id.nil?
         @notee_comments = Notee::Comment.where(post_id: id, is_hidden: false, is_deleted: false)
         @notee_comments
       end
+
 
       def notee_set_meta_by_post(post)
         return {
@@ -83,6 +77,12 @@ module Notee
             og_image: request.base_url + "/notee/" + post.thumbnail.content
         }
       end
+
+
+      # TODO: secret_mode
+      # def secret_notees
+      #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
+      # end
     end
   end
 end
