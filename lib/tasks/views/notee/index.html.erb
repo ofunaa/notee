@@ -7,7 +7,7 @@
       <h3><%= post.title %></h3>
       <p><%= post.user.name %></p>
       <img src="/notee/<%= post.thumbnail.content %>">
-      <p><%= post.content %></p>
+      <p><%= notee_content(post) %></p>
       <p>More Read</p>
     </a>
   </div>
