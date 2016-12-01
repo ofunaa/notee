@@ -49,6 +49,8 @@ ________________________________
   get '/archive'                            => 'notees#archives'
   get '/archive/:year'                      => 'notees#archive_posts'
   get '/archive/:year/:month'               => 'notees#archive_posts'
+  get '/writer'                             => 'notees#writers'
+  get '/writer/:name_or_id'                 => 'notees#writer_posts'
   get '/new'                                => 'notees#new_arrival'
 
   mount Notee::Engine => "/notee"

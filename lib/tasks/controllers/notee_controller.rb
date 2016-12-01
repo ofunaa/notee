@@ -32,6 +32,16 @@ class NoteeController < ApplicationController
     @posts = archive_notees(params[:year], params[:month].present? ? params[:month] : nil)
   end
 
+  # GET "/writer"
+  def writers
+  end
+
+  # GET "/writer/:name_or_id"
+  def writer_posts
+    redirect_to root_path if params[:year].nil?
+    @posts = archive_notees(params[:year], params[:month].present? ? params[:month] : nil)
+  end
+
   # GET "/new"
   # GET "/new?page=hoge"
   def new_arrival
