@@ -8,6 +8,7 @@ namespace :notee do
     create_initializer_file
     create_schedule_file
     create_css_file
+    create_controller_file
     setup_default
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
@@ -141,6 +142,25 @@ EOC
     end
     puts 'create file in "/app/assets/stylesheets/notee/notee_default.css"'
   end
+
+
+  def create_controller_file
+    file_path = Rails.root.to_s + '/app/controllers/notee_controller.rb'
+    return if File.exist?(file_path)
+
+    controller = File.open(File.expand_path('../controllers/notee_controller.rb', __FILE__))
+    new_controller = String.new
+    controller.each_line do |line|
+      new_controller += line
+    end
+
+
+    File.open(file_path,"w") do |file|
+      file.puts new_controller
+    end
+    puts 'create file in "/app/controllers/notee_controller.rb"'
+  end
+
 
   def setup_default
     copy_default_image("/public/notee")
