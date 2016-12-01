@@ -1,6 +1,9 @@
 module Notee
   class User < ApplicationRecord
 
+    # relations
+    has_many :posts
+
     # enums
     enum role: { writer: 0, editor: 10, manager: 20, root: 9999 }
 

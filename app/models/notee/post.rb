@@ -26,6 +26,7 @@ module Notee
     before_save :check_role
 
     # relations
+    belongs_to :user
     belongs_to :category
     belongs_to :thumbnail, class_name: Notee::Image, foreign_key: 'thumbnail_id'
 
