@@ -6,10 +6,11 @@ namespace :notee do
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     create_initializer_file
-    create_schedule_file
-    create_css_file
-    create_controller_file
-    setup_default
+    create_file("/config/schedule.rb", "../config/schedule.rb", nil)
+    create_file("/app/assets/stylesheets/notee/notee_default.css", "../css/notee_default.css", "/app/assets/stylesheets/notee/")
+    create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", "nil")
+    copy_default_image("/public/notee")
+    copy_default_image("/public/notee/profile")
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
@@ -28,6 +29,7 @@ ________________________________
 
 "
   end
+
 
   def add_engine_to_route
     puts ""
@@ -65,6 +67,8 @@ EOC
     puts 'Notee added "mount Notee::Engine => "/notee" to config/route.rb'
     puts ""
   end
+
+
 
   def create_initializer_file
     file_path = "#{Rails.root}/config/initializers/notee.rb"
@@ -106,66 +110,6 @@ EOC
     puts 'you should change notee_id & notee_password'
   end
 
-  def create_schedule_file
-    file_path = "#{Rails.root}/config/schedule.rb"
-    return if File.exist?(file_path)
-
-    schejule = File.open(File.expand_path('../config/schedule.rb', __FILE__))
-    new_schejule = String.new
-    schejule.each_line do |line|
-      new_schejule += line
-    end
-
-
-    File.open(file_path,"w") do |file|
-      file.puts new_schejule
-    end
-    puts 'create file in "/config/schejule.rb"'
-  end
-
-  def create_css_file
-    css_dir = Rails.root.to_s + '/app/assets/stylesheets/notee/'
-    FileUtils.mkdir_p(css_dir) unless FileTest.exist?(css_dir)
-
-    file_path = css_dir + 'notee_default.css'
-    return if File.exist?(file_path)
-
-    css = File.open(File.expand_path('../css/notee_default.css', __FILE__))
-    new_css = String.new
-    css.each_line do |line|
-      new_css += line
-    end
-
-
-    File.open(file_path,"w") do |file|
-      file.puts new_css
-    end
-    puts 'create file in "/app/assets/stylesheets/notee/notee_default.css"'
-  end
-
-
-  def create_controller_file
-    file_path = Rails.root.to_s + '/app/controllers/notee_controller.rb'
-    return if File.exist?(file_path)
-
-    controller = File.open(File.expand_path('../controllers/notee_controller.rb', __FILE__))
-    new_controller = String.new
-    controller.each_line do |line|
-      new_controller += line
-    end
-
-
-    File.open(file_path,"w") do |file|
-      file.puts new_controller
-    end
-    puts 'create file in "/app/controllers/notee_controller.rb"'
-  end
-
-
-  def setup_default
-    copy_default_image("/public/notee")
-    copy_default_image("/public/notee/profile")
-  end
 
   private
 
@@ -179,6 +123,27 @@ EOC
         output.write(File.open(File.expand_path('../images/default.png', __FILE__)).read)
       end
     end
+  end
+
+  def create_file(create_path, origin_path, dir)
+    if dir.present?
+      new_dir = Rails.root.to_s + dir.to_s
+      FileUtils.mkdir_p(new_dir) unless FileTest.exist?(new_dir)
+    end
+
+    create_file_path = Rails.root.to_s + create_path.to_s
+    return if File.exist?(create_file_path)
+
+    origin_file = File.open(File.expand_path(origin_path.to_s, __FILE__))
+    new_file = String.new
+    origin_file.each_line do |line|
+      new_file += line
+    end
+
+    File.open(create_file_path,"w") do |file|
+      file.puts new_file
+    end
+    puts 'create file in ' + create_file_path.to_s
   end
 
 end
