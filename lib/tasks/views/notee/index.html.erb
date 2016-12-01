@@ -3,7 +3,7 @@
   <div>
     <p><%= post.published_at %></p>
     <p><%= post.category.name %></p>
-    <a href="/<%= post.category.slug %>/<%= post.slug %>">
+    <a href="/<%= post.slug %>">
       <h3><%= post.title %></h3>
       <p><%= post.user.name %></p>
       <img src="/notee/<%= post.thumbnail.content %>">
