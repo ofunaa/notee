@@ -1,15 +1,17 @@
 <% render :partial => "notee/header.html.erb" %>
-<% @posts.each do |post| %>
-  <div>
-    <p><%= post.published_at %></p>
-    <p><%= post.category.name %></p>
-    <a href="/<%= post.slug %>">
-      <h3><%= post.title %></h3>
-      <p><%= post.user.name %></p>
-      <img src="/notee/<%= post.thumbnail.content %>">
-      <p><%= notee_content(post) %></p>
-      <p>More Read</p>
-    </a>
-  </div>
-<% end %>
+<div class="notee_lists">
+  <% @posts.each do |post| %>
+      <div class="notee_list">
+        <p class="notee_list_date"><%= post.published_at %></p>
+        <p class="notee_list_category"><%= post.category.name %></p>
+        <a class="notee_list_a_tag" href="/<%= post.slug %>">
+          <h3><%= post.title %></h3>
+          <p class="notee_list_user"><%= post.user.name %></p>
+          <img src="/notee/<%= post.thumbnail.content %>">
+          <p class="notee_list_content"><%= notee_content(post) %></p>
+          <p class="notee_list_more">More Read</p>
+        </a>
+      </div>
+  <% end %>
+</div>
 <% render :partial => "notee/sidebar.html.erb" %>

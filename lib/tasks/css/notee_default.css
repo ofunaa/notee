@@ -1,12 +1,112 @@
-/* notee header */
+
+/*  notee header  */
+
 .notee_header {
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: #2E2F30;
+}
+
+.notee_header h1{
+    text-align: center;
+    color: #F7F7F7;
+}
+
+
+/*  notee_lists  */
+
+.notee_lists {
+    width: 70%;
+    height: auto;
+    float: left;
+}
+
+.notee_list {
+    width: 90%;
+    height: auto;
+    margin: 2.5%;
+    padding: 2.5%;
+    float: left;
+    border-left: 1px #2E2F30 solid;
+    border-bottom: 1px #2E2F30 solid;
+}
+
+.notee_list_date {
+
+}
+
+.notee_list_category {
+
+}
+
+.notee_list_a_tag {
+
+}
+
+.notee_list_a_tag h3{
+
+}
+
+.notee_list_a_tag img{
+
+}
+
+.notee_list_user {
+
+}
+
+.notee_list_content {
+
+}
+
+.notee_list_more {
+
+}
+
+/*  notee_main_content  */
+
+.notee_main {
     width: 100%;
     height: auto;
     float: left;
 }
 
-.notee_header h1{
-    text-align: center;
+.notee_main_content {
+    width: 90%;
+    height: auto;
+    margin: 2.5%;
+    padding: 2.5%;
+    float: left;
+    border-left: 1px #2E2F30 solid;
+    border-bottom: 1px #2E2F30 solid;
+}
+
+.notee_main_date {
+
+}
+
+.notee_main_category {
+
+}
+
+
+/*  notee_sidebar   */
+
+.notee_sidebar {
+    width: 30%;
+    height: auto;
+    float: left;
+}
+
+.notee_sidebar_content {
+    width: 90%;
+    height: auto;
+    margin: 2.5%;
+    padding: 2.5%;
+    float: left;
+    border-left: 1px #2E2F30 solid;
+    border-bottom: 1px #2E2F30 solid;
 }
 
 
