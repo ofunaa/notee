@@ -1,0 +1,6 @@
+<% render :partial => "notee/header.html.erb" %>
+<h1><%= @post.title %></h1>
+<p><%= @post.published_at %></p>
+<p><%= @post.category.name %></p>
+<%= notee_content(@post) %>
+<% render :partial => "notee/sidebar.html.erb" %>
