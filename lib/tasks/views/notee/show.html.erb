@@ -3,4 +3,5 @@
 <p><%= @post.published_at %></p>
 <p><%= @post.category.name %></p>
 <%= notee_content(@post) %>
+<%= notee_profile(@post.user) %>
 <% render :partial => "notee/sidebar.html.erb" %>
