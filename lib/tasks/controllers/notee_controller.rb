@@ -13,6 +13,7 @@ class NoteeController < ApplicationController
 
   # GET "/category"
   def categories
+    @categories = notee_categories
   end
 
   # GET "/category/:name_or_slug"
@@ -23,6 +24,7 @@ class NoteeController < ApplicationController
 
   # GET "/archive"
   def archives
+    @archives = notee_archives
   end
 
   # GET "/archive/:year"
@@ -34,6 +36,7 @@ class NoteeController < ApplicationController
 
   # GET "/writer"
   def writers
+    @writers = notee_writers
   end
 
   # GET "/writer/:name_or_id"
@@ -42,9 +45,4 @@ class NoteeController < ApplicationController
     @posts = writer_notees(params[:name_or_id])
   end
 
-  # GET "/new"
-  # GET "/new?page=hoge"
-  def new_arrival
-    @posts = notees
-  end
 end
