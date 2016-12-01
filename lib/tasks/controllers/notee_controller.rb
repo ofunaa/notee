@@ -38,8 +38,8 @@ class NoteeController < ApplicationController
 
   # GET "/writer/:name_or_id"
   def writer_posts
-    redirect_to root_path if params[:year].nil?
-    @posts = archive_notees(params[:year], params[:month].present? ? params[:month] : nil)
+    redirect_to root_path if params[:name_or_id].nil?
+    @posts = writer_notees(params[:name_or_id])
   end
 
   # GET "/new"

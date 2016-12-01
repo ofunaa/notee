@@ -50,6 +50,16 @@ module Notee
       end
 
 
+      def writer_notees(name_or_id)
+        writer = Notee::User.find_by(name: name_or_id)
+        writer = Notee::User.find_by(name: name_or_id) unless writer
+        return false unless writer
+        return false if writer.is_deleted
+
+        @posts = writer.posts
+      end
+
+
       def notee_categories
         # DATA: {notee.category.name, notee.count}
         Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts WHERE status=1 and is_deleted=false GROUP BY category_id;")
