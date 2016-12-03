@@ -109,6 +109,29 @@
     border-bottom: 1px #2E2F30 solid;
 }
 
+/*  notee_profile   */
+
+.notee_profile {
+    width: 90%;
+    height: auto;
+    margin: 2.5%;
+    padding: 2.5%;
+    float: left;
+    border-left: 1px #2E2F30 solid;
+    border-bottom: 1px #2E2F30 solid;
+}
+
+.notee_profile_left{
+    width: 30%;
+    height: auto;
+    float: left;
+}
+
+.notee_profile_right{
+    width: 70%;
+    height: auto;
+    float: left;
+}
 
 /*  notee_comment_box */
 
