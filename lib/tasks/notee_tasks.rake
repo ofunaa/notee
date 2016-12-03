@@ -1,11 +1,14 @@
 desc 'setup notee'
 namespace :notee do
 
+  require 'fileutils'
+
   task :start do
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     create_initializer_file
+    copy_directory("app/views/", "../views/notee")
     create_file("/config/schedule.rb", "../config/schedule.rb", nil)
     create_file("/app/assets/stylesheets/notee/notee_default.css", "../css/notee_default.css", "/app/assets/stylesheets/notee/")
     create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", "nil")
@@ -145,6 +148,10 @@ EOC
       file.puts new_file
     end
     puts 'create file in ' + create_file_path.to_s
+  end
+
+  def copy_directory(create_dir, origin_dir)
+    FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), Rails.root.to_s + create_dir.to_s)
   end
 
 end
