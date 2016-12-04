@@ -6,6 +6,12 @@ import CategoryActions from '../../actions/CategoryActions';
 // material-ui
 import Checkbox from 'material-ui/Checkbox';
 
+// constants
+import Constants from '../../constants/NoteeConstants';
+
+// utils
+import EventUtil from '../../utils/EventUtil';
+
 export default class PostNewCategory extends Component {
 
     constructor(props) {
@@ -31,6 +37,14 @@ export default class PostNewCategory extends Component {
         // eventemit_callback for category
         this.saveCategorySuccessed = this.saveCategorySuccessed.bind(this);
 
+    }
+
+    componentDidMount() {
+        EventUtil.addChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
     }
 
     render() {

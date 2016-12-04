@@ -72,11 +72,13 @@ export default class PostSectionEdit extends Component {
     componentDidMount() {
         EventUtil.addChangeListener(Constants.POST_CREATE, this.saveSuccessed);
         EventUtil.addChangeListener(Constants.POST_UPDATE, this.updateSuccessed);
+        EventUtil.addChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
     }
 
     componentWillUnmount(){
         EventUtil.removeChangeListener(Constants.POST_CREATE, this.saveSuccessed);
         EventUtil.removeChangeListener(Constants.POST_UPDATE, this.updateSuccessed);
+        EventUtil.removeChangeListener(Constants.CATEGORY_CREATE, this.saveCategorySuccessed);
     }
 
     render() {
