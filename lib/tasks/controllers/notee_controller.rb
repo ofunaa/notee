@@ -1,11 +1,12 @@
 class NoteeController < ApplicationController
 
   before_action :set_meta_info, except: [:show]
+  before_action :set_title, only: [:index, :category_posts, :archives_posts, :writer_posts]
 
   # GET "/"
   def index
     @posts = notees
-    render
+    render :action => 'posts'
   end
 
   # GET "/:id_or_slug"
@@ -24,6 +25,7 @@ class NoteeController < ApplicationController
   def category_posts
     redirect_to root_path if params[:name_or_slug].nil?
     @posts = category_notees(params[:name_or_slug])
+    render :action => 'posts'
   end
 
   # GET "/archive"
@@ -33,9 +35,10 @@ class NoteeController < ApplicationController
 
   # GET "/archive/:year"
   # GET "/archive/:year/:month"
-  def archive_posts
+  def archives_posts
     redirect_to root_path if params[:year].nil?
     @posts = archive_notees(params[:year], params[:month].present? ? params[:month] : nil)
+    render :action => 'posts'
   end
 
   # GET "/writer"
@@ -47,11 +50,26 @@ class NoteeController < ApplicationController
   def writer_posts
     redirect_to root_path if params[:name_or_id].nil?
     @posts = writer_notees(params[:name_or_id])
+    render :action => 'posts'
   end
 
   private
   def set_meta_info
     @notee_meta = Notee.blog_meta
+  end
+
+  def set_title
+    case request.fullpath
+      when notee_public_index_path
+        return @notee_title = 'Notee Index'
+      when notee_public_category_posts_path
+        return @notee_title = 'Category: ' + params[:name_or_slug]
+      when notee_public_archive_posts_path
+        return @notee_title = 'Archive: ' + params[:year] + params[:month].present? ? "/" + params[:month].to_s : ""
+      when notee_public_writer_posts_path
+        return @notee_title = 'Writer: ' + params[:name_or_id]
+    end
+    return @notee_title = 'Notee'
   end
 
 end
