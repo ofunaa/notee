@@ -1,5 +1,5 @@
-<% render :partial => "notee/header.html.erb" %>
-<h2>Archive: <%= params[:year] %><%= params[:month].present? ? "/" + params[:month].to_s : "" %></h2>
+<% render :partial => "notee/partials/header.html.erb" %>
+<h2><%= @notee_title %></h2>
 <div class="notee_lists">
   <% @posts.each do |post| %>
       <div class="notee_list">
@@ -15,4 +15,4 @@
       </div>
   <% end %>
 </div>
-<% render :partial => "notee/sidebar.html.erb" %>
+<% render :partial => "notee/partials/sidebar.html.erb" %>
