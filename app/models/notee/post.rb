@@ -21,9 +21,8 @@ module Notee
     # callbacks
     before_create :set_title
     before_create :set_slug
-    before_create :set_user_id
+
     before_save :set_published_at
-    before_save :check_role
 
     # relations
     belongs_to :user
@@ -32,6 +31,10 @@ module Notee
 
     # accessors
     attr_accessor :editor_id
+
+    def set_user_id
+      self.user_id = Authority.get_user_id
+    end
 
     private
 
@@ -43,10 +46,6 @@ module Notee
       self.slug = self.title.downcase unless self.slug.present?
     end
 
-    def set_user_id
-      self.user_id = Authority.get_user_id
-    end
-
     def set_published_at
       return if self.published_at.present?
       if self.status != 0
@@ -54,8 +53,5 @@ module Notee
       end
     end
 
-    def check_role
-
-    end
   end
 end

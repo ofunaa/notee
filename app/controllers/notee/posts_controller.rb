@@ -19,6 +19,7 @@ module Notee
     # POST /posts
     def create
       @post = Post.new(post_params)
+      @post.set_user_id
       respond_to do |format|
         if @post.save
           format.json { render json: @post, status: 200 }

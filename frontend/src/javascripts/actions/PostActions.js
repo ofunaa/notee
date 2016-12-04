@@ -9,6 +9,8 @@ var PostActions = {
         if(!content.category_id){content.category_id = 1;};
         if(!content.thumbnail_id){content.thumbnail_id = 1;};
 
+        content = {post: content}
+
         NoteeDispatcher.dispatch({
             type: NoteeConstants.POST_CREATE,
             content: content
