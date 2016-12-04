@@ -1,35 +1,62 @@
 
-body {
-    float: left;
+/* notee utils */
+
+.notee_wrapper {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
 }
+
 
 /*  notee header  */
 
 .notee_header {
     width: 100%;
-    height: auto;
+    height: 60px;
     float: left;
+    margin-top: 0;
     background-color: #2E2F30;
 }
 
 .notee_header h1{
-    text-align: center;
+    text-align: left;
     color: #F7F7F7;
+    font-size: 20px;
 }
+
+.notee_header_left {
+    width: 30%;
+    float: left;
+}
+
+.notee_header_right {
+    width: 70%;
+    float: left;
+}
+
+.notee_header_right li{
+    width: 20%;
+    min-width: 150px;
+    line-height: 60px;
+    text-align: center;
+    float: right;
+    list-style: none;
+}
+
 
 
 /*  notee_lists  */
 
 .notee_lists {
-    width: 70%;
+    width: 65%;
     height: auto;
     float: left;
+    margin: 2.5%;
 }
 
 .notee_list {
-    width: 90%;
+    width: 95%;
     height: auto;
-    margin: 2.5%;
     padding: 2.5%;
     float: left;
     border-left: 1px #2E2F30 solid;
