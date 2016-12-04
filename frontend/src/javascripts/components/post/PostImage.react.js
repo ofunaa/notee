@@ -6,6 +6,12 @@ import ImageActions from '../../actions/ImageActions';
 // stores
 import ImageStore from '../../stores/ImageStore';
 
+// constants
+import Constants from '../../constants/NoteeConstants';
+
+// utils
+import EventUtil from '../../utils/EventUtil';
+
 export default class PostImage extends Component {
 
     constructor(props) {
@@ -34,6 +40,14 @@ export default class PostImage extends Component {
 
     componentWillMount() {
         this.setImages();
+    }
+
+    componentDidMount() {
+        EventUtil.addChangeListener(Constants.IMAGE_CREATE, this.saveSuccessed);
+    }
+
+    componentWillUnmount(){
+        EventUtil.removeChangeListener(Constants.IMAGE_CREATE, this.saveSuccessed);
     }
 
     setImages() {
