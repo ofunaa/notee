@@ -1,4 +1,4 @@
-<% render :partial => "notee/partials/header.html.erb" %>
+<%= render :partial => "notee/partials/header.html.erb" %>
 <h2><%= @notee_title %></h2>
 <div class="notee_lists">
   <% @posts.each do |post| %>
@@ -15,4 +15,4 @@
       </div>
   <% end %>
 </div>
-<% render :partial => "notee/partials/sidebar.html.erb" %>
+<%= render :partial => "notee/partials/sidebar.html.erb" %>
