@@ -5,6 +5,7 @@ class NoteeController < ApplicationController
   # GET "/"
   def index
     @posts = notees
+    render
   end
 
   # GET "/:id_or_slug"
