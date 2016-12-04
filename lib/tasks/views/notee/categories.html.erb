@@ -1,12 +1,14 @@
-<% render :partial => "notee/header.html.erb" %>
-<h2>Category List</h2>
-<div class="notee_lists">
-  <% @categories.each do |category| %>
-      <div class="notee_list">
-        <a href="/category/<%= category.name %>">
-          <h3><%= category.name %></h3>
-        </a>
-      </div>
-  <% end %>
+<%= render :partial => "notee/partials/header.html.erb" %>
+<div class="notee_wrapper">
+  <div class="notee_lists">
+    <h2>Category List</h2>
+    <% @categories.each do |category| %>
+        <div class="notee_list">
+          <a href="/category/<%= category.name %>">
+            <h3><%= category.name %></h3>
+          </a>
+        </div>
+    <% end %>
+  </div>
+  <%= render :partial => "notee/partials/sidebar.html.erb" %>
 </div>
-<% render :partial => "notee/sidebar.html.erb" %>

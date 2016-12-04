@@ -3,7 +3,7 @@
     <% monthly_totals.each do |total| %>
       <% slash_time = total.time.gsub("-","/") %>
       <li class="notee_monthly_li">
-        <a href="/archive/<%= slash_time %>">
+        <a href="/archives/<%= slash_time %>">
           <%= slash_time %>(<%= total.count %>)
         </a>
       </li>

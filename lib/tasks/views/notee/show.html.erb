@@ -1,11 +1,13 @@
-<% render :partial => "notee/header.html.erb" %>
-<div class="notee_main">
-  <div class="notee_main_content">
-    <h1><%= @post.title %></h1>
-    <p><%= @post.published_at %></p>
-    <p><%= @post.category.name %></p>
-    <%= notee_content(@post) %>
+<%= render :partial => "notee/partials/header.html.erb" %>
+<div class="notee_wrapper">
+  <div class="notee_main">
+    <div class="notee_main_content">
+      <h1><%= @post.title %></h1>
+      <p><%= @post.published_at %></p>
+      <p><%= @post.category.name %></p>
+      <%= notee_content(@post) %>
+    </div>
+    <%= notee_profile(@post.user) %>
   </div>
-  <%= notee_profile(@post.user) %>
+  <%= render :partial => "notee/partials/sidebar.html.erb" %>
 </div>
-<% render :partial => "notee/sidebar.html.erb" %>

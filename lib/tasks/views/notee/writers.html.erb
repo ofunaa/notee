@@ -1,14 +1,16 @@
-<% render :partial => "notee/header.html.erb" %>
-<h2>Writer List</h2>
-<div class="notee_lists">
-  <% @writers.each do |writer| %>
-      <div class="notee_list">
-        <a href="/writer/<%= writer.name %>">
-          <img src="/notee/<%= writer.profile_img %>">
-          <h3><%= writer.name %></h3>
-          <p><%= writer.profile %></p>
-        </a>
-      </div>
-  <% end %>
+<%= render :partial => "notee/partials/header.html.erb" %>
+<div class="notee_wrapper">
+  <div class="notee_lists">
+    <h2>Writer List</h2>
+    <% @writers.each do |writer| %>
+        <div class="notee_list">
+          <a href="/writer/<%= writer.name %>">
+            <img src="/notee/<%= writer.profile_img %>">
+            <h3><%= writer.name %></h3>
+            <p><%= writer.profile %></p>
+          </a>
+        </div>
+    <% end %>
+  </div>
+  <%= render :partial => "notee/partials/sidebar.html.erb" %>
 </div>
-<% render :partial => "notee/sidebar.html.erb" %>

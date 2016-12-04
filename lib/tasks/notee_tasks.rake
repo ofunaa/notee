@@ -47,15 +47,15 @@ ________________________________
 
   mount Notee::Engine => '/notee'
 
-  get '/'                         => 'notee#index',           as: 'notee_public_index'
-  get '/:id_or_slug'              => 'notee#show',            as: 'notee_public_show'
-  get '/category'                 => 'notee#categories',      as: 'notee_public_categories'
-  get '/category/:name_or_slug'   => 'notee#category_posts',  as: 'notee_public_category_posts'
-  get '/archive'                  => 'notee#archives',        as: 'notee_public_archives'
-  get '/archive/:year'            => 'notee#archive_posts',   as: 'notee_public_archive_posts'
-  get '/archive/:year/:month'     => 'notee#archive_posts'
-  get '/writer'                   => 'notee#writers',         as: 'notee_public_writers'
-  get '/writer/:name_or_id'       => 'notee#writer_posts',    as: 'notee_public_writer_posts'
+  get '/'                           => 'notee#index',           as: 'notee_public_index'
+  get '/categories'                 => 'notee#categories',      as: 'notee_public_categories'
+  get '/categories/:name_or_slug'   => 'notee#category_posts',  as: 'notee_public_category_posts'
+  get '/archives'                   => 'notee#archives',        as: 'notee_public_archives'
+  get '/archives/:year'             => 'notee#archive_posts',   as: 'notee_public_archive_posts'
+  get '/archives/:year/:month'      => 'notee#archive_posts'
+  get '/writers'                    => 'notee#writers',         as: 'notee_public_writers'
+  get '/writers/:name_or_id'        => 'notee#writer_posts',    as: 'notee_public_writer_posts'
+  get '/:id_or_slug'                => 'notee#show',            as: 'notee_public_show'
 
 EOC
 
@@ -96,7 +96,7 @@ Notee.configure do |config|
 
   # blog
   config.blog_meta = {
-    title: "title",
+    title: "Notee",
     url: "http://hogehoge.com",
     keyword: "hoge, hoge, hoge",
     description: "hogehoge",

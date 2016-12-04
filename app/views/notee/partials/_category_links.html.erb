@@ -2,7 +2,7 @@
   <ul class="notee_category_ul">
     <% category_totals.each do |total| %>
       <li class="notee_category_li">
-        <a href="/category/<%= total.category.slug %>">
+        <a href="/categories/<%= total.category.slug %>">
           <%= total.category.name %>(<%= total.count %>)
         </a>
       </li>

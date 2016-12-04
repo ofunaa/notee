@@ -1,4 +1,15 @@
 <%= notee_meta(@notee_meta) %>
 <div class="notee_header">
-  <h1><%= notee_title %></h1>
+  <div class="notee_wrapper">
+    <div class="notee_header_left">
+      <h1><a href="/"><%= notee_title %></a></h1>
+    </div>
+    <div class="notee_header_right">
+      <ul>
+        <a href="/archives"><li>Archive</li></a>
+        <a href="/writers"><li>Writer</li></a>
+        <a href="/categories"><li>Category</li></a>
+      </ul>
+    </div>
+  </div>
 </div>

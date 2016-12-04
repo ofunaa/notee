@@ -35,7 +35,7 @@ class NoteeController < ApplicationController
 
   # GET "/archive/:year"
   # GET "/archive/:year/:month"
-  def archives_posts
+  def archive_posts
     redirect_to root_path if params[:year].nil?
     @posts = archive_notees(params[:year], params[:month].present? ? params[:month] : nil)
     render :action => 'posts'
