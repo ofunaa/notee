@@ -8,7 +8,7 @@ namespace :notee do
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     create_initializer_file
-    copy_directory("app/views/", "../views/notee")
+    copy_directory("/app/views/", "../views/notee")
     create_file("/config/schedule.rb", "../config/schedule.rb", nil)
     create_file("/app/assets/stylesheets/notee/notee_default.css", "../css/notee_default.css", "/app/assets/stylesheets/notee/")
     create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", "nil")
@@ -22,10 +22,10 @@ namespace :notee do
 ________________________________
 ________________________________
 
-|\   |
-| \  |  ___  __|__ __|__  __
-|  \ | |   |   |     |   /__\
-|   \| |___|   |     |   \___
+|\\   |
+| \\  |  ___  __|__ __|__  __
+|  \\ | |   |   |     |   /__\\
+|   \\| |___|   |     |   \\___
 
 ________________________________
 ________________________________
@@ -45,15 +45,15 @@ ________________________________
   # default notee path #
   # ################## #
 
-  get '/'                                   => 'notees#index'
-  get '/:id_or_slug'                        => 'notees#show'
-  get '/category'                           => 'notees#categories'
-  get '/category/:name_or_slug'             => 'notees#category_posts'
-  get '/archive'                            => 'notees#archives'
-  get '/archive/:year'                      => 'notees#archive_posts'
-  get '/archive/:year/:month'               => 'notees#archive_posts'
-  get '/writer'                             => 'notees#writers'
-  get '/writer/:name_or_id'                 => 'notees#writer_posts'
+  get '/'                                   => 'notee#index'
+  get '/:id_or_slug'                        => 'notee#show'
+  get '/category'                           => 'notee#categories'
+  get '/category/:name_or_slug'             => 'notee#category_posts'
+  get '/archive'                            => 'notee#archives'
+  get '/archive/:year'                      => 'notee#archive_posts'
+  get '/archive/:year/:month'               => 'notee#archive_posts'
+  get '/writer'                             => 'notee#writers'
+  get '/writer/:name_or_id'                 => 'notee#writer_posts'
 
   mount Notee::Engine => "/notee"
 EOC
