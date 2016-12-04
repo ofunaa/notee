@@ -45,6 +45,8 @@ ________________________________
   # default notee path #
   # ################## #
 
+  mount Notee::Engine => '/notee'
+
   get '/'                                   => 'notee#index'
   get '/:id_or_slug'                        => 'notee#show'
   get '/category'                           => 'notee#categories'
@@ -55,7 +57,6 @@ ________________________________
   get '/writer'                             => 'notee#writers'
   get '/writer/:name_or_id'                 => 'notee#writer_posts'
 
-  mount Notee::Engine => "/notee"
 EOC
 
     new_route = String.new
