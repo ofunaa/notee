@@ -53,6 +53,10 @@ class NoteeController < ApplicationController
     render :action => 'posts'
   end
 
+  # GET "/about"
+  def about
+  end
+
   private
   def set_meta_info
     @notee_meta = Notee.blog_meta

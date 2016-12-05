@@ -48,6 +48,8 @@ ________________________________
   # default notee path #
   # ################## #
 
+  get '/about'                      => 'notee#about'
+
   mount Notee::Engine => '/notee'
 
   get '/'                           => 'notee#index',           as: 'notee_public_index'
