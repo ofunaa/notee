@@ -1,18 +1,50 @@
 <%= render :partial => "notee/partials/header.html.erb" %>
 <div class="notee_wrapper">
-  <div class="notee_lists">
+  <div class="notee_main">
     <h2><%= @notee_title %></h2>
     <% @posts.each do |post| %>
         <div class="notee_list">
-          <p class="notee_list_date"><%= post.published_at %></p>
-          <p class="notee_list_category"><%= post.category.name %></p>
-          <a class="notee_list_a_tag" href="/<%= post.slug %>">
+
+          <!-- title -->
+          <a href="/<%= post.slug %>">
             <h3><%= post.title %></h3>
-            <p class="notee_list_user"><%= post.user.name %></p>
-            <img src="/notee/<%= post.thumbnail.content %>">
-            <p class="notee_list_content"><%= notee_content(post) %></p>
-            <p class="notee_list_more">More Read</p>
           </a>
+
+          <div class="notee_list_meta">
+            <!-- publish-->
+            <span class="notee_list_meta_content">
+              <%= post.published_at.strftime("%Y/%m/%d") %>,
+            </span>
+
+            <!-- writer -->
+            <span class="notee_list_meta_content">
+              writer: <a href="/writers/<%= post.user.name %>"><%= post.user.name %></a>,
+            </span>
+          </div>
+
+          <div class="notee_list_content">
+            <!--thumbnail-->
+            <a href="/<%= post.slug %>">
+              <img src="/notee/<%= post.thumbnail.content %>">
+            </a>
+
+            <!-- content -->
+            <div class="notee_list_content_p">
+              <a href="/<%= post.slug %>">
+                <p><%= post.seo_description %></p>
+              </a>
+            </div>
+          </div>
+
+          <div class="notee_list_meta">
+            <!-- category -->
+            <span class="notee_list_meta_content">
+                category:
+                <span class="notee_list_meta_content notee_list_category">
+                  <a href="/categories/<%= post.category.slug %>"><%= post.category.name %></a>
+                </span>
+              </span>
+          </div>
         </div>
     <% end %>
   </div>

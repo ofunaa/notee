@@ -1,6 +1,6 @@
 <%= render :partial => "notee/partials/header.html.erb" %>
 <div class="notee_wrapper">
-  <div class="notee_lists">
+  <div class="notee_main">
     <h2>Archive List</h2>
     <% @archives.each do |archive| %>
         <% slash_time = archive.time.gsub("-","/") %>

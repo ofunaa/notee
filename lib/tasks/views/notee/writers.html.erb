@@ -1,11 +1,11 @@
 <%= render :partial => "notee/partials/header.html.erb" %>
 <div class="notee_wrapper">
-  <div class="notee_lists">
+  <div class="notee_main">
     <h2>Writer List</h2>
     <% @writers.each do |writer| %>
         <div class="notee_list">
           <a href="/writers/<%= writer.name %>">
-            <img src="/notee/<%= writer.profile_img %>">
+            <img src="/notee/profile/<%= writer.profile_img %>">
             <h3><%= writer.name %></h3>
             <p><%= writer.profile %></p>
           </a>
