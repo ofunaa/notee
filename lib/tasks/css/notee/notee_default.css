@@ -141,6 +141,7 @@ body {
     color: #333333;
 }
 
+
 /*  notee_main_content  */
 
 .notee_main_content {
@@ -159,14 +160,6 @@ body {
     height: auto;
     padding: 2.5%;
     padding-left: 0;
-}
-
-.notee_main_date {
-
-}
-
-.notee_main_category {
-
 }
 
 
@@ -203,31 +196,6 @@ body {
     margin: 0;
     margin-top: 7px;
     margin-bottom: 7px;
-}
-
-/*  notee_profile   */
-
-.notee_profile {
-    width: 95%;
-    height: auto;
-    padding: 2.5%;
-    float: left;
-    border: 2px solid #F7F7F7;
-    background-color: #fff;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-}
-
-.notee_profile_left{
-    width: 30%;
-    height: auto;
-    float: left;
-}
-
-.notee_profile_right{
-    width: 70%;
-    height: auto;
-    float: left;
 }
 
 /*  notee_comment_box */
