@@ -7,11 +7,11 @@ require 'notee/version'
 Gem::Specification.new do |s|
   s.name        = 'notee'
   s.version     = Notee::VERSION
-  s.authors     = ['takujifunao']
+  s.authors     = ['funaota']
   s.email       = ['takuji.funao@gmail.com']
-  s.summary       = %q{notee is very simple blogging gem.}
-  s.description   = %q{notee create simple blog application.}
-  s.homepage      = 'https://github.com/maru-3/notee.git'
+  s.summary       = %q{【react&rails】notee is creating CMS(blog) app by only one command.}
+  s.description   = %q{【react&rails】notee is creating CMS(blog) app by only one command.}
+  s.homepage      = 'https://github.com/funaota/notee.git'
   s.license       = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
