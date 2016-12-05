@@ -8,16 +8,12 @@ namespace :notee do
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     add_highlight_setting_to_js
-    create_initializer_file
     copy_directory("/app/views/", "../views/notee")
     copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
     copy_directory("/app/assets/javascripts/notee/", "../javascripts/notee")
     create_file("/config/schedule.rb", "../config/schedule.rb", nil)
     create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", nil)
-
-    create_file("/config/notee.rb", "../config/notee.rb", nil)
-    puts 'you should change notee_id & notee_password'
-
+    create_file("/config/initializers/notee.rb", "../config/notee.rb", nil)
     copy_default_image("/public/notee")
     copy_default_image("/public/notee/profile")
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
