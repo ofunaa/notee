@@ -37,12 +37,12 @@ module Notee
         if month
           tmp_month = (month.to_s.size != 2 ? "0" : "") + month.to_s
           tmp_date = year.to_s + tmp_month + "01"
-          begin_time = tmp_date.beginning_of_month
-          end_time = tmp_date.end_of_month
+          begin_time = Date.parse(tmp_date).beginning_of_month
+          end_time = Date.parse(tmp_date).end_of_month
         else
           tmp_date = year.to_s + "0101"
-          begin_time = tmp_date.beginning_of_year
-          end_time = tmp_date.end_of_year
+          begin_time = Date.parse(tmp_date).beginning_of_year
+          end_time = Date.parse(tmp_date).end_of_year
         end
 
         @posts = Notee::Post.where(published_at: begin_time..end_time).order(published_at: :desc)
@@ -62,7 +62,7 @@ module Notee
 
       def notee_categories
         # DATA: {notee.category.name, notee.count}
-        Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts WHERE status=1 and is_deleted=false GROUP BY category_id;")
+        Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts WHERE notee_posts.status=1 and notee_posts.is_deleted=false GROUP BY category_id;")
       end
 
 
@@ -73,12 +73,10 @@ module Notee
 
 
       def notee_writers
-        users = Notee::User.where(is_delete: false)
-        writers = users.map do |user|
-          return user if user.posts.count > 0
-        end
+        users = Notee::User.where(is_deleted: false)
+        writers = users.select { |user| user if user.posts.count > 0 }.map { |user| user }
 
-        return writers
+        writers
       end
 
 
