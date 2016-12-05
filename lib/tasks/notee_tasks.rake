@@ -7,6 +7,7 @@ namespace :notee do
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
+    add_highlight_setting_to_js
     create_initializer_file
     copy_directory("/app/views/", "../views/notee")
     copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
@@ -15,7 +16,6 @@ namespace :notee do
     create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", nil)
 
     create_file("/config/notee.rb", "../config/notee.rb", nil)
-    puts 'create file in "config/initializers/notee.rb"'
     puts 'you should change notee_id & notee_password'
 
     copy_default_image("/public/notee")
@@ -78,7 +78,37 @@ EOC
     puts 'Notee added "mount Notee::Engine => "/notee" to config/route.rb'
     puts ""
   end
-  
+
+  def add_highlight_setting_to_js
+    puts ""
+    return puts 'setup for highlight.pack.js in /app/assets/javascripts/application.js\n' unless route = File.open("#{Rails.root}/app/assets/javascripts/application.js","r")
+    return if File.open("#{Rails.root}/app/assets/javascripts/application.js","r").read.include?("hljs.initHighlightingOnLoad()")
+
+    text = <<-EOC
+
+// ///////////////////////////
+// default notee setting
+// ///////////////////////////
+
+$(document).on('ready', function() {
+  hljs.initHighlightingOnLoad();
+});
+
+    EOC
+
+    new_js = String.new
+    route.each_line do |line|
+      line += text if line.include?("//= require_tree .")
+      new_js += line
+    end
+
+    f = File.open("#{Rails.root}/app/assets/javascripts/application.js","w")
+    f.write(new_js)
+    f.close()
+
+    puts 'Notee added "hljs.initHighlightingOnLoad();" to /app/assets/javascripts/application.js'
+    puts ""
+  end
 
 
   private
