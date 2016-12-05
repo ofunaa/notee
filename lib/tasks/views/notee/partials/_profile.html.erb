@@ -1,9 +1,9 @@
-<div class="notee_profile">
-  <a class="notee_profile_left" href="/writer/<%= writer.name %>">
-    <img src="/notee/<%= writer.profile_img %>">
+<div class="notee_list">
+  <a class="notee_list_content" href="/writers/<%= writer.name %>">
+    <img src="/notee/profile/<%= writer.profile_img %>">
+    <div class="notee_list_content_p">
+      <h3><%= writer.name %></h3>
+      <p><%= writer.profile %></p>
+    </div>
   </a>
-  <a class="notee_profile_right" href="/writer/<%= writer.name %>">
-    <h3><%= writer.name %></h3>
-  </a>
-  <p><%= writer.profile %></p>
 </div>
