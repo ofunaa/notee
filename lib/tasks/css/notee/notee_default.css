@@ -16,6 +16,7 @@ body {
     height: auto;
     float: left;
     margin: 2.5%;
+    margin-top: 20px;
 }
 
 /*  notee header  */
@@ -143,13 +144,21 @@ body {
 /*  notee_main_content  */
 
 .notee_main_content {
-    width: 90%;
+    width: 95%;
     height: auto;
-    margin: 2.5%;
     padding: 2.5%;
     float: left;
-    border-left: 1px #2E2F30 solid;
-    border-bottom: 1px #2E2F30 solid;
+    border: 2px solid #F7F7F7;
+    background-color: #fff;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+}
+
+.notee_main_content img{
+    width: 95%;
+    height: auto;
+    padding: 2.5%;
+    padding-left: 0;
 }
 
 .notee_main_date {
@@ -167,28 +176,46 @@ body {
     width: 30%;
     height: auto;
     float: left;
+    margin-top: 30px;
 }
 
 .notee_sidebar_content {
-    width: 90%;
+    width: 95%;
     height: auto;
-    margin: 2.5%;
     padding: 2.5%;
     float: left;
-    border-left: 1px #2E2F30 solid;
-    border-bottom: 1px #2E2F30 solid;
+    border: 2px solid #F7F7F7;
+    background-color: #fff;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+}
+
+.notee_sidebar_ul {
+    list-style: none;
+    font-size: 12px;
+    margin: 0;
+    margin-left: 7px;
+}
+
+.notee_sidebar_ul li {
+    height: 15px;
+    line-height: 15px;
+    margin: 0;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
 
 /*  notee_profile   */
 
 .notee_profile {
-    width: 90%;
+    width: 95%;
     height: auto;
-    margin: 2.5%;
     padding: 2.5%;
     float: left;
-    border-left: 1px #2E2F30 solid;
-    border-bottom: 1px #2E2F30 solid;
+    border: 2px solid #F7F7F7;
+    background-color: #fff;
+    margin-bottom: 20px;
+    word-wrap: break-word;
 }
 
 .notee_profile_left{
