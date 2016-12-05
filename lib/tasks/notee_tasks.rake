@@ -8,6 +8,7 @@ namespace :notee do
     sh 'bundle exec rake notee:install:migrations'
     add_engine_to_route
     add_highlight_setting_to_js
+    add_notee_css_path
     copy_directory("/app/views/", "../views/notee")
     copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
     copy_directory("/app/assets/javascripts/notee/", "../javascripts/notee")
@@ -103,6 +104,37 @@ $(document).on('ready', function() {
     f.close()
 
     puts 'Notee added "hljs.initHighlightingOnLoad();" to /app/assets/javascripts/application.js'
+    puts ""
+  end
+
+
+  def add_notee_css_path
+    puts ""
+    return puts 'setup for application.css in /app/assets/stylesheets/application.css\n' unless route = File.open("#{Rails.root}/app/assets/stylesheets/application.css","r")
+    return if File.open("#{Rails.root}/app/assets/stylesheets/application.css","r").read.include?("*= require_directory ./notee")
+
+    text = <<-EOC
+
+// ///////////////////////////
+// default notee setting
+// ///////////////////////////
+
+*= require_directory .
+*= require_directory ./notee
+
+    EOC
+
+    new_css = String.new
+    route.each_line do |line|
+      line = text if line.include?("*= require_tree .")
+      new_css += line
+    end
+
+    f = File.open("#{Rails.root}/app/assets/stylesheets/application.css","w")
+    f.write(new_css)
+    f.close()
+
+    puts 'Notee added "*= require_directory ./notee" to /app/assets/stylesheets/application.css'
     puts ""
   end
 
