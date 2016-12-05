@@ -20,10 +20,6 @@ module Notee
         @markdown.render(notee.content).html_safe
       end
 
-      def notee_profile(writer)
-        return render :partial => "notee/partials/profile.html.erb", :locals => { :writer => writer }
-      end
-
       def notee_comment_box(id)
         return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id, :recaptcha => Notee.recaptcha_key }
       end
