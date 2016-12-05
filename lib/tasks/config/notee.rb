@@ -17,7 +17,7 @@ Notee.configure do |config|
       title: "Notee",
       url: "http://hogehoge.com",
       keyword: "hoge, hoge, hoge",
-      description: "hogehoge",
+      description: "【react&rails】notee is creating CMS(blog) app by only one command.",
       og_image: "http://hogehoge.com/hoge.png"
   }
 
