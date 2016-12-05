@@ -3,11 +3,22 @@
   <div class="notee_main">
     <div class="notee_main_content">
       <h1><%= @post.title %></h1>
-      <p><%= @post.published_at %></p>
-      <p><%= @post.category.name %></p>
+
+      <div class="notee_list_meta">
+        <!-- publish-->
+        <span class="notee_list_meta_content">
+              <%= @post.published_at.strftime("%Y/%m/%d") %>,
+            </span>
+
+        <!-- writer -->
+        <span class="notee_list_meta_content">
+              writer: <a href="/writers/<%= @post.user.name %>"><%= @post.user.name %></a>,
+            </span>
+      </div>
+
       <%= notee_content(@post) %>
     </div>
-    <%= notee_profile(@post.user) %>
+    <%= render :partial => "notee/partials/profile.html.erb", :locals => {writer: @post.user} %>
   </div>
   <%= render :partial => "notee/partials/sidebar.html.erb" %>
 </div>
