@@ -9,6 +9,7 @@ namespace :notee do
     add_engine_to_route
     add_highlight_setting_to_js
     add_notee_css_path
+    add_viewport_meta_info_and_delete_title
     copy_directory("/app/views/", "../views/notee")
     copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
     copy_directory("/app/assets/javascripts/notee/", "../javascripts/notee")
@@ -137,6 +138,33 @@ $(document).on('ready', function() {
     f.close()
 
     puts 'Notee added "*= require_directory ./notee" to /app/assets/stylesheets/application.css'
+    puts ""
+  end
+
+  def add_viewport_meta_info_and_delete_title
+    puts ""
+    return puts 'setup for application.html.erb in /app/views/layouts/application.html.erb\n' unless route = File.open("#{Rails.root}/app/views/layouts/application.html.erb","r")
+    return if File.open("#{Rails.root}/app/views/layouts/application.html.erb","r").read.include?('<meta name="viewport" content="width=device-width,initial-scale=1.0" />')
+
+    text = <<-EOC
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    EOC
+
+    new_html = String.new
+    route.each_line do |line|
+      line += text if line.include?("<head>")
+      line = "" if line.include?("<title>")
+      new_html += line
+    end
+
+    f = File.open("#{Rails.root}/app/views/layouts/application.html.erb","w")
+    f.write(new_html)
+    f.close()
+
+    puts 'Notee added "viewport meta info" to /app/views/layouts/application.html.erb'
+    puts 'Notee deleted "Title tag" in /app/views/layouts/application.html.erb'
     puts ""
   end
 
