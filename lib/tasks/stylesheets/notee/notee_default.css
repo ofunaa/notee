@@ -243,16 +243,8 @@ ul.li_none , ol.li_none { list-style: none; }
 
 /*  notee_comment_box */
 
-.notee_comment_box {
-    width: 100%;
-    margin: 30px auto;
-    float: left;
-}
-
 .notee_comments {
     width: 94%;
-    padding: 3%;
-    margin_bottom: 20px;
     float: left;
 }
 
@@ -288,6 +280,7 @@ ul.li_none , ol.li_none { list-style: none; }
 .notee_text_area {
     width: 100%;
     height: 78px;
+    min-width: 300px;
     margin-bottom: 15px;
     float: left;
     font-size: 14px;
@@ -295,9 +288,13 @@ ul.li_none , ol.li_none { list-style: none; }
 
 .notee_submit {
     width: 100%;
-    margin-bottom: 15px;
+    height: 40px;
+    line-height: 40px;
     float: left;
-    font-size: 30px;
+    font-size: 16px;
+    border: 0px solid #F7F7F7;
+    background-color: #337C99;
+    color: #F7F7F7;
 }
 
 /* pc */

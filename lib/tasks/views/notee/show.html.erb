@@ -34,6 +34,9 @@
       </div>
     </div>
 
+    <h4>Comments</h4>
+    <%= notee_comment_box(@post.id) %>
+
     <h4>Written by</h4>
     <%= render :partial => "notee/partials/profile.html.erb", :locals => {writer: @post.user} %>
   </div>
