@@ -13,6 +13,11 @@ namespace :notee do
     copy_directory("/app/assets/javascripts/notee/", "../javascripts/notee")
     create_file("/config/schedule.rb", "../config/schedule.rb", nil)
     create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", nil)
+
+    create_file("/config/notee.rb", "../config/notee.rb", nil)
+    puts 'create file in "config/initializers/notee.rb"'
+    puts 'you should change notee_id & notee_password'
+
     copy_default_image("/public/notee")
     copy_default_image("/public/notee/profile")
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
@@ -73,48 +78,7 @@ EOC
     puts 'Notee added "mount Notee::Engine => "/notee" to config/route.rb'
     puts ""
   end
-
-
-
-  def create_initializer_file
-    file_path = "#{Rails.root}/config/initializers/notee.rb"
-    return if File.exist?(file_path)
-
-    str = <<EOC
-require 'notee'
-
-# Recommendation using .env for manage id & password
-
-Notee.configure do |config|
-
-  # root-user
-  config.notee_id = "hogehoge"
-  config.notee_password = "hogehoge"
-
-  # recaptcha
-  config.recaptcha_key = "hogehoge"
-  config.recaptcha_secret_key = "hogehoge"
-
-  # blog
-  config.blog_meta = {
-    title: "Notee",
-    url: "http://hogehoge.com",
-    keyword: "hoge, hoge, hoge",
-    description: "hogehoge",
-    og_image: "http://hogehoge.com/hoge.png"
-  }
-
-  # google-analytics
-  config.google_analytics = "hogehogehogehoge"
-end
-EOC
-
-    File.open(file_path,"w") do |file|
-      file.puts str
-    end
-    puts 'create file in "config/initializers/notee.rb"'
-    puts 'you should change notee_id & notee_password'
-  end
+  
 
 
   private
