@@ -9,7 +9,7 @@ namespace :notee do
     add_engine_to_route
     create_initializer_file
     copy_directory("/app/views/", "../views/notee")
-    copy_directory("/app/assets/stylesheets/notee/", "../css/notee")
+    copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
     create_file("/config/schedule.rb", "../config/schedule.rb", nil)
     create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", nil)
     copy_default_image("/public/notee")
