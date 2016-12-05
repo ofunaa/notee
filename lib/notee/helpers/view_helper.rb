@@ -48,6 +48,10 @@ module Notee
         return Notee.blog_meta[:title]
       end
 
+      def notee_description
+        return Notee.blog_meta[:description]
+      end
+
     end
   end
 end
