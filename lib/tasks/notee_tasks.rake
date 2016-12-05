@@ -143,7 +143,9 @@ $(document).on('ready', function() {
   end
 
   def copy_directory(create_dir, origin_dir)
-    FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), Rails.root.to_s + create_dir.to_s)
+    new_dir = Rails.root.to_s + create_dir.to_s
+    return if FileTest.exist?(new_dir)
+    FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), new_dir)
   end
 
 end
