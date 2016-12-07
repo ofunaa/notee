@@ -10,7 +10,7 @@ namespace :notee do
     add_highlight_setting_to_js
     add_notee_css_path
     add_viewport_meta_info_and_delete_title
-    copy_directory("/app/views/", "../views/notee")
+    copy_directory("/app/views/notee/", "../views/notee")
     copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
     copy_directory("/app/assets/javascripts/notee/", "../javascripts/notee")
     create_file("/config/schedule.rb", "../config/schedule.rb", nil)
@@ -39,7 +39,6 @@ ________________________________
 
 
   def add_engine_to_route
-    puts ""
     return puts 'setup Notee Engine in config/route.rb\n' unless route = File.open("#{Rails.root}/config/routes.rb","r")
     return if File.open("#{Rails.root}/config/routes.rb","r").read.include?("Notee::Engine")
 
@@ -76,11 +75,9 @@ EOC
     f.close()
 
     puts 'Notee added "mount Notee::Engine => "/notee" to config/route.rb'
-    puts ""
   end
 
   def add_highlight_setting_to_js
-    puts ""
     return puts 'setup for highlight.pack.js in /app/assets/javascripts/application.js\n' unless route = File.open("#{Rails.root}/app/assets/javascripts/application.js","r")
     return if File.open("#{Rails.root}/app/assets/javascripts/application.js","r").read.include?("hljs.initHighlightingOnLoad()")
 
@@ -107,12 +104,10 @@ $(document).on('ready', function() {
     f.close()
 
     puts 'Notee added "hljs.initHighlightingOnLoad();" to /app/assets/javascripts/application.js'
-    puts ""
   end
 
 
   def add_notee_css_path
-    puts ""
     return puts 'setup for application.css in /app/assets/stylesheets/application.css\n' unless route = File.open("#{Rails.root}/app/assets/stylesheets/application.css","r")
     return if File.open("#{Rails.root}/app/assets/stylesheets/application.css","r").read.include?("*= require_directory ./notee")
 
@@ -122,8 +117,8 @@ $(document).on('ready', function() {
 // default notee setting
 // ///////////////////////////
 
-*= require_directory .
-*= require_directory ./notee
+ *= require_directory .
+ *= require_directory ./notee
 
     EOC
 
@@ -138,11 +133,9 @@ $(document).on('ready', function() {
     f.close()
 
     puts 'Notee added "*= require_directory ./notee" to /app/assets/stylesheets/application.css'
-    puts ""
   end
 
   def add_viewport_meta_info_and_delete_title
-    puts ""
     return puts 'setup for application.html.erb in /app/views/layouts/application.html.erb\n' unless route = File.open("#{Rails.root}/app/views/layouts/application.html.erb","r")
     return if File.open("#{Rails.root}/app/views/layouts/application.html.erb","r").read.include?('<meta name="viewport" content="width=device-width,initial-scale=1.0" />')
 
@@ -165,7 +158,6 @@ $(document).on('ready', function() {
 
     puts 'Notee added "viewport meta info" to /app/views/layouts/application.html.erb'
     puts 'Notee deleted "Title tag" in /app/views/layouts/application.html.erb'
-    puts ""
   end
 
 
