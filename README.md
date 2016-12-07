@@ -78,7 +78,7 @@ coming soon.
 
 coming soon.
 
-## Setting Recaptcha
+## Setting Recaptcha for Comment
 
 coming soon.
 
