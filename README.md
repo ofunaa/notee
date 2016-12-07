@@ -72,12 +72,15 @@ and Enter your notee_id & notee_password!
 
 ## Helper Method
 
+coming soon.
 
 ## Setting Google Analytics
 
+coming soon.
 
 ## Setting Recaptcha
 
+coming soon.
 
 
 ## License
