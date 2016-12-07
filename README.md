@@ -79,6 +79,9 @@ img coming soon
 | User(Destroy)      |             |              |           ○ |             ||
 
 
+## Helper Method
+[Helper Method](https://github.com/funaota/notee/wiki/Helper-Method)
+
 ## Setting Google Analytics
 
 coming soon.
