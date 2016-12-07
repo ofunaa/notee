@@ -56,7 +56,7 @@ and Enter your notee_id & notee_password!
 
 ## Authority
 
-||Writer|Editor|Manager|Root|Deleted| 
+|            |Writer      |Editor      |Manager     |Root        |Deleted     | 
 |:-----------|:----------:|:----------:|:----------:|:----------:|:----------:|
 | Post(Create)       |           ○ |            ○ |           ○ |             |             |
 | Post(Update)       |     My Post |            ○ |           ○ |             |             |
@@ -67,7 +67,7 @@ and Enter your notee_id & notee_password!
 | Image(Create)       |           ○ |            ○ |           ○ |             |             |
 | Image(Destroy)     |             |            ○ |           ○ |             |             |
 | User(Create)       |             |              |           ○ |             |             |
-| User(Update)       |  My Profile |   My Profile |     　　　　　　　　　　　　　○ |  My Profile |     　　　　　　　　　　　　　　 |
+| User(Update)       |  My Profile |   My Profile |           ○ |  My Profile |     　　　　　　　　　　　　　　 |
 | User(Destroy)      |             |              |           ○ |             |             |
 
 ## License
