@@ -63,7 +63,7 @@ and Enter your notee_id & notee_password!
 | Post(Destroy)      |             |            ○ |           ○ |             ||
 | Category(Create)    |           ○ |            ○ |           ○ |             ||
 | Category(Update)    |           ○ |            ○ |           ○ |             ||
-| Category(Destroy)   |           ○ |            ○ |           ○ |             ||
+| Category(Destroy)   |            |            ○ |           ○ |             ||
 | Image(Create)       |           ○ |            ○ |           ○ |             ||
 | Image(Destroy)     |             |            ○ |           ○ |             ||
 | User(Create)       |             |              |           ○ |           ○ ||
