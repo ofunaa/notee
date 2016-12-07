@@ -1,6 +1,9 @@
 # Notee
 
-Notee is creating blog gem by only one command.
+Notee is creating CMS(blog) app by only one command. 
+
+BackEnd: Ruby(RailsEngine)  
+FrontEnd: React.js + Riot.js(only comment part)
 
 ## Installation
 
@@ -78,6 +81,9 @@ img coming soon
 | User(Update)       |  My Profile |   My Profile |           ○ |  My Profile ||
 | User(Destroy)      |             |              |           ○ |             ||
 
+
+## Helper Method
+[Helper Method](https://github.com/funaota/notee/wiki/Helper-Method)
 
 ## Setting Google Analytics
 
