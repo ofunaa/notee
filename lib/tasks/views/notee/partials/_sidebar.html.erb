@@ -3,8 +3,8 @@
   <div class="notee_sidebar_content">
     <ul class="notee_sidebar_ul">
       <% notee_categories.each do |category| %>
-          <a href="/categories/<%= category.category.name %>">
-            <li><%= category.category.name %> (<%= category.count %>)</li>
+          <a href="/categories/<%= category.name %>">
+            <li><%= category.name %> (<%= category.posts.count %>)</li>
           </a>
       <% end %>
     </ul>

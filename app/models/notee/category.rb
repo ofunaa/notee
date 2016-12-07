@@ -19,6 +19,7 @@ module Notee
     before_save :protect_default
 
     # relations
+    has_many :posts
     has_many :children, class_name: Notee::Category, foreign_key: 'parent_id', dependent: :destroy
 
     private

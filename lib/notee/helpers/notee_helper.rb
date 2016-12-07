@@ -61,8 +61,10 @@ module Notee
 
 
       def notee_categories
-        # DATA: {notee.category.name, notee.count}
-        Notee::Post.find_by_sql("SELECT category_id as category_id, count(*) as count FROM notee_posts WHERE notee_posts.status=1 and notee_posts.is_deleted=false GROUP BY category_id;")
+        categories = Notee::Category.where(is_deleted: false)
+        published_categories = categories.select { |category| category if category.posts.count > 0 }.map { |category| category }
+
+        published_categories
       end
 
 

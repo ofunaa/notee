@@ -4,8 +4,8 @@
     <h2>Category List</h2>
     <% @categories.each do |category| %>
         <div class="notee_list">
-          <a href="/categories/<%= category.category.name %>">
-            <h3><%= category.category.name %> (<%= category.count %>)</h3>
+          <a href="/categories/<%= category.name %>">
+            <h3><%= category.name %> (<%= category.posts.count %>)</h3>
           </a>
         </div>
     <% end %>
