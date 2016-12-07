@@ -58,7 +58,7 @@ and Enter your notee_id & notee_password!
 
 |            |Writer      |Editor      |Manager     |Root        |Deleted     | 
 |:-----------|:----------:|:----------:|:----------:|:----------:|:----------:|
-| Post(Create)       |           🙆|            ○ |           ○ |             ||
+| Post(Create)       |          ○ |            ○ |           ○ |             ||
 | Post(Update)       |     My Post |            ○ |           ○ |             ||
 | Post(Destroy)      |             |            ○ |           ○ |             ||
 | Category(Create)    |           ○ |            ○ |           ○ |             ||
