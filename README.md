@@ -1,6 +1,9 @@
 # Notee
 
-Notee is creating blog gem by only one command.
+Notee is creating CMS(blog) app by only one command. 
+
+BackEnd: Rails
+FrontEnd: React.js + Riot.js(only comment part)
 
 ## Installation
 
