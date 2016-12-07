@@ -69,8 +69,20 @@ module Notee
 
 
       def notee_archives
-        # DATA: {notee.time, notee.count}
-        Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts WHERE status=1 and is_deleted=false GROUP BY DATE_FORMAT(published_at, '%Y-%m') ORDER BY time DESC;")
+        posts = Notee::Post.select(:published_at).where(status: 1, is_deleted: false).order(created_at: :desc)
+
+        notee_archives = {}
+        posts.each do |post|
+          month_str = post.published_at.strftime("%Y/%m")
+          if notee_archives.has_key?(month_str)
+            notee_archives[month_str] = notee_archives[month_str] + 1
+          else
+            notee_archives.store(month_str, 1)
+          end
+        end
+
+        notee_archives
+        # Notee::Post.find_by_sql("SELECT DATE_FORMAT(published_at, '%Y-%m') as time, count(*) as count FROM notee_posts WHERE status=1 and is_deleted=false GROUP BY DATE_FORMAT(published_at, '%Y-%m') ORDER BY time DESC;")
       end
 
 

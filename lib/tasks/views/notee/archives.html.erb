@@ -2,11 +2,10 @@
 <div class="notee_wrapper">
   <div class="notee_main">
     <h2>Archive List</h2>
-    <% @archives.each do |archive| %>
-        <% slash_time = archive.time.gsub("-","/") %>
+    <% @archives.each do |key, count| %>
         <div class="notee_list">
-          <a href="/archives/<%= slash_time %>">
-            <h3><%= slash_time %> (<%= archive.count %>)</h3>
+          <a href="/archives/<%= key %>">
+            <h3><%= key %> (<%= count %>)</h3>
           </a>
         </div>
     <% end %>

@@ -11,11 +11,10 @@
   </div>
   <h3>Archive</h3>
   <div class="notee_sidebar_content">
-    <% notee_archives.each do |archive| %>
-        <% slash_time = archive.time.gsub("-","/") %>
+    <% notee_archives.each do |key, count| %>
         <ul class="notee_sidebar_ul">
-          <a href="/archives/<%= slash_time %>">
-            <li><%= slash_time %> (<%= archive.count %>)</li>
+          <a href="/archives/<%= key %>">
+            <li><%= key %> (<%= count %>)</li>
           </a>
         </ul>
     <% end %>
