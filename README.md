@@ -2,7 +2,7 @@
 
 Notee is creating CMS(blog) app by only one command. 
 
-BackEnd: Rails
+BackEnd: Ruby(RailsEngine)  
 FrontEnd: React.js + Riot.js(only comment part)
 
 ## Installation
