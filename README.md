@@ -56,8 +56,8 @@ and Enter your notee_id & notee_password!
 
 ## Authority
 
-|                    | Writer      | Editor       | Manager     | Root        | Deleted     | 
-|:-------------------|:----------:|:----------:|:----------:|:----------:|:----------:|
+||Writer|Editor|Manager|Root|Deleted| 
+|:-----------|:----------:|:----------:|:----------:|:----------:|:----------:|
 | Post(Create)       |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |     　　　　　　　　　　　　  |     　　　　　　　　　　　　　　 |
 | Post(Update)       |     My Post |            ○ |           ○ |             |             |
 | Post(Destroy)      |             |            ○ |           ○ |             |             |
