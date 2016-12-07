@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.version     = Notee::VERSION
   s.authors     = ['funaota']
   s.email       = ['takuji.funao@gmail.com']
-  s.summary       = %q{【react&rails】notee is creating CMS(blog) app by only one command.}
-  s.description   = %q{【react&rails】notee is creating CMS(blog) app by only one command.}
+  s.summary       = %q{【react&rails】notee is creating CMS(blog) gem by only one command.}
+  s.description   = %q{【react&rails】notee is creating CMS(blog) gem by only one command.}
   s.homepage      = 'https://github.com/funaota/notee.git'
   s.license       = 'MIT'
 
