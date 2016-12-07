@@ -54,6 +54,22 @@ end
 access this url [http://localhost:3000/notee](http://localhost:3000/notee/)  
 and Enter your notee_id & notee_password!
 
+## Authority
+
+|                    | Writer      | Editor       | Manager     | Root        | Deleted     | 
+|:-------------------|------------:|:------------:|:-----------:|:-----------:|:-----------:|
+| Post(Create)       |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |     　　　　　　　　　　　　  |     　　　　　　　　　　　　　　 |
+| Post(Update)       |     My Post |            ○ |           ○ |             |             |
+| Post(Destroy)      |             |            ○ |           ○ |             |             |
+| Category(Create)   |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
+| Category(Update)   |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
+| Category(Destroy)  |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
+| Image(Create)      |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
+| Image(Destroy)     |    　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |     　　 　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
+| User(Create)       |    　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　○ |     　　　　 　　　　　　○ |     　　　　　　　　　　　　　　 |
+| User(Update)       |  My Profile |   My Profile |     　　　　　　　　　　　　　○ |  My Profile |     　　　　　　　　　　　　　　 |
+| User(Destroy)      |    　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　○ |      　　　　　　　　　　  |     　　　　　　　　　　　　　　 |
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
