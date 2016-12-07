@@ -54,6 +54,14 @@ end
 access this url [http://localhost:3000/notee](http://localhost:3000/notee/)  
 and Enter your notee_id & notee_password!
 
+### Editing View
+
+img coming soon
+
+### initial Website View
+
+img coming soon
+
 ## Authority
 
 |            |Writer      |Editor      |Manager     |Root        |Deleted     | 
