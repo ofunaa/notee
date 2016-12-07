@@ -21,7 +21,7 @@ export default class NoteeFooter extends Component {
 
         return (
             <footer style={style.footer.main}>
-                <p>Notee created by maru-3</p>
+                <p>Notee created by <a href="https://github.com/funaota">funaota</a></p>
             </footer>
         );
     }
