@@ -3,9 +3,9 @@ require 'redcarpet'
 module Notee
   module Helpers
     module ViewHelper
-      def notee_content(notee)
+      def notee_content(post)
 
-        return if notee.nil?
+        return if post.nil?
 
         unless @markdown
           renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
@@ -17,11 +17,11 @@ module Notee
         #   return render :partial => "notee/partials/secret_published.html.erb", :locals => { :item => notee, :markdown => @markdown.render(notee.content).html_safe, :display => false }
         # end
 
-        @markdown.render(notee.content).html_safe
+        @markdown.render(post.content).html_safe
       end
 
-      def notee_comment_box(id)
-        return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => id, :recaptcha => Notee.recaptcha_key }
+      def notee_comment_box(post_id)
+        return render :partial => "notee/partials/comment_box.html.erb", :locals => { :post_id => post_id, :recaptcha => Notee.recaptcha_key }
       end
 
       def notee_meta(meta = Notee.blog_meta)

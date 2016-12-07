@@ -80,9 +80,9 @@ module Notee
       end
 
 
-      def notee_comments(id)
-        return if id.nil?
-        @notee_comments = Notee::Comment.where(post_id: id, is_hidden: false, is_deleted: false)
+      def notee_comments(post_id)
+        return if post_id.nil?
+        @notee_comments = Notee::Comment.where(post_id: post_id, is_hidden: false, is_deleted: false)
         @notee_comments
       end
 

@@ -80,13 +80,13 @@ img coming soon
 
 ## View Helper Method
 
-### notee_content(notee)
+### notee_content(post)
 
-`notee_content(notee)` converts post in markdown notation nice to html and returns it.
+`notee_content(post)` converts post in markdown notation nice to html and returns it.
 
-### notee_comment_box(id)
+### notee_comment_box(post_id)
 
-`notee_comment_box(id)` render "notee/partials/comment_box.html.erb"
+`notee_comment_box(post_id)` render "notee/partials/comment_box.html.erb"
 
 ### notee_meta(meta = Notee.blog_meta)
 
@@ -156,9 +156,9 @@ img coming soon
 
 `notee_writers` returns all writers
 
-### notee_comments(id)
+### notee_comments(post_id)
 
-`notee_comments(id)` return comments on that article of id
+`notee_comments(post_id)` return comments on that article of post_id
 
 ### notee_set_meta_by_post(post)
 
