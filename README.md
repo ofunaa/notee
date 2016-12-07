@@ -61,14 +61,14 @@ and Enter your notee_id & notee_password!
 | Post(Create)       |     ○ |            ○ |           ○ |             |             |
 | Post(Update)       |     My Post |            ○ |           ○ |             |             |
 | Post(Destroy)      |             |            ○ |           ○ |             |             |
-| Category(Create)   |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
-| Category(Update)   |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
-| Category(Destroy)  |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
-| Image(Create)      |    　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |      　　　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
-| Image(Destroy)     |    　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　　○ |     　　　　　　　　　　　　　○ |     　　 　　　　　　　　　　 |     　　　　　　　　　　　　　　 |
-| User(Create)       |    　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　○ |     　　　　 　　　　　　○ |     　　　　　　　　　　　　　　 |
+| Category(Create)    |           ○ |            ○ |           ○ |             |             |
+| Category(Update)    |           ○ |            ○ |           ○ |             |             |
+| Category(Destroy)   |           ○ |            ○ |           ○ |             |             |
+| Image(Create)       |           ○ |            ○ |           ○ |             |             |
+| Image(Destroy)     |             |            ○ |           ○ |             |             |
+| User(Create)       |             |              |           ○ |             |             |
 | User(Update)       |  My Profile |   My Profile |     　　　　　　　　　　　　　○ |  My Profile |     　　　　　　　　　　　　　　 |
-| User(Destroy)      |    　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　　  |     　　　　　　　　　　　　　○ |      　　　　　　　　　　  |     　　　　　　　　　　　　　　 |
+| User(Destroy)      |             |              |           ○ |             |             |
 
 ## License
 
