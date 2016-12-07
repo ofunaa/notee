@@ -70,6 +70,16 @@ and Enter your notee_id & notee_password!
 | User(Update)       |  My Profile |   My Profile |           ○ |  My Profile ||
 | User(Destroy)      |             |              |           ○ |             ||
 
+## Helper Method
+
+
+## Setting Google Analytics
+
+
+## Setting Recaptcha
+
+
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
