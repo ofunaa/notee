@@ -173,6 +173,8 @@ $(document).on('ready', function() {
         output.write(File.open(File.expand_path('../images/default.png', __FILE__)).read)
       end
     end
+
+    puts 'create image in ' + image_path.to_s
   end
 
   def create_file(create_path, origin_path, dir)
@@ -200,6 +202,7 @@ $(document).on('ready', function() {
     new_dir = Rails.root.to_s + create_dir.to_s
     return if FileTest.exist?(new_dir)
     FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), new_dir)
+    puts 'create directory in ' + create_dir.to_s
   end
 
 end
