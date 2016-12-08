@@ -1,7 +1,27 @@
 desc 'setup notee'
 namespace :notee do
-
   require 'fileutils'
+
+  NOTEE_VIEW_PATH = "/app/views/notee/"
+  NOTEE_ORIGIN_VIEW_PATH = "../views/notee"
+
+  NOTEE_CSS_PATH = "/app/assets/stylesheets/notee/"
+  NOTEE_ORIGIN_CSS_PATH = "../stylesheets/notee"
+
+  NOTEE_JS_PATH = "/app/assets/javascripts/notee/"
+  NOTEE_ORIGIN_JS_PATH = "../javascripts/notee"
+
+  NOTEE_SCHEJULE_PATH = "/config/schedule.rb"
+  NOTEE_ORIGIN_SCHEJULE_PATH = "../config/schedule.rb"
+
+  NOTEE_CONTROLLER_PATH = "/app/controllers/notee_controller.rb"
+  NOTEE_ORIGIN_CONTROLLER_PATH = "../controllers/notee_controller.rb"
+
+  NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
+  NOTEE_ORIGIN_INIT_FILE_PATH = "../config/notee.rb"
+
+  NOTEE_IMAGE_PATH = "/public/notee/"
+  NOTEE_ORIGIN_IMAGE_PATH = "../images/notee"
 
   task :start do
     notee_mark
@@ -10,16 +30,27 @@ namespace :notee do
     add_highlight_setting_to_js
     add_notee_css_path
     add_viewport_meta_info_and_delete_title
-    copy_directory("/app/views/notee/", "../views/notee")
-    copy_directory("/app/assets/stylesheets/notee/", "../stylesheets/notee")
-    copy_directory("/app/assets/javascripts/notee/", "../javascripts/notee")
-    create_file("/config/schedule.rb", "../config/schedule.rb", nil)
-    create_file("/app/controllers/notee_controller.rb", "../controllers/notee_controller.rb", nil)
-    create_file("/config/initializers/notee.rb", "../config/notee.rb", nil)
-    copy_default_image("/public/notee")
-    copy_default_image("/public/notee/profile")
+    copy_directory( NOTEE_VIEW_PATH,   NOTEE_ORIGIN_VIEW_PATH )
+    copy_directory( NOTEE_CSS_PATH,    NOTEE_ORIGIN_CSS_PATH )
+    copy_directory( NOTEE_JS_PATH,     NOTEE_ORIGIN_JS_PATH )
+    copy_directory( NOTEE_IMAGE_PATH,  NOTEE_ORIGIN_IMAGE_PATH )
+    create_file( NOTEE_SCHEJULE_PATH,    NOTEE_ORIGIN_SCHEJULE_PATH)
+    create_file( NOTEE_CONTROLLER_PATH,  NOTEE_ORIGIN_CONTROLLER_PATH)
+    create_file( NOTEE_INIT_FILE_PATH,   NOTEE_ORIGIN_INIT_FILE_PATH)
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
+
+  task :destroy do
+    delete_directory(NOTEE_VIEW_PATH)
+    delete_directory(NOTEE_CSS_PATH)
+    delete_directory(NOTEE_JS_PATH)
+    delete_directory(NOTEE_IMAGE_PATH)
+    delete_file(NOTEE_SCHEJULE_PATH)
+    delete_file(NOTEE_CONTROLLER_PATH)
+    delete_file(NOTEE_INIT_FILE_PATH)
+  end
+  
+  private
 
   def notee_mark
     puts "
@@ -160,29 +191,7 @@ $(document).on('ready', function() {
     puts 'Notee deleted "Title tag" in /app/views/layouts/application.html.erb'
   end
 
-
-  private
-
-  def copy_default_image(image_path)
-    image_dir = Rails.root.to_s + image_path
-    FileUtils.mkdir_p(image_dir) unless FileTest.exist?(image_dir)
-
-    image_url = image_dir + '/default.png'
-    unless FileTest.exist?(image_url)
-      open(image_url, 'wb') do |output|
-        output.write(File.open(File.expand_path('../images/default.png', __FILE__)).read)
-      end
-    end
-
-    puts 'create image in ' + image_path.to_s
-  end
-
-  def create_file(create_path, origin_path, dir)
-    if dir.present?
-      new_dir = Rails.root.to_s + dir.to_s
-      FileUtils.mkdir_p(new_dir) unless FileTest.exist?(new_dir)
-    end
-
+  def create_file(create_path, origin_path)
     create_file_path = Rails.root.to_s + create_path.to_s
     return if File.exist?(create_file_path)
 
@@ -195,14 +204,28 @@ $(document).on('ready', function() {
     File.open(create_file_path,"w") do |file|
       file.puts new_file
     end
-    puts 'create file in ' + create_file_path.to_s
+    puts 'create file => ' + create_file_path.to_s
+  end
+
+  def delete_file(file_path)
+    delete_file_path = Rails.root.to_s + file_path.to_s
+    return unless File.exist?(delete_file_path)
+    FileUtils.rm_f(delete_file_path)
+    puts 'delete directory => ' + file_path.to_s
   end
 
   def copy_directory(create_dir, origin_dir)
     new_dir = Rails.root.to_s + create_dir.to_s
     return if FileTest.exist?(new_dir)
     FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), new_dir)
-    puts 'create directory in ' + create_dir.to_s
+    puts 'create directory => ' + create_dir.to_s
+  end
+
+  def delete_directory(dir_path)
+    delete_dir = Rails.root.to_s + dir_path.to_s
+    return unless FileTest.exist?(delete_dir)
+    FileUtils.rm_rf(delete_dir)
+    puts 'delete directory => ' + dir_path.to_s
   end
 
 end
