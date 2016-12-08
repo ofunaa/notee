@@ -1,0 +1,121 @@
+/******************************
+
+ ソーシャルエリア全体を囲む要素
+ * 他のコンテンツと距離を取りたい場合は[margin]を設定して下さい
+
+******************************/
+.social-area-syncer {
+    width: 100% ;
+    min-height: 190px ;
+    background: #F5F1E9 ;	/* 背景色 */
+    padding: 1.5em 0 ;
+}
+
+/* デスクトップPCでは高さを拡張する */
+@media screen and ( min-width:480px ) {
+    .social-area-syncer {
+        min-height: 119px ;
+    }
+}
+
+
+/******************************
+
+ [ul]要素
+
+******************************/
+/* スマホ */
+ul.social-button-syncer {
+    width: 238px ;
+    margin: 24px auto ;
+    padding: 0 ;
+    border: none ;
+    list-style-type: none ;
+}
+
+/* デスクトップ */
+@media screen and ( min-width:480px ) {
+    ul.social-button-syncer {
+        width: 410px ;
+    }
+}
+
+
+/******************************
+
+ [li]要素
+
+******************************/
+ul.social-button-syncer li {
+    float: left ;
+    text-align: center ;
+    height: 71px ;
+    margin: 0 8px ;
+    padding:0 ;
+}
+
+
+/******************************
+
+ 各種ボタン
+
+******************************/
+/* [Twitter] */
+.sc-tw {
+    width: 71px ;
+}
+
+.sc-tw svg {
+    width: 30px ;
+    height: 30px ;
+}
+
+.sc-tw a {
+    height: 56px ;
+    margin: 0 auto ;
+    padding-top: 6px ;
+    display: block ;
+    background: #1B95E0 ;
+    font-size: 12px ;
+    color: #fff ;
+    font-weight: 700 ;
+    text-decoration: none ;
+    letter-spacing: .5px ;
+    border-radius: 2px ;
+}
+
+.sc-tw a:hover {
+    color: #fff ;
+    background: #0c7abf ;
+}
+
+.sc-tw span:before {
+    white-space: pre ;
+    content: '\A' ;
+}
+
+/* [Facebook] */
+.sc-fb {
+    z-index: 99 ;
+    width: 69px ;
+}
+
+/* [LINE] */
+.sc-li {
+    width: 50px ;
+}
+
+.sc-li-img {
+    border: none ;
+    margin: 0 auto ;
+    padding:0 ;
+    width: 36px ;
+    height: 60px ;
+}
+
+/* デスクトップPCではLINEボタンを表示しない */
+@media screen and ( min-width:480px ) {
+    .sc-li {
+        display: none ;
+    }
+}
