@@ -2,6 +2,46 @@ desc 'setup notee'
 namespace :notee do
   require 'fileutils'
 
+
+  APPLICATION_ERB_PATH = "/app/views/layouts/application.html.erb"
+  ADD_META_TXT = <<-EOC
+
+    <!-- default notee setting -->
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!-- notee setting end -->
+
+  EOC
+
+
+  APPLICATION_JS_PATH = "/app/assets/javascripts/application.js"
+  ADD_HIGHLIGHT_TXT = <<-EOC
+
+//////// default notee setting
+
+$(document).on('ready', function() {
+  hljs.initHighlightingOnLoad();
+});
+
+//////// notee setting end
+
+  EOC
+
+
+  APPLICATION_CSS_PATH = "/app/assets/stylesheets/application.css"
+  ADD_CSS_TXT = <<-EOC
+
+//////// default notee setting
+
+ *= require_directory .
+ *= require_directory ./notee
+
+//////// notee setting end
+
+  EOC
+
+
   ROUTE_FILE_PATH = "/config/routes.rb"
   ADD_ROUTE_TXT = <<-EOC
 
@@ -21,30 +61,7 @@ namespace :notee do
   get '/writers/:name_or_id'        => 'notee#writer_posts',    as: 'notee_public_writer_posts'
   get '/:id_or_slug'                => 'notee#show',            as: 'notee_public_show'
 
-  EOC
-
-  APPLICATION_JS_PATH = "/app/assets/javascripts/application.js"
-  ADD_HIGHLIGHT_TXT = <<-EOC
-
-//////// default notee setting
-
-$(document).on('ready', function() {
-  hljs.initHighlightingOnLoad();
-});
-
-//////// notee setting end
-
-  EOC
-
-  APPLICATION_CSS_PATH = "/app/assets/stylesheets/application.css"
-  ADD_CSS_TXT = <<-EOC
-
-//////// default notee setting
-
- *= require_directory .
- *= require_directory ./notee
-
-//////// notee setting end
+  ######## notee setting end
 
   EOC
 
@@ -67,10 +84,12 @@ $(document).on('ready', function() {
   task :start do
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
-    add_viewport_meta_info_and_delete_title
-    add_notee_code(ROUTE_FILE_PATH, "Rails.application.routes.draw do", ADD_ROUTE_TXT, "Notee::Engine")
-    add_notee_code(APPLICATION_JS_PATH, "//= require_tree .", ADD_HIGHLIGHT_TXT, "hljs.initHighlightingOnLoad()")
-    add_notee_code(APPLICATION_CSS_PATH, "*= require_tree .", ADD_CSS_TXT, "*= require_directory ./notee")
+    delete_line( APPLICATION_ERB_PATH, "<title>" )
+    add_notee_code( APPLICATION_ERB_PATH,  ADD_META_TXT,       "<head>",  '<meta name="viewport" content="width=device-width,initial-scale=1.0" />' )
+    add_notee_code( APPLICATION_JS_PATH,   ADD_HIGHLIGHT_TXT,  "//= require_tree .", "hljs.initHighlightingOnLoad()" )
+    add_notee_code( APPLICATION_CSS_PATH,  ADD_CSS_TXT,        "*= require_tree .", "*= require_directory ./notee" )
+    delete_line( APPLICATION_CSS_PATH, "*= require_tree ." )
+    add_notee_code( ROUTE_FILE_PATH,       ADD_ROUTE_TXT,      "Rails.application.routes.draw do",  "Notee::Engine" )
     copy_directory( NOTEE_VIEW_PATH,   NOTEE_VIEW_ORIGIN_PATH )
     copy_directory( NOTEE_CSS_PATH,    NOTEE_CSS_ORIGIN_PATH )
     copy_directory( NOTEE_JS_PATH,     NOTEE_JS_ORIGIN_PATH )
@@ -89,6 +108,11 @@ $(document).on('ready', function() {
     delete_file(NOTEE_SCHEJULE_PATH)
     delete_file(NOTEE_CONTROLLER_PATH)
     delete_file(NOTEE_INIT_FILE_PATH)
+    add_line(APPLICATION_ERB_PATH, "<title>#{Rails.application.class.parent_name.to_s}</title>", "<head>", "<title>")
+    delete_notee_code(APPLICATION_ERB_PATH, "<!-- default notee setting -->", "<!-- notee setting end -->")
+    delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
+    add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end", "*= require_tree .")
+    delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
     delete_notee_code(ROUTE_FILE_PATH, "######## default notee path", "######## notee setting end")
   end
 
@@ -112,36 +136,7 @@ ________________________________
 
 
 
-
-  def add_viewport_meta_info_and_delete_title
-    return puts 'setup for application.html.erb in /app/views/layouts/application.html.erb\n' unless route = File.open("#{Rails.root}/app/views/layouts/application.html.erb","r")
-    return if File.open("#{Rails.root}/app/views/layouts/application.html.erb","r").read.include?('<meta name="viewport" content="width=device-width,initial-scale=1.0" />')
-
-    text = <<-EOC
-
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-
-    EOC
-
-    new_html = String.new
-    route.each_line do |line|
-      line += text if line.include?("<head>")
-      line = "" if line.include?("<title>")
-      new_html += line
-    end
-
-    f = File.open("#{Rails.root}/app/views/layouts/application.html.erb","w")
-    f.write(new_html)
-    f.close()
-
-    puts 'Notee added "viewport meta info" to /app/views/layouts/application.html.erb'
-    puts 'Notee deleted "Title tag" in /app/views/layouts/application.html.erb'
-  end
-
-
-
-  def add_notee_code(file_path, beginning_line, insert_txt, check_txt)
-
+  def add_notee_code(file_path, insert_txt, beginning_line, check_txt)
     add_file_path = Rails.root.to_s  + file_path
 
     return puts 'add notee code failed => '+ add_file_path + '\n' unless add_file = File.open(add_file_path,"r")
@@ -149,7 +144,7 @@ ________________________________
 
     new_file = String.new
     add_file.each_line do |line|
-      line = insert_txt if line.include?(beginning_line)
+      line += insert_txt if line.include?(beginning_line)
       new_file += line
     end
 
@@ -163,7 +158,6 @@ ________________________________
 
 
   def delete_notee_code(file_path, beginning_line, ending_line)
-
     delete_file_path = Rails.root.to_s  + file_path
 
     return puts 'delete failed => notee code '+ delete_file_path + '\n' unless delete_file = File.open(delete_file_path,"r")
@@ -179,7 +173,9 @@ ________________________________
         next
       end
 
-      new_file_text += line if initial_txt
+      next unless initial_txt
+
+      new_file_text += line
     end
 
     f = File.open(delete_file_path,"w")
@@ -187,6 +183,57 @@ ________________________________
     f.close()
 
     puts 'Notee deleted => notee code in' + delete_file_path
+  end
+
+
+
+  def add_line(file_path, add_line, beginning_path, check_txt)
+    add_file_path = Rails.root.to_s  + file_path
+
+    txt = <<-EOC
+
+  #{add_line}
+    EOC
+
+    return puts 'delete failed => notee code '+ add_file_path + '\n' unless delete_file = File.open(add_file_path,"r")
+    return if File.open(add_file_path,"r").read.include?(check_txt)
+
+    new_file_text = String.new
+    initial_txt = true
+
+    delete_file.each_line do |line|
+      line += txt if line.include?(beginning_path)
+      new_file_text += line if initial_txt
+    end
+
+    f = File.open(add_file_path,"w")
+    f.write(new_file_text)
+    f.close()
+
+    puts 'Notee added => ' + add_line + ' in' + add_file_path
+  end
+
+
+
+  def delete_line(file_path, delete_line)
+    delete_file_path = Rails.root.to_s  + file_path
+
+    return puts 'delete failed => notee code '+ delete_file_path + '\n' unless delete_file = File.open(delete_file_path,"r")
+    return unless File.open(delete_file_path,"r").read.include?(delete_line)
+
+    new_file_text = String.new
+    initial_txt = true
+
+    delete_file.each_line do |line|
+      line = "" if line.include?(delete_line)
+      new_file_text += line if initial_txt
+    end
+
+    f = File.open(delete_file_path,"w")
+    f.write(new_file_text)
+    f.close()
+
+    puts 'Notee deleted => ' + delete_line + ' in' + delete_file_path
   end
 
 
