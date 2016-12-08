@@ -2,26 +2,22 @@ desc 'setup notee'
 namespace :notee do
   require 'fileutils'
 
+  ROUTE_FILE_PATH = "/config/routes.rb"
+
   NOTEE_VIEW_PATH = "/app/views/notee/"
-  NOTEE_ORIGIN_VIEW_PATH = "../views/notee"
-
+  NOTEE_VIEW_ORIGIN_PATH = "../views/notee"
   NOTEE_CSS_PATH = "/app/assets/stylesheets/notee/"
-  NOTEE_ORIGIN_CSS_PATH = "../stylesheets/notee"
-
+  NOTEE_CSS_ORIGIN_PATH = "../stylesheets/notee"
   NOTEE_JS_PATH = "/app/assets/javascripts/notee/"
-  NOTEE_ORIGIN_JS_PATH = "../javascripts/notee"
-
+  NOTEE_JS_ORIGIN_PATH = "../javascripts/notee"
   NOTEE_SCHEJULE_PATH = "/config/schedule.rb"
-  NOTEE_ORIGIN_SCHEJULE_PATH = "../config/schedule.rb"
-
+  NOTEE_SCHEJULE_ORIGIN_PATH = "../config/schedule.rb"
   NOTEE_CONTROLLER_PATH = "/app/controllers/notee_controller.rb"
-  NOTEE_ORIGIN_CONTROLLER_PATH = "../controllers/notee_controller.rb"
-
+  NOTEE_CONTROLLER_ORIGIN_PATH = "../controllers/notee_controller.rb"
   NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
-  NOTEE_ORIGIN_INIT_FILE_PATH = "../config/notee.rb"
-
+  NOTEE_INIT_FILE_ORIGIN_PATH = "../config/notee.rb"
   NOTEE_IMAGE_PATH = "/public/notee/"
-  NOTEE_ORIGIN_IMAGE_PATH = "../images/notee"
+  NOTEE_IMAGE_ORIGIN_PATH = "../images/notee"
 
   task :start do
     notee_mark
@@ -30,13 +26,13 @@ namespace :notee do
     add_highlight_setting_to_js
     add_notee_css_path
     add_viewport_meta_info_and_delete_title
-    copy_directory( NOTEE_VIEW_PATH,   NOTEE_ORIGIN_VIEW_PATH )
-    copy_directory( NOTEE_CSS_PATH,    NOTEE_ORIGIN_CSS_PATH )
-    copy_directory( NOTEE_JS_PATH,     NOTEE_ORIGIN_JS_PATH )
-    copy_directory( NOTEE_IMAGE_PATH,  NOTEE_ORIGIN_IMAGE_PATH )
-    create_file( NOTEE_SCHEJULE_PATH,    NOTEE_ORIGIN_SCHEJULE_PATH)
-    create_file( NOTEE_CONTROLLER_PATH,  NOTEE_ORIGIN_CONTROLLER_PATH)
-    create_file( NOTEE_INIT_FILE_PATH,   NOTEE_ORIGIN_INIT_FILE_PATH)
+    copy_directory( NOTEE_VIEW_PATH,   NOTEE_VIEW_ORIGIN_PATH )
+    copy_directory( NOTEE_CSS_PATH,    NOTEE_CSS_ORIGIN_PATH )
+    copy_directory( NOTEE_JS_PATH,     NOTEE_JS_ORIGIN_PATH )
+    copy_directory( NOTEE_IMAGE_PATH,  NOTEE_IMAGE_ORIGIN_PATH )
+    create_file( NOTEE_SCHEJULE_PATH,    NOTEE_SCHEJULE_ORIGIN_PATH)
+    create_file( NOTEE_CONTROLLER_PATH,  NOTEE_CONTROLLER_ORIGIN_PATH)
+    create_file( NOTEE_INIT_FILE_PATH,   NOTEE_INIT_FILE_ORIGIN_PATH)
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
@@ -48,8 +44,9 @@ namespace :notee do
     delete_file(NOTEE_SCHEJULE_PATH)
     delete_file(NOTEE_CONTROLLER_PATH)
     delete_file(NOTEE_INIT_FILE_PATH)
+    delete_notee_code(ROUTE_FILE_PATH, "######## default notee path", "######## notee setting end")
   end
-  
+
   private
 
   def notee_mark
@@ -75,9 +72,7 @@ ________________________________
 
     text = <<-EOC
 
-  # ################## #
-  # default notee path #
-  # ################## #
+  ######## default notee path
 
   get '/about'                      => 'notee#about'
 
@@ -108,19 +103,21 @@ EOC
     puts 'Notee added "mount Notee::Engine => "/notee" to config/route.rb'
   end
 
+
+
   def add_highlight_setting_to_js
     return puts 'setup for highlight.pack.js in /app/assets/javascripts/application.js\n' unless route = File.open("#{Rails.root}/app/assets/javascripts/application.js","r")
     return if File.open("#{Rails.root}/app/assets/javascripts/application.js","r").read.include?("hljs.initHighlightingOnLoad()")
 
     text = <<-EOC
 
-// ///////////////////////////
-// default notee setting
-// ///////////////////////////
+//////// default notee setting
 
 $(document).on('ready', function() {
   hljs.initHighlightingOnLoad();
 });
+
+//////// notee setting end
 
     EOC
 
@@ -138,18 +135,21 @@ $(document).on('ready', function() {
   end
 
 
+
+
+
   def add_notee_css_path
     return puts 'setup for application.css in /app/assets/stylesheets/application.css\n' unless route = File.open("#{Rails.root}/app/assets/stylesheets/application.css","r")
     return if File.open("#{Rails.root}/app/assets/stylesheets/application.css","r").read.include?("*= require_directory ./notee")
 
     text = <<-EOC
 
-// ///////////////////////////
-// default notee setting
-// ///////////////////////////
+//////// default notee setting
 
  *= require_directory .
  *= require_directory ./notee
+
+//////// notee setting end
 
     EOC
 
@@ -191,6 +191,33 @@ $(document).on('ready', function() {
     puts 'Notee deleted "Title tag" in /app/views/layouts/application.html.erb'
   end
 
+  def delete_notee_code(file_path, beginning_line, ending_line)
+
+    delete_file_path = Rails.root + file_path
+
+    return puts 'delete failed => notee code '+ delete_file_path + '\n' unless route = File.open(delete_file_path,"r")
+    return unless File.open(delete_file_path,"r").read.include?(beginning_line)
+
+    new_route = String.new
+    initial_txt = true
+
+    route.each_line do |line|
+      initial_txt = false if line.include?(beginning_line)
+      if line.include?(ending_line)
+        initial_txt = true
+        next
+      end
+
+      new_route += line if initial_txt
+    end
+
+    f = File.open(delete_file_path,"w")
+    f.write(new_route)
+    f.close()
+
+    puts 'Notee deleted => notee code in' + delete_file_path
+  end
+
   def create_file(create_path, origin_path)
     create_file_path = Rails.root.to_s + create_path.to_s
     return if File.exist?(create_file_path)
@@ -211,7 +238,7 @@ $(document).on('ready', function() {
     delete_file_path = Rails.root.to_s + file_path.to_s
     return unless File.exist?(delete_file_path)
     FileUtils.rm_f(delete_file_path)
-    puts 'delete directory => ' + file_path.to_s
+    puts 'delete file => ' + file_path.to_s
   end
 
   def copy_directory(create_dir, origin_dir)
