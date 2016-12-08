@@ -61,10 +61,19 @@ module Notee
 
 
       def notee_categories
-        categories = Notee::Category.where(is_deleted: false)
-        published_categories = categories.select { |category| category if category.posts.count > 0 }.map { |category| category }
+        posts = Notee::Post.select(:category_id).where(status: 1, is_deleted: false).order(created_at: :desc)
 
-        published_categories
+        notee_categories = {}
+        posts.each do |post|
+          category = post.category
+          if notee_categories.has_key?(category.name)
+            notee_categories[category.name][0] = notee_categories[category.name][0] + 1
+          else
+            notee_categories.store(category.name, [1, category])
+          end
+        end
+
+        notee_categories
       end
 
 
@@ -87,10 +96,19 @@ module Notee
 
 
       def notee_writers
-        users = Notee::User.where(is_deleted: false)
-        writers = users.select { |user| user if user.posts.count > 0 }.map { |user| user }
+        posts = Notee::Post.select(:user_id).where(status: 1, is_deleted: false).order(created_at: :desc)
 
-        writers
+        notee_writers = {}
+        posts.each do |post|
+          writer_name = post.user.name
+          if notee_writers.has_key?(writer_name)
+            notee_writers[writer_name] = notee_writers[writer_name] + 1
+          else
+            notee_writers.store(writer_name, 1)
+          end
+        end
+
+        notee_writers
       end
 
 

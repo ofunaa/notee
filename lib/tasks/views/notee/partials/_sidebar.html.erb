@@ -2,9 +2,9 @@
   <h3>Category</h3>
   <div class="notee_sidebar_content">
     <ul class="notee_sidebar_ul">
-      <% notee_categories.each do |category| %>
-          <a href="/categories/<%= category.name %>">
-            <li><%= category.name %> (<%= category.posts.count %>)</li>
+      <% notee_categories.each do |key, category_array| %>
+          <a href="/categories/<%= category_array[1].slug %>">
+            <li><%= category_array[1].name %> (<%= category_array[0] %>)</li>
           </a>
       <% end %>
     </ul>
