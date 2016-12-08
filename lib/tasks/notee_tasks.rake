@@ -187,12 +187,57 @@ ________________________________
 
 
 
+  def create_file(create_path, origin_path)
+    create_file_path = Rails.root.to_s + create_path.to_s
+    return if File.exist?(create_file_path)
+
+    origin_file = File.open(File.expand_path(origin_path.to_s, __FILE__))
+    new_file = String.new
+    origin_file.each_line do |line|
+      new_file += line
+    end
+
+    File.open(create_file_path,"w") do |file|
+      file.puts new_file
+    end
+    puts 'create file => ' + create_file_path.to_s
+  end
+
+
+
+  def delete_file(file_path)
+    delete_file_path = Rails.root.to_s + file_path.to_s
+    return unless File.exist?(delete_file_path)
+    FileUtils.rm_f(delete_file_path)
+    puts 'delete file => ' + file_path.to_s
+  end
+
+
+
+  def copy_directory(create_dir, origin_dir)
+    new_dir = Rails.root.to_s + create_dir.to_s
+    return if FileTest.exist?(new_dir)
+    FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), new_dir)
+    puts 'create directory => ' + create_dir.to_s
+  end
+
+
+
+  def delete_directory(dir_path)
+    delete_dir = Rails.root.to_s + dir_path.to_s
+    return unless FileTest.exist?(delete_dir)
+    FileUtils.rm_rf(delete_dir)
+    puts 'delete directory => ' + dir_path.to_s
+  end
+
+
+
   def add_line(file_path, add_line, beginning_path, check_txt)
     add_file_path = Rails.root.to_s  + file_path
 
     txt = <<-EOC
 
-  #{add_line}
+#{add_line}
     EOC
 
     return puts 'delete failed => notee code '+ add_file_path + '\n' unless delete_file = File.open(add_file_path,"r")
@@ -236,49 +281,5 @@ ________________________________
     puts 'Notee deleted => ' + delete_line + ' in' + delete_file_path
   end
 
-
-
-  def create_file(create_path, origin_path)
-    create_file_path = Rails.root.to_s + create_path.to_s
-    return if File.exist?(create_file_path)
-
-    origin_file = File.open(File.expand_path(origin_path.to_s, __FILE__))
-    new_file = String.new
-    origin_file.each_line do |line|
-      new_file += line
-    end
-
-    File.open(create_file_path,"w") do |file|
-      file.puts new_file
-    end
-    puts 'create file => ' + create_file_path.to_s
-  end
-
-
-
-  def delete_file(file_path)
-    delete_file_path = Rails.root.to_s + file_path.to_s
-    return unless File.exist?(delete_file_path)
-    FileUtils.rm_f(delete_file_path)
-    puts 'delete file => ' + file_path.to_s
-  end
-
-
-
-  def copy_directory(create_dir, origin_dir)
-    new_dir = Rails.root.to_s + create_dir.to_s
-    return if FileTest.exist?(new_dir)
-    FileUtils.cp_r(File.expand_path(origin_dir.to_s, __FILE__), new_dir)
-    puts 'create directory => ' + create_dir.to_s
-  end
-
-
-
-  def delete_directory(dir_path)
-    delete_dir = Rails.root.to_s + dir_path.to_s
-    return unless FileTest.exist?(delete_dir)
-    FileUtils.rm_rf(delete_dir)
-    puts 'delete directory => ' + dir_path.to_s
-  end
 
 end
