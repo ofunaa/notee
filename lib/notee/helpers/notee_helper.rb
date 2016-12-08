@@ -98,14 +98,9 @@ module Notee
       def notee_writers
         posts = Notee::Post.select(:user_id).where(status: 1, is_deleted: false).order(created_at: :desc)
 
-        notee_writers = {}
+        notee_writers = []
         posts.each do |post|
-          writer_name = post.user.name
-          if notee_writers.has_key?(writer_name)
-            notee_writers[writer_name] = notee_writers[writer_name] + 1
-          else
-            notee_writers.store(writer_name, 1)
-          end
+          notee_writers.push(post.user)
         end
 
         notee_writers
