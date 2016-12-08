@@ -6,6 +6,7 @@ module Notee
         return false unless search_txt
         post = Notee::Post.find_by(id: search_txt)
         post = Notee::Post.find_by(slug: search_txt) unless post
+        return unless post
 
         return if post.status == Notee::STATUS[:draft] ||
                   post.status == Notee::STATUS[:deleted] ||
