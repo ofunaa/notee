@@ -3,18 +3,6 @@ namespace :notee do
   require 'fileutils'
 
 
-  APPLICATION_ERB_PATH = "/app/views/layouts/application.html.erb"
-  ADD_META_TXT = <<-EOC
-
-    <!-- default notee setting -->
-
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-
-    <!-- notee setting end -->
-
-  EOC
-
-
   APPLICATION_JS_PATH = "/app/assets/javascripts/application.js"
   ADD_HIGHLIGHT_TXT = <<-EOC
 
@@ -66,50 +54,59 @@ $(document).on('ready', function() {
   EOC
 
 
-  NOTEE_VIEW_PATH = "/app/views/notee/"
-  NOTEE_VIEW_ORIGIN_PATH = "../views/notee"
-  NOTEE_CSS_PATH = "/app/assets/stylesheets/notee/"
-  NOTEE_CSS_ORIGIN_PATH = "../stylesheets/notee"
-  NOTEE_JS_PATH = "/app/assets/javascripts/notee/"
-  NOTEE_JS_ORIGIN_PATH = "../javascripts/notee"
-  NOTEE_SCHEJULE_PATH = "/config/schedule.rb"
-  NOTEE_SCHEJULE_ORIGIN_PATH = "../config/schedule.rb"
-  NOTEE_CONTROLLER_PATH = "/app/controllers/notee_controller.rb"
-  NOTEE_CONTROLLER_ORIGIN_PATH = "../controllers/notee_controller.rb"
+  #  FILE PATH
+  NOTEE_LAYOUTS_FILE_PATH = "/app/views/layouts/application.html.erb"
+  NOTEE_LAYOUTS_FILE_ORIGIN_PATH = "../views/layouts/notee_application.html.erb"
+  NOTEE_SCHEJULE_FILE_PATH = "/config/schedule.rb"
+  NOTEE_SCHEJULE_FILE_ORIGIN_PATH = "../config/schedule.rb"
+  NOTEE_CONTROLLER_FILE_PATH = "/app/controllers/notee_controller.rb"
+  NOTEE_CONTROLLER_FILE_ORIGIN_PATH = "../controllers/notee_controller.rb"
   NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
   NOTEE_INIT_FILE_ORIGIN_PATH = "../config/notee.rb"
-  NOTEE_IMAGE_PATH = "/public/notee/"
-  NOTEE_IMAGE_ORIGIN_PATH = "../images/notee"
+
+  # Directory PATH
+  NOTEE_VIEW_DIR_PATH = "/app/views/notee/"
+  NOTEE_VIEW_DIR_ORIGIN_PATH = "../views/notee"
+  NOTEE_CSS_DIR_PATH = "/app/assets/stylesheets/notee/"
+  NOTEE_CSS_DIR_ORIGIN_PATH = "../stylesheets/notee"
+  NOTEE_JS_DIR_PATH = "/app/assets/javascripts/notee/"
+  NOTEE_JS_DIR_ORIGIN_PATH = "../javascripts/notee"
+  NOTEE_IMAGE_DIR_PATH = "/public/notee/"
+  NOTEE_IMAGE_DIR_ORIGIN_PATH = "../images/notee"
+
+
+
 
   task :start do
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
-    delete_line( APPLICATION_ERB_PATH, "<title>" )
-    add_notee_code( APPLICATION_ERB_PATH,  ADD_META_TXT,       "<head>",  '<meta name="viewport" content="width=device-width,initial-scale=1.0" />' )
+
     add_notee_code( APPLICATION_JS_PATH,   ADD_HIGHLIGHT_TXT,  "//= require_tree .", "hljs.initHighlightingOnLoad()" )
     add_notee_code( APPLICATION_CSS_PATH,  ADD_CSS_TXT,        "*= require_tree .", "*= require_directory ./notee" )
     delete_line( APPLICATION_CSS_PATH, "*= require_tree ." )
     add_notee_code( ROUTE_FILE_PATH,       ADD_ROUTE_TXT,      "Rails.application.routes.draw do",  "Notee::Engine" )
-    copy_directory( NOTEE_VIEW_PATH,   NOTEE_VIEW_ORIGIN_PATH )
-    copy_directory( NOTEE_CSS_PATH,    NOTEE_CSS_ORIGIN_PATH )
-    copy_directory( NOTEE_JS_PATH,     NOTEE_JS_ORIGIN_PATH )
-    copy_directory( NOTEE_IMAGE_PATH,  NOTEE_IMAGE_ORIGIN_PATH )
-    create_file( NOTEE_SCHEJULE_PATH,    NOTEE_SCHEJULE_ORIGIN_PATH)
-    create_file( NOTEE_CONTROLLER_PATH,  NOTEE_CONTROLLER_ORIGIN_PATH)
+
+    copy_directory( NOTEE_VIEW_DIR_PATH,   NOTEE_VIEW_DIR_ORIGIN_PATH )
+    copy_directory( NOTEE_CSS_DIR_PATH,    NOTEE_CSS_DIR_ORIGIN_PATH )
+    copy_directory( NOTEE_JS_DIR_PATH,     NOTEE_JS_DIR_ORIGIN_PATH )
+    copy_directory( NOTEE_IMAGE_DIR_PATH,  NOTEE_IMAGE_DIR_ORIGIN_PATH )
+
+    create_file( NOTEE_SCHEJULE_FILE_PATH,    NOTEE_SCHEJULE_FILE_ORIGIN_PATH)
+    create_file( NOTEE_CONTROLLER_FILE_PATH,  NOTEE_CONTROLLER_FILE_ORIGIN_PATH)
     create_file( NOTEE_INIT_FILE_PATH,   NOTEE_INIT_FILE_ORIGIN_PATH)
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
   task :destroy do
-    delete_directory(NOTEE_VIEW_PATH)
-    delete_directory(NOTEE_CSS_PATH)
-    delete_directory(NOTEE_JS_PATH)
-    delete_directory(NOTEE_IMAGE_PATH)
-    delete_file(NOTEE_SCHEJULE_PATH)
-    delete_file(NOTEE_CONTROLLER_PATH)
+    delete_directory(NOTEE_VIEW_DIR_PATH)
+    delete_directory(NOTEE_CSS_DIR_PATH)
+    delete_directory(NOTEE_JS_DIR_PATH)
+    delete_directory(NOTEE_IMAGE_DIR_PATH)
+
+    delete_file(NOTEE_SCHEJULE_FILE_PATH)
+    delete_file(NOTEE_CONTROLLER_FILE_PATH)
     delete_file(NOTEE_INIT_FILE_PATH)
-    add_line(APPLICATION_ERB_PATH, "<title>#{Rails.application.class.parent_name.to_s}</title>", "<head>", "<title>")
-    delete_notee_code(APPLICATION_ERB_PATH, "<!-- default notee setting -->", "<!-- notee setting end -->")
+
     delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
     add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end", "*= require_tree .")
     delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
