@@ -1,15 +1,10 @@
-<%= render :partial => "notee/partials/header.html.erb" %>
-<div class="notee_wrapper">
-  <div class="notee_main">
-    <h2>Archive List</h2>
-    <% @archives.each do |key, count| %>
-        <div class="notee_list">
-          <a href="/archives/<%= key %>">
-            <h3><%= key %> (<%= count %>)</h3>
-          </a>
-        </div>
-    <% end %>
-  </div>
-  <%= render :partial => "notee/partials/sidebar.html.erb" %>
+<div class="notee_main">
+  <h2>Archive List</h2>
+  <% @archives.each do |key, count| %>
+      <div class="notee_list">
+        <a href="/archives/<%= key %>">
+          <h3><%= key %> (<%= count %>)</h3>
+        </a>
+      </div>
+  <% end %>
 </div>
-<%= render :partial => "notee/partials/footer.html.erb" %>

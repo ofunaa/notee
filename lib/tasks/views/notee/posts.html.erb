@@ -1,53 +1,50 @@
-<%= render :partial => "notee/partials/header.html.erb" %>
-<div class="notee_wrapper">
-  <div class="notee_main">
-    <h2><%= @notee_title %></h2>
-    <% @posts.each do |post| %>
-        <div class="notee_list">
+<div class="notee_main">
+  <h2><%= @notee_title %></h2>
+  <% @posts.each do |post| %>
+      <div class="notee_list">
 
-          <!-- title -->
+        <!-- title -->
+        <a href="/<%= post.slug %>">
+          <h3><%= post.title %></h3>
+        </a>
+
+        <div class="notee_list_meta">
+          <!-- publish-->
+          <span class="notee_list_meta_content">
+            <%= post.published_at.strftime("%Y/%m/%d") %>,
+          </span>
+
+          <!-- writer -->
+          <span class="notee_list_meta_content">
+            writer: <a href="/writers/<%= post.user.name %>"><%= post.user.name %></a>
+          </span>
+        </div>
+
+        <div class="notee_list_content">
+          <!--thumbnail-->
           <a href="/<%= post.slug %>">
-            <h3><%= post.title %></h3>
+            <img src="/notee/<%= post.thumbnail.content %>">
           </a>
 
-          <div class="notee_list_meta">
-            <!-- publish-->
-            <span class="notee_list_meta_content">
-              <%= post.published_at.strftime("%Y/%m/%d") %>,
-            </span>
-
-            <!-- writer -->
-            <span class="notee_list_meta_content">
-              writer: <a href="/writers/<%= post.user.name %>"><%= post.user.name %></a>
-            </span>
-          </div>
-
-          <div class="notee_list_content">
-            <!--thumbnail-->
+          <!-- content -->
+          <div class="notee_list_content_p">
             <a href="/<%= post.slug %>">
-              <img src="/notee/<%= post.thumbnail.content %>">
+              <p><%= post.seo_description %></p>
             </a>
-
-            <!-- content -->
-            <div class="notee_list_content_p">
-              <a href="/<%= post.slug %>">
-                <p><%= post.seo_description %></p>
-              </a>
-            </div>
-          </div>
-
-          <div class="notee_list_meta">
-            <!-- category -->
-            <span class="notee_list_meta_content">
-                category:
-                <span class="notee_list_meta_content notee_list_category">
-                  <a href="/categories/<%= post.category.slug %>"><%= post.category.name %></a>
-                </span>
-            </span>
           </div>
         </div>
-    <% end %>
-  </div>
-  <%= render :partial => "notee/partials/sidebar.html.erb" %>
+
+        <div class="notee_list_meta">
+          <!-- category -->
+          <span class="notee_list_meta_content">
+              category:
+              <span class="notee_list_meta_content notee_list_category">
+                <a href="/categories/<%= post.category.slug %>"><%= post.category.name %></a>
+              </span>
+          </span>
+        </div>
+      </div>
+  <% end %>
 </div>
-<%= render :partial => "notee/partials/footer.html.erb" %>
+
+

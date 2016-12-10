@@ -2,48 +2,43 @@
 <!-- you should change your favorite syntax -->
 <%= stylesheet_link_tag    "notee/highlight/default", :media => "all" %>
 
-<%= render :partial => "notee/partials/header.html.erb" %>
-<div class="notee_wrapper">
-  <div class="notee_main">
-    <div class="notee_main_content">
-      <h1><%= @post.title %></h1>
+<div class="notee_main">
+  <div class="notee_main_content">
+    <h1><%= @post.title %></h1>
 
-      <div class="notee_list_meta">
-        <!-- publish-->
-        <span class="notee_list_meta_content">
-          <%= @post.published_at.strftime("%Y/%m/%d") %>,
-        </span>
+    <div class="notee_list_meta">
+      <!-- publish-->
+      <span class="notee_list_meta_content">
+        <%= @post.published_at.strftime("%Y/%m/%d") %>,
+      </span>
 
-        <!-- writer -->
-        <span class="notee_list_meta_content">
-          writer: <a href="/writers/<%= @post.user.name %>"><%= @post.user.name %></a>
-        </span>
+      <!-- writer -->
+      <span class="notee_list_meta_content">
+        writer: <a href="/writers/<%= @post.user.name %>"><%= @post.user.name %></a>
+      </span>
 
-      </div>
-
-      <%= render :partial => "notee/partials/social.html.erb" %>
-
-      <%= notee_content(@post) %>
-
-      <%= render :partial => "notee/partials/social.html.erb" %>
-
-      <div class="notee_list_meta">
-        <!-- category -->
-        <span class="notee_list_meta_content righting">
-          category:
-          <span class="notee_list_meta_content notee_list_category">
-            <a href="/categories/<%= @post.category.slug %>"><%= @post.category.name %></a>
-          </span>
-        </span>
-      </div>
     </div>
 
-    <h4>Comments</h4>
-    <%= notee_comment_box(@post.id) %>
+    <%= render :partial => "notee/partials/social.html.erb" %>
 
-    <h4>Written by</h4>
-    <%= render :partial => "notee/partials/profile.html.erb", :locals => {writer: @post.user} %>
+    <%= notee_content(@post) %>
+
+    <%= render :partial => "notee/partials/social.html.erb" %>
+
+    <div class="notee_list_meta">
+      <!-- category -->
+      <span class="notee_list_meta_content righting">
+        category:
+        <span class="notee_list_meta_content notee_list_category">
+          <a href="/categories/<%= @post.category.slug %>"><%= @post.category.name %></a>
+        </span>
+      </span>
+    </div>
   </div>
-  <%= render :partial => "notee/partials/sidebar.html.erb" %>
+
+  <h4>Comments</h4>
+  <%= notee_comment_box(@post.id) %>
+
+  <h4>Written by</h4>
+  <%= render :partial => "notee/partials/profile.html.erb", :locals => {writer: @post.user} %>
 </div>
-<%= render :partial => "notee/partials/footer.html.erb" %>
