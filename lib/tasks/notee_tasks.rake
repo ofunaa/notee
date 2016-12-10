@@ -63,7 +63,7 @@ $(document).on('ready', function() {
   #  FILE PATH
   NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
   NOTEE_INIT_FILE_ORIGIN_PATH = "../config/notee.rb"
-  NOTEE_LAYOUTS_FILE_PATH = "/app/views/layouts/application.html.erb"
+  NOTEE_LAYOUTS_FILE_PATH = "/app/views/layouts/notee_application.html.erb"
   NOTEE_LAYOUTS_FILE_ORIGIN_PATH = "../views/layouts/notee_application.html.erb"
   NOTEE_SCHEJULE_FILE_PATH = "/config/schedule.rb"
   NOTEE_SCHEJULE_FILE_ORIGIN_PATH = "../config/schedule.rb"
@@ -251,7 +251,7 @@ ________________________________
 
 
 
-  def add_line(file_path, add_line, beginning_path,)
+  def add_line(file_path, add_line, beginning_path)
     add_file_path = Rails.root.to_s  + file_path
 
     txt = <<-EOC
