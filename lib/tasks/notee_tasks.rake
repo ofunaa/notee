@@ -49,6 +49,8 @@ $(document).on('ready', function() {
   get '/writers/:name_or_id'        => 'notee#writer_posts',    as: 'notee_public_writer_posts'
   get '/:id_or_slug'                => 'notee#show',            as: 'notee_public_show'
 
+  get '*anything'                   => 'errors#resque404'
+
   ######## notee setting end
 
   EOC
@@ -67,6 +69,8 @@ $(document).on('ready', function() {
   NOTEE_SCHEJULE_FILE_ORIGIN_PATH = "../config/schedule.rb"
   NOTEE_CONTROLLER_FILE_PATH = "/app/controllers/notee_controller.rb"
   NOTEE_CONTROLLER_FILE_ORIGIN_PATH = "../controllers/notee_controller.rb"
+  NOTEE_ERROR_CONTROLLER_FILE_PATH = "/app/controllers/errors_controller.rb"
+  NOTEE_ERROR__CONTROLLER_FILE_ORIGIN_PATH = "../controllers/errors_controller.rb"
 
   # Directory PATH
   NOTEE_VIEW_DIR_PATH = "/app/views/notee/"
@@ -102,6 +106,7 @@ $(document).on('ready', function() {
     create_file( NOTEE_LAYOUTS_FILE_PATH,   NOTEE_LAYOUTS_FILE_ORIGIN_PATH)
     create_file( NOTEE_SCHEJULE_FILE_PATH,    NOTEE_SCHEJULE_FILE_ORIGIN_PATH)
     create_file( NOTEE_CONTROLLER_FILE_PATH,  NOTEE_CONTROLLER_FILE_ORIGIN_PATH)
+    create_file( NOTEE_ERROR_CONTROLLER_FILE_PATH,  NOTEE_ERROR_CONTROLLER_FILE_ORIGIN_PATH)
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
@@ -109,6 +114,7 @@ $(document).on('ready', function() {
   task :destroy do
 
     # Delete File
+    delete_file(NOTEE_ERROR_CONTROLLER_FILE_PATH)
     delete_file(NOTEE_CONTROLLER_FILE_PATH)
     delete_file(NOTEE_SCHEJULE_FILE_PATH)
     delete_file(NOTEE_LAYOUTS_FILE_PATH)
