@@ -70,7 +70,7 @@ $(document).on('ready', function() {
   NOTEE_CONTROLLER_FILE_PATH = "/app/controllers/notee_controller.rb"
   NOTEE_CONTROLLER_FILE_ORIGIN_PATH = "../controllers/notee_controller.rb"
   NOTEE_ERROR_CONTROLLER_FILE_PATH = "/app/controllers/errors_controller.rb"
-  NOTEE_ERROR__CONTROLLER_FILE_ORIGIN_PATH = "../controllers/errors_controller.rb"
+  NOTEE_ERROR_CONTROLLER_FILE_ORIGIN_PATH = "../controllers/errors_controller.rb"
 
   # Directory PATH
   NOTEE_VIEW_DIR_PATH = "/app/views/notee/"
