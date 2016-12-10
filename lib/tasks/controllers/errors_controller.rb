@@ -1,4 +1,4 @@
-class Notee::ErrorsController < ActionController::Base
+class ErrorsController < ActionController::Base
   layout 'notee_application'
 
   rescue_from ActiveRecord::RecordNotFound, with: :resque404

@@ -105,7 +105,7 @@ $(document).on('ready', function() {
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
-  
+
   task :destroy do
 
     # Delete File
