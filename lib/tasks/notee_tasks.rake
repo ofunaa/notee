@@ -55,14 +55,14 @@ $(document).on('ready', function() {
 
 
   #  FILE PATH
+  NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
+  NOTEE_INIT_FILE_ORIGIN_PATH = "../config/notee.rb"
   NOTEE_LAYOUTS_FILE_PATH = "/app/views/layouts/application.html.erb"
   NOTEE_LAYOUTS_FILE_ORIGIN_PATH = "../views/layouts/notee_application.html.erb"
   NOTEE_SCHEJULE_FILE_PATH = "/config/schedule.rb"
   NOTEE_SCHEJULE_FILE_ORIGIN_PATH = "../config/schedule.rb"
   NOTEE_CONTROLLER_FILE_PATH = "/app/controllers/notee_controller.rb"
   NOTEE_CONTROLLER_FILE_ORIGIN_PATH = "../controllers/notee_controller.rb"
-  NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
-  NOTEE_INIT_FILE_ORIGIN_PATH = "../config/notee.rb"
 
   # Directory PATH
   NOTEE_VIEW_DIR_PATH = "/app/views/notee/"
@@ -81,36 +81,46 @@ $(document).on('ready', function() {
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
 
+    # Add Code
     add_notee_code( APPLICATION_JS_PATH,   ADD_HIGHLIGHT_TXT,  "//= require_tree .", "hljs.initHighlightingOnLoad()" )
     add_notee_code( APPLICATION_CSS_PATH,  ADD_CSS_TXT,        "*= require_tree .", "*= require_directory ./notee" )
     delete_line( APPLICATION_CSS_PATH, "*= require_tree ." )
     add_notee_code( ROUTE_FILE_PATH,       ADD_ROUTE_TXT,      "Rails.application.routes.draw do",  "Notee::Engine" )
 
+    # Copy Directory
     copy_directory( NOTEE_VIEW_DIR_PATH,   NOTEE_VIEW_DIR_ORIGIN_PATH )
     copy_directory( NOTEE_CSS_DIR_PATH,    NOTEE_CSS_DIR_ORIGIN_PATH )
     copy_directory( NOTEE_JS_DIR_PATH,     NOTEE_JS_DIR_ORIGIN_PATH )
     copy_directory( NOTEE_IMAGE_DIR_PATH,  NOTEE_IMAGE_DIR_ORIGIN_PATH )
 
+    # Create File
+    create_file( NOTEE_INIT_FILE_PATH,   NOTEE_INIT_FILE_ORIGIN_PATH)
+    create_file( NOTEE_LAYOUTS_FILE_PATH,   NOTEE_LAYOUTS_FILE_ORIGIN_PATH)
     create_file( NOTEE_SCHEJULE_FILE_PATH,    NOTEE_SCHEJULE_FILE_ORIGIN_PATH)
     create_file( NOTEE_CONTROLLER_FILE_PATH,  NOTEE_CONTROLLER_FILE_ORIGIN_PATH)
-    create_file( NOTEE_INIT_FILE_PATH,   NOTEE_INIT_FILE_ORIGIN_PATH)
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
   task :destroy do
-    delete_directory(NOTEE_VIEW_DIR_PATH)
-    delete_directory(NOTEE_CSS_DIR_PATH)
-    delete_directory(NOTEE_JS_DIR_PATH)
-    delete_directory(NOTEE_IMAGE_DIR_PATH)
 
-    delete_file(NOTEE_SCHEJULE_FILE_PATH)
+    # Delete File
     delete_file(NOTEE_CONTROLLER_FILE_PATH)
+    delete_file(NOTEE_SCHEJULE_FILE_PATH)
+    delete_file(NOTEE_LAYOUTS_FILE_PATH)
     delete_file(NOTEE_INIT_FILE_PATH)
 
+    # Delete Directory
+    delete_directory(NOTEE_IMAGE_DIR_PATH)
+    delete_directory(NOTEE_JS_DIR_PATH)
+    delete_directory(NOTEE_CSS_DIR_PATH)
+    delete_directory(NOTEE_VIEW_DIR_PATH)
+
+    # Delete Code
+    delete_notee_code(ROUTE_FILE_PATH, "######## default notee path", "######## notee setting end")
+    delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
     delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
     add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end", "*= require_tree .")
-    delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
-    delete_notee_code(ROUTE_FILE_PATH, "######## default notee path", "######## notee setting end")
+
   end
 
   private
