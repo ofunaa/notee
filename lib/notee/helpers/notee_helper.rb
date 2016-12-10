@@ -6,7 +6,9 @@ module Notee
         return false unless search_txt
         post = Notee::Post.find_by(id: search_txt)
         post = Notee::Post.find_by(slug: search_txt) unless post
-        return unless post
+
+        # return unless post  # TODO: raise
+        raise ActiveRecord::RecordNotFound
 
         return if post.status == Notee::STATUS[:draft] ||
                   post.status == Notee::STATUS[:deleted] ||
@@ -26,8 +28,9 @@ module Notee
         # search_by_category_slug
         category = Notee::Category.find_by(slug: search_txt)
         category = Notee::Category.find_by(name: search_txt) unless category
-        return false unless category
-        return false if category.is_deleted
+
+        return false unless category  # TODO: raise
+        return false if category.is_deleted  # TODO: raise
 
         @posts = Notee::Post.where(category_id: category.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
         @posts
@@ -54,8 +57,10 @@ module Notee
       def writer_notees(name_or_id)
         writer = Notee::User.find_by(name: name_or_id)
         writer = Notee::User.find_by(name: name_or_id) unless writer
-        return false unless writer
-        return false if writer.is_deleted
+
+
+        return false unless writer              # TODO: raise
+        return false if writer.is_deleted       # TODO: raise
 
         @posts = writer.posts
       end
