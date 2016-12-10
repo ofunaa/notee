@@ -1,4 +1,4 @@
-class NoteeController < ApplicationController
+class Notee::NoteeController < ApplicationController
   layout 'notee_application'
 
   before_action :set_meta_info, except: [:show]
