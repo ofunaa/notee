@@ -54,6 +54,10 @@ $(document).on('ready', function() {
   EOC
 
 
+  ENV_PRODUCTION_FILE_PATH = "/config/environments/production.rb"
+  ADD_ENV_PRODUCTION_TXT = "config.exceptions_app = ->(env) { ErrorsController.action(:show).call(env) }"
+
+
   #  FILE PATH
   NOTEE_INIT_FILE_PATH = "/config/initializers/notee.rb"
   NOTEE_INIT_FILE_ORIGIN_PATH = "../config/notee.rb"
@@ -76,7 +80,6 @@ $(document).on('ready', function() {
 
 
 
-
   task :start do
     notee_mark
     sh 'bundle exec rake notee:install:migrations'
@@ -86,6 +89,7 @@ $(document).on('ready', function() {
     add_notee_code( APPLICATION_CSS_PATH,  ADD_CSS_TXT,        "*= require_tree .", "*= require_directory ./notee" )
     delete_line( APPLICATION_CSS_PATH, "*= require_tree ." )
     add_notee_code( ROUTE_FILE_PATH,       ADD_ROUTE_TXT,      "Rails.application.routes.draw do",  "Notee::Engine" )
+    add_line( ENV_PRODUCTION_FILE_PATH, ADD_ENV_PRODUCTION_TXT, "Rails.application.configure do")
 
     # Copy Directory
     copy_directory( NOTEE_VIEW_DIR_PATH,   NOTEE_VIEW_DIR_ORIGIN_PATH )
@@ -101,6 +105,7 @@ $(document).on('ready', function() {
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
+  
   task :destroy do
 
     # Delete File
@@ -116,10 +121,11 @@ $(document).on('ready', function() {
     delete_directory(NOTEE_VIEW_DIR_PATH)
 
     # Delete Code
+    delete_line( ENV_PRODUCTION_FILE_PATH, ADD_ENV_PRODUCTION_TXT)
     delete_notee_code(ROUTE_FILE_PATH, "######## default notee path", "######## notee setting end")
     delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
     delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
-    add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end", "*= require_tree .")
+    add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end")
 
   end
 
@@ -239,16 +245,16 @@ ________________________________
 
 
 
-  def add_line(file_path, add_line, beginning_path, check_txt)
+  def add_line(file_path, add_line, beginning_path,)
     add_file_path = Rails.root.to_s  + file_path
 
     txt = <<-EOC
 
-#{add_line}
+  #{add_line}
     EOC
 
-    return puts 'delete failed => notee code '+ add_file_path + '\n' unless delete_file = File.open(add_file_path,"r")
-    return if File.open(add_file_path,"r").read.include?(check_txt)
+    return puts 'add failed => notee code '+ add_file_path + '\n' unless delete_file = File.open(add_file_path,"r")
+    return if File.open(add_file_path,"r").read.include?(add_line)
 
     new_file_text = String.new
     initial_txt = true
