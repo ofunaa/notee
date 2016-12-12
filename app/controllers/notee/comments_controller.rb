@@ -1,7 +1,7 @@
 require_dependency 'notee/application_controller'
 
 module Notee
-  class CommentsController < ApplicationController
+  class CommentsController < ActionController::Base
     before_action :set_comment, only: [:update, :destroy]
 
     def index

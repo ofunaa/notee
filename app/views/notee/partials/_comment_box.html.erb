@@ -103,9 +103,11 @@
 		    request
 			  .get(url)
 			  .end(function(err, res){
-			    console.log(res.body.comments);
-			    self.items = res.body.comments;
-			    self.update();
+			  console.log(res.body)
+          if(res.body != null){
+            self.items = res.body.comments;
+            self.update();
+          }
 			  });
 		})
 
@@ -113,9 +115,10 @@
 	      request
 			  .get(url)
 			  .end(function(err, res){
-			    console.log(res.body.comments);
-			    self.items = res.body.comments;
-			    self.update();
+			    if(res.body != null){
+            self.items = res.body.comments;
+            self.update();
+			    }
 			  });
 	    });
 
