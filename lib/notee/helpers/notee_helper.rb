@@ -8,7 +8,7 @@ module Notee
         post = Notee::Post.find_by(slug: search_txt) unless post
 
         # return unless post  # TODO: raise
-        raise ActiveRecord::RecordNotFound
+        raise ActiveRecord::RecordNotFound unless post
 
         return if post.status == Notee::STATUS[:draft] ||
                   post.status == Notee::STATUS[:deleted] ||
