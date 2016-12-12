@@ -7,11 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "release": "webpack --config config/production/webpack.config.js",
+    "release": "NODE_ENV=production webpack -p --config config/production/webpack.config.js --progress",
     "build": "webpack --config config/development/webpack.config.js",
     "watch": "webpack --watch --config config/development/webpack.config.js"
   },
-  "author": "",
+  "author": "funaota",
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.5.2",
