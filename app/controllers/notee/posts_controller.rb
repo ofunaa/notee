@@ -60,7 +60,7 @@ module Notee
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:posts).permit(:title, :content, :slug, :status, :user_id, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description, :secret_published_password)
+      params.require(:post).permit(:title, :content, :slug, :status, :user_id, :category_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description, :secret_published_password)
     end
   end
 end

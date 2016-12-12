@@ -3,7 +3,7 @@ module Notee
     self.abstract_class = true
 
     # scopes
-    scope :trashes, -> { where(is_deleted: true) }
+    scope :trash, -> { where(is_deleted: true) }
     scope :not_trash, -> { where(is_deleted: false) }
     scope :time_limit, -> { where('updated_at <= ?', Time.current - 60*60*24*30) }
 

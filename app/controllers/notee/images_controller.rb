@@ -17,7 +17,7 @@ module Notee
 
     def create
       @image = Image.new
-      @image.file = params[:images]
+      @image.file = params[:image]
       respond_to do |format|
         if @image.save
           format.json { render json: @image, status: 200 }
@@ -42,7 +42,7 @@ module Notee
     private
 
     def image_params
-      params.require(:images).permit(:title, :content, :slug, :status, :image_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
+      params.require(:image).permit(:title, :content, :slug, :status, :image_id, :thumbnail_id, :published_at, :seo_keyword, :seo_description)
     end
   end
 end

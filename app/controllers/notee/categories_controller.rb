@@ -52,7 +52,7 @@ module Notee
     private
 
     def category_params
-      params.require(:categories).permit(:name, :slug, :parent_id, :is_private)
+      params.require(:category).permit(:name, :slug, :parent_id, :is_private)
     end
 
     def set_category

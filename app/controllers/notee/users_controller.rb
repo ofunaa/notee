@@ -76,12 +76,12 @@ module Notee
     end
 
     def convert_from_string_to_int
-      params[:users][:role] = params[:users][:role].to_i
+      params[:user][:role] = params[:user][:role].to_i
     end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:users).permit(:name, :email, :now_password, :password, :password_confirm, :profile, :profile_img, :role, :file)
+      params.require(:user).permit(:name, :email, :now_password, :password, :password_confirm, :profile, :profile_img, :role, :file)
     end
   end
 end

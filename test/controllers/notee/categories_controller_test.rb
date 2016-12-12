@@ -20,10 +20,10 @@ module Notee
 
     test "should create category" do
       assert_difference('Category.count') do
-        post :create, categories: {name: @category.name, parent_id: @category.parent_id, slug: @category.slug, status: @category.status }
+        post :create, category: {name: @category.name, parent_id: @category.parent_id, slug: @category.slug, status: @category.status }
       end
 
-      assert_redirected_to category_path(assigns(:categories))
+      assert_redirected_to category_path(assigns(:category))
     end
 
     test "should show category" do
@@ -37,8 +37,8 @@ module Notee
     end
 
     test "should update category" do
-      patch :update, id: @category, categories: {name: @category.name, parent_id: @category.parent_id, slug: @category.slug, status: @category.status }
-      assert_redirected_to category_path(assigns(:categories))
+      patch :update, id: @category, category: {name: @category.name, parent_id: @category.parent_id, slug: @category.slug, status: @category.status }
+      assert_redirected_to category_path(assigns(:category))
     end
 
     test "should destroy category" do
