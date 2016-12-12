@@ -33,6 +33,9 @@ import MypageSectionEditPassword from './components/mypage/MypageSectionEditPass
 // trash
 import TrashSection from './components/trash/TrashSection.react.js'
 
+// errors
+import NotFoundSection from './components/errors/NotFoundSection.react.js'
+
 // common-parts
 import NoteeSnackBar from './components/common/snackbar/NoteeSnackBar.react'
 
@@ -96,7 +99,7 @@ const routes = (
             <IndexRoute component={TrashSection}/>
         </Route>
 
-        
+        <Route path="*" component={NotFoundSection} />
         <IndexRoute component={PostSection}/>
     </Route>
 )
