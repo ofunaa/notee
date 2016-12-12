@@ -107,6 +107,8 @@ $(document).on('ready', function() {
     create_file( NOTEE_SCHEJULE_FILE_PATH,    NOTEE_SCHEJULE_FILE_ORIGIN_PATH)
     create_file( NOTEE_CONTROLLER_FILE_PATH,  NOTEE_CONTROLLER_FILE_ORIGIN_PATH)
     create_file( NOTEE_ERROR_CONTROLLER_FILE_PATH,  NOTEE_ERROR_CONTROLLER_FILE_ORIGIN_PATH)
+
+    # Set Cron Job
     sh 'bundle exec whenever --update-crontab RAILS_ENV=production'
   end
 
@@ -133,6 +135,8 @@ $(document).on('ready', function() {
     delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
     add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end")
 
+    # Delte Cron Job
+    sh 'bundle exec whenever --clear-crontab'
   end
 
   private
