@@ -36,6 +36,7 @@ ul.social-button-syncer {
 @media screen and ( min-width:480px ) {
     ul.social-button-syncer {
         width: 410px ;
+        float: left;
     }
 }
 
