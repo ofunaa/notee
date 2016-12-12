@@ -8,8 +8,8 @@ import ImageStore from '../../stores/ImageStore';
 import UserStore from '../../stores/UserStore';
 
 // components
-import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
-import AuthorityButtonDelete from '../common/authority/AuthorityButtonDelete.react.js';
+import AuthorityButtonCreate from '../commons/authority/AuthorityButtonCreate.react.js';
+import AuthorityButtonDelete from '../commons/authority/AuthorityButtonDelete.react.js';
 
 // constatns
 import Constants from '../../constants/NoteeConstants';

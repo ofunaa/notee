@@ -4,40 +4,40 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 // notee
-import NoteeHeader from './components/layout/NoteeHeader.react.js'
-import NoteeFooter from './components/layout/NoteeFooter.react.js'
+import NoteeHeader from './components/layouts/NoteeHeader.react.js'
+import NoteeFooter from './components/layouts/NoteeFooter.react.js'
 
 // post
-import PostSection from './components/post/PostSection.react.js'
-import PostSectionEdit from './components/post/PostSectionEdit.react.js'
+import PostSection from './components/posts/PostSection.react.js'
+import PostSectionEdit from './components/posts/PostSectionEdit.react.js'
 
 // category
-import CategorySection from './components/category/CategorySection.react.js'
-import CategorySectionEdit from './components/category/CategorySectionEdit.react.js'
+import CategorySection from './components/categories/CategorySection.react.js'
+import CategorySectionEdit from './components/categories/CategorySectionEdit.react.js'
 
 // image
-import ImageSection from './components/image/ImageSection.react.js'
+import ImageSection from './components/images/ImageSection.react.js'
 
 // comment
-import CommentSection from './components/comment/CommentSection.react.js'
+import CommentSection from './components/comments/CommentSection.react.js'
 
 // user
-import UserSection from './components/user/UserSection.react.js'
-import UserSectionEdit from './components/user/UserSectionEdit.react.js'
+import UserSection from './components/users/UserSection.react.js'
+import UserSectionEdit from './components/users/UserSectionEdit.react.js'
 
 // mypage
-import MypageSection from './components/mypage/MypageSection.react.js'
-import MypageSectionEdit from './components/mypage/MypageSectionEdit.react.js'
-import MypageSectionEditPassword from './components/mypage/MypageSectionEditPassword.react.js'
+import MypageSection from './components/mypages/MypageSection.react.js'
+import MypageSectionEdit from './components/mypages/MypageSectionEdit.react.js'
+import MypageSectionEditPassword from './components/mypages/MypageSectionEditPassword.react.js'
 
 // trash
-import TrashSection from './components/trash/TrashSection.react.js'
+import TrashSection from './components/trashes/TrashSection.react.js'
 
 // errors
 import NotFoundSection from './components/errors/NotFoundSection.react.js'
 
 // common-parts
-import NoteeSnackBar from './components/common/snackbar/NoteeSnackBar.react'
+import NoteeSnackBar from './components/commons/snackbar/NoteeSnackBar.react'
 
 // material-ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'

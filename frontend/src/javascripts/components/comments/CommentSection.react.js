@@ -8,7 +8,7 @@ import CommentStore from '../../stores/CommentStore';
 import UserStore from '../../stores/UserStore';
 
 // components
-import NoteeTable from '../common/table/NoteeTable.react';
+import NoteeTable from '../commons/table/NoteeTable.react';
 import CommentTableRow from './CommentTableRow.react';
 
 // constants

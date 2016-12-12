@@ -9,7 +9,7 @@ import TrashStore from '../../stores/TrashStore';
 import UserStore from '../../stores/UserStore';
 
 // components
-import NoteeTable from '../common/table/NoteeTable.react';
+import NoteeTable from '../commons/table/NoteeTable.react';
 import TrashTableRow from './TrashTableRow.react';
 
 // constants

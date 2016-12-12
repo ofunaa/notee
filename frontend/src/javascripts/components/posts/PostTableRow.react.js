@@ -7,8 +7,8 @@ import CategoryStore from '../../stores/CategoryStore';
 import UserStore from '../../stores/UserStore';
 
 // components
-import AuthorityButtonEdit from '../../components/common/authority/AuthorityButtonEdit.react.js';
-import AuthorityButtonDelete from '../../components/common/authority/AuthorityButtonDelete.react.js';
+import AuthorityButtonEdit from '../../components/commons/authority/AuthorityButtonEdit.react.js';
+import AuthorityButtonDelete from '../../components/commons/authority/AuthorityButtonDelete.react.js';
 
 // material-ui
 import { TableRow, TableRowColumn } from 'material-ui/Table';

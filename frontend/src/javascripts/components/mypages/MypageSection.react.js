@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import UserStore from '../../stores/UserStore';
 
 // components
-import AuthorityDescription from '../../components/common/authority/AuthorityDescription.react';
+import AuthorityDescription from '../../components/commons/authority/AuthorityDescription.react';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';

@@ -10,8 +10,8 @@ import UserStore from '../../stores/UserStore';
 
 // components
 import PostTableRow from './PostTableRow.react.js';
-import NoteeTable from '../common/table/NoteeTable.react';
-import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react';
+import NoteeTable from '../commons/table/NoteeTable.react';
+import AuthorityButtonCreate from '../commons/authority/AuthorityButtonCreate.react';
 
 // constants
 import Constants from '../../constants/NoteeConstants';

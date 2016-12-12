@@ -51,7 +51,7 @@ module Notee
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:post_id, :content, :name, :email)
+      params.require(:comments).permit(:post_id, :content, :name, :email)
     end
   end
 end

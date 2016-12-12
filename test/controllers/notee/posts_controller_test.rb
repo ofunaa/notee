@@ -20,10 +20,10 @@ module Notee
 
     test "should create post" do
       assert_difference('Post.count') do
-        post :create, post: { category_id: @post.category_id, content: @post.content, published_at: @post.published_at, seo_description: @post.seo_description, seo_keyword: @post.seo_keyword, slug: @post.slug, status: @post.status, thumbnail_id: @post.thumbnail_id, title: @post.title }
+        post :create, posts: {category_id: @post.category_id, content: @post.content, published_at: @post.published_at, seo_description: @post.seo_description, seo_keyword: @post.seo_keyword, slug: @post.slug, status: @post.status, thumbnail_id: @post.thumbnail_id, title: @post.title }
       end
 
-      assert_redirected_to post_path(assigns(:post))
+      assert_redirected_to post_path(assigns(:posts))
     end
 
     test "should show post" do
@@ -37,8 +37,8 @@ module Notee
     end
 
     test "should update post" do
-      patch :update, id: @post, post: { category_id: @post.category_id, content: @post.content, published_at: @post.published_at, seo_description: @post.seo_description, seo_keyword: @post.seo_keyword, slug: @post.slug, status: @post.status, thumbnail_id: @post.thumbnail_id, title: @post.title }
-      assert_redirected_to post_path(assigns(:post))
+      patch :update, id: @post, posts: {category_id: @post.category_id, content: @post.content, published_at: @post.published_at, seo_description: @post.seo_description, seo_keyword: @post.seo_keyword, slug: @post.slug, status: @post.status, thumbnail_id: @post.thumbnail_id, title: @post.title }
+      assert_redirected_to post_path(assigns(:posts))
     end
 
     test "should destroy post" do

@@ -10,7 +10,7 @@ import UserStore from '../../stores/UserStore';
 
 // components
 import CategoryForm from './CategoryForm.react';
-import NoteeTable from '../common/table/NoteeTable.react';
+import NoteeTable from '../commons/table/NoteeTable.react';
 
 // constants
 import Constants from '../../constants/NoteeConstants';

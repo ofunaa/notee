@@ -10,7 +10,7 @@ import CategoryStore from '../../stores/CategoryStore';
 import Constants from '../../constants/NoteeConstants';
 
 // components
-import AuthorityButtonCreate from '../common/authority/AuthorityButtonCreate.react.js';
+import AuthorityButtonCreate from '../commons/authority/AuthorityButtonCreate.react.js';
 
 // material-ui
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';

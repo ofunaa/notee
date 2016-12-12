@@ -20,10 +20,10 @@ module Notee
 
     test "should create image" do
       assert_difference('Image.count') do
-        post :create, image: { content: @image.content }
+        post :create, images: {content: @image.content }
       end
 
-      assert_redirected_to image_path(assigns(:image))
+      assert_redirected_to image_path(assigns(:images))
     end
 
     test "should show image" do
@@ -37,8 +37,8 @@ module Notee
     end
 
     test "should update image" do
-      patch :update, id: @image, image: { content: @image.content }
-      assert_redirected_to image_path(assigns(:image))
+      patch :update, id: @image, images: {content: @image.content }
+      assert_redirected_to image_path(assigns(:images))
     end
 
     test "should destroy image" do
