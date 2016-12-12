@@ -3,6 +3,10 @@ namespace :notee do
   require 'fileutils'
 
 
+  # -----------------------------------------------
+  # Constants
+  # -----------------------------------------------
+
   APPLICATION_JS_PATH = "/app/assets/javascripts/application.js"
   ADD_HIGHLIGHT_TXT = <<-EOC
 
@@ -83,6 +87,10 @@ $(document).on('ready', function() {
   NOTEE_IMAGE_DIR_ORIGIN_PATH = "../images/notee"
 
 
+  # -----------------------------------------------
+  # Tasks
+  # -----------------------------------------------
+
 
   task :start do
     notee_mark
@@ -139,6 +147,12 @@ $(document).on('ready', function() {
     sh 'bundle exec whenever --clear-crontab'
   end
 
+
+  # -----------------------------------------------
+  # Methods
+  # -----------------------------------------------
+
+
   private
 
   def notee_mark
@@ -175,7 +189,7 @@ ________________________________
     f.write(new_file)
     f.close()
 
-    puts 'Notee added code => ' + add_file_path
+    puts 'Notee added code => in ' + add_file_path
   end
 
 
@@ -303,6 +317,5 @@ ________________________________
 
     puts 'Notee deleted => ' + delete_line + ' in' + delete_file_path
   end
-
 
 end
