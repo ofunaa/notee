@@ -43,7 +43,7 @@ module Notee
     end
 
     def set_slug
-      self.slug = self.title.downcase unless self.slug.present?
+      self.slug = self.title.parameterize.underscore unless self.slug.present?
     end
 
     def set_published_at
