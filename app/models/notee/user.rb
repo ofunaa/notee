@@ -67,12 +67,6 @@ module Notee
     end
 
     def self.root_user_setting
-      unless User.exists?(id: 0)
-        User.skip_callback(:create, :before, :create_authority)
-        User.create(id: 0, name: Notee.notee_id, email: "root", password: SecureRandom.hex, role: 9999)
-        User.set_callback(:create, :before, :create_authority)
-      end
-
       if token = Token.create!(user_id: 0)
         Thread.current[:request].session[:access_token] = token.access_token
       end
