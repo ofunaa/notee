@@ -1,13 +1,25 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <div class="grid_start login_bg">
   <div class="fourty grid offset_by_twenty_five mt_60 login">
     <h1>Notee</h1>
     <p>Notee is creating blog gem by only one command</p>
-    <%= form_tag(tokens_path, :class => 'mt_50') do %>
+    <%= form_tag(tokens_path, :class => 'mt_50', :id => 'syncer-recaptcha-form') do %>
       <h3>ID:</h3>
-      <%= text_field_tag :id %>
+      <%= text_field_tag :id, "", :disabled => true %>
       <h3>PASSWORD:</h3>
-      <%= password_field_tag :password %>
-      <%= submit_tag "ログイン", :class => 'full grid mt_50'  %>
+      <%= password_field_tag :password, "", :disabled => true %>
+        <div data-callback="syncerRecaptchaCallback" class="g-recaptcha mt_30" data-sitekey="<%= Notee.recaptcha_key %>"></div>
+      <%= submit_tag "ログイン", :disabled => true, :class => 'full grid mt_50' %>
     <% end %>
   </div>
 </div>
+
+<script>
+  function syncerRecaptchaCallback( code ){
+    if(code != ""){
+      $( '#syncer-recaptcha-form input , #syncer-recaptcha-form button, #syncer-recaptcha-form textarea' ).removeAttr( 'disabled' ) ;
+    }
+  }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
