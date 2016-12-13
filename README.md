@@ -70,7 +70,7 @@ and Enter your notee_id & notee_password!
 
 img coming soon
 
-### initial Website View
+### Notee Demo
 
 ![notee_getstarted](https://github.com/funaota/public_images/blob/master/notee/notee_getstarted.gif)
 
