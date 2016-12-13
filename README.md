@@ -17,9 +17,9 @@ gem 'notee'
 
 ### 1: you must set only reCAPTCHA
 
-update for your setting in config/initializers/notee.rb
-
 [Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
+
+update for your setting in config/initializers/notee.rb
 
 Recommendation using .env
 
