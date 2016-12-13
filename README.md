@@ -74,9 +74,6 @@ img coming soon
 
 img coming soon
 
-## Setting Recaptcha (must)
-
-[Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
 
 ## Authority
 
