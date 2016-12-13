@@ -7,6 +7,7 @@
 
 <div class="notee_list">
   <comments post_id='<%= post_id %>'></comments>
+  <div data-callback="syncerRecaptchaCallback" class="g-recaptcha notee_comment_form" data-sitekey="<%= recaptcha %>"></div>
   <comment_form post_id='<%= post_id %>'></comment_form>
 </div>
 
@@ -16,23 +17,23 @@
 var obs = riot.observable();
 
 <comment_form class="notee_comment_form" id="notee_form">
-  <form method="POST">
+  <form method="POST" id="syncer-recaptcha-form">
     <label class="notee_label" for="comment_name">Name</label>
-    <input class="notee_text_field" type="text" name="comment[name]" id="comment_name" />
+    <input class="notee_text_field" type="text" name="comment[name]" id="comment_name" disabled />
 
     <label class="notee_label" for="comment_email">Email</label>
-    <input class="notee_text_field" type="text" name="comment[email]" id="comment_email" />
+    <input class="notee_text_field" type="text" name="comment[email]" id="comment_email" disabled />
 
     <label class="notee_label" for="comment_content">Content</label>
-    <textarea class="notee_text_area" name="comment[content]" id="comment_content"></textarea>
-    <div class="g-recaptcha" data-sitekey="<%= recaptcha %>"></div>
+    <textarea class="notee_text_area" name="comment[content]" id="comment_content" disabled></textarea>
 
     <input
       type="submit"
       value="Create Comment"
       class="notee_submit"
       data-disable-with="Create Comment"
-      onClick={notee_submit} />
+      onClick={notee_submit}
+      disabled />
 	</form>
 
   this.notee_submit = function(e){
@@ -114,6 +115,12 @@ var obs = riot.observable();
 
   function riot_mount(){
     riot.mount('*');
+  }
+
+  function syncerRecaptchaCallback( code ){
+    if(code != ""){
+      $( '#syncer-recaptcha-form input , #syncer-recaptcha-form button, #syncer-recaptcha-form textarea' ).removeAttr( 'disabled' ) ;
+    }
   }
 
 </script>
