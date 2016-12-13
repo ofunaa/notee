@@ -54,7 +54,15 @@ end
     $ bundle exec rake db:migrate
     $ bundle exec rails s
     
-access this url [http://localhost:3000/notee](http://localhost:3000/notee/)  
+#### 1: setting reCAPTCH
+
+[Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
+    
+#### 2: access login page
+
+access this url [http://localhost:3000/notee](http://localhost:3000/notee/) 
+
+#### 3: login
 and Enter your notee_id & notee_password!
 
 
