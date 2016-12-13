@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    notee (1.0.7)
+    notee (1.0.8)
       rails
       rb-readline
       redcarpet
