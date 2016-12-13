@@ -91,7 +91,21 @@ coming soon.
 
 ## Setting Recaptcha for Comment
 
-coming soon.
+1: Access this site
+
+https://www.google.com/recaptcha/intro/index.html
+
+2: Regist your site
+
+https://www.google.com/recaptcha/admin#list
+
+3: Get SiteKey and SecretKey
+
+![recaptcha](https://github.com/funaota/public_images/blob/master/notee/recaptcha.png)
+
+4: Set SiteKey and SecretKey
+
+edit in config/initializers/notee.rb
 
 
 ## License
