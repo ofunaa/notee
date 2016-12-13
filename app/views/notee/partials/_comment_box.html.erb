@@ -1,138 +1,111 @@
+
+<!-- Riot.js Settings -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.3.18/riot+compiler.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/2.1.0/superagent.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 <div class="notee_list">
   <comments post_id='<%= post_id %>'></comments>
   <comment_form post_id='<%= post_id %>'></comment_form>
 </div>
 
-<!-- <comment> tag -->
 
 <script type="riot/tag">
-	
-	var obs = riot.observable();
+<comment_form class="notee_comment_form" id="notee_form">
+  <form method="POST">
+    <label class="notee_label" for="comment_name">Name</label>
+    <input class="notee_text_field" type="text" name="comment[name]" id="comment_name" />
 
-	/////////////////////////////////////////
-	// 			comment_form tag
-	/////////////////////////////////////////
+    <label class="notee_label" for="comment_email">Email</label>
+    <input class="notee_text_field" type="text" name="comment[email]" id="comment_email" />
 
-	<comment_form class="notee_comment_form" id="notee_form">
-	<form method="POST">
+    <label class="notee_label" for="comment_content">Content</label>
+    <textarea class="notee_text_area" name="comment[content]" id="comment_content"></textarea>
+    <div class="g-recaptcha" data-sitekey="<%= recaptcha %>"></div>
 
-    	<label class="notee_label" for="comment_name">Name</label>
-    	<input class="notee_text_field" type="text" name="comment[name]" id="comment_name" />
-      
-      	<label class="notee_label" for="comment_email">Email</label>
-      	<input class="notee_text_field" type="text" name="comment[email]" id="comment_email" />
-      
-      	<label class="notee_label" for="comment_content">Content</label>
-      	<textarea class="notee_text_area" name="comment[content]" id="comment_content"></textarea>
-
-      	<div class="g-recaptcha" data-sitekey="<%= recaptcha %>"></div>
-      
-      	<input 
-      		type="submit" 
-      		value="Create Comment" 
-      		class="notee_submit" 
-      		data-disable-with="Create Comment"
-      		onClick={notee_submit} />
-
+    <input
+      type="submit"
+      value="Create Comment"
+      class="notee_submit"
+      data-disable-with="Create Comment"
+      onClick={notee_submit} />
 	</form>
 
-		this.notee_submit = function(e){
-			e.preventDefault();
-			var comment = {
-				post_id: opts.post_id,
-				name: document.getElementById("comment_name").value,
-				email: document.getElementById("comment_email").value,
-				content: document.getElementById("comment_content").value
-			};
+  var obs = riot.observable();
+  this.notee_submit = function(e){
+    e.preventDefault();
+    var comment = {
+      post_id: opts.post_id,
+      name: document.getElementById("comment_name").value,
+      email: document.getElementById("comment_email").value,
+      content: document.getElementById("comment_content").value
+    };
 
-			if(comment.content != null || comment.content != ""){
-				var request = window.superagent;
-			    var url = "/notee/api/comments";
-			    var self = this;
+    if(comment.content != null || comment.content != ""){
+      var request = window.superagent;
+      var url = "/notee/api/comments";
+      var self = this;
 
-			    request
-				  .post(url)
-				  .send({ comment: comment })
-				  .end(function(err, res){
-				    if(res.status == 200){
-				    	obs.trigger("notee_submit");
-				    	document.getElementById("comment_name").value = "";
+      request
+        .post(url)
+        .send({ comment: comment })
+        .end(function(err, res){
+          if(res.status == 200){
+            obs.trigger("notee_submit");
+            document.getElementById("comment_name").value = "";
 						document.getElementById("comment_email").value = "";
 						document.getElementById("comment_content").value = "";
-				    }
-				  });
-			}
-		}
-
-	</comment_form>
-
-
-
-	/////////////////////////////////////////
-	// 			comment tag
-	/////////////////////////////////////////
-
-
-  	<comment class="notee_comment">
-	    <p class="notee_comment_name">{ name }</p>
-	    <p class="notee_comment_content"> { content } </p>
-
-		 this.name = opts.name;
-		 this.content = opts.content;
-  	</comment>
-
-
-
-  	/////////////////////////////////////////
-	// 			comments tag
-	/////////////////////////////////////////
-
-
-  	<comments class="notee_comments">
-	  	<comment 
-	  		each={ item in items } 
-	  		name={item.name} 
-	  		content={item.content}>
-	  	</comment>
-
-	  	var request = window.superagent;
-		    var url = "/notee/api/comments/" + opts.post_id
-		    var self = this;
-
-	  	this.one('update', function() {
-		    request
-			  .get(url)
-			  .end(function(err, res){
-			  console.log(res.body)
-          if(res.body != null){
-            self.items = res.body.comments;
-            self.update();
           }
-			  });
-		})
+        });
+      }
+    }
+</comment_form>
 
-		obs.on("notee_submit", function() {
-	      request
-			  .get(url)
-			  .end(function(err, res){
-			    if(res.body != null){
-            self.items = res.body.comments;
-            self.update();
-			    }
-			  });
-	    });
+<comment class="notee_comment">
+  <p class="notee_comment_name">{ name }</p>
+  <p class="notee_comment_content"> { content } </p>
 
-  	</comments>
+  this.name = opts.name;
+  this.content = opts.content;
+</comment>
+
+<comments class="notee_comments">
+  <comment
+    each={ item in items }
+    name={item.name}
+    content={item.content}>
+  </comment>
+
+  var obs = riot.observable();
+  var request = window.superagent;
+  var url = "/notee/api/comments/" + opts.post_id;
+  var self = this;
+
+  this.one('update', function() {
+    request
+    .get(url)
+    .end(function(err, res){
+      if(res.body != null){
+        self.items = res.body.comments;
+        self.update();
+      }
+    });
+	})
+
+  obs.on("notee_submit", function() {
+    request
+    .get(url)
+    .end(function(err, res){
+      if(res.body != null){
+        self.items = res.body.comments;
+        self.update();
+      }
+    });
+  });
+</comments>
 </script>
 
-
-
-
-<!-- Riot.js Settings -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.3.18/riot+compiler.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/2.1.0/superagent.min.js"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
 	window.onload = function() {
   		riot.mount('*');
