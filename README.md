@@ -107,6 +107,25 @@ https://www.google.com/recaptcha/admin#list
 
 edit in config/initializers/notee.rb
 
+```rb
+require 'notee'
+
+# Recommendation using .env
+
+Notee.configure do |config|
+
+  ....
+
+  # recaptcha
+  config.recaptcha_key = "YOUR SITE KEY"
+  config.recaptcha_secret_key = "YOUR SECRET KEY"
+  
+  ....
+  
+end
+
+```
+
 
 ## License
 
