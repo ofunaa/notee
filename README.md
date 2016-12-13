@@ -15,7 +15,11 @@ gem 'notee'
     
 ## Setting
 
+### 1: you must set only reCAPTCHA
+
 update for your setting in config/initializers/notee.rb
+
+[Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
 
 Recommendation using .env
 
@@ -54,15 +58,11 @@ end
     $ bundle exec rake db:migrate
     $ bundle exec rails s
     
-#### 1: setting reCAPTCH
-
-[Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
-    
-#### 2: access login page
+#### 1: access login page
 
 access this url [http://localhost:3000/notee](http://localhost:3000/notee/) 
 
-#### 3: login
+#### 2: login
 and Enter your notee_id & notee_password!
 
 
