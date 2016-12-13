@@ -107,7 +107,14 @@
 </script>
 
 <script>
-	window.onload = function() {
-  		riot.mount('*');
-	};
+  if(window.addEventListener) {
+    window.addEventListener( "load" , riot_mount, false );
+  }else{
+    window.attachEvent( "onload", riot_mount );
+  }
+
+  function riot_mount(){
+    riot.mount('*');
+  }
+
 </script>

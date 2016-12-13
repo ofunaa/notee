@@ -98,6 +98,7 @@ $(document).on('ready', function() {
 
     # Add Code
     add_notee_code( APPLICATION_JS_PATH,   ADD_HIGHLIGHT_TXT,  "//= require_tree .", "hljs.initHighlightingOnLoad()" )
+    delete_line( APPLICATION_JS_PATH, "//= require turbolinks" )
     add_notee_code( APPLICATION_CSS_PATH,  ADD_CSS_TXT,        "*= require_tree .", "*= require_directory ./notee" )
     delete_line( APPLICATION_CSS_PATH, "*= require_tree ." )
     add_notee_code( ROUTE_FILE_PATH,       ADD_ROUTE_TXT,      "Rails.application.routes.draw do",  "Notee::Engine" )
@@ -139,9 +140,10 @@ $(document).on('ready', function() {
     # Delete Code
     delete_line( ENV_PRODUCTION_FILE_PATH, ADD_ENV_PRODUCTION_TXT)
     delete_notee_code(ROUTE_FILE_PATH, "######## default notee path", "######## notee setting end")
-    delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
-    delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
     add_line(APPLICATION_CSS_PATH, "*= require_tree .", "//////// notee setting end")
+    delete_notee_code(APPLICATION_CSS_PATH, "//////// default notee setting", "//////// notee setting end")
+    add_line( APPLICATION_JS_PATH, "//= require turbolinks", "//= require jquery_ujs")
+    delete_notee_code(APPLICATION_JS_PATH, "//////// default notee setting", "//////// notee setting end")
 
     # Delte Cron Job
     sh 'bundle exec whenever --clear-crontab'
