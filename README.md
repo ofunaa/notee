@@ -85,10 +85,6 @@ img coming soon
 ## Helper Method
 [Helper Method](https://github.com/funaota/notee/wiki/Helper-Method)
 
-## Setting Google Analytics
-
-coming soon.
-
 ## Setting Recaptcha for Comment
 
 ### 1: Access this site
@@ -103,7 +99,7 @@ https://www.google.com/recaptcha/admin#list
 
 ![recaptcha](https://github.com/funaota/public_images/blob/master/notee/recaptcha.png)
 
-### 4: Set SiteKey and SecretKey
+### 4: Set SiteKey and SecretKey in notee.rb
 
 edit in config/initializers/notee.rb
 
@@ -126,6 +122,34 @@ end
 
 ```
 
+## Setting Google Analytics
+
+### 1: Access this site and Regist your site
+
+https://analytics.google.com/analytics/
+
+### 2: Get Your Tracking-ID
+
+https://support.google.com/analytics/answer/1032385
+
+### 3: Set Tracking-ID in notee.rb
+
+edit in config/initializers/notee.rb
+
+```rb
+require 'notee'
+
+# Recommendation using .env
+
+Notee.configure do |config|
+
+  ....
+
+  # google-analytics
+  config.google_analytics = "Tracking-ID"
+end
+
+```
 
 ## License
 
