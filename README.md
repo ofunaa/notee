@@ -72,7 +72,7 @@ img coming soon
 
 ### initial Website View
 
-img coming soon
+![notee_getstarted](https://github.com/funaota/public_images/blob/master/notee/notee_getstarted.gif)
 
 
 ## Authority
