@@ -1,6 +1,6 @@
 require 'notee'
 
-# Recommendation using .env for manage id & password
+# Recommendation using .env
 
 Notee.configure do |config|
 
