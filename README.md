@@ -57,9 +57,6 @@ end
 access this url [http://localhost:3000/notee](http://localhost:3000/notee/)  
 and Enter your notee_id & notee_password!
 
-## Setting Recaptcha(Must)
-
-[Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
 
 ### Editing View
 
@@ -68,6 +65,10 @@ img coming soon
 ### initial Website View
 
 img coming soon
+
+## Setting Recaptcha (must)
+
+[Setting Recaptcha](https://github.com/funaota/notee/wiki/Setting-reCAPTCHA)
 
 ## Authority
 
