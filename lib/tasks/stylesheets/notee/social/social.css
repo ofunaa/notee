@@ -8,6 +8,7 @@
     width: 100% ;
     min-height: 190px ;
     padding: 1.5em 0 ;
+    float: left;
 }
 
 /* デスクトップPCでは高さを拡張する */

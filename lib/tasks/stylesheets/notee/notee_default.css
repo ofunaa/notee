@@ -244,7 +244,7 @@ ul.li_none , ol.li_none { list-style: none; }
 /*  notee_comment_box */
 
 .notee_comments {
-    width: 94%;
+    width: 100%;
     float: left;
 }
 
@@ -256,31 +256,29 @@ ul.li_none , ol.li_none { list-style: none; }
     float: left;
 }
 .notee_comment_form {
-    width: 60%;
-    padding: 4%;
+    width: 98%;
+    padding: 0%;
     margin_bottom: 20px;
     float: left;
 }
 
 .notee_label {
-    width: 60%;
+    width: 98%;
     margin-bottom: 15px;
     float: left;
 }
 
 .notee_text_field {
-    width: 60%;
+    width: 98%;
     height: 26px;
-    min-width: 300px;
     margin-bottom: 15px;
     float: left;
     font-size: 14px;
 }
 
 .notee_text_area {
-    width: 100%;
+    width: 98%;
     height: 78px;
-    min-width: 300px;
     margin-bottom: 15px;
     float: left;
     font-size: 14px;
