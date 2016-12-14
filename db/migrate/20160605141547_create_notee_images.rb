@@ -12,11 +12,6 @@ class CreateNoteeImages < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    # create default image
-    Notee::Image.skip_callback(:create, :before, :create_authority)
-    Notee::Image.create :content => 'default.png'
-    Notee::Image.set_callback(:create, :before, :create_authority)
   end
 
 end

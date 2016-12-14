@@ -15,9 +15,5 @@ class CreateNoteeCategories < ActiveRecord::Migration
 
     add_index :notee_categories, :slug, :unique => true
 
-    # create default category
-    Notee::Category.skip_callback(:create, :before, :create_authority)
-    Notee::Category.create :name => 'No_Category'
-    Notee::Category.set_callback(:create, :before, :create_authority)
   end
 end
