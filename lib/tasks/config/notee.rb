@@ -5,12 +5,12 @@ require 'notee'
 Notee.configure do |config|
 
   # root-user
-  config.notee_id = "hogehoge"
-  config.notee_password = "hogehoge"
+  config.notee_id = "hogehoge"        # ENV['NOTEE_ID']
+  config.notee_password = "hogehoge"  # ENV['NOTEE_PASSWORD']
 
   # recaptcha
-  config.recaptcha_key = "hogehoge"
-  config.recaptcha_secret_key = "hogehoge"
+  config.recaptcha_key = "hogehoge"         # ENV['RECAPTCHA_KEY']
+  config.recaptcha_secret_key = "hogehoge"  # ENV['RECAPTCHA_SECRET_KEY']
 
   # blog
   config.blog_meta = {
