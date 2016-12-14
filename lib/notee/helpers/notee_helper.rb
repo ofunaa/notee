@@ -48,7 +48,7 @@ module Notee
           end_time = Date.parse(tmp_date).end_of_year
         end
 
-        @posts = Notee::Post.where(published_at: begin_time..end_time).order(published_at: :desc)
+        @posts = Notee::Post.where(published_at: begin_time..end_time, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
         @posts
       end
 
@@ -60,7 +60,7 @@ module Notee
         raise ActiveRecord::RecordNotFound unless writer
         raise ActiveRecord::RecordNotFound if writer.is_deleted
 
-        @posts = writer.posts
+        @posts = Notee::Post.where(user_id: writer.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
       end
 
 
