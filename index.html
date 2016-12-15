@@ -22,7 +22,10 @@
       <h1>
 <a id="notee" class="anchor" href="#notee" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notee</h1>
 
-<p>Notee is creating blog gem by only one command.</p>
+<p>Notee is creating CMS(blog) app by only one command. </p>
+
+<p>BackEnd: Ruby(RailsEngine)<br>
+FrontEnd: React.js + Riot.js(only comment part)</p>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
@@ -36,13 +39,18 @@ $ bundle exec rake notee:start
 <h2>
 <a id="setting" class="anchor" href="#setting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting</h2>
 
+<h3>
+<a id="1-you-must-set-only-recaptcha" class="anchor" href="#1-you-must-set-only-recaptcha" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1: you must set only reCAPTCHA</h3>
+
+<p><a href="https://github.com/funaota/notee/wiki/Setting-reCAPTCHA">Setting Recaptcha</a></p>
+
 <p>update for your setting in config/initializers/notee.rb</p>
 
 <p>Recommendation using .env</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>notee<span class="pl-pds">'</span></span>
 
-<span class="pl-c"># Recommendation using .env for manage id &amp; password</span>
+<span class="pl-c"># Recommendation using .env</span>
 
 <span class="pl-c1">Notee</span>.configure <span class="pl-k">do </span>|<span class="pl-smi">config</span>|
 
@@ -75,8 +83,25 @@ $ bundle exec rake notee:start
 $ bundle exec rails s
 </code></pre>
 
-<p>access this url <a href="http://localhost:3000/notee/">http://localhost:3000/notee</a><br>
-and Enter your notee_id &amp; notee_password!</p>
+<h4>
+<a id="1-access-login-page" class="anchor" href="#1-access-login-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1: access login page</h4>
+
+<p>access this url <a href="http://localhost:3000/notee/">http://localhost:3000/notee</a> </p>
+
+<h4>
+<a id="2-login" class="anchor" href="#2-login" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2: login</h4>
+
+<p>and Enter your notee_id &amp; notee_password!</p>
+
+<h3>
+<a id="editing-view" class="anchor" href="#editing-view" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Editing View</h3>
+
+<p>img coming soon</p>
+
+<h3>
+<a id="notee-demo" class="anchor" href="#notee-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notee Demo</h3>
+
+<p><img src="https://github.com/funaota/public_images/blob/master/notee/notee_getstarted.gif" alt="notee_getstarted"></p>
 
 <h2>
 <a id="authority" class="anchor" href="#authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authority</h2>
@@ -183,6 +208,16 @@ and Enter your notee_id &amp; notee_password!</p>
 </tr>
 </tbody>
 </table>
+
+<h2>
+<a id="helper-method" class="anchor" href="#helper-method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Helper Method</h2>
+
+<p><a href="https://github.com/funaota/notee/wiki/Helper-Method">Helper Method</a></p>
+
+<h2>
+<a id="setting-google-analytics" class="anchor" href="#setting-google-analytics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting Google Analytics</h2>
+
+<p><a href="https://github.com/funaota/notee/wiki/Setting-Google-Analytics">Setting Google Analytics</a></p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
