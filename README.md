@@ -68,7 +68,7 @@ and Enter your notee_id & notee_password!
 
 ### Editing View
 
-img coming soon
+![notee edit view](https://github.com/funaota/public_images/blob/master/notee/notee_edit.gif)
 
 ### Notee Demo
 
