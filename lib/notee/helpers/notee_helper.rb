@@ -104,7 +104,7 @@ module Notee
 
         notee_writers = []
         posts.each do |post|
-          notee_writers.push(post.user)
+          notee_writers.push(post.user) unless notee_writers.include?(post.user)
         end
 
         notee_writers
