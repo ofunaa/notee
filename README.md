@@ -5,6 +5,14 @@ Notee is creating CMS(blog) app by only one command.
 BackEnd: Ruby(RailsEngine)  
 FrontEnd: React.js + Riot.js(only comment part)
 
+### Editing View
+
+![notee edit view](https://github.com/funaota/public_images/blob/master/notee/notee_edit.gif)
+
+### Notee Demo
+
+![notee_getstarted](https://github.com/funaota/public_images/blob/master/notee/notee_getstarted.gif)
+
 ## Installation
 
 ```ruby
@@ -64,15 +72,6 @@ access this url [http://localhost:3000/notee](http://localhost:3000/notee/)
 
 #### 2: login
 and Enter your notee_id & notee_password!
-
-
-### Editing View
-
-img coming soon
-
-### Notee Demo
-
-![notee_getstarted](https://github.com/funaota/public_images/blob/master/notee/notee_getstarted.gif)
 
 
 ## Authority
