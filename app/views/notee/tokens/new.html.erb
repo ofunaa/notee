@@ -6,11 +6,13 @@
     <p>Notee is creating blog gem by only one command</p>
     <%= form_tag(tokens_path, :class => 'mt_50', :id => 'syncer-recaptcha-form') do %>
       <h3>ID:</h3>
-      <%= text_field_tag :id, "", :disabled => true %>
+      <%= text_field_tag :id, "", :disabled => Rails.env.production? %>
       <h3>PASSWORD:</h3>
-      <%= password_field_tag :password, "", :disabled => true %>
-        <div data-callback="syncerRecaptchaCallback" class="g-recaptcha mt_30" data-sitekey="<%= Notee.recaptcha_key %>"></div>
-      <%= submit_tag "ログイン", :disabled => true, :class => 'full grid mt_50' %>
+      <%= password_field_tag :password, "", :disabled => Rails.env.production? %>
+        <% if Rails.env.production? %>
+          <div data-callback="syncerRecaptchaCallback" class="g-recaptcha mt_30" data-sitekey="<%= Notee.recaptcha_key %>"></div>
+        <% end %>
+      <%= submit_tag "ログイン", :disabled => Rails.env.production?, :class => 'full grid mt_50' %>
     <% end %>
   </div>
 </div>

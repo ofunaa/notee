@@ -13,7 +13,7 @@ module Notee
     end
 
     def create
-      check_recaptcha
+      check_recaptcha if Rails.env.production?
       User.sign_in(params[:id], params[:password])
       redirect_to root_path
     end
