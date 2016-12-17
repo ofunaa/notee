@@ -7,11 +7,19 @@
 <meta name="keywords" content="<%= meta[:keyword] %>"/>
 <meta name="description" content="<%= meta[:description] %>"/>
 
+<!-- OGP -->
 <meta property="og:title" content="<%= meta[:title] %>" />
 <meta property="og:description" content="<%= meta[:description] %>" />
 <meta property="og:url" content="<%= request.url %>" />
 <meta property="og:site_name" content="<%= meta[:title] %>>" />
 <meta property="og:image" content="<%= meta[:og_image] %>" />
+
+<!-- twitter-card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="<%= Notee.blog_meta[:twitter_id] %>">
+<meta name="twitter:domain" content="<%= request.base_url %>"/>
+<meta name="twitter:image:src" content="<%= meta[:og_image] %>"/>
+
 
 <!-- Notee Google Analytics -->
 
