@@ -63,23 +63,17 @@ module Notee
         @posts = Notee::Post.where(user_id: writer.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
       end
 
-
       def notee_categories
-        posts = Notee::Post.select(:category_id).where(status: 1, is_deleted: false).order(created_at: :desc)
 
-        notee_categories = {}
-        posts.each do |post|
-          category = post.category
-          if notee_categories.has_key?(category.name)
-            notee_categories[category.name][0] = notee_categories[category.name][0] + 1
-          else
-            notee_categories.store(category.name, [1, category])
-          end
+        notee_categories_arr = {}
+
+        get_parent_categories_arr.each do |cate|
+          post_count = get_category_posts_count(cate)
+          notee_categories_arr.store(cate.name, [post_count, cate])
         end
 
-        notee_categories
+        notee_categories_arr
       end
-
 
       def notee_archives
         posts = Notee::Post.select(:published_at).where(status: 1, is_deleted: false).order(created_at: :desc)
@@ -132,6 +126,47 @@ module Notee
       # def secret_notees
       #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
       # end
+
+
+      private
+
+      def get_parent_categories_arr
+        categories = Notee::Category.where(is_private: false, is_deleted: false)
+        parent_categories = categories.map do |cate|
+          cate unless cate.parent_id.present?
+        end
+        parent_categories.compact!
+      end
+
+      def get_category_posts_count(category)
+        count = 0
+        count = recursive_category_family_loop(category, count)
+        count
+      end
+
+      def recursive_category_family_loop(category, count)
+        if category.children.present?
+          category.children.each do |child_cate|
+            count = recursive_category_family_loop(child_cate, count)
+          end
+        end
+
+        count = count + get_posts_count(category.posts)
+        count
+      end
+
+      def get_posts_count(posts)
+        count = 0
+        posts.each do |post|
+          count = count + 1 if post.is_deleted == false && post.status == 1
+        end
+
+        count
+      end
+
+      def display_category?(category)
+
+      end
     end
   end
 end
