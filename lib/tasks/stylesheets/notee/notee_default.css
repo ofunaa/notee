@@ -215,7 +215,6 @@ ul.li_none , ol.li_none { list-style: none; }
 }
 
 .notee_sidebar_ul li {
-    height: 15px;
     line-height: 15px;
     margin: 0;
     margin-top: 7px;

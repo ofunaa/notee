@@ -128,8 +128,6 @@ module Notee
       # end
 
 
-      private
-
       def get_parent_categories_arr
         categories = Notee::Category.where(is_private: false, is_deleted: false)
         parent_categories = categories.map do |cate|
@@ -162,10 +160,6 @@ module Notee
         end
 
         count
-      end
-
-      def display_category?(category)
-
       end
     end
   end
