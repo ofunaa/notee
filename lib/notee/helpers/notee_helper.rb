@@ -63,17 +63,6 @@ module Notee
         @posts = Notee::Post.where(user_id: writer.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
       end
 
-      def notee_categories
-
-        notee_categories_arr = {}
-
-        get_parent_categories_arr.each do |cate|
-          post_count = get_category_posts_count(cate)
-          notee_categories_arr.store(cate.name, [post_count, cate])
-        end
-
-        notee_categories_arr
-      end
 
       def notee_archives
         posts = Notee::Post.select(:published_at).where(status: 1, is_deleted: false).order(created_at: :desc)
@@ -141,6 +130,8 @@ module Notee
         count = recursive_category_family_loop(category, count)
         count
       end
+
+      private
 
       def recursive_category_family_loop(category, count)
         if category.children.present?
