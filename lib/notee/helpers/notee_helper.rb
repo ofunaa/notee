@@ -104,7 +104,8 @@ module Notee
       # ////////////////////////////////////////
 
 
-      # return array: [posts (posts belongs_to category related in search_txt)]
+      # return
+      #     array: [posts (posts belongs_to category related in search_txt)]
 
       def category_notees(search_txt)
         # search_by_category_slug
@@ -119,7 +120,8 @@ module Notee
       end
 
 
-      # return array: [Parent Categories]
+      # return
+      #     array: [Parent Categories]
 
       def get_parent_categories_arr
         categories = Notee::Category.where(is_private: false, is_deleted: false)
@@ -130,7 +132,8 @@ module Notee
       end
 
 
-      # return int: how many do category has posts?
+      # return
+      #     int: how many do category has posts?(recursive)
 
       def get_category_posts_count(category)
         count = 0
@@ -151,15 +154,17 @@ module Notee
 
 
 
-
-
-
-
       private
 
       # ////////////////////////////////////////
       # Category helper methods (Private)
       # ////////////////////////////////////////
+
+      # return
+      #     int: category.posts.count (+ if category has child_category, child_category.posts.count) <- recursive
+      #
+      # call_place:
+      #     get_category_posts_count(category)
 
       def recursive_category_family_loop(category, count)
         if category.children.present?
@@ -168,13 +173,18 @@ module Notee
           end
         end
 
-        count = count + get_posts_count(category.posts)
+        count = count + get_public_posts_count(category.posts)
         count
       end
 
 
+      # return
+      #     int: public && is_not_deleted posts.count
+      #
+      # call_place:
+      #     recursive_category_family_loop(category, count)
 
-      def get_posts_count(posts)
+      def get_public_posts_count(posts)
         count = 0
         posts.each do |post|
           count = count + 1 if post.is_deleted == false && post.status == 1
