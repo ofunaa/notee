@@ -23,18 +23,6 @@ module Notee
       end
 
 
-      def category_notees(search_txt)
-        # search_by_category_slug
-        category = Notee::Category.find_by(slug: search_txt)
-        category = Notee::Category.find_by(name: search_txt) unless category
-
-        raise ActiveRecord::RecordNotFound unless category
-        raise ActiveRecord::RecordNotFound if category.is_deleted
-
-        @posts = Notee::Post.where(category_id: category.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
-        @posts
-      end
-
 
       def archive_notees(year, month)
         if month
@@ -111,11 +99,27 @@ module Notee
       end
 
 
-      # TODO: secret_mode
-      # def secret_notees
-      #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
-      # end
+      # ////////////////////////////////////////
+      # Category helper methods (Public)
+      # ////////////////////////////////////////
 
+
+      # return array: [posts (posts belongs_to category related in search_txt)]
+
+      def category_notees(search_txt)
+        # search_by_category_slug
+        category = Notee::Category.find_by(slug: search_txt)
+        category = Notee::Category.find_by(name: search_txt) unless category
+
+        raise ActiveRecord::RecordNotFound unless category
+        raise ActiveRecord::RecordNotFound if category.is_deleted
+
+        @posts = Notee::Post.where(category_id: category.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
+        @posts
+      end
+
+
+      # return array: [Parent Categories]
 
       def get_parent_categories_arr
         categories = Notee::Category.where(is_private: false, is_deleted: false)
@@ -125,13 +129,37 @@ module Notee
         parent_categories.compact!
       end
 
+
+      # return int: how many do category has posts?
+
       def get_category_posts_count(category)
         count = 0
         count = recursive_category_family_loop(category, count)
         count
       end
 
+
+      # ////////////////////////////////////////
+      # Ice box
+      # ////////////////////////////////////////
+
+
+      # TODO: secret_mode
+      # def secret_notees
+      #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
+      # end
+
+
+
+
+
+
+
       private
+
+      # ////////////////////////////////////////
+      # Category helper methods (Private)
+      # ////////////////////////////////////////
 
       def recursive_category_family_loop(category, count)
         if category.children.present?
@@ -144,6 +172,8 @@ module Notee
         count
       end
 
+
+
       def get_posts_count(posts)
         count = 0
         posts.each do |post|
@@ -152,6 +182,8 @@ module Notee
 
         count
       end
+
+
     end
   end
 end
