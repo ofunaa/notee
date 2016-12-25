@@ -17,10 +17,11 @@ module Notee
     # callbacks
     before_save :set_slug
     before_save :protect_default
+    before_update :delete_parent_id, if: :is_destroy?
 
     # relations
     has_many :posts
-    has_many :children, class_name: Notee::Category, foreign_key: 'parent_id', dependent: :destroy
+    has_many :children, class_name: Notee::Category, foreign_key: 'parent_id'
 
     private
 
@@ -32,16 +33,17 @@ module Notee
       return false if self.id == 1
     end
 
-    def self.before_destroy_parent(id)
-      @child_with_parent =Category.where(parent_id: id)
+    def delete_parent_id
 
-      Category.skip_callback(:update, :before, :update_authority)
-      Category.skip_callback(:update, :before, :destroy_authority)
-      @child_with_parent.each do |child|
-        child.update(parent_id: nil)
+      return false if self.children.nil?
+
+      skip_callback_block(Category) do
+        self.children.each do |child|
+          child.update(parent_id: nil)
+        end
       end
-      Category.set_callback(:update, :before, :update_authority)
-      Category.set_callback(:update, :before, :destroy_authority)
+
     end
+
   end
 end
