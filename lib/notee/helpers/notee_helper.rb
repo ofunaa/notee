@@ -126,9 +126,10 @@ module Notee
       def get_parent_categories_arr
         categories = Notee::Category.where(is_private: false, is_deleted: false)
         parent_categories = categories.map do |cate|
-          cate if cate.parent_id.nil? || cate.parent_id == 0
+          cate if cate.parent_id.nil?
         end
         parent_categories.compact!
+        parent_categories
       end
 
 

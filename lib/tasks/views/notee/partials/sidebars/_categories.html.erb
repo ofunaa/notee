@@ -4,6 +4,9 @@
   EOC
 
   def loop_categories(categories)
+
+    return nil if categories.nil?
+
     categories.each do |category|
       @category_view << '<a href="/categories/' + category.slug + '">'
       @category_view << ("<li>" + category.name.to_s + " (#{get_category_posts_count(category)})")

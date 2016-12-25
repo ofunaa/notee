@@ -16,7 +16,6 @@ module Notee
 
     # callbacks
     before_save :set_slug
-    before_save :protect_default
     before_update :protect_default, if: :is_destroy?
     before_update :delete_post_category_id, if: :is_destroy?
     before_update :delete_parent_id, if: :is_destroy?
