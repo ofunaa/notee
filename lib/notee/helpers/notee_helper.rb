@@ -166,7 +166,9 @@ module Notee
       def recursive_category_family_loop(category, category_posts)
         if category.children.present?
           category.children.each do |child_cate|
-            category_posts = recursive_category_family_loop(child_cate, category_posts)
+            if child_cate.is_deleted == false && child_cate.is_private == false
+              category_posts = recursive_category_family_loop(child_cate, category_posts)
+            end
           end
         end
 
