@@ -100,7 +100,7 @@ module Notee
 
 
       # ////////////////////////////////////////
-      # Category helper methods (Public)
+      # Category helper methods
       # ////////////////////////////////////////
 
 
@@ -115,7 +115,7 @@ module Notee
         raise ActiveRecord::RecordNotFound unless category
         raise ActiveRecord::RecordNotFound if category.is_deleted
 
-        @posts = Notee::Post.where(category_id: category.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
+        @posts = recursive_category_family_loop(category, [])
         @posts
       end
 
@@ -136,8 +136,8 @@ module Notee
       #     int: how many do category has posts?(recursive)
 
       def get_category_posts_count(category)
-        count = 0
-        count = recursive_category_family_loop(category, count)
+        arr = []
+        count = recursive_category_family_loop(category, arr).count()
         count
       end
 
@@ -161,38 +161,38 @@ module Notee
       # ////////////////////////////////////////
 
       # return
-      #     int: category.posts.count (+ if category has child_category, child_category.posts.count) <- recursive
-      #
-      # call_place:
-      #     get_category_posts_count(category)
+      #     array: category.posts (+ if category has child_category, child_category.posts) <- recursive
 
-      def recursive_category_family_loop(category, count)
+      def recursive_category_family_loop(category, category_posts)
         if category.children.present?
           category.children.each do |child_cate|
-            count = recursive_category_family_loop(child_cate, count)
+            category_posts = recursive_category_family_loop(child_cate, category_posts)
           end
         end
 
-        count = count + get_public_posts_count(category.posts)
-        count
+        category_posts.concat(get_public_posts(category.posts))
+        category_posts.compact!
+        category_posts
       end
 
+
+      # ////////////////////////////////////////
+      # Post helper methods (Private)
+      # ////////////////////////////////////////
 
       # return
-      #     int: public && is_not_deleted posts.count
-      #
-      # call_place:
-      #     recursive_category_family_loop(category, count)
+      #     array: public && is_not_deleted posts
 
-      def get_public_posts_count(posts)
-        count = 0
-        posts.each do |post|
-          count = count + 1 if post.is_deleted == false && post.status == 1
+      def get_public_posts(posts)
+
+        return false if posts.nil?
+
+        public_posts = posts.map do |post|
+          post if post.is_deleted == false && post.status == 1
         end
 
-        count
+        public_posts
       end
-
 
     end
   end
