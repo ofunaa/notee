@@ -27,10 +27,10 @@ module Notee
 
 
     def restrict_set_parent_id
-      raise if restrict_id_array(self.id).include?(self.parent_id)
+      raise if restrict_parent_ids(self.id).include?(self.parent_id)
     end
 
-    def restrict_id_array(cate_id)
+    def restrict_parent_ids(cate_id)
       cate = Category.find(cate_id)
       arr = [cate.id]
       return arr if cate.children.nil?

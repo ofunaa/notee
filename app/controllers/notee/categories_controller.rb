@@ -47,6 +47,11 @@ module Notee
       end
     end
 
+    def restrict_parent_ids
+      @ids = Category.new.restrict_parent_ids(params[:id])
+      render json: { status: 'success', ids: @ids }
+    end
+
     private
 
     def category_params

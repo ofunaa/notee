@@ -3,9 +3,6 @@ import React, {Component, PropTypes} from 'react'
 // actions
 import CategoryActions from '../../actions/CategoryActions';
 
-// stores
-import CategoryStore from '../../stores/CategoryStore';
-
 // constants
 import Constants from '../../constants/NoteeConstants';
 
