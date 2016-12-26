@@ -15,7 +15,8 @@ module Notee
   class Category < ApplicationRecord
 
     # callbacks
-    before_create :set_slug
+    before_save :restrict_set_parent_id
+    before_save :set_slug
     before_update :protect_default, if: :is_destroy?
     before_update :delete_post_category_id, if: :is_destroy?
     before_update :delete_parent_id, if: :is_destroy?
@@ -24,7 +25,29 @@ module Notee
     has_many :posts
     has_many :children, class_name: Notee::Category, foreign_key: 'parent_id'
 
-    private
+
+    def restrict_set_parent_id
+      raise if restrict_id_array(self.id).include?(self.parent_id)
+    end
+
+    def restrict_id_array(cate_id)
+      cate = Category.find(cate_id)
+      arr = [cate.id]
+      return arr if cate.children.nil?
+
+      recursive_children_loop(arr, cate.children)
+      arr
+    end
+
+    def recursive_children_loop(arr, childs_arr)
+      childs_arr.each do |category|
+        if category.children.present?
+          recursive_children_loop(arr, category.children)
+        end
+
+        arr.push(category.id)
+      end
+    end
 
     def set_slug
       self.slug = self.name.downcase unless self.slug.present?
