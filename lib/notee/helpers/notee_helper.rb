@@ -23,18 +23,6 @@ module Notee
       end
 
 
-      def category_notees(search_txt)
-        # search_by_category_slug
-        category = Notee::Category.find_by(slug: search_txt)
-        category = Notee::Category.find_by(name: search_txt) unless category
-
-        raise ActiveRecord::RecordNotFound unless category
-        raise ActiveRecord::RecordNotFound if category.is_deleted
-
-        @posts = Notee::Post.where(category_id: category.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
-        @posts
-      end
-
 
       def archive_notees(year, month)
         if month
@@ -61,23 +49,6 @@ module Notee
         raise ActiveRecord::RecordNotFound if writer.is_deleted
 
         @posts = Notee::Post.where(user_id: writer.id, status: Notee::STATUS[:published], is_deleted: false).order(published_at: :desc)
-      end
-
-
-      def notee_categories
-        posts = Notee::Post.select(:category_id).where(status: 1, is_deleted: false).order(created_at: :desc)
-
-        notee_categories = {}
-        posts.each do |post|
-          category = post.category
-          if notee_categories.has_key?(category.name)
-            notee_categories[category.name][0] = notee_categories[category.name][0] + 1
-          else
-            notee_categories.store(category.name, [1, category])
-          end
-        end
-
-        notee_categories
       end
 
 
@@ -128,10 +99,104 @@ module Notee
       end
 
 
+      # ////////////////////////////////////////
+      # Category helper methods
+      # ////////////////////////////////////////
+
+
+      # return
+      #     array: [posts (posts belongs_to category related in search_txt)]
+
+      def category_notees(search_txt)
+        # search_by_category_slug
+        category = Notee::Category.find_by(slug: search_txt)
+        category = Notee::Category.find_by(name: search_txt) unless category
+
+        raise ActiveRecord::RecordNotFound unless category
+        raise ActiveRecord::RecordNotFound if category.is_deleted
+
+        @posts = recursive_category_family_loop(category, [])
+        @posts
+      end
+
+
+      # return
+      #     array: [Parent Categories]
+
+      def get_parent_categories_arr
+        categories = Notee::Category.where(is_private: false, is_deleted: false)
+        parent_categories = categories.map do |cate|
+          cate if cate.parent_id.nil? || cate.parent_id == 0 # none
+        end
+        parent_categories.compact!
+        parent_categories
+      end
+
+
+      # return
+      #     int: how many do category has posts?(recursive)
+
+      def get_category_posts_count(category)
+        arr = []
+        count = recursive_category_family_loop(category, arr).count()
+        count
+      end
+
+
+      # ////////////////////////////////////////
+      # Ice box
+      # ////////////////////////////////////////
+
+
       # TODO: secret_mode
       # def secret_notees
       #   @notees = Notee::Post.where(status: Notee::STATUS[:secret_published]).order(published_at: :desc)
       # end
+
+
+
+      private
+
+      # ////////////////////////////////////////
+      # Category helper methods (Private)
+      # ////////////////////////////////////////
+
+      # return
+      #     array: category.posts (+ if category has child_category, child_category.posts) <- recursive
+
+      def recursive_category_family_loop(category, category_posts)
+        if category.children.present?
+          category.children.each do |child_cate|
+            if child_cate.is_deleted == false && child_cate.is_private == false
+              category_posts = recursive_category_family_loop(child_cate, category_posts)
+            end
+          end
+        end
+
+        category_posts.concat(get_public_posts(category.posts))
+        category_posts.compact!
+        category_posts
+      end
+
+
+      # ////////////////////////////////////////
+      # Post helper methods (Private)
+      # ////////////////////////////////////////
+
+      # return
+      #     array: public && is_not_deleted posts
+
+      def get_public_posts(posts)
+
+        return false if posts.nil?
+
+        public_posts = posts.map do |post|
+          post if post.is_deleted == false && post.status == 1
+        end
+
+        public_posts
+      end
+
     end
   end
 end

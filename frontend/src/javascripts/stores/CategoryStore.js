@@ -30,6 +30,17 @@ var CategoryStore = assign({}, EventEmitter.prototype, {
             if(!res.body){return;}
             callback(res.body.categories);
         })
+    },
+
+    loadRestrictParentIds: function(id, callback) {
+        var url = "/notee/api/categories/" + id + "/restrict_parent_ids"
+        request
+            .get(url)
+            .end(function(err, res){
+                if(err){return;}
+                if(!res.body){return;}
+                callback(res.body.ids);
+            });
     }
 });
 

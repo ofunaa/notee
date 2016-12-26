@@ -72,6 +72,7 @@ export default class CategorySection extends Component {
                 <CategoryForm
                     categories={this.state.categories}
                     now_user={this.state.now_user}
+                    restrict_parent_ids={this.state.restrict_parent_ids}
                 />
                 <NoteeTable
                     modelName="Category"

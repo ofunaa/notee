@@ -15,33 +15,69 @@ module Notee
   class Category < ApplicationRecord
 
     # callbacks
+    before_save :restrict_set_parent_id
     before_save :set_slug
-    before_save :protect_default
+    before_update :protect_default, if: :is_destroy?
+    before_update :delete_post_category_id, if: :is_destroy?
+    before_update :delete_parent_id, if: :is_destroy?
 
     # relations
     has_many :posts
-    has_many :children, class_name: Notee::Category, foreign_key: 'parent_id', dependent: :destroy
+    has_many :children, class_name: Notee::Category, foreign_key: 'parent_id'
 
-    private
+
+    def restrict_set_parent_id
+      raise if restrict_parent_ids(self.id).include?(self.parent_id)
+    end
+
+    def restrict_parent_ids(cate_id)
+      cate = Category.find(cate_id)
+      arr = [cate.id]
+      return arr if cate.children.nil?
+
+      recursive_children_loop(arr, cate.children)
+      arr
+    end
+
+    def recursive_children_loop(arr, childs_arr)
+      childs_arr.each do |category|
+        if category.children.present?
+          recursive_children_loop(arr, category.children)
+        end
+
+        arr.push(category.id)
+      end
+    end
 
     def set_slug
       self.slug = self.name.downcase unless self.slug.present?
     end
 
     def protect_default
-      return false if self.id == 1
+      raise if self.id == 1
     end
 
-    def self.before_destroy_parent(id)
-      @child_with_parent =Category.where(parent_id: id)
+    def delete_parent_id
+      return false if self.children.nil?
 
-      Category.skip_callback(:update, :before, :update_authority)
-      Category.skip_callback(:update, :before, :destroy_authority)
-      @child_with_parent.each do |child|
-        child.update(parent_id: nil)
+      skip_callback_block(Category) do
+        self.children.each do |child|
+          child.update(parent_id: nil)
+        end
       end
-      Category.set_callback(:update, :before, :update_authority)
-      Category.set_callback(:update, :before, :destroy_authority)
     end
+
+    def delete_post_category_id
+      return false if self.posts.nil?
+
+      skip_callback_block(Category) do
+        self.posts.each do |post|
+          post.update(category_id: 1)
+        end
+      end
+    end
+
+
+
   end
 end

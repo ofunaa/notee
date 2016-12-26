@@ -1,0 +1,39 @@
+<%
+  @category_view = <<-EOC
+<ul class="notee_sidebar_ul">
+  EOC
+
+  def loop_categories(categories)
+
+    return nil if categories.nil?
+
+    categories.each do |category|
+      @category_view << '<a href="/categories/' + category.slug + '">'
+      @category_view << ("<li>" + category.name.to_s + " (#{get_category_posts_count(category)})")
+      recursive_display_category(category)
+    end
+
+    @category_view << "\n" + "</ul>"
+    return @category_view.strip_heredoc.html_safe
+  end
+
+  def recursive_display_category(cate)
+    if cate.children.present?
+      @category_view << "\n" + '<ul>'
+        cate.children.each do |child_cate|
+        @category_view << '<a href="/categories/' + child_cate.slug + '">'
+        @category_view << ("\n" + "<li>" + child_cate.name.to_s+ " (#{get_category_posts_count(child_cate)})")
+        recursive_display_category(child_cate)
+      end
+      @category_view << "\n" + "</ul>"
+    end
+
+    @category_view << "\n" + "</li>"
+    @category_view << "\n" + "</a>"
+  end
+%>
+
+<h3>Category</h3>
+<div class="notee_sidebar_content">
+  <%= loop_categories(get_parent_categories_arr) %>
+</div>

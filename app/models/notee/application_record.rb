@@ -28,5 +28,20 @@ module Notee
       return true if self.is_deleted == true
       false
     end
+
+    def skip_callback_block(model)
+
+      return unless block_given?
+
+      model.skip_callback(:create, :before, :create_authority, raise: false)
+      model.skip_callback(:update, :before, :update_authority, raise: false)
+      model.skip_callback(:update, :before, :destroy_authority, raise: false)
+
+      yield
+
+      model.set_callback(:create, :before, :create_authority, raise: false)
+      model.set_callback(:update, :before, :update_authority, raise: false)
+      model.set_callback(:update, :before, :destroy_authority, raise: false)
+    end
   end
 end
