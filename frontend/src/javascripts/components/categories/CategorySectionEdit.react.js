@@ -29,13 +29,15 @@ export default class CategorySectionEdit extends Component {
                 parent_id: "",
                 is_private: ""
             },
-            now_user: ""
+            now_user: "",
+            restrict_parent_ids: []
         };
 
         // ajax
         this.ajaxLoaded = this.ajaxLoaded.bind(this);
         this.ajaxCategoryLoaded = this.ajaxCategoryLoaded.bind(this);
         this.ajaxNowUserLoaded = this.ajaxNowUserLoaded.bind(this);
+        this.ajaxRestrictParentIds = this.ajaxRestrictParentIds.bind(this);
 
         // eventemit_callback for user
         this.updateContent = this.updateContent.bind(this);
@@ -51,6 +53,7 @@ export default class CategorySectionEdit extends Component {
     componentWillMount() {
         if(this.props.params.id){
             CategoryStore.loadCategory(this.props.params.id, this.ajaxLoaded);
+            CategoryStore.loadRestrictParentIds(this.props.params.id, this.ajaxRestrictParentIds);
         }
         CategoryStore.loadCategories(this.ajaxCategoryLoaded);
         UserStore.loadUserByToken(this.ajaxNowUserLoaded);
@@ -77,12 +80,23 @@ export default class CategorySectionEdit extends Component {
         this.setState({now_user: content});
     }
 
+    ajaxRestrictParentIds(content) {
+        this.setState({restrict_parent_ids: content});
+    }
+
     render() {
 
         AuthorityUtil.checkAuthority("CategorySectionEdit", this.state.now_user);
 
+        var restrict_parent_ids = this.state.restrict_parent_ids;
         var use_categories = this.state.categories.map(function(category) {
-            return <MenuItem key={category.id} value={category.id} primaryText={category.name} />;
+
+            // restrict parent id
+            if(!restrict_parent_ids.includes(category.id)){
+                return <MenuItem key={category.id} value={category.id} primaryText={category.name} />;
+            }else{
+                return <MenuItem key={category.id} value={category.id} primaryText={category.name} disabled={true} />;
+            }
         });
 
         var style = {

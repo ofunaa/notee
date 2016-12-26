@@ -27,26 +27,29 @@ module Notee
 
     def update
       respond_to do |format|
-        Category.skip_callback(:save, :before, :set_slug)
         if @category.update(category_params)
-          Category.set_callback(:save, :before, :set_slug)
           format.json { render json: @category, status: 200 }
         else
-          Category.set_callback(:save, :before, :set_slug)
           format.json { render json: @category.errors, status: :unprocessable_entity }
         end
       end
     end
 
     def destroy
-      respond_to do |format|
-        if @category.update(slug: nil, is_deleted: true)
-          Category.before_destroy_parent(@category.id)
-          format.json { render json: @category, status: 200 }
-        else
-          format.json { render json: @category.errors, status: :unprocessable_entity }
+      Category.transaction do
+        respond_to do |format|
+          if @category.update(slug: nil, is_deleted: true)
+            format.json { render json: @category, status: 200 }
+          else
+            format.json { render json: @category.errors, status: :unprocessable_entity }
+          end
         end
       end
+    end
+
+    def restrict_parent_ids
+      @ids = Category.new.restrict_parent_ids(params[:id])
+      render json: { status: 'success', ids: @ids }
     end
 
     private

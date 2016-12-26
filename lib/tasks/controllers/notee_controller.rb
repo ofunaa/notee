@@ -19,7 +19,7 @@ class NoteeController < ApplicationController
 
   # GET "/categories"
   def categories
-    @categories = notee_categories
+    @categories = get_parent_categories_arr
   end
 
   # GET "/categories/:name_or_slug"
