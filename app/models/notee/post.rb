@@ -43,7 +43,15 @@ module Notee
     end
 
     def set_slug
-      self.slug = self.title.parameterize.underscore unless self.slug.present?
+
+      # English slug
+      slug = self.title.parameterize.underscore
+
+      # Japanese slug
+      slug = self.title.gsub(" ", "") if slug.blank?
+
+
+      self.slug = slug unless self.slug.present?
     end
 
     def set_published_at

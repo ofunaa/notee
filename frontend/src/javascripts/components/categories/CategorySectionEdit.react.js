@@ -183,9 +183,9 @@ export default class CategorySectionEdit extends Component {
 
                     <Checkbox
                         value={this.state.category.is_private}
-                        onChange={(event, index, value) => this.handleChangeCategoryIsPrivate(event, index, value)}
+                        onCheck={(event, isInputChecked) => this.handleChangeCategoryIsPrivate(event, isInputChecked)}
                         label="this category is Privated?"
-                        defaultChecked={false}
+                        defaultChecked={this.state.category.is_private}
                     />
 
                     <RaisedButton
@@ -215,7 +215,8 @@ export default class CategorySectionEdit extends Component {
         this.state.category.parent_id = value;
         this.setState({ category: this.state.category });
     }
-    handleChangeCategoryIsPrivate(event, index, value){
+    handleChangeCategoryIsPrivate(event, value){
+        console.log(value);
         this.state.category.is_private = value;
         this.setState({ category: this.state.category });
     }

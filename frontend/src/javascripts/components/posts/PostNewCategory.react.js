@@ -112,9 +112,9 @@ export default class PostNewCategory extends Component {
                                     </select>
                                     <Checkbox
                                         value={this.state.new_category.is_private}
-                                        onChange={(event, index, value) => this.handleChangeNewCategoryIsPrivate(event, index, value)}
+                                        onCheck={(event, isInputChecked) => this.handleChangeCategoryIsPrivate(event, isInputChecked)}
                                         label="this category is Privated?"
-                                        defaultChecked={false}
+                                        defaultChecked={this.state.new_category.is_private}
                                     />
                                     <button
                                         style={style.image_button}
