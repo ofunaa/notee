@@ -27,7 +27,9 @@ module Notee
 
 
     def restrict_set_parent_id
-      raise if restrict_parent_ids(self.id).include?(self.parent_id)
+      if self.id
+        raise if restrict_parent_ids(self.id).include?(self.parent_id)
+      end
     end
 
     def restrict_parent_ids(cate_id)
