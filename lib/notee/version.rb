@@ -1,3 +1,3 @@
 module Notee
-  VERSION = "1.1.2.3"
+  VERSION = "1.1.2.4"
 end
