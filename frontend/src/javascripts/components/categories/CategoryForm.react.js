@@ -94,9 +94,9 @@ export default class CategoryForm extends Component {
 
                     <Checkbox
                         value={this.state.new_category.is_private}
-                        onChange={(event, index, value) => this.handleChangeNewCategoryIsPrivate(event, index, value)}
+                        onCheck={(event, isInputChecked) => this.handleChangeNewCategoryIsPrivate(event, isInputChecked)}
                         label="this category is Privated?"
-                        defaultChecked={false}
+                        defaultChecked={this.state.new_category.is_private}
                     />
 
                     <AuthorityButtonCreate

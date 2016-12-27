@@ -27,6 +27,8 @@ export default class NoteeTableRow extends Component {
         return(
             <TableRow>
                 {this.state.contents.map((content, index)=>{
+
+                    if (content != null){content = content.toString();}
                     return (
                         <TableRowColumn key={index}>{content}</TableRowColumn>
                     );
