@@ -149,6 +149,13 @@ $(document).on('ready', function() {
     sh 'bundle exec whenever --clear-crontab'
   end
 
+  task :update_view do
+    delete_directory( NOTEE_VIEW_DIR_PATH )
+    delete_directory( NOTEE_CSS_DIR_PATH )
+    copy_directory( NOTEE_VIEW_DIR_PATH,   NOTEE_VIEW_DIR_ORIGIN_PATH )
+    copy_directory( NOTEE_CSS_DIR_PATH,    NOTEE_CSS_DIR_ORIGIN_PATH )
+  end
+
 
   # -----------------------------------------------
   # Methods
