@@ -28,4 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-doc'
   s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'pry-stack_explorer'
+  s.add_development_dependency 'rspec-rails'
+
 end
