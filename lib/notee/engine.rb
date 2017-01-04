@@ -28,7 +28,7 @@ module Notee
     end
 
     initializer 'notee.factories', after: 'factory_girl.set_factory_paths' do
-      FactoryGirl.definition_file_paths.unshift File.expand_path('../../spec/factories', __FILE__)
+      FactoryGirl.definition_file_paths.unshift File.expand_path(Rails.root.to_s + '/spec/dummy/spec/factories', __FILE__)
     end
 
   end
