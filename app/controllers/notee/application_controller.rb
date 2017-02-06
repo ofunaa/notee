@@ -1,7 +1,7 @@
 module Notee
   class ApplicationController < ActionController::Base
     before_action :restrict_access_json
-    before_filter :set_request_filter
+    before_action :set_request_filter
 
     def set_request_filter
       Thread.current[:request] = request

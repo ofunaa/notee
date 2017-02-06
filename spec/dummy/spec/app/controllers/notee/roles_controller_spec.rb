@@ -4,6 +4,11 @@ RSpec.describe Notee::RolesController, type: :controller do
 
   describe 'public' do
     routes { Notee::Engine.routes }
+
+    Notee::User.skip_callback(:create, :before, :create_authority)
+    @user = FactoryGirl.create(:user)
+    Notee::User.set_callback(:create, :before, :create_authority)
+
     context 'GET #index' do
       it "render json: {status: success, roles: User.roles}" do
         get :index
